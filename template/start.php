@@ -3,7 +3,7 @@
     if(!isset($_SESSION['idUsuario'])){
         header('Location: login.php');
     }
-    $conn = require 'sql/conexion.php';
+    //$conn = require 'sql/conexion.php';
 ?>
 <!DOCTYPE html>
 <html>

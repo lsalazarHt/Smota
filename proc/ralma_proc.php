@@ -236,30 +236,36 @@
         //tipo de obtener_tipo_movimiento | entrada / salida
             $tipo_movi_e_s = obtener_tipo_movimiento_ent_sal($tMo);
             if($tipo_movi_e_s=='E'){ //entrada
-                $vodeVal = $codBodDes;
+                $codeVal_Disponible = $codBod;
+                $codeVal_Destino = $codBodDes;
             }else{//salida
-                $vodeVal = $codBod;
+                $codeVal_Disponible = $codBodDes;
+                $codeVal_Destino = $codBod;
             }
         //
 
         $canMatSelec = 0;
         $valMatSelec = 0;
         $cupoAsigna = 0;
-        $query ="SELECT $canti, $valor, INVECUPO FROM inventario WHERE INVEMATE = $codMat AND INVEBODE = $vodeVal";
-        $respuesta = $conn->prepare($query) or die ($sql);
-        if(!$respuesta->execute()) return false;
-        if($respuesta->rowCount()>0){
-            while ($row=$respuesta->fetch()){
-                $canMatSelec = (int)$row[$canti];
-                $valMatSelec = (int)$row[$valor];
-                $cupoAsigna = (int)$row['INVECUPO'];
-            }
-        }
 
-        $arr = array($sw,$total,$cupoAsigna);
-        echo json_encode($arr);
+        //Disponibilidad de origen
+            $query ="SELECT $canti, $valor FROM inventario WHERE INVEMATE = $codMat AND INVEBODE = $codeVal_Disponible";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+                    $canMatSelec = (int)$row[$canti];
+                    $valMatSelec = (int)$row[$valor];
+                    //$cupoAsigna = (int)$row['INVECUPO'];
+                }
+            }
+        //
+        //Disponibilidad de cupo
+            
+        //
+
         //validamos cantidad de material en inventario
-        /*if($canMatSelec>=$cantMat){
+        if($canMatSelec>=$cantMat){
             $sw = 1;
             $total = $cantMat * $valMatSelec;
         }else{
@@ -267,13 +273,13 @@
             $total = 0;
         }
 
-        if($total > $cupoAsigna){
+        /*if($total > $cupoAsigna){
             $sw = 3;
             $total = 0;
         }*/
 
-        /*$arr = array($sw,$total,$cupoAsigna);
-        echo json_encode($arr);*/
+        $arr = array($sw,$total,$cupoAsigna);
+        echo json_encode($arr);
     }
 
     if($_REQUEST["accion"]=="guardar_materiales_movimiento_inventario"){
