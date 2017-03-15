@@ -242,7 +242,6 @@
             }
         //
 
-
         $canMatSelec = 0;
         $valMatSelec = 0;
         $cupoAsigna = 0;
