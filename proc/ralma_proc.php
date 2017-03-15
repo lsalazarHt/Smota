@@ -242,6 +242,7 @@
             }
         //
 
+
         $canMatSelec = 0;
         $valMatSelec = 0;
         $cupoAsigna = 0;
@@ -256,8 +257,10 @@
             }
         }
 
+        $arr = array($sw,$total,$cupoAsigna);
+        echo json_encode($arr);
         //validamos cantidad de material en inventario
-        if($canMatSelec>=$cantMat){
+        /*if($canMatSelec>=$cantMat){
             $sw = 1;
             $total = $cantMat * $valMatSelec;
         }else{
@@ -268,10 +271,10 @@
         if($total > $cupoAsigna){
             $sw = 3;
             $total = 0;
-        }
+        }*/
 
-        $arr = array($sw,$total,$cupoAsigna);
-        echo json_encode($arr);
+        /*$arr = array($sw,$total,$cupoAsigna);
+        echo json_encode($arr);*/
     }
 
     if($_REQUEST["accion"]=="guardar_materiales_movimiento_inventario"){
