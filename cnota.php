@@ -14,9 +14,9 @@
 	        	$nom = utf8_encode($row['TECNNOMB']);                              
 	        }   
 	    }
-	    
 	    return $nom;
 	}
+	//Autor: JOSH BRITO
 ?>
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
