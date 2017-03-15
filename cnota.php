@@ -17,6 +17,7 @@
 	    return $nom;
 	}
 	//Autor: JOSH BRITO
+	//Autor
 ?>
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
