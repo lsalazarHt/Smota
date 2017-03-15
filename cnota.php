@@ -14,6 +14,7 @@
 	        	$nom = utf8_encode($row['TECNNOMB']);                              
 	        }   
 	    }
+	    
 	    return $nom;
 	}
 ?>
