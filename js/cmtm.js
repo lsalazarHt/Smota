@@ -116,9 +116,19 @@ $(document).ready(function () {
 		    cell3.innerHTML = '<input type="checkbox" id="txtCkek'+rowCount+'" onclick="swEditor(\'\',\'trSelect'+rowCount+'\',0,0)" checked="checked">';
 
 		    $('#contRow').val(rowCount);
+		    $('#txtCod'+rowCount).focus();
+		    selectedNewRow(row.id);
 
 		}else{
-			alert('Porfavor coloque un PQR valido')
+			/*
+					BACKGROUND-COLOR ALERTAS
+						AZUL = 1
+						VERDE = 2
+						NARANJA = 3
+						ROJO = 4
+					*/
+					var msgError = 'Porfavor coloque un PQR valido';
+					demo.showNotification('bottom','left', msgError, 4);
 		}
 	});
 

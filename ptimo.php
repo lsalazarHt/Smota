@@ -93,3 +93,7 @@
 </body>
 <?php require 'template/end.php'; ?>
 <script src="js/ptimo.js"></script>
+<!--  Detectar cambios en las Formas    -->
+<script src="assets/js/detectaCambiosEnFormas.js"></script>
+<!--  Seleccionar nuevo Item Talas    -->
+<script src="assets/js/selectedNewRow.js"></script>
