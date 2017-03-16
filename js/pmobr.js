@@ -42,7 +42,10 @@ $(document).ready(function () {
 	    var cell6 = row.insertCell(5);
 	    cell6.className = 'text-center ';
 	    cell6.innerHTML = '<input type="checkbox" id="txtCkek'+rowCount+'" checked="checked" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')"> ';
+	  
 	    $('#contRow').val(rowCount);
+	    $('#txtCod'+rowCount).focus();
+	    selectedNewRow(row.id);
 	});
 	//Guardar
 	$('#btnGuardar').click(function(){

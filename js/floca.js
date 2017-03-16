@@ -72,8 +72,18 @@ $(document).ready(function () {
 		    cell3.innerHTML = '<input type="checkbox" id="txtCkek'+rowCount+'" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')" checked="checked">';
 
 		    $('#contRow').val(rowCount);
+		    $('#txtCod'+rowCount).focus();
+	    	selectedNewRow(row.id);
 		}else{
-			alert('Porfavor coloque un departamento valido')
+			/*
+					BACKGROUND-COLOR ALERTAS
+						AZUL = 1
+						VERDE = 2
+						NARANJA = 3
+						ROJO = 4
+					*/
+					var msgError = 'Porfavor coloque un departamento valido';
+					demo.showNotification('bottom','left', msgError, 3);
 		}
 	});
 	//Guardar nuevas localidad
@@ -127,7 +137,15 @@ $(document).ready(function () {
 					    });
 					}
 				}else{
-					alert('Error! Al Agregar '+$('#txtNomb'+i).val())
+					/*
+					BACKGROUND-COLOR ALERTAS
+						AZUL = 1
+						VERDE = 2
+						NARANJA = 3
+						ROJO = 4
+					*/
+					var msgError = 'Error! Al Agregar '+$('#txtNomb'+i).val();
+					demo.showNotification('bottom','left', msgError, 4);
 				}
 
 			}
