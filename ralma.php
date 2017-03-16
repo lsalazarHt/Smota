@@ -276,3 +276,5 @@
 	<script src="assets/js/bootstrap-notify.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 	 <script src="assets/js/demo.js"></script>
+<!--  Seleccionar nuevo Item Talas    -->
+<script src="assets/js/selectedNewRow.js"></script>

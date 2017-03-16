@@ -211,6 +211,8 @@ function nuevoMaterial(){
     cell4.innerHTML = '<input type="text" id="txtVal'+rowCount+'" class="form-control input-sm text-right" onkeypress="solonumerosEnter()">';
 
     $('#contRow').val(rowCount);
+	selectedNewRow(row.id);
+	$('#txtCod'+rowCount).focus();
 }
 function obtenerMateriales(){
 	bod = $.trim($('#txtEnCod').val());
