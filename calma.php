@@ -5,202 +5,49 @@
 		<div class="content-wrapper">
 			<div class="container">
 
-	            <div class="modal fade" id="modalDepartamentos">
-	             	<div class="modal-dialog">
+	            <div class="modal fade" id="modalMovimientos">
+	             	<div class="modal-dialog" style="width: 80%">
 	                	<div class="modal-content">
 			                <div class="modal-header" style="background-color: #3c8dbc; color:white;">
 			                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			                    <h4 class="modal-title">DEPARTAMENTOS</h4>
+			                    <h4 class="modal-title">LISTADO DE MOVIMIENTOS</h4>
 			                </div>
 			                <div class="modal-body">
 			                	<div class="row">
-				                	<div class="col-md-12" style="height: 298px; overflow-y: scroll;">
-				                		<table id="tableDepa" class="tableJs table table-bordered table-hover table-condensed">
+				                	<div class="col-md-12" style="height: 350px; overflow-y: scroll;">
+				                		<table id="tableDepa" class="table table-bordered table-hover table-condensed">
 					                        <thead>
 					                            <tr style="background-color: #3c8dbc; color:white;">
 					                             	<th class="text-center" width="100">CODIGO</th>
-					                              	<th class="text-left">NOMBRE</th>
+					                              	<th class="text-left" width="150">FECHA</th>
+					                              	<th class="text-left">TIPO MOVIMIENTO</th>
+					                              	<th class="text-left">BODEGA ORIGEN</th>
+					                              	<th class="text-left">BODEGA DESTINO</th>
 					                            </tr>
 					                        </thead>
 					                        <tbody>
 					                        	<?php 
-		                                            //$conn = require 'inc/clases/conexion.php';
-		                                            $query ='SELECT * FROM departam WHERE DEPAVISI = 1 ORDER BY DEPADESC';
+		                                            $query ='SELECT moviinve.MOINCODI AS cod, moviinve.MOINFECH AS fecha, tipomovi.TIMODESC AS tipo, orig.BODENOMB AS org, dest.BODENOMB AS des 
+															 FROM moviinve
+																JOIN bodega AS orig ON orig.BODECODI = moviinve.MOINBOOR
+																JOIN bodega AS dest ON dest.BODECODI = moviinve.MOINBODE
+																JOIN tipomovi ON tipomovi.TIMOCODI =  moviinve.MOINTIMO
+															 ORDER BY moviinve.MOINFECH DESC';
 		                                            $respuesta = $conn->prepare($query) or die ($sql);
 		                                            if(!$respuesta->execute()) return false;
 		                                            if($respuesta->rowCount()>0){
 		                                                while ($row=$respuesta->fetch()){
 		                                                    echo 
-		                                                    	'<tr onclick="addDepartamento('.str_pad($row['DEPACODI'],2,"0", STR_PAD_LEFT).',\''.$row['DEPADESC'].'\')">
-		                                                    		<td>'.str_pad($row['DEPACODI'],2,"0", STR_PAD_LEFT).'</td>
-		                                                    		<td>'.$row['DEPADESC'].'</td>
+		                                                    	'<tr onclick="addMovimiento('.$row['cod'].')">
+		                                                    		<td class="text-center">'.$row['cod'].'</td>
+		                                                    		<td>'.$row['fecha'].'</td>
+		                                                    		<td>'.$row['tipo'].'</td>
+		                                                    		<td>'.utf8_encode($row['org']).'</td>
+		                                                    		<td>'.utf8_encode($row['des']).'</td>
 		                                                    	</tr>';                                   
 		                                                }   
 		                                            }
 		                                        ?>
-					                        </tbody>
-					                    </table>
-				                	</div>
-			                	</div>
-			                </div>
-	                	</div><!-- /.modal-content -->
-	               	</div><!-- /.modal-dialog -->
-	            </div>
-	            <div class="modal fade" id="modalLocalidad">
-	             	<div class="modal-dialog">
-	                	<div class="modal-content">
-			                <div class="modal-header" style="background-color: #3c8dbc; color:white;">
-			                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			                    <h4 class="modal-title">LOCALIDADES</h4>
-			                </div>
-			                <div class="modal-body">
-			                	<div class="row">
-				                	<div class="col-md-12" style="height: 298px; overflow-y: scroll;">
-				                		<table id="tableDepa" class="tableJs table table-bordered table-hover table-condensed">
-					                        <thead>
-					                            <tr style="background-color: #3c8dbc; color:white;">
-					                             	<th class="text-center" width="100">CODIGO</th>
-					                              	<th class="text-left">NOMBRE</th>
-					                            </tr>
-					                        </thead>
-					                        <tbody id="divLocalidades">
-					                        	
-					                        </tbody>
-					                    </table>
-				                	</div>
-			                	</div>
-			                </div>
-	                	</div><!-- /.modal-content -->
-	               	</div><!-- /.modal-dialog -->
-	            </div>
-	            <div class="modal fade" id="modalTecnicos">
-	             	<div class="modal-dialog">
-	                	<div class="modal-content">
-			                <div class="modal-header" style="background-color: #3c8dbc; color:white;">
-			                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			                    <h4 class="modal-title">TECNICOS</h4>
-			                </div>
-			                <div class="modal-body">
-			                	<div class="row">
-				                	<div class="col-md-12" style="height: 298px; overflow-y: scroll;">
-				                		<table id="tableDepa" class="tableJs table table-bordered table-hover table-condensed">
-					                        <thead>
-					                            <tr style="background-color: #3c8dbc; color:white;">
-					                             	<th class="text-center" width="100">CODIGO</th>
-					                              	<th class="text-left">NOMBRE</th>
-					                            </tr>
-					                        </thead>
-					                        <tbody>
-					                        	<?php 
-		                                            //$conn = require 'inc/clases/conexion.php';
-		                                            $query ="SELECT * FROM tecnico WHERE TECNESTA='A'";
-		                                            $respuesta = $conn->prepare($query) or die ($sql);
-		                                            if(!$respuesta->execute()) return false;
-		                                            if($respuesta->rowCount()>0){
-		                                                while ($row=$respuesta->fetch()){
-		                                                    echo 
-		                                                    	'<tr onclick="addTecnico(\''.$row['TECNCODI'].'\',\''.utf8_encode($row['TECNNOMB']).'\')">
-		                                                    		<td class="text-center">'.$row['TECNCODI'].'</td>
-		                                                    		<td>'.utf8_encode($row['TECNNOMB']).'</td>
-		                                                    	</tr>';                                   
-		                                                }   
-		                                            }
-		                                        ?>
-					                        </tbody>
-					                    </table>
-				                	</div>
-			                	</div>
-			                </div>
-	                	</div><!-- /.modal-content -->
-	               	</div><!-- /.modal-dialog -->
-	            </div>
-	            <div class="modal fade" id="modalPqr">
-	             	<div class="modal-dialog" style="width:60%">
-	                	<div class="modal-content">
-			                <div class="modal-header" style="background-color: #3c8dbc; color:white;">
-			                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			                    <h4 class="modal-title">PQR</h4>
-			                </div>
-			                <div class="modal-body">
-			                	<div class="row">
-				                	<div class="col-md-12" style="height: 298px; overflow-y: scroll;">
-				                		<table id="tableDepa" class="tableJs table table-bordered table-hover table-condensed">
-					                        <thead>
-					                            <tr style="background-color: #3c8dbc; color:white;">
-					                             	<th class="text-center" width="100">CODIGO</th>
-					                              	<th class="text-left">NOMBRE</th>
-					                            </tr>
-					                        </thead>
-					                        <tbody>
-					                        	<?php 
-		                                            //$conn = require 'inc/clases/conexion.php';
-		                                            $query ="SELECT * FROM pqr";
-		                                            $respuesta = $conn->prepare($query) or die ($sql);
-		                                            if(!$respuesta->execute()) return false;
-		                                            if($respuesta->rowCount()>0){
-		                                                while ($row=$respuesta->fetch()){
-		                                                    echo 
-		                                                    	'<tr onclick="addPqr(\''.$row['PQRCODI'].'\',\''.utf8_encode($row['PQRDESC']).'\')">
-		                                                    		<td class="text-center">'.$row['PQRCODI'].'</td>
-		                                                    		<td>'.utf8_encode($row['PQRDESC']).'</td>
-		                                                    	</tr>';                                   
-		                                                }   
-		                                            }
-		                                        ?>
-					                        </tbody>
-					                    </table>
-				                	</div>
-			                	</div>
-			                </div>
-	                	</div><!-- /.modal-content -->
-	               	</div><!-- /.modal-dialog -->
-	            </div>
-	            <div class="modal fade" id="modalZonas">
-	             	<div class="modal-dialog">
-	                	<div class="modal-content">
-			                <div class="modal-header" style="background-color: #3c8dbc; color:white;">
-			                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			                    <h4 class="modal-title">ZONAS</h4>
-			                </div>
-			                <div class="modal-body">
-			                	<div class="row">
-				                	<div class="col-md-12" style="height: 298px; overflow-y: scroll;">
-				                		<table class="tableJs table table-bordered table-hover table-condensed">
-					                        <thead>
-					                            <tr style="background-color: #3c8dbc; color:white;">
-					                             	<th class="text-center" width="100">CODIGO</th>
-					                              	<th class="text-left">NOMBRE</th>
-					                            </tr>
-					                        </thead>
-					                        <tbody id="divZonas">
-					                        	
-					                        </tbody>
-					                    </table>
-				                	</div>
-			                	</div>
-			                </div>
-	                	</div><!-- /.modal-content -->
-	               	</div><!-- /.modal-dialog -->
-	            </div>
-	            <div class="modal fade" id="modalSectores">
-	             	<div class="modal-dialog">
-	                	<div class="modal-content">
-			                <div class="modal-header" style="background-color: #3c8dbc; color:white;">
-			                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			                    <h4 class="modal-title">SECTORES</h4>
-			                </div>
-			                <div class="modal-body">
-			                	<div class="row">
-				                	<div class="col-md-12" style="height: 298px; overflow-y: scroll;">
-				                		<table class="tableJs table table-bordered table-hover table-condensed">
-					                        <thead>
-					                            <tr style="background-color: #3c8dbc; color:white;">
-					                             	<th class="text-center" width="100">CODIGO</th>
-					                              	<th class="text-left">NOMBRE</th>
-					                            </tr>
-					                        </thead>
-					                        <tbody id="divSectores">
-					                        	
 					                        </tbody>
 					                    </table>
 				                	</div>
@@ -240,7 +87,7 @@
 				                      		</div>
 					                     	<label for="txtClase" class="col-sm-1 control-label" style="margin-top:5px;">Fecha</label>
 				                      		<div class="col-sm-2">
-				                        		<input type="date" class="form-control input-sm" id="txtFecha">
+				                        		<input type="date" class="form-control input-sm" id="txtFecha" readonly>
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -248,14 +95,14 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">En</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtEnCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm" id="txtEnCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input type="text" class="form-control input-sm" id="txtEnNomb" placeholder="Nombre de la Bodega principal" readonly>
 				                      		</div>
 				                      		<label for="txtClase" class="col-sm-1 control-label" style="margin-top:5px;">Valor</label>
 				                      		<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm text-right" id="txtValor" placeholder="Valor" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm text-right" id="txtValor" placeholder="Valor" onkeypress="solonumeros()" readonly>
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -263,7 +110,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Tipo de Movimiento</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtEnCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm" id="txtEnCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input type="text" class="form-control input-sm" id="txtEnNomb" placeholder="Nombre del Tipo Movimiento" readonly>
@@ -274,7 +121,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Bodega</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtBodCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm" id="txtBodCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input type="text" class="form-control input-sm" id="txtBodNomb" placeholder="Nombre de la bodega" readonly>
@@ -285,7 +132,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Soporte</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtSopCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm" id="txtSopCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -293,12 +140,12 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Documente Soporte</label>
 					                     	<div class="col-sm-3">
-				                        		<input type="text" class="form-control input-sm" id="txtBodCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm" id="txtBodCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
 				                      		</div>
 				                      		<div class="col-sm-2"></div>
 				                      		<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Registrado por</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtBodCod" placeholder="Registrado" >
+				                        		<input type="text" class="form-control input-sm" id="txtBodCod" placeholder="Registrado" readonly>
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -306,7 +153,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Observacion</label>
 					                     	<div class="col-sm-9">
-					                     		<textarea rows="4" class="form-control input-sm movObEntrada_border_azul" id="txtObser" placeholder="Observacion del movimiento"></textarea>
+					                     		<textarea rows="4" class="form-control input-sm movObEntrada_border_azul" id="txtObser" placeholder="Observacion del movimiento" readonly></textarea>
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -342,4 +189,4 @@
 	</div>
 </body>
 <?php require 'template/end.php'; ?>
-<script src="js/asma.js"></script>
+<script src="js/calma.js"></script>
