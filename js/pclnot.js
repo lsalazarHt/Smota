@@ -38,9 +38,10 @@ $(document).ready(function () {
 	    var cell4 = row.insertCell(3);
 	    cell4.className = 'text-center';
 	    cell4.innerHTML = '<input checked="checked" type="checkbox" id="txtCkek'+rowCount+'" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')">';
-	    
-
+	   
 	    $('#contRow').val(rowCount);
+	    $('#txtCod'+rowCount).focus();
+	    selectedNewRow(row.id);
 	});
 	
 	//Btn Guardar

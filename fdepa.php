@@ -52,7 +52,9 @@
 <script src="js/fdepa.js"></script>
 <!--  Detectar cambios en las Formas    -->
 <script src="assets/js/detectaCambiosEnFormas.js"></script>
+<!--  Seleccionar nuevo Item Talas    -->
+<script src="assets/js/selectedNewRow.js"></script>
 <!--  Notifications Plugin    -->
-	<script src="assets/js/bootstrap-notify.js"></script>
+<script src="assets/js/bootstrap-notify.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-	 <script src="assets/js/demo.js"></script>
+<script src="assets/js/demo.js"></script>

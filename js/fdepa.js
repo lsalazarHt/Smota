@@ -31,25 +31,9 @@ $(document).ready(function () {
 		cell3.className = 'text-center ';
 		cell3.innerHTML = '<input type="checkbox" id="txtCkek'+rowCount+'" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')" checked="checked">';
 	 
-	    // //Und Medida
-	    // var cell3 = row.insertCell(2);
-	    // cell3.className = 'text-center';
-	    // cell3.innerHTML = '<input type="text" id="txtUndMed'+rowCount+'" class="form-control input-sm" onclick="swEditor(\'txtUndMed'+rowCount+'\',\'trSelect'+rowCount+'\')">';
-	    
-	    // //Legalizacion Especial
-	    // //No Se Asocia Tecnico
-	    // var cell4 = row.insertCell(3);
-	    // cell4.className = 'text-center ';
-	    // cell4.innerHTML = '<input type="checkbox" id="ckLegEspec'+rowCount+'" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')"> Legalizacion Especial';
-	    // //No Se Asocia Tecnico
-	    // var cell4 = row.insertCell(4);
-	    // cell4.className = 'text-center ';
-	    // cell4.innerHTML = '<input type="checkbox" id="ckAsocTec'+rowCount+'" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')"> No se asocia al Tecnico';
-	    // //Visible
-	    // var cell6 = row.insertCell(5);
-	    // cell6.className = 'text-center ';
-	    // cell6.innerHTML = '<input type="checkbox" id="txtCkek'+rowCount+'" checked="checked" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')"> ';
 	    $('#contRow').val(rowCount);
+	    $('#txtCod'+rowCount).focus();
+	    selectedNewRow(row.id);
 	});
 	//Guardar
 	$('#btnGuardar').click(function(){
@@ -60,16 +44,6 @@ $(document).ready(function () {
 			var nom = $('#txtNomb'+i).val();
 			if($("#txtCkek"+i).is(':checked')) { chekLoc = 1; }
 			else{ chekLoc = 0; }
-			// var med = $('#txtUndMed'+i).val();
-			
-			// if($("#ckLegEspec"+i).is(':checked')) { espe = 1; }
-			// else{ espe = 0; }
-
-			// if($("#ckAsocTec"+i).is(':checked')) { note = 1; }
-			// else{ note = 0; }
-
-			// if($("#txtCkek"+i).is(':checked')) { chek = 1; }
-			// else{ chek = 0; }
 
 			if( $('#txtTipo'+i).val() == 1){ //Editar
 				var codOrg = $.trim($('#txtCodOrg'+i).val());
@@ -122,7 +96,6 @@ $(document).ready(function () {
 					*/
 					var msgError = 'Error! Al Agregar '+$('#txtNomb'+i).val();
 					demo.showNotification('bottom','left', msgError, 4);
-					//alert('Error! Al Agregar '+$('#txtNomb'+i).val())
 				}
 			}
 
