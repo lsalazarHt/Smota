@@ -139,6 +139,9 @@
     }
     if($_REQUEST["accion"]=="buscar_material"){ 
         $table = '';
+        $dato0 = '';
+        $dato1 = '';
+        $dato2 = '';
         $bod = $_REQUEST["bod"];
         $mat = $_REQUEST["mat"];
         $query ="SELECT material.MATECODI, material.MATEDESC, inventario.INVECAPRO, inventario.INVEVLRPRO

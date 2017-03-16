@@ -210,9 +210,10 @@ function nuevoMaterial(){
     cell4.className = '';
     cell4.innerHTML = '<input type="text" id="txtVal'+rowCount+'" class="form-control input-sm text-right" onkeypress="solonumerosEnter()">';
 
-    $('#contRow').val(rowCount);
 	selectedNewRow(row.id);
+    $('#contRow').val(rowCount);
 	$('#txtCod'+rowCount).focus();
+	$('#selectRow').val(rowCount);
 }
 function obtenerMateriales(){
 	bod = $.trim($('#txtEnCod').val());
