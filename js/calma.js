@@ -37,46 +37,52 @@ $(document).ready(function(){
         $('#btnSiguiente').addClass('disabled');
         $('#btnUltimo').addClass('disabled');
 
-
+		limpiarCampos();
+		limpiarTablaMateriales();
     });
 
-    
+    $("#txtMovCod").keypress(function(event){
+		if(event.which == 13){
+			txtMovCod = $.trim($('#txtMovCod').val());
+			consultarTipoMovimiento(txtMovCod);
+		}
+	});
 
     $('#btnPrimer').click(function(){
-		$('#txtActualDep').val(1);
-		codDep = $('#txtCodDep1').val();
-		buscarNombreDepartamento(codDep);
+		$('#txt_ActualMov').val(1);
+		codDep = $('#txt_CodMov1').val();
+		consultarTipoMovimiento(codDep);
 	});
 	$('#btnAnterior').click(function(){
-		codId = parseInt($('#txtActualDep').val());
-		$('#txtActualDep').val(codId-1);
-		codId = parseInt($('#txtActualDep').val());
+		codId = parseInt($('#txt_ActualMov').val());
+		$('#txt_ActualMov').val(codId-1);
+		codId = parseInt($('#txt_ActualMov').val());
 
 		if(codId>=1){
-			codDep = $('#txtCodDep'+codId).val();
-			buscarNombreDepartamento(codDep);
+			codDep = $('#txt_CodMov'+codId).val();
+			consultarTipoMovimiento(codDep);
 		}else{
-			$('#txtActualDep').val(1);
+			$('#txt_ActualMov').val(1);
 		}
 	});
 	$('#btnSiguiente').click(function(){
-		codId = parseInt($('#txtActualDep').val());
-		$('#txtActualDep').val(codId+1);
-		codId = parseInt($('#txtActualDep').val());
-
-		codUlt = parseInt($('#txtToltalDep').val());
+		codId = parseInt($('#txt_ActualMov').val());
+		$('#txt_ActualMov').val(codId+1);
+		codId = parseInt($('#txt_ActualMov').val());
+		
+		codUlt = parseInt($('#txt_ToltalMov').val());
 		if(codId<=codUlt){
-			codDep = $('#txtCodDep'+codId).val();
-			buscarNombreDepartamento(codDep);
+			codDep = $('#txt_CodMov'+codId).val();
+			consultarTipoMovimiento(codDep);
 		}else{
-			$('#txtActualDep').val(codUlt);
+			$('#txt_ActualMov').val(codUlt);
 		}
 	});
 	$('#btnUltimo').click(function(){
-		codUlt = parseInt($('#txtToltalDep').val());
-		$('#txtActualDep').val(codUlt);
-		codDep = $('#txtCodDep'+codUlt).val();
-		buscarNombreDepartamento(codDep);
+		codUlt = parseInt($('#txt_ToltalMov').val());
+		$('#txt_ActualMov').val(codUlt);
+		codDep = $('#txt_CodMov'+codUlt).val();
+		consultarTipoMovimiento(codDep);
 	});
 
 });
@@ -88,27 +94,52 @@ function consultarTipoMovimiento(txtMovCod){
         data:{ txtMovCod:txtMovCod },
         dataType: 'json',
         success: function(data){
-            $('#divListaDepartamentos').html(data[0]);
-            $('#divListaDepartamentos').html(data[0]);
-            $('#divListaDepartamentos').html(data[0]);
-            $('#divListaDepartamentos').html(data[0]);
-            $('#divListaDepartamentos').html(data[0]);
-            $('#divListaDepartamentos').html(data[0]);
-            $('#divListaDepartamentos').html(data[0]);
-            $('#divListaDepartamentos').html(data[0]);
-            $('#divListaDepartamentos').html(data[0]);
-            $('#divListaDepartamentos').html(data[0]);
-            $('#divListaDepartamentos').html(data[0]);
-            $('#divListaDepartamentos').html(data[0]);
-            $('#divListaDepartamentos').html(data[0]);
-            $('#divListaDepartamentos').html(data[0]);
-            //$('#btnPrimer').click();
+            $('#txtMovCod').val(data[0]);
+            $('#txtFecha').val(data[1]);
+            $('#txtTipoCod').val(data[2]);
+            $('#txtTipoNomb').val(data[3]);
+            $('#txtEnCod').val(data[5]);
+            $('#txtEnNomb').val(data[6]);
+            $('#txtValor').val(data[9]);
+			$('#txtBodCod').val(data[7]);
+            $('#txtBodNomb').val(data[8]);
+            $('#txtSopCod').val(data[10]);
+            $('#txtSopDoc').val(data[11]);
+            $('#txtRegis').val(data[12]);
+            $('#txtObser').val(data[13]);
+			
+			if(data[4]=='E'){
+				$('#divTipoMov').html('<input type="radio" name="tipoMov" checked> Entrada &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="tipoMov"> Salida');
+			}else{
+				$('#divTipoMov').html('<input type="radio" name="tipoMov"> Entrada &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="tipoMov" checked> Salida');
+			}
+			obtenerMaterialesMovimiento(txtMovCod);
+			$('#btnConsulta').addClass('disabled'); //deshabilitamos el consultar
+        	$('#btnCancelar').removeClass('disabled'); //habilitamos el cancelar
         }
     });
 }
+function obtenerMaterialesMovimiento(txtMovCod){
+	$.ajax({
+		type:'POST',
+		url:'proc/calma_proc.php?accion=obtener_materiales_movimiento',
+		data:{ txtMovCod:txtMovCod },
+		success: function(data){
+			$('#table_tbody').html(data);
+		}
+	});
+}
 
 function consultarTipoMovimientoAll(){
-
+	$.ajax({
+		type:'POST',
+		url:'proc/calma_proc.php?accion=cargar_movimientos',
+		data:{ txtMovCod:'1' },
+		success: function(data){
+			$('#div_todos_movimientos').html(data);
+			$('#btnPrimer').click();
+		}
+	});
 }
 
 
@@ -117,48 +148,28 @@ function consultarTipoMovimientoAll(){
 
 //Tools
 modal = 1;
-function swModal(mod,id){
-	ident = id;
-	modal = 0;
-	$('#selectRow').val(id);
-	/*$('#txtCod'+ident).val('');
-	$('#txtNomb'+ident).val('');
-	$('#txtCant'+ident).val('');
-	$('#txtVal'+ident).val('');*/
-}
 function solonumeros(){
     if ( (event.keyCode < 48) || (event.keyCode > 57)  ) 
         event.returnValue = false;
 }
 //Limpiar
 function limpiarTablaMateriales(){
-	a = '<table id="table_materiales" class="table table-bordered table-condensed">';
-	b = '<thead><tr style="background-color: #3c8dbc; color:white;">';
-	c = '<th class="text-center" width="100">MATERIAL</th>';
-	d = '<th class="">DESCRIPCION DEL MATERIAL</th>';
-	e = '<th class="text-center" width="100">CANTIDAD</th>';
-	f = '<th class="text-right" width="170">VALOR</th></tr></thead>';
-	g = '<tbody id="divMaterialInventario"></tbody></table>';
-	$('#tableOrdenes').html(a+b+c+d+e+f+g);
-
-	$('#txtValor').val(0);
+	$('#table_tbody').html('');
 }
 function limpiarCampos(){
-	actualizarTipoMovimiento('E');
-	a = '<input type="radio" name="tipoMov" onclick="actualizarTipoMovimiento(\'E\');" checked> Entrada &nbsp;&nbsp;&nbsp;&nbsp;';
-	b = '<input type="radio" name="tipoMov" onclick="actualizarTipoMovimiento(\'S\');"> Salida';
-	c = '<input type="hidden" id="txtSWTipoMovCod" value="E">';
-	$('#divTipoMovimientoCheck').html(a+b+c);
-	//$('#swMov').val('');
-	//$('#txtMovCod').val('');
+	$('#txtMovCod').val('');
+	$('#txtFecha').val('');
+	$('#txtTipoCod').val('');
+	$('#txtTipoNomb').val('');
 	$('#txtEnCod').val('');
 	$('#txtEnNomb').val('');
-	$('#txtValor').val(0);
-	$('#txtTipoMovCod').val('');
-	$('#txtTipoMovNomb').val('');
+	$('#txtValor').val('');
 	$('#txtBodCod').val('');
 	$('#txtBodNomb').val('');
 	$('#txtSopCod').val('');
-	$('#txtDocSopCod').val('');
+	$('#txtSopDoc').val('');
+	$('#txtRegis').val('');
 	$('#txtObser').val('');
+	
+	$('#divTipoMov').html('<input type="radio" name="tipoMov"> Entrada &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="tipoMov"> Salida');
 }

@@ -65,6 +65,8 @@
 	             	</ol>
 	            </section>
 
+				<div id="div_todos_movimientos" class="display-none"></div>
+
 				<section class="content">
 					<div class="row">
 						<div class="col-md-12">
@@ -81,13 +83,13 @@
 					                     	<div class="col-sm-2">
 				                        		<input type="text" class="form-control input-sm" id="txtMovCod" placeholder="Numero" onkeypress="solonumeros()">
 				                      		</div>
-				                      		<div class="col-sm-4 text-center">
-				                      			<input type="radio" name="tipoMov" onclick=""> Entrada &nbsp;&nbsp;&nbsp;&nbsp;
-				                      			<input type="radio" name="tipoMov" onclick="" checked> Salida
+				                      		<div class="col-sm-4 text-center" id="divTipoMov">
+				                      			<input type="radio" name="tipoMov"> Entrada &nbsp;&nbsp;&nbsp;&nbsp;
+				                      			<input type="radio" name="tipoMov"> Salida
 				                      		</div>
 					                     	<label for="txtClase" class="col-sm-1 control-label" style="margin-top:5px;">Fecha</label>
 				                      		<div class="col-sm-2">
-				                        		<input type="date" class="form-control input-sm" id="txtFecha" readonly>
+				                        		<input type="text" class="form-control input-sm text-right" id="txtFecha" readonly>
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -110,10 +112,10 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Tipo de Movimiento</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtEnCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
+				                        		<input type="text" class="form-control input-sm" id="txtTipoCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
 				                      		</div>
 				                      		<div class="col-sm-4">
-				                        		<input type="text" class="form-control input-sm" id="txtEnNomb" placeholder="Nombre del Tipo Movimiento" readonly>
+				                        		<input type="text" class="form-control input-sm" id="txtTipoNomb" placeholder="Nombre del Tipo Movimiento" readonly>
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -140,12 +142,12 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Documente Soporte</label>
 					                     	<div class="col-sm-3">
-				                        		<input type="text" class="form-control input-sm" id="txtBodCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
+				                        		<input type="text" class="form-control input-sm" id="txtSopDoc" placeholder="Codigo" onkeypress="solonumeros()" readonly>
 				                      		</div>
 				                      		<div class="col-sm-2"></div>
 				                      		<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Registrado por</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtBodCod" placeholder="Registrado" readonly>
+				                        		<input type="text" class="form-control input-sm" id="txtRegis" placeholder="Registrado" readonly>
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -165,14 +167,19 @@
 				                			<input type="hidden" id="swCheckTodos" value="0">
 				                			<div id="tableOrdenes" style="height: 460px; overflow-y: scroll;">
 						                		<table class="table table-bordered table-condensed">
-						                			<tr style="background-color: #3c8dbc; color:white;">
-								        				<th class="text-center" width="100">MATERIAL</th>
-								        				<th class="" >DESCRIPCION DEL MATERIAL</th>
-								        				<th class="text-center" width="170"></th>
-								        				<th class="text-center" width="170"></th>
-								        				<th class="text-right" width="170">CANTIDAD</th>
-								        				<th class="text-right" width="170">VALOR</th>
-								        			</tr>
+													<thead>
+														<tr style="background-color: #3c8dbc; color:white;">
+															<th class="text-center" width="100">MATERIAL</th>
+															<th class="" >DESCRIPCION DEL MATERIAL</th>
+															<th class="text-center" width="170"></th>
+															<th class="text-center" width="170"></th>
+															<th class="text-right" width="170">CANTIDAD</th>
+															<th class="text-right" width="170">VALOR</th>
+														</tr>
+													</thead>
+													<tbody id="table_tbody">
+														
+													</tbody>
 						                		</table>
 				                			</div>
 				                		</div>

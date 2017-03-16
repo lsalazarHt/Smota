@@ -85,7 +85,7 @@
 	          <ul class="dropdown-menu" role="menu">
 	            <li class="mResto"><a href="#"><i class="fa fa-circle-o"></i>Consulta de Inventario por Mes (NO CARGA)</a></li>
 	            <li class="mResto"><a href="qmate.php"><i class="fa fa-circle-o"></i>Consulta de Materiales por Bodega</a></li>
-	            <li class="mResto"><a href="calma.php"><i class="fa fa-circle-o"></i>Consulta de Movimiento Almacen</a></li>
+	            <li class="mResto"><a href="calma.php"><i class="fa fa-circle"></i>Consulta de Movimiento Almacen</a></li>
 	            <li class="mResto"><a href="kardex.php"><i class="fa fa-circle-o"></i>Consulta de Movimiento Item por Bodega en un Periodo</a></li>
 	            <li class="mResto"><a href="ralma.php"><i class="fa fa-circle"></i>Entradas y Salidas de Almacen</a></li>
 	            <li><a id="mReportAlm" style="cursor:pointer;"><i class="fa fa-circle-o"></i>Reportes de Almacen</a></li>
