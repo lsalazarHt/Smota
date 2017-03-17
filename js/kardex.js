@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+	$('#txtEnCod').focus();
 	$('#btnConsulta').addClass('disabled');
 	
 	$('#btnListaValores').click(function(){
@@ -33,6 +33,24 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#txtAnio").keypress(function(event){
+		if(event.which == 13){
+			$('#txtMes').focus();
+		}
+	});
+
+	$("#txtMes").keypress(function(event){
+		if(event.which == 13){
+			$('#selcTipo').focus();
+		}
+	});
+
+	$("#selcTipo").keypress(function(event){
+		if(event.which == 13){
+			$('#btnConsultar_kardex').focus();
+		}
+	});
+
 	$('#txtAnio').click(function(){
 		$('#tableMovimientosMaterial').html('');
 	});
@@ -63,10 +81,12 @@ function buscarBodegaPrincipal(bod){
 	        data:{ bod:bod },
 	        success: function(data){
 	        	$('#txtEnNomb').val(data);
+				data != '' ? $('#txtMatCod').focus(): demo.showNotification('bottom','left', 'La bodega no existe', 4);
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque una bodega valida')
+		demo.showNotification('bottom','left', 'Porfavor coloque una bodega valida', 4);
+		$('#txtEnNomb').val('');
 	}
 }
 function buscarMaterial(mat){
@@ -80,6 +100,7 @@ function buscarMaterial(mat){
 	        success: function(data){
 	        	$('#txtMatCod').val(mat);
 	        	$('#txtMatNomb').val(data[0]);
+				data != '' ? $('#txtAnio').focus(): demo.showNotification('bottom','left', 'El material no existe', 4);
 	        }
 	    });
 	}else{
