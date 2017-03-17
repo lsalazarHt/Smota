@@ -153,6 +153,7 @@ function consultar(){
 	        url:'proc/kardex_proc.php?accion=obtener_movimientos',
 	        data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo  },
 	        success: function(data){
+				alert(data)
 	        	$('#tableMovimientosMaterial').html(data);
 	        }
 	    });
