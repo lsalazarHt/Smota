@@ -38,6 +38,8 @@ $(document).ready(function () {
 	    cell3.innerHTML = '<input type="checkbox" id="txtCkek'+rowCount+'" checked="checked" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')" >';
 
 	    $('#contRow').val(rowCount);
+	    $('#txtCod'+rowCount).focus();
+	    selectedNewRow(row.id);
 	});
 	//Guardar
 	$('#btnGuardar').click(function(){
@@ -111,12 +113,16 @@ function guardarDatosContratista(){
 	        data:{nom:nom},
 	        success: function(data){
 	        	if(data==1){
-		        	alert('Se guardo la informacion correctamente')
+	        		var msgError = 'Se guardo la informacion correctamente';
+					demo.showNotification('bottom','left', msgError, 2);
 					$('#modalDatosContratista').modal('hide');
 	        	}else{ alert(data) }
 	        }
 	    });
-	}else{ alert('Porfavor complete los datos') }
+	}else{ 
+		var msgError = 'Porfavor complete los datos';
+		demo.showNotification('bottom','left', msgError, 4);
+	}
 }
 function actualizar(){
 	$('#table').html('');

@@ -132,7 +132,8 @@ $(document).ready(function () {
 				buscarNombreLocalidades(loc);
 				actualizarZonas();
 			}else{
-				alert('Porfavor complete los datos')
+				var msgError = 'Porfavor complete los datos';
+				demo.showNotification('bottom','left', msgError, 4);
 			}
 		}
 	});
@@ -159,7 +160,8 @@ $(document).ready(function () {
 				buscarNombreLocalidades(loc);
 				buscarNombreZona(zona);
 			}else{
-				alert('Porfavor complete los datos')
+				var msgError = 'Porfavor complete los datos';
+				demo.showNotification('bottom','left', msgError, 4);
 			}
 		}
 	});
@@ -202,8 +204,11 @@ $(document).ready(function () {
 		    cell3.innerHTML = '<input type="checkbox" id="txtCkek'+rowCount+'" onclick="swEditor(\'\',\'trSelect'+rowCount+'\',1,'+rowCount+')" checked="checked">';
 
 		    $('#contRow').val(rowCount);
+		    $('#txtCod'+rowCount).focus();
+		    selectedNewRow(row.id);
 		}else{
-			alert('Porfavor coloque los datos valido')
+			var msgError = 'Porfavor coloque los datos valido';
+			demo.showNotification('bottom','left', msgError, 4);
 		}
 	});
 	
@@ -431,7 +436,8 @@ $(document).ready(function () {
 			if(dep!=''){
 				actModalLocalidades();
 			}else{
-				alert('Porfavor coloque un departamento valido')
+				var msgError = 'Porfavor coloque un departamento valido';
+				demo.showNotification('bottom','left', msgError, 4);
 			}
 		}else if(modal==2){
 			limpiarTabla();
@@ -442,7 +448,8 @@ $(document).ready(function () {
 			if( (dep!='') && (loc!='') ){
 				actModalZonas();
 			}else{
-				alert('Porfavor coloque los datos valido')
+				var msgError = 'Porfavor coloque los datos valido';
+				demo.showNotification('bottom','left', msgError, 4);
 			}
 		}else{
 			dep = $('#txtCodDepar').val();
@@ -451,7 +458,8 @@ $(document).ready(function () {
 			if( (dep!='') && (loc!='') && (zon!='') ){
 				$('#modalSectores').modal('show');
 			}else{
-				alert('Porfavor coloque los datos valido')
+				var msgError = 'Porfavor coloque los datos valido';
+				demo.showNotification('bottom','left', msgError, 4);
 			}
 		}
 
@@ -479,7 +487,8 @@ function buscarZonasOperativas(){
 		actualizarZonas();
 		limpiarTabla();
 	}else{
-		alert('Porfavor complete los datos')
+		var msgError = 'Porfavor complete los datos';
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function buscarSectoresZonasOperativas(){
@@ -491,7 +500,8 @@ function buscarSectoresZonasOperativas(){
 		buscarNombreLocalidades(loc);
 		buscarNombreZona(zona);
 	}else{
-		alert('Porfavor complete los datos')
+		var msgError = 'Porfavor complete los datos';
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function buscarNombreDepartamento(id){
@@ -502,7 +512,8 @@ function buscarNombreDepartamento(id){
 		if(dep!=''){
 			buscarLocalidades(dep);
 		}else{
-			alert('Porfavor coloque un departamento valido')
+			var msgError = 'Porfavor coloque un departamento valido';
+		demo.showNotification('bottom','left', msgError, 4);
 		}
 	}
 }
@@ -600,7 +611,8 @@ function actModalLocalidades(){
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque un departamento valido')
+		var msgError = 'Porfavor coloque un departamento valido';
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function actModalZonas(){
@@ -620,7 +632,8 @@ function actModalZonas(){
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque un departamento valido')
+		var msgError = 'Porfavor coloque un departamento valido';
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function buscarNombreZona(cod){

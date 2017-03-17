@@ -154,9 +154,19 @@ $(document).ready(function () {
 		    cell3.className = 'text-center ';
 		    cell3.innerHTML = '<input type="checkbox" id="txtCkek'+rowCount+'" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')" checked="checked">';
 
-		    $('#contRow').val(rowCount);
+		    $('#contRow').val(rowCount);		    
+		    $('#txtCod'+rowCount).focus();
+		    selectedNewRow(row.id);
 		}else{
-			alert('Porfavor coloque los datos valido')
+			/*
+					BACKGROUND-COLOR ALERTAS
+						AZUL = 1
+						VERDE = 2
+						NARANJA = 3
+						ROJO = 4
+			*/
+			var msgError = 'Porfavor coloque los datos valido';
+			demo.showNotification('bottom','left', msgError, 3);
 		}
 	});
 	
@@ -343,7 +353,15 @@ $(document).ready(function () {
 			if(dep!=''){
 				actModalLocalidades();
 			}else{
-				alert('Porfavor coloque un departamento valido')
+				/*
+					BACKGROUND-COLOR ALERTAS
+						AZUL = 1
+						VERDE = 2
+						NARANJA = 3
+						ROJO = 4
+				*/
+				var msgError = 'Porfavor coloque un departamento valido';
+				demo.showNotification('bottom','left', msgError, 3);
 			}
 		}
 
@@ -368,7 +386,15 @@ function buscarZonasOperativas(){
 		buscarNombreDepartamento(dep);
 		buscarNombreLocalidades(loc);
 	}else{
-		alert('Porfavor complete los datos')
+		/*
+					BACKGROUND-COLOR ALERTAS
+						AZUL = 1
+						VERDE = 2
+						NARANJA = 3
+						ROJO = 4
+				*/
+				var msgError = 'Porfavor complete los datos';
+				demo.showNotification('bottom','left', msgError, 3);
 	}
 }
 function buscarNombreDepartamento(id){
@@ -379,7 +405,15 @@ function buscarNombreDepartamento(id){
 		if(dep!=''){
 			buscarLocalidades(dep);
 		}else{
-			alert('Porfavor coloque un departamento valido')
+			/*
+					BACKGROUND-COLOR ALERTAS
+						AZUL = 1
+						VERDE = 2
+						NARANJA = 3
+						ROJO = 4
+				*/
+				var msgError = 'Porfavor coloque un departamento valido';
+				demo.showNotification('bottom','left', msgError, 3);
 		}
 	}
 }
@@ -470,7 +504,15 @@ function actModalLocalidades(){
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque un departamento valido')
+		/*
+					BACKGROUND-COLOR ALERTAS
+						AZUL = 1
+						VERDE = 2
+						NARANJA = 3
+						ROJO = 4
+				*/
+				var msgError = 'Porfavor coloque un departamento valido';
+				demo.showNotification('bottom','left', msgError, 3);
 	}
 }
 

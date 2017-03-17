@@ -46,6 +46,51 @@ $(document).ready(function () {
 	    ]
 	});
 
+	$('#tableMaterial').DataTable({
+	    //ajax : 'assets/inc/clss/tbl/tabla-apuestas-adm-apuesta.php?camp=0',
+	    "iDisplayLength": 10,
+	    "lengthMenu": [
+	        [10, 20, 30, -1],
+	        [10, 20, 30, "Todos"] // change per page values here 
+	    ],
+	    initComplete: function(oSettings, json) {
+	        //$('.tooltips').tooltip();
+	    },
+	    pageLength: 10,
+	    "language": {
+	        "sProcessing":     "Procesando...",
+	        "sLengthMenu":     "Mostrar _MENU_ Registros",
+	        "sZeroRecords":    "No se encontraron resultados",
+	        "sEmptyTable":     "No hay Datos registradas en el sistema",
+	        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+	        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+	        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+	        "sInfoPostFix":    "",
+	        "sSearch":         "",
+	        "sUrl":            "",
+	        "sInfoThousands":  ",",
+	        "sLoadingRecords": "Cargando Datos...",
+	        "oPaginate": {
+	            "sFirst":    "Primero",
+	            "sLast":     "Último",
+	            "sNext":     "Siguiente",
+	            "sPrevious": "Anterior"
+	        },
+	        "oAria": {
+	            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+	            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+	        }
+	      },
+	    "searching": true,
+	    "ordering": false,
+	    "info": false,
+	    "autoWidth": false,
+	    "columns": [
+	        { "class": "text-center cod","width":"10%"},
+	        { "class": "text-left","width":"30px"}
+	    ]
+	});
+
 	$("#txtCodBodega").click(function(){
 
 		$('#btnCancelar').click();
@@ -56,7 +101,8 @@ $(document).ready(function () {
 			if(cod!=''){
 				buscarNombreBodega(cod);
 			}else{
-				alert('Porfavor coloque un codigo valido')
+				var msgError = 'Porfavor coloque un codigo valido';
+				demo.showNotification('bottom','left', msgError, 4);
 			}
 		}
 	});
@@ -64,6 +110,8 @@ $(document).ready(function () {
 	$('#btnListaValores').click(function(){
 		if(modal==1){
 			$('#modalBodega').modal('show');
+		}else if(modal==2){
+			$('#modalMaterial').modal('show');
 		}
 	});
 	$('#btnConsulta').click(function(){
@@ -138,7 +186,7 @@ $(document).ready(function () {
 	    //Codigo
 	    var cell1 = row.insertCell(0);
 	    cell1.className = 'text-center';
-	    cell1.innerHTML = '<input type="text" id="txtCod'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumerosEnter()" onClick="swModal(4,'+rowCount+')"><input type="hidden" id="txtTipo'+rowCount+'" value="0">';
+	    cell1.innerHTML = '<input type="text" id="txtCod'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumerosEnter()" onclick="swEditor(\'txtCod'+rowCount+'\',\'trSelect'+rowCount+'\',2,'+rowCount+')"><input type="hidden" id="txtTipo'+rowCount+'" value="0">';
 	    //Nombre
 	    var cell2 = row.insertCell(1);
 	    cell2.className = '';
@@ -146,16 +194,103 @@ $(document).ready(function () {
 
 	    var cell3 = row.insertCell(2);
 	    cell3.className = '';
-	    cell3.innerHTML = '<input type="text" id="txtCant'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')">';
+	    cell3.innerHTML = '<input type="text" id="txtCantInvProp'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')" readonly>';
 
 	    var cell4 = row.insertCell(3);
 	    cell4.className = '';
-	    cell4.innerHTML = '<input type="text" id="txtVal'+rowCount+'" class="form-control input-sm text-right" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')">';
+	    cell4.innerHTML = '<input type="text" id="txtValInvPropMost'+rowCount+'" class="form-control input-sm text-right" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')" readonly>';
 
+	    var cell3 = row.insertCell(4);
+	    cell3.className = '';
+	    cell3.innerHTML = '<input type="text" id="txtCantInvPres'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')" readonly>';
+
+	    var cell3 = row.insertCell(5);
+	    cell3.className = '';
+	    cell3.innerHTML = '<input type="text" id="txtValInvPresMost'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')" readonly>';
+	    
+	    var cell3 = row.insertCell(6);
+	    cell3.className = '';
+	    cell3.innerHTML = '<input type="text" id="txtCupo'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')">';
+	    
+	    var cell3 = row.insertCell(7);
+	    cell3.className = '';
+	    cell3.innerHTML = '<input type="text" id="txtCupoExtr'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')">';
+	    
 	    $('#contRow').val(rowCount);
+	    $('#txtCod'+rowCount).focus();
+	    selectedNewRow(row.id);
 	});
 
 	$('#btnGuardar').click(function(){
+		var cont = $('#contRow').val();
+
+		for(var i=1;i<=cont;i++){
+			var cod = $.trim($('#txtCod'+i).val());
+			var codBodga = $('#txtCodBodega').val();
+			var cantIProp = $('#txtCantInvProp'+i).val();
+			var valIPMost = $('#txtValInvPropMost'+i).val();
+			var cantIPres = $('#txtCantInvPres'+i).val();
+			var valIPMost = $('#txtValInvPresMost'+i).val();
+			var cupo = $('#txtCupo'+i).val();
+			var cupoExtra = $('#txtCupoExtr'+i).val();
+
+			if( $('#txtTipo'+i).val() == 1){ //Editar
+				var codOrg = $.trim($('#txtCodOrg'+i).val());
+				if( (cod!='') && (codBodga!='') ){
+					$.ajax({
+				        type:'POST',
+				        url:'proc/mcupos_proc.php?accion=editar_registros',
+				        data:{ codOrg:codOrg, codBodga:codBodga, cupo:cupo, cupoExtra:cupoExtra},
+				        success: function(data){
+				            console.log(data)
+				            if(data==1){
+			                    actualizar();
+				            }else{ alert(data+' Editar!') }
+				        }
+				    });
+				}
+			}else{
+				sw = false;
+				// Validar si ya existe
+				for(var j=1;j<=cont;j++){
+					if($('#txtTipo'+j).val() == 1){
+						//Verificar si es igual
+						if( ( $('#txtCod'+j).val() ) == ( $('#txtCod'+i).val() ) ){
+							sw = true;	
+						}
+					}
+					//Fin verificar
+				}
+				// Fin validar
+				if(!sw){
+					if( (cod!='') && (codBodga!='') ){
+						$.ajax({
+					        type:'POST',
+					        url:'proc/mcupos_proc.php?accion=guardar_registros',
+					        data:{cod:cod, codBodga:codBodga, cantIProp:cantIProp, 
+					        	valIPMost:valIPMost, cantIPres:cantIPres, valIPMost:valIPMost,
+								cupo:cupo, cupoExtra:cupoExtra },
+					        success: function(data){
+					            if(data==1){
+				                    actualizar();
+					            }else{ alert(data+' Agregar!') }
+					        }
+					    });
+					}
+				}else{
+					/*
+					BACKGROUND-COLOR ALERTAS
+						AZUL = 1
+						VERDE = 2
+						NARANJA = 3
+						ROJO = 4
+					*/
+					var msgError = 'Error! Al Agregar '+$('#txtNomb'+i).val();
+					demo.showNotification('bottom','left', msgError, 4);
+				}
+			}
+
+		}
 		
 
 	});
@@ -179,7 +314,8 @@ function btn_buscarNombreBodega(){
 	if(cod!=''){
 		buscarNombreBodega(cod);
 	}else{
-		alert('Porfavor coloque un codigo valido')
+		var msgError = 'Porfavor coloque un codigo valido';
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function buscarNombreBodega(cod){
@@ -206,6 +342,13 @@ function colocarBodega(id,nomb){
 	$('#modalBodega').modal('hide');
 }
 
+var idGlb = 0;
+function colocarMaterial(id,nom){
+	$('#txtClase'+idGlb).val(id);
+	$('#txtClaseNomb'+idGlb).val(nom);
+	$('#modalMaterial').modal('hide');
+}
+
 function actualizar(){
 	cod = $("#txtCodBodega").val();
 	$.ajax({
@@ -213,7 +356,7 @@ function actualizar(){
         url:'proc/mcupos_proc.php?accion=actualizar',
         data:{cod:cod},
         success: function(data){
-            $('#table_detalle_inventario').html(data);
+            $('#table_materiales').html(data);
 
             calcularTotal();
         }
@@ -246,13 +389,15 @@ function limpiar(){
 	$('#txtTotalInvPrestado').val(0);
     $('#txtNomBodega').val('');
 	$('#divLista').html('');
-	$('#table_detalle_inventario').html('');
+	$('#table_materiales').html('');
 }
 function swEditor(id,trId,mod,i){
 
 	varEditor = id;
 	$('.trDefault').removeClass('trSelect');
 	$('#'+trId).addClass('trSelect');
+	modal=mod;
+	idGlb = i;
 }
 function formato_numero(numero, decimales, separador_decimal, separador_miles){
 
