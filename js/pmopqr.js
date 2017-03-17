@@ -129,9 +129,20 @@ $(document).ready(function () {
 		    
 
 		    $('#contRow').val(rowCount);
+	    $('#txtCod'+rowCount).focus();
+	    selectedNewRow(row.id);
 
 		}else{
-			alert('Porfavor coloque un PQR valido')
+			/*
+					BACKGROUND-COLOR ALERTAS
+						AZUL = 1
+						VERDE = 2
+						NARANJA = 3
+						ROJO = 4
+					*/
+		var msgError = 'Porfavor coloque un PQR valido';
+		demo.showNotification('bottom','left', msgError, 3);
+
 		}
 	});
 	
@@ -312,7 +323,15 @@ function buscarNombrePqr(){
 	        }
 	    });
 	}else{
-		alert('Error! Porfavor coloque un PQR valido')
+		/*
+					BACKGROUND-COLOR ALERTAS
+						AZUL = 1
+						VERDE = 2
+						NARANJA = 3
+						ROJO = 4
+					*/
+		var msgError = 'Error! Porfavor coloque un PQR valido';
+		demo.showNotification('bottom','left', msgError, 3);
 	}
 }
 function buscarNombrePqr_Ant_Sgt(cod){
@@ -351,7 +370,15 @@ function colocarManoObra(cod){
 	        }
 	    });
 	}else{
-		alert('Error! La Mano de obra ya existe')
+		/*
+					BACKGROUND-COLOR ALERTAS
+						AZUL = 1
+						VERDE = 2
+						NARANJA = 3
+						ROJO = 4
+					*/
+		var msgError = 'Error! La Mano de obra ya existe';
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function actualizar(){

@@ -59,6 +59,8 @@ $(document).ready(function () {
 	    cell4.innerHTML = '<input type="text" id="txtCantMax'+rowCount+'" class="form-control input-sm" onclick="swEditor(\'txtCantMax'+rowCount+'\',\'trSelect'+rowCount+'\')" readonly>';
 	    
 	    $('#contRow').val(rowCount);
+	    $('#txtCod'+rowCount).focus();
+	    selectedNewRow(row.id);
 	});
 
 	//Btn Guardar

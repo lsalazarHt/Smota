@@ -55,7 +55,9 @@ $(document).ready(function () {
 	    cell5.innerHTML = '<input type="text" id="txtNomClaseBodega'+rowCount+'" class="form-control input-sm" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')" readonly>';
 	    
 
-	    $('#contRow').val(rowCount);
+	    $('#contRow').val(rowCount);	    
+	    $('#txtCod'+rowCount).focus();
+	    selectedNewRow(row.id);
 	});
 
 	//Btn Guardar
