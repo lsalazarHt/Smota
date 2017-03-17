@@ -140,20 +140,22 @@
 				                      		</div>
 					                    </div>
 				                	</div>
-				                	<hr>
-				                	<h4 style="margin-left: 10px;">Seriales</h4>
-				                	<div class="row marginTop3">
-				                		<div class="col-md-6">
-				                			<input type="hidden" id="swCheckTodos" value="0">
-				                			<div id="tableOrdenes" style="height: 250px; overflow-y: scroll;">
-						                		<table class="table table-bordered table-condensed">
-						                			<tr style="background-color: #3c8dbc; color:white;">
-								        				<th class="text-center" width="100">NUMERO SERIE</th>
-								        			</tr>
-						                		</table>
-				                			</div>
-				                		</div>
-				                	</div>
+									<div class="display-none">
+										<hr>
+										<h4 style="margin-left: 10px;">Seriales</h4>
+										<div class="row marginTop3">
+											<div class="col-md-6">
+												<input type="hidden" id="swCheckTodos" value="0">
+												<div id="tableOrdenes" style="height: 250px; overflow-y: scroll;">
+													<table class="table table-bordered table-condensed">
+														<tr style="background-color: #3c8dbc; color:white;">
+															<th class="text-center" width="100">NUMERO SERIE</th>
+														</tr>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
 			                    </div>
 							</div>
 						</div>
