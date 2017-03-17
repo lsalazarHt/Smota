@@ -47,7 +47,7 @@ $(document).ready(function () {
 			if(bod!=''){
 				buscarMaterial(mat,bod);
 			}else{
-				alert('Porfavor coloque una bod valida')
+				demo.showNotification('bottom','left', 'Porfavor coloque una bodega valida', 4);
 			}
 		}
 	});
@@ -91,7 +91,7 @@ function buscarBodega(bod){
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque una bodega valida')
+		demo.showNotification('bottom','left', 'Porfavor coloque una bodega valida', 4);
 	}
 }
 function buscarMaterial(mat,bod){
@@ -111,7 +111,7 @@ function buscarMaterial(mat,bod){
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque una bodega valida')
+		demo.showNotification('bottom','left', 'Porfavor coloque un material valida', 4);
 	}
 }
 

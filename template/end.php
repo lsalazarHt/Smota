@@ -15,6 +15,11 @@
 	<script src="tools/dist/js/demo.js"></script>
 	<!-- Bootbox -->
 	<script src="tools/dist/js/bootbox.min.js"></script>
+	<!--  Notifications Plugin    -->
+	<script src="assets/js/bootstrap-notify.js"></script>
+	<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+	 <script src="assets/js/demo.js"></script>
+
 	<script type="text/javascript">
 
 	    $(document).ready(function () {
