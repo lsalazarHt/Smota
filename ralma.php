@@ -79,7 +79,8 @@
 	                	</div><!-- /.modal-content -->
 	               	</div><!-- /.modal-dialog -->
 	            </div>
-	
+				
+				<input type="hidden" id="req_doc_soport">
 	            <div class="modal fade" id="modalTipoMovimiento">
 	             	<div class="modal-dialog" style="width:60%">
 	                	<div class="modal-content">

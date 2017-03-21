@@ -16,6 +16,19 @@
         }
         return $matPropio;
     }
+    function obtener_tipo_movimiento_bodega_destino($id){
+    	$tipoMov = null;
+        $conn = require '../template/sql/conexion.php';
+        $query ="SELECT TIMVCLBO FROM tipomovi WHERE timocodi = $id";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $tipoMov = $row['TIMVCLBO'];
+            }
+        }
+        return $tipoMov;
+    }
     function obtener_tipo_movimiento_ent_sal($id){
     	$tipoMov = null;
         $conn = require '../template/sql/conexion.php';
@@ -246,9 +259,9 @@
     }
 
     if($_REQUEST["accion"]=="calcular_material"){
-        $codMatAgr     = $_REQUEST["codMat"]; //codigo de material
-        $cantMatAgr    = (int)$_REQUEST["cantMat"]; //cantidad de material
-        $codBodOri     = $_REQUEST["bod"]; //bodega origen
+        $codMatAgr  = $_REQUEST["codMat"]; //codigo de material
+        $cantMatAgr = (int)$_REQUEST["cantMat"]; //cantidad de material
+        $codBodOri  = $_REQUEST["bod"]; //bodega origen
         $codBodDes  = $_REQUEST["des"]; //bodega destino
         $tMo        = $_REQUEST["tMo"]; //tipo de movimiento E/S
 
@@ -264,10 +277,12 @@
             }
         //
         //tipo de obtener_tipo_movimiento | entrada / salida
+            $tipo_de_bodega = 0;
             $tipo_movi_e_s = obtener_tipo_movimiento_ent_sal($tMo);
             if($tipo_movi_e_s=='E'){ //entrada
                 $codeVal_Disponible = $codBodDes;
                 $codeVal_Destino = $codBodOri;
+                $tipo_de_bodega = obtener_tipo_movimiento_bodega_destino($tMo);
             }else{//salida
                 $codeVal_Disponible = $codBodOri;
                 $codeVal_Destino = $codBodDes;
@@ -284,50 +299,54 @@
         $valTotMat = 0; //total valor material
         $swResult = 0; //sw resultado
 
-        //Disponibilidad de origen
-            $query ="SELECT $canti, $valor FROM inventario WHERE INVEMATE = $codMatAgr AND INVEBODE = $codeVal_Disponible";
-            $respuesta = $conn->prepare($query) or die ($sql);
-            if(!$respuesta->execute()) return false;
-            if($respuesta->rowCount()>0){
-                while ($row=$respuesta->fetch()){
-                    $canMatOrig = (int)$row[$canti];
-                    $valMatOrig = (int)$row[$valor];
-                }
-            }
-        //
-
-        //Disponibilidad de cupo
-            $query ="SELECT $canti, INVECUPO FROM inventario WHERE INVEMATE = $codMatAgr AND INVEBODE = $codeVal_Destino";
-            $respuesta = $conn->prepare($query) or die ($sql);
-            if(!$respuesta->execute()) return false;
-            if($respuesta->rowCount()>0){
-                while ($row=$respuesta->fetch()){
-                    $cupMatDes = (int)$row['INVECUPO'];
-                    $canMatDes = (int)$row[$canti];
-                }
-            }
-        //
-
-        //Validamos la cantidad agregar no es mayor al cupo
-            $canTotMat = $cantMatAgr + $canMatDes;
-            if($canTotMat > $cupMatDes){
-                $swResult = 3;
-            }else{
-                //validamos cantidad de material en inventario
-                    if($canMatOrig >= $cantMatAgr){
-                        $swResult = 1;
-                        $valorMaterial = ceil($valMatOrig/$canMatOrig);
-                        $valTotMat = $cantMatAgr * $valorMaterial;
-                    }else{
-                        $swResult = 2;
+        //verificamos si es entrada de una bodega 5(proveedor) o 6 (gasera)
+        if(($tipo_movi_e_s=='E') && ($tipo_de_bodega==5 || $tipo_de_bodega==6)){
+            $swResult = 4;
+        }else{
+            //Disponibilidad de origen
+                $query ="SELECT $canti, $valor FROM inventario WHERE INVEMATE = $codMatAgr AND INVEBODE = $codeVal_Disponible";
+                $respuesta = $conn->prepare($query) or die ($sql);
+                if(!$respuesta->execute()) return false;
+                if($respuesta->rowCount()>0){
+                    while ($row=$respuesta->fetch()){
+                        $canMatOrig = (int)$row[$canti];
+                        $valMatOrig = (int)$row[$valor];
                     }
-                //
-            }
-        //
+                }
+            //
+
+            //Disponibilidad de cupo
+                $query ="SELECT $canti, INVECUPO FROM inventario WHERE INVEMATE = $codMatAgr AND INVEBODE = $codeVal_Destino";
+                $respuesta = $conn->prepare($query) or die ($sql);
+                if(!$respuesta->execute()) return false;
+                if($respuesta->rowCount()>0){
+                    while ($row=$respuesta->fetch()){
+                        $cupMatDes = (int)$row['INVECUPO'];
+                        $canMatDes = (int)$row[$canti];
+                    }
+                }
+            //
+
+            //Validamos la cantidad agregar no es mayor al cupo
+                $canTotMat = $cantMatAgr + $canMatDes;
+                if($canTotMat > $cupMatDes){
+                    $swResult = 3;
+                }else{
+                    //validamos cantidad de material en inventario
+                        if($canMatOrig >= $cantMatAgr){
+                            $swResult = 1;
+                            $valorMaterial = ceil($valMatOrig/$canMatOrig);
+                            $valTotMat = $cantMatAgr * $valorMaterial;
+                        }else{
+                            $swResult = 2;
+                        }
+                    //
+                }
+            //
+        }
 
         $arr = array($swResult,$valTotMat);
         echo json_encode($arr);
-
     }
 
     if($_REQUEST["accion"]=="guardar_materiales_movimiento_inventario"){
@@ -438,4 +457,17 @@
         }
     }
 
+    if($_REQUEST["accion"]=="verificar_documento_soporte"){ 
+        $sw = 0;
+        $cod = $_REQUEST["cod"];
+        $query ="SELECT TIMOMVSO FROM tipomovi WHERE TIMOCODI = $cod AND TIMOMVSO IS NOT NULL";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $sw = $row['TIMOMVSO'];
+            }   
+        }
+        echo $sw;
+    }
 ?>
