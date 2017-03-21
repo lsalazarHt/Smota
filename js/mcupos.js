@@ -177,12 +177,13 @@ $(document).ready(function () {
 
 	$('#btnNuevo').click(function(){
 		//Agregar una nueva fila a la tabla
+		modal=2;
 		var table = document.getElementById('table_materiales');
 	    var rowCount = table.rows.length;
 	    var row = table.insertRow(rowCount);
 	    row.className = 'trDefault';
 	    row.id = 'trSelect'+rowCount;
-
+	    idGlb = rowCount;
 	    //Codigo
 	    var cell1 = row.insertCell(0);
 	    cell1.className = 'text-center';
@@ -267,8 +268,7 @@ $(document).ready(function () {
 						$.ajax({
 					        type:'POST',
 					        url:'proc/mcupos_proc.php?accion=guardar_registros',
-					        data:{cod:cod, codBodga:codBodga, cantIProp:cantIProp, 
-					        	valIPMost:valIPMost, cantIPres:cantIPres, valIPMost:valIPMost,
+					        data:{cod:cod, codBodga:codBodga,
 								cupo:cupo, cupoExtra:cupoExtra },
 					        success: function(data){
 					            if(data==1){
@@ -295,9 +295,20 @@ $(document).ready(function () {
 
 	});
 
+	// $(document).keydown(function(tecla){
+	// 	console.log('Tecla '+ tecla.which + ' preisonada');
+	// 	console.log('Tecla '+ String.fromCharCode(tecla.which) + ' preisonada');
+	// 	console.log('Tecla '+ tecla.type + ' preisonada');
+	//     if (tecla.keyCode == 88) { 
+	//         console.log('Tecla X preisonada');
+
+	//     }
+	// });
+
 });
 var modal = 1;
 function cargarTodos(){
+	modal=1;
 	$('#divLista').html('');
 	$.ajax({
         type:'POST',
@@ -339,13 +350,35 @@ function colocarBodega(id,nomb){
 	$('#txtCodBodega').val(id);
 	$('#txtNomBodega').val(nomb);
 	actualizar();
+	$('#btnNuevo').removeClass('disabled');
+	$('#btnGuardar').removeClass('disabled');
+	$('#btnConsulta').addClass('disabled');
 	$('#modalBodega').modal('hide');
 }
 
 var idGlb = 0;
 function colocarMaterial(id,nom){
-	$('#txtClase'+idGlb).val(id);
-	$('#txtClaseNomb'+idGlb).val(nom);
+	// console.log('colocar material');
+	// console.log(id);
+	// console.log(nom);
+	// console.log(idGlb);
+	var existeMaterial = false;
+	var codMaterial = 0;
+	var nomMaterial = '';
+	for(var i=0;i<=idGlb;i++){
+		codMaterial = $('#txtCod'+i).val();
+		if(  parseInt(codMaterial) === parseInt(id) ){
+			existeMaterial = true;
+			nomMaterial = $('#txtNomb'+i).val();
+		}
+	}
+	if(existeMaterial === true){
+		var msgError = 'Info: El Material '+nomMaterial+' ya tiene un registro para la Bodega';
+		demo.showNotification('bottom','left', msgError, 1);
+	}else{
+		$('#txtCod'+idGlb).val(id);
+		$('#txtNomb'+idGlb).val(nom);
+	}	
 	$('#modalMaterial').modal('hide');
 }
 
@@ -392,12 +425,21 @@ function limpiar(){
 	$('#table_materiales').html('');
 }
 function swEditor(id,trId,mod,i){
-
-	varEditor = id;
-	$('.trDefault').removeClass('trSelect');
-	$('#'+trId).addClass('trSelect');
-	modal=mod;
-	idGlb = i;
+	console.log(id);
+	console.log(trId);
+	console.log(mod);
+	console.log(i);
+	idGlb = i;	
+	if(id===2){
+		varEditor = id;
+		$('.trDefault').removeClass('trSelect');
+		$('#'+trId).addClass('trSelect');
+		modal=mod;
+		
+		console.log(idGlb);
+	}else{
+		modal=mod;
+	}
 }
 function formato_numero(numero, decimales, separador_decimal, separador_miles){
 

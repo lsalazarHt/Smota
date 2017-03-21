@@ -1,4 +1,7 @@
 <?php require 'template/start.php'; ?>
+<!--  Material Dashboard CSS    -->
+<link href="assets/css/material-dashboard.css" rel="stylesheet"/>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
 		<?php require 'template/menu.php'; ?>
@@ -70,7 +73,7 @@
 					                		<div class="col-sm-1"></div>
 					                     	<label for="txtCod" class="col-sm-2 control-label text-right" style="margin-top:5px;">Codigo</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e1 key" id="txtCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                        		<input type="hidden" class="form-control input-sm" id="txtCodOrg" readonly>
 				                      		</div>
 					                    </div>
@@ -80,7 +83,7 @@
 					                		<div class="col-sm-1"></div>
 					                     	<label for="txtNom" class="col-sm-2 control-label text-right" style="margin-top:5px;">Nombre</label>
 				                      		<div class="col-sm-8">
-				                        		<input type="text" class="form-control input-sm" id="txtNom" placeholder="Nombre del PRQ" onclick="swEditor('txtNom')" >  
+				                        		<input type="text" class="form-control input-sm e e2" id="txtNom" placeholder="Nombre del PRQ" onclick="swEditor('txtNom')" >  
 				                      		</div>
 					                    </div>
 				                	</div>  
@@ -89,7 +92,7 @@
 					                		<div class="col-sm-1"></div>
 					                     	<label for="txtDia" class="col-sm-2 control-label text-right" style="margin-top:5px;">Dias para Bloqueo</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtDia" placeholder="Dias" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e3" id="txtDia" placeholder="Dias" onkeypress="solonumeros()">
 				                      		</div>
 					                    </div>
 				                	</div>  
@@ -107,7 +110,7 @@
 					                		<div class="col-sm-1"></div>
 					                     	<label for="txtPoi" class="col-sm-2 control-label text-right" style="margin-top:5px;">Porcentaje de Inspección</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtPoi" placeholder="%" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e4" id="txtPoi" placeholder="%" onkeypress="solonumeros()">
 				                      		</div>
 					                    </div>
 				                	</div> 
@@ -116,7 +119,7 @@
 					                		<div class="col-sm-1"></div>
 					                     	<label for="txtCdc" class="col-sm-2 control-label text-right" style="margin-top:5px;">Centro de Costo</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtCdc" placeholder="Costo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e5" id="txtCdc" placeholder="Costo" onkeypress="solonumeros()">
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -174,7 +177,7 @@
 					                		<div class="col-sm-1"></div>
 					                     	<label for="txtCot" class="col-sm-2 control-label text-right" style="margin-top:5px;">Exclusivo del Tecnico</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtCot" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e6 key" id="txtCot" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-6">
 				                        		<input type="text" class="form-control input-sm" id="txtNomt" placeholder="Nombre del Tecnico" readonly>
@@ -187,7 +190,7 @@
 					                		<div class="col-sm-1"></div>
 					                     	<label for="txtPri" class="col-sm-2 control-label text-right" style="margin-top:5px;">Prioridad</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtPri" placeholder="Prioridad" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e7" id="txtPri" placeholder="Prioridad" onkeypress="solonumeros()">
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -195,7 +198,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtVtde" class="col-sm-3 control-label text-right" style="margin-top:5px;">Valor transporte dentro del rango</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtVtde" placeholder="0000" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e8" id="txtVtde" placeholder="0000" onkeypress="solonumeros()">
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -203,7 +206,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtVtfu" class="col-sm-3 control-label text-right" style="margin-top:5px;">Valor transporte fuera del rango</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtVtfu" placeholder="0000" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e9" id="txtVtfu" placeholder="0000" onkeypress="solonumeros()">
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -221,3 +224,13 @@
 </body>
 <?php require 'template/end.php'; ?>
 <script src="js/ppqr.js"></script>
+<!--  Detectar cambios en las Formas    -->
+<script src="assets/js/detectaCambiosEnFormas.js"></script>
+<!--  Seleccionar nuevo Item Talas    -->
+<script src="assets/js/selectedNewRow.js"></script>
+<!--  Notifications Plugin    -->
+<script src="assets/js/bootstrap-notify.js"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="assets/js/demo.js"></script>
+<!--  TAB ENTER    -->
+<script src="assets/js/tabEnter.js"></script>

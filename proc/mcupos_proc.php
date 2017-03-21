@@ -95,8 +95,7 @@
     if($_REQUEST["accion"]=="guardar_registros"){
         $query ="INSERT INTO inventario (`INVEMATE`, `INVEBODE`, `INVECAPRO`, `INVECAPRE`, 
                 `INVEVLRPRO`, `INVEVLRPRE`, `INVECUPO`, `INVENCUEX`) 
-                VALUES (".$_REQUEST["cod"].",'".$_REQUEST["codBodga"]."','".$_REQUEST["cantIProp"]."','".$_REQUEST["valIPMost"]."','".$_REQUEST["cantIPres"]."','".$_REQUEST["valIPMost"]."','".$_REQUEST["cupo"]."','".$_REQUEST["cupoExtra"]."')";
-
+                VALUES (".$_REQUEST["cod"].",'".$_REQUEST["codBodga"]."',0,0,0,0,'".$_REQUEST["cupo"]."','".$_REQUEST["cupoExtra"]."')";
         $respuesta = $conn->prepare($query) or die ($query);
         if(!$respuesta->execute()){
             echo 'Error!';

@@ -162,7 +162,7 @@
 					                	<div class="form-group">
 					                		<div class="col-sm-1"></div>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control" id="txtCodBodega" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control" id="txtCodBodega" placeholder="Codigo" onkeypress="solonumeros()" onclick="swEditor(null,null,1,null)">
 				                      		</div>
 				                      		<div class="col-sm-7">
 				                        		<input type="text" class="form-control" id="txtNomBodega" placeholder="Nombre de la Bodega" readonly>
