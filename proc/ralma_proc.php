@@ -316,26 +316,28 @@
             //
 
             //Disponibilidad de cupo
-                $query ="SELECT $canti, INVECUPO FROM inventario WHERE INVEMATE = $codMatAgr AND INVEBODE = $codeVal_Destino";
+                $query ="SELECT $canti, INVECUPO, INVENCUEX FROM inventario WHERE INVEMATE = $codMatAgr AND INVEBODE = $codeVal_Destino";
                 $respuesta = $conn->prepare($query) or die ($sql);
                 if(!$respuesta->execute()) return false;
                 if($respuesta->rowCount()>0){
                     while ($row=$respuesta->fetch()){
-                        $cupMatDes = (int)$row['INVECUPO'];
-                        $canMatDes = (int)$row[$canti];
+                        $cupMatDes   = (int)$row['INVECUPO'];
+                        $cupExMatDes = (int)$row['INVENCUEX'];
+                        $canMatDes   = (int)$row[$canti];
                     }
                 }
             //
 
             //Validamos la cantidad agregar no es mayor al cupo
                 $canTotMat = $cantMatAgr + $canMatDes;
-                if($canTotMat > $cupMatDes){
+                $totCupoDe = $cupMatDes + $cupExMatDes;
+                if($canTotMat > $totCupoDe){
                     $swResult = 3;
                 }else{
                     //validamos cantidad de material en inventario
                         if($canMatOrig >= $cantMatAgr){
                             $swResult = 1;
-                            $valorMaterial = ceil($valMatOrig/$canMatOrig);
+                            $valorMaterial = round(($valMatOrig/$canMatOrig),2);
                             $valTotMat = $cantMatAgr * $valorMaterial;
                         }else{
                             $swResult = 2;
@@ -469,5 +471,17 @@
             }   
         }
         echo $sw;
+    }
+    if($_REQUEST["accion"]=="verificar_tipo_movi_provve"){ 
+        $tipoMov = 0;
+        $cod = $_REQUEST["cod"];
+        $query ="SELECT TIMVCLBO FROM tipomovi WHERE (TIMVCLBO = 6 OR TIMVCLBO = 5) AND TIMOCODI = $cod";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            echo 1;            
+        }else{
+            echo 0;            
+        }
     }
 ?>

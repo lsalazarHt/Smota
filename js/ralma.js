@@ -134,6 +134,7 @@ $(document).ready(function(){
 									limpiarCampos();
 									obtenerCodMovimiento();
 									demo.showNotification('bottom','left', 'Se genero el movimiento con exito', 2);
+									window.open('calma_report.php?id='+codMov, "Imprimir Movimiento", "width=1200, height=620");
 								}
 							}
 						});
@@ -216,9 +217,20 @@ function nuevoMaterial(){
     cell3.className = '';
     cell3.innerHTML = '<input type="text" id="txtCant'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumeros_calcular('+rowCount+')" onClick="swModal(4,'+rowCount+')">';
 
+
+	//validar tipo de trabajo
+		sw_tipo_movi = true;
+	//
+	if($('#req_doc_prove_gas').val()==0){
+		readonly = 'readonly';
+	}else{
+		readonly = '';
+	}
+
+
     var cell4 = row.insertCell(3);
     cell4.className = '';
-    cell4.innerHTML = '<input type="text" id="txtVal'+rowCount+'" class="form-control input-sm text-right" onkeypress="solonumerosEnter()">';
+    cell4.innerHTML = '<input type="text" id="txtVal'+rowCount+'" class="form-control input-sm text-right"' +readonly+'>';
 
 	selectedNewRow(row.id);
     $('#contRow').val(rowCount);
@@ -259,9 +271,9 @@ function calcularMateriales(){
 		var cod = $.trim($('#txtCod'+i).val());
 		var val = $('#txtVal'+i).val();
 		if(val==''){ val = 0; }
-		sum = parseInt(sum) + parseInt(val);
+		sum = parseFloat(sum) + parseFloat(val);
 	}
-	$('#txtValor').val(number_format(sum,0));
+	$('#txtValor').val(sum);
 }
 function calcularMaterial(codMat,cantMat,rowCount){
 	bod = $("#txtEnCod").val(); //bodega origen
@@ -430,6 +442,14 @@ function verificar_documento_soporte(cod){
         data:{ cod:cod },
         success: function(data){
         	$('#req_doc_soport').val(data);
+        }
+    });
+	$.ajax({
+        type:'POST',
+        url:'proc/ralma_proc.php?accion=verificar_tipo_movi_provve',
+        data:{ cod:cod },
+        success: function(data){
+        	$('#req_doc_prove_gas').val(data);
         }
     });
 }

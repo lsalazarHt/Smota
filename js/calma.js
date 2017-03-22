@@ -22,10 +22,20 @@ $(document).ready(function(){
             $('#btnAnterior').removeClass('disabled');
             $('#btnSiguiente').removeClass('disabled');
             $('#btnUltimo').removeClass('disabled');
+            $('#btnImprimir').removeClass('disabled');
 
             consultarTipoMovimientoAll();
         }
     });
+
+	$('#btnImprimir').click(function(){
+		id = $('#txtMovCod').val();
+		if(id!=''){
+			window.open('calma_report.php?id='+id, "Imprimir Movimiento", "width=1200, height=620");
+		}else{
+			demo.showNotification('bottom','left', 'Porfavor coloque un tipo de movimiento valido', 4);
+		}
+	});
 
     $('#btnCancelar').click(function(){
         $('#btnCancelar').addClass('disabled'); //deshabilitamos el cancelar
@@ -36,6 +46,7 @@ $(document).ready(function(){
         $('#btnAnterior').addClass('disabled');
         $('#btnSiguiente').addClass('disabled');
         $('#btnUltimo').addClass('disabled');
+		$('#btnImprimir').addClass('disabled');
 
 		limpiarCampos();
 		limpiarTablaMateriales();
@@ -116,6 +127,7 @@ function consultarTipoMovimiento(txtMovCod){
 			obtenerMaterialesMovimiento(txtMovCod);
 			$('#btnConsulta').addClass('disabled'); //deshabilitamos el consultar
         	$('#btnCancelar').removeClass('disabled'); //habilitamos el cancelar
+			$('#btnImprimir').removeClass('disabled'); //habilitamos el imprimir
         }
     });
 }
