@@ -4,6 +4,7 @@ $(document).ready(function () {
 	$('#btnGuardar').removeClass('disabled');
 	$('#btnListaValores').addClass('disabled');
 	$('#btnConsulta').removeClass('disabled');
+	$('#txtCod').focus();
 
 	$('#txtCot').click(function(){
 		//$('#txtCot').val('');
