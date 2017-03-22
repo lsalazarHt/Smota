@@ -5,6 +5,8 @@ $(document).ready(function () {
 		actulizarOrdenes(init);
 	}
 
+	$('#txtCod').focus();
+
     $('#btnListaValores').addClass('disabled');
     $('#btnEditor').addClass('disabled');
 
@@ -18,7 +20,8 @@ $(document).ready(function () {
 			if(id!=''){
 				buscarUsuario(id);
 			}else{
-				alert('Error! Porfavor coloque un usuario valido')
+				var msgError = 'Error! Porfavor coloque un usuario valido';
+				demo.showNotification('bottom','left', msgError, 4);
 			}
 		}
 	});
@@ -139,7 +142,8 @@ function buscarUsuario(cod){
         		actulizarOrdenes(cod);
         	}else{
 				limpiar();
-        		alert('Error! El Usuario no existe')
+				var msgError = 'Error! El Usuario no existe';
+				demo.showNotification('bottom','left', msgError, 4);
         	}
         }
     });

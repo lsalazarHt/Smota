@@ -11,20 +11,21 @@ $(document).ready(function () {
 		$('#txtNomt').val('');
 		$('#btnListaValores').removeClass('disabled');
 	});
-	$("#txtCot").keypress(function(event){
-		if(event.which == 13){
-			codTec = $('#txtCot').val();
-			buscarTecnico(codTec);
-		}
-	});
+	// $("#txtCot").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		codTec = $('#txtCot').val();
+	// 		buscarTecnico(codTec);
+	// 	}
+	// });
 
-	$("#txtCod").keypress(function(event){
-		if(event.which == 13){
-			codPqr = $('#txtCod').val();
-			buscarPqr(codPqr);
-		}
-	});
+	// $("#txtCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		codPqr = $('#txtCod').val();
+	// 		buscarPqr(codPqr);
+	// 	}
+	// });
 
+	
 	//Agregar campos
 	$('#btnNuevo').click(function(){
 		$('#txtCod').val('');
@@ -90,7 +91,8 @@ $(document).ready(function () {
 
 		if( (cod!='') && (nom!='') && (dia!='') && (pInsp!='') && (cCost!='') && (prio!='') && (vTdentro!='') && (vTfuera!='') ){
 			if( (cTec!='') && (nTec=='') ){
-				alert('Error! Porfavor coloque un tecnico valido')
+				var msgError = 'Error! Porfavor coloque un tecnico valido';
+				demo.showNotification('bottom','left', msgError, 4);
 				return false;
 			}
 
@@ -104,7 +106,8 @@ $(document).ready(function () {
 			        success: function(data){
 			            if(data==1){
 		                    $('#btnNuevo').click();
-		                    alert('El PQR se agrego con exito')
+		                    var msgError = 'El PQR se agrego con exito';
+							demo.showNotification('bottom','left', msgError, 2);
 			            }else{ alert(data+' Agregar!') }
 			        }
 			    });
@@ -119,13 +122,15 @@ $(document).ready(function () {
 			        success: function(data){
 			            if(data==1){
 		                    $('#btnNuevo').click();
-		                    alert('El PQR se edito con exito')
+		                    var msgError = 'El PQR se edito con exito';
+							demo.showNotification('bottom','left', msgError, 2);
 			            }else{ alert(data+' Editar!') }
 			        }
 			    });
 			}
 		}else{
-			alert('Error! Porfavor complete los datos')
+			var msgError = 'Error! Porfavor complete los datos';
+			demo.showNotification('bottom','left', msgError, 4);
 		}
 	});
 
@@ -246,7 +251,15 @@ function buscarTecnico(codTec){
 	        }
 	    });
 	}else{
-		alert('Error! Porfavor coloque un tecnico valido')
+		/*
+					BACKGROUND-COLOR ALERTAS
+						AZUL = 1
+						VERDE = 2
+						NARANJA = 3
+						ROJO = 4
+		*/
+		var msgError = 'Error! Porfavor coloque un tecnico valido';
+		demo.showNotification('bottom','left', msgError, 4);
 		$('#txtCot').val('');
 	}
 }
@@ -305,7 +318,8 @@ function buscarPqr(codPqr){
 	        }
 	    });
 	}else{
-		alert('Error! Porfavor coloque un PQR valido')
+		var msgError = 'Error! Porfavor coloque un PQR valido';
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function solonumeros(){
@@ -322,4 +336,15 @@ function descargarEditor(){
 	var dat = $('#txtCampEditor').val();
 	$('#'+varEditor).val(dat);
 	$('#editModal').modal('hide');
+}
+
+function pressEnter(campo){
+	if(campo==='txtCot'){
+		codTec = $('#txtCot').val();
+		buscarTecnico(codTec);
+	}
+	if(campo==='txtCod'){
+		codPqr = $('#txtCod').val();
+		buscarPqr(codPqr);
+	}
 }

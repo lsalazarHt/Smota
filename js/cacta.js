@@ -1,7 +1,9 @@
 $(document).ready(function(){
 	$('#btnCancelar').removeClass('disabled');
+    $("#txtActCod").focus();
+
 	$('#btnCancelar').click(function(){
-        
+
         limpiarDatos();
     });
 	$('#btnConsulta').click(function(){
@@ -9,7 +11,8 @@ $(document).ready(function(){
         if(act!=''){
         	buscarActa(act);
         }else{
-        	alert('Porfavor coloque un numero de acta valida')
+            var msgError = 'Porfavor coloque un numero de acta valida';
+            demo.showNotification('bottom','left', msgError, 4);
         }
     });
 
@@ -19,7 +22,8 @@ $(document).ready(function(){
 	        if(act!=''){
 	        	buscarActa(act);
 	        }else{
-	        	alert('Porfavor coloque un numero de acta valida')
+                var msgError = 'Porfavor coloque un numero de acta valida';
+                demo.showNotification('bottom','left', msgError, 4);
 	        }
 		}
 	});

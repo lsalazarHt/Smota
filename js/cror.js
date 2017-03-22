@@ -82,6 +82,8 @@ $(document).ready(function(){
 	    cell3.innerHTML = a+b;
 
 	    $('#contRowMano').val(rowCount);
+	    $('#txtCodMan'+rowCount).focus();
+	    selectedNewRow(row.id);
 	});
 
 	$('#addMateriales').click(function(){
@@ -90,36 +92,38 @@ $(document).ready(function(){
 		var table = document.getElementById('tableMateriales');
 	    var rowCount = table.rows.length;
 	    var row = table.insertRow(rowCount);
-	    row.className = 'trDefaultMat';
-	    row.id = 'trSelectMat'+rowCount;
+	    row.className = 'trDefaultTwo';
+	    row.id = 'trSelect'+rowCount;
 
 	    var cell1 = row.insertCell(0);
 	    cell1.className = 'text-center';
-	    cod = '<input type="text" id="txtCodMat'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumerosEnterMat('+rowCount+')" onclick="swEditorMat(\'txtCodMat'+rowCount+'\',\'trSelectMat'+rowCount+'\',6,'+rowCount+')">';
+	    cod = '<input type="text" id="txtCodMat'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumerosEnterMat('+rowCount+')" onclick="swEditorMat(\'txtCodMat'+rowCount+'\',\'trSelect'+rowCount+'\',6,'+rowCount+')">';
 	    codH = '<input type="hidden" id="txtTipoMat'+rowCount+'" value="0">';
 	    cell1.innerHTML = cod+codH;
 
 	    var cell1 = row.insertCell(1);
 	    cell1.className = 'text-center';
-	    nom = '<input readonly type="text" id="txtNombMat'+rowCount+'" class="form-control input-sm" onclick="swEditorMat(\'txtNombMat'+rowCount+'\',\'trSelectMat'+rowCount+'\',6,'+rowCount+')">';
+	    nom = '<input readonly type="text" id="txtNombMat'+rowCount+'" class="form-control input-sm" onclick="swEditorMat(\'txtNombMat'+rowCount+'\',\'trSelect'+rowCount+'\',6,'+rowCount+')">';
 	    cell1.innerHTML = nom;
 	    
 	    
 	    var cell2 = row.insertCell(2);
 	    cell2.className = '';
-	    a = '<input id="txtCantMat'+rowCount+'" type="text" class="form-control input-sm text-right" onkeypress="colocarMateCant('+rowCount+')" onclick="swEditorMat(\'txtCantMat'+rowCount+'\',\'trSelectMat'+rowCount+'\',6,'+rowCount+')">';
+	    a = '<input id="txtCantMat'+rowCount+'" type="text" class="form-control input-sm text-right" onkeypress="colocarMateCant('+rowCount+')" onclick="swEditorMat(\'txtCantMat'+rowCount+'\',\'trSelect'+rowCount+'\',6,'+rowCount+')">';
 	    b = '<input id="txtCantMatMax'+rowCount+'" type="hidden" >';
 	    c = '<input id="txtCantMatFija'+rowCount+'" type="hidden" >';
 	    cell2.innerHTML = a+b+c;
 
 	    var cell3 = row.insertCell(3);
 	    cell3.className = 'text-center ';
-	    a = '<input id="txtValMat'+rowCount+'" type="text" class="form-control input-sm text-right" onkeypress="solonumeros()" onclick="swEditorMat(\'txtValMat'+rowCount+'\',\'trSelectMat'+rowCount+'\',6,'+rowCount+')">';
+	    a = '<input id="txtValMat'+rowCount+'" type="text" class="form-control input-sm text-right" onkeypress="solonumeros()" onclick="swEditorMat(\'txtValMat'+rowCount+'\',\'trSelect'+rowCount+'\',6,'+rowCount+')">';
 	    b = '<input id="txtValMatMax'+rowCount+'" type="hidden" >';
 	    c = '<input id="txtCantMatInv'+rowCount+'" type="hidden" >';
 	    cell3.innerHTML = a+b+c; 
 
-	    $('#contRowMate').val(rowCount);
+	    $('#contRowMate').val(rowCount);	    
+	    $('#txtCodMat'+rowCount).focus();
+	    selectedNewRowTable2(row.id);
 	});
 
 	$('#btnListaValores').click(function(){
@@ -133,17 +137,26 @@ $(document).ready(function(){
 			tec = $.trim($('#txtCodiTecn').val());
 			if(tec!=''){
 				actualizarPqr(tec);
-			}else{ alert('Porfavor coloque un tecnico valido') }
+			}else{ 
+				var msgError = 'Porfavor coloque un tecnico valido';
+				demo.showNotification('bottom','left', msgError, 4);
+			}
 		}else if(modal==5){ //Validar mano de obra x tecnico y pqr
 			pqr = $.trim($('#txtCodTrab').val());
 			if(pqr!=''){
 				actualizarManoObra(pqr);
-			}else{ alert('Porfavor coloque una pqr valido') }
+			}else{ 
+				var msgError = 'Porfavor coloque una pqr valido';
+				demo.showNotification('bottom','left', msgError, 4);
+			}
 		}else if(modal==6){
 			pqr = $.trim($('#txtCodTrab').val());
 			if(pqr!=''){
 				actualizarMateriales(pqr);
-			}else{ alert('Porfavor coloque una pqr valido') }
+			}else{ 
+				var msgError = 'Porfavor coloque una pqr valido';
+				demo.showNotification('bottom','left', msgError, 4);
+			}
 			$('#modalMaterial').modal('show');
 		}
 	});
@@ -240,7 +253,8 @@ $(document).ready(function(){
 		if(ordTip=='h'){
 			if( (dPadre=='') || (lPadre=='') || (nPadre=='') ){
 				return false;
-				alert('Error! Porfavor complete los datos del la orden padre')
+				var msgError = 'Error! Porfavor complete los datos del la orden padre';
+				demo.showNotification('bottom','left', msgError, 4);
 			}
 		}
 
@@ -293,45 +307,48 @@ $(document).ready(function(){
 							    });
 							}
 						}
-						alert('La orden se guardo con Exito!')
+						var msgError = 'La orden se guardo con Exito!';
+						demo.showNotification('bottom','left', msgError, 2);
 						$('#btnNuevo').click();
 		        	}else{
-		        		alert('Se presento un error al guardar la orden de trabajo')
+		        		var msgError = 'Se presento un error al guardar la orden de trabajo';
+						demo.showNotification('bottom','left', msgError, 4);
 		        	}
 		        }
 		    });
 		}else{
-			alert('Error! Porfavor complete los datos')
+			var msgError = 'Error! Porfavor complete los datos';
+			demo.showNotification('bottom','left', msgError, 4);
 		}
 	});
 
-	$("#txtCodiCuad").keypress(function(event){
-		if(event.which == 13){
-			cod = $.trim($('#txtCodiCuad').val());
-			buscarCuadrilla(cod);
-		}
-	})
-	$("#txtCodiTecn").keypress(function(event){
-		if(event.which == 13){
-			cod = $.trim($('#txtCodiTecn').val());
-				buscarTecnico(cod);
-		}
-	});
-	$("#txtCodiUsua").keypress(function(event){
-		if(event.which == 13){
-			cod = $.trim($('#txtCodiUsua').val());
-			buscarUsuario(cod);
-		}
-	});
-	$("#txtCodTrab").keypress(function(event){
-		if(event.which == 13){
-			cod = $.trim($('#txtCodTrab').val());
-			tec = $.trim($('#txtCodiTecn').val());
-			if(tec!=''){
-				buscarTrabajo(cod,tec);
-			}else{ alert('Porfavor coloque un tecnico valido') }
-		}
-	});
+	// $("#txtCodiCuad").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cod = $.trim($('#txtCodiCuad').val());
+	// 		buscarCuadrilla(cod);
+	// 	}
+	// })
+	// $("#txtCodiTecn").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cod = $.trim($('#txtCodiTecn').val());
+	// 			buscarTecnico(cod);
+	// 	}
+	// });
+	// $("#txtCodiUsua").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cod = $.trim($('#txtCodiUsua').val());
+	// 		buscarUsuario(cod);
+	// 	}
+	// });
+	// $("#txtCodTrab").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cod = $.trim($('#txtCodTrab').val());
+	// 		tec = $.trim($('#txtCodiTecn').val());
+	// 		if(tec!=''){
+	// 			buscarTrabajo(cod,tec);
+	// 		}else{ alert('Porfavor coloque un tecnico valido') }
+	// 	}
+	// });
 
 	$('#txtHoraInicio').focusout(function(){
 		hIni = $('#txtHoraInicio').val();
@@ -339,7 +356,8 @@ $(document).ready(function(){
 
 		if( (hIni!='') && (hFin!='') ){
 			if(hIni>=hFin){
-				alert('La hora de inicio no es valida')
+				var msgError = 'La hora de inicio no es valida';
+				demo.showNotification('bottom','left', msgError, 4);
 				$('#txtHoraInicio').val('');
 			}
 		}
@@ -351,7 +369,8 @@ $(document).ready(function(){
 		
 		if( (hIni!='') && (hFin!='') ){
 			if(hIni>=hFin){
-				alert('La hora de inicio no es valida')
+				var msgError = 'La hora de inicio no es valida';
+				demo.showNotification('bottom','left', msgError, 4);
 				$('#txtHoraInicio').val('');
 			}
 		}
@@ -412,7 +431,7 @@ function swEditor(id,trId,mod,id){
 }
 function swEditorMat(id,trId,mod,id){
 
-	$('.trDefaultMat').removeClass('trSelect');
+	$('.trDefaultTwo').removeClass('trSelect');
 	$('#'+trId).addClass('trSelect');
 	modal = mod;
 	idMatGl = id;
@@ -437,7 +456,8 @@ function buscarCuadrilla(cod){
 	            $('#txtCodiCuad').val(cod);
 	            $('#txtNombCuad').val(data);
         	}else{
-        		alert('Porfavor coloque una cuadrilla valida')
+        		var msgError = 'Porfavor coloque una cuadrilla valida';
+				demo.showNotification('bottom','left', msgError, 4);
         	}
         	$('#modalCuadrillas').modal('hide');
         }
@@ -454,7 +474,8 @@ function buscarTecnico(cod){
 	            $('#txtCodiTecn').val(cod);
 	            $('#txtNombTecn').val(data);
         	}else{
-        		alert('Porfavor coloque un tecnico valido')
+        		var msgError = 'Porfavor coloque un tecnico valido';
+				demo.showNotification('bottom','left', msgError, 4);
         	}
         	$('#modalTecnicos').modal('hide');
         }
@@ -471,7 +492,8 @@ function buscarUsuario(cod){
 	            $('#txtNombUsua').val(data);
 	            buscarDireccionUsuario(cod);
         	}else{
-        		alert('Porfavor coloque un usuario valido')
+        		var msgError = 'Porfavor coloque un usuario valido';
+				demo.showNotification('bottom','left', msgError, 4);
         	}
         	$('#modalUsuarios').modal('hide');
         }
@@ -498,7 +520,8 @@ function buscarTrabajo(cod,tec){
 	            $('#txtNomTrab').val(data);
         	}else{
         		$('#txtNomTrab').val('');
-        		alert('Porfavor coloque un pqr valido')
+        		var msgError = 'Porfavor coloque un pqr valido';
+				demo.showNotification('bottom','left', msgError, 4);
         	}
         	$('#modalPqr').modal('hide');
         }
@@ -537,12 +560,14 @@ function buscarManoObra(cod,cant,val){
 		            $('#txtValMan'+idManGl).val(val);
 		            $('#txtValManTotal'+idManGl).val(val);
 	        	}else{
-	        		alert('Porfavor coloque una mano de obra valida')
+	        		var msgError = 'Porfavor coloque una mano de obra valida';
+					demo.showNotification('bottom','left', msgError, 4);
 	        	}
 	        }
 	    });
 	}else{
-		alert('Error! La mano de obra ya existe')
+		var msgError = 'Error! La mano de obra ya existe';
+		demo.showNotification('bottom','left', msgError, 3);
 	}
 }
 function buscarMaterial(cod,cantFija,cant,invCant,invVal){
@@ -574,12 +599,14 @@ function buscarMaterial(cod,cantFija,cant,invCant,invVal){
 		            $('#txtValMatMax'+idMatGl).val(invVal);
 		            $('#txtCantMatInv'+idMatGl).val(invCant);
 	        	}else{
-	        		alert('Porfavor coloque un material valido')
+	        		var msgError = 'Porfavor coloque un material valido';
+					demo.showNotification('bottom','left', msgError, 4);
 	        	}
 	        }
 	    });
 	}else{
-		alert('Error! El material ya existe')
+		var msgError = 'Error! El material ya existe';
+		demo.showNotification('bottom','left', msgError, 3);
 	}
 }
 function solonumerosEnterMano(id){
@@ -645,12 +672,14 @@ function buscarManoObraCant(cod){
 		            $('#txtValMan'+idManGl).val(data[2]);
 		            $('#txtValManTotal'+idManGl).val(data[2]);
 	        	}else{
-	        		alert('Porfavor coloque una mano de obra valida')
+	        		var msgError = 'Porfavor coloque una mano de obra valida';
+					demo.showNotification('bottom','left', msgError, 4);
 	        	}
 	        }
 	    });
 	}else{
-		alert('Error! La mano de obra ya existe')
+		var msgError = 'Error! La mano de obra ya existe';
+		demo.showNotification('bottom','left', msgError, 3);
 	}
 }
 function colocarManoObraCal(id){
@@ -661,7 +690,8 @@ function colocarManoObraCal(id){
 	if(cant<=cantMax){
 		$('#txtValManTotal'+id).val(cant*val);
 	}else{
-		alert('La Cantidad no es valida');
+		var msgError = 'La Cantidad no es valida';
+		demo.showNotification('bottom','left', msgError, 4);
 		$('#txtCantMan'+id).val(1);
 		$('#txtValManTotal'+id).val(val);
 	}
@@ -757,12 +787,14 @@ function buscarMaterialxCant(cod){
 		            $('#txtValMatMax'+idMatGl).val(data[4]);
 		            $('#txtCantMatInv'+idMatGl).val(data[3]);
 	        	}else{
-	        		alert('Porfavor coloque un material valido')
+	        		var msgError = 'Porfavor coloque un material valido';
+					demo.showNotification('bottom','left', msgError, 4);
 	        	}
 	        }
 	    });
 	}else{
-		alert('Error! El material ya existe')
+		var msgError = 'Error! El material ya existe';
+		demo.showNotification('bottom','left', msgError, 3);
 	}
 }
 function colocarMateCant(id){
@@ -784,7 +816,8 @@ function calcularMaterial(id){
 		if(cant<=cantInv){
 			$('#txtValMat'+id).val(cant*val);
 		}else{
-			alert('La Cantidad no es valida, el inventario no es suficiente');
+			var msgError = 'La Cantidad no es valida, el inventario no es suficienteo';
+			demo.showNotification('bottom','left', msgError, 4);
 			$('#txtCantMat'+id).val(1);
 			$('#txtValMat'+id).val(val);
 		}
@@ -793,10 +826,36 @@ function calcularMaterial(id){
 			$('#txtCantMat'+id).val(cantFija);
 			$('#txtValMat'+id).val(cantFija*val);
 		}else{
-			alert('La Cantidad no es valida, el inventario no es suficiente');
+			var msgError = 'La Cantidad no es valida, el inventario no es suficiente';
+			demo.showNotification('bottom','left', msgError, 4);
 			$('#txtCantMat'+id).val(cantInv);
 			$('#txtValMat'+id).val(cantInv*val);
 		}
 	}
 }
 //solonumeros
+
+function pressEnter(campo){
+	if(campo==='txtCodiCuad'){
+		cod = $.trim($('#txtCodiCuad').val());
+		buscarCuadrilla(cod);
+	}
+	if(campo==='txtCodiTecn'){
+		cod = $.trim($('#txtCodiTecn').val());
+		buscarTecnico(cod);
+	}
+	if(campo==='txtCodiUsua'){
+		cod = $.trim($('#txtCodiUsua').val());
+		buscarUsuario(cod);
+	}
+	if(campo==='txtCodTrab'){
+		cod = $.trim($('#txtCodTrab').val());
+		tec = $.trim($('#txtCodiTecn').val());
+		if(tec!=''){
+			buscarTrabajo(cod,tec);
+		}else{ 
+			var msgError = 'Porfavor coloque un tecnico valido';
+			demo.showNotification('bottom','left', msgError, 4);
+		}
+	}
+}

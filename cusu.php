@@ -104,6 +104,9 @@
 	    $table = '';
 	}
 ?>
+<!--  Material Dashboard CSS    -->
+<link href="assets/css/material-dashboard.css" rel="stylesheet"/>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
 		<?php require 'template/menu.php'; ?> 
@@ -283,3 +286,11 @@
 </body>
 <?php require 'template/end.php'; ?>
 <script src="js/cusu.js"></script>
+<!--  Detectar cambios en las Formas    -->
+<script src="assets/js/detectaCambiosEnFormas.js"></script>
+<!--  Seleccionar nuevo Item Talas    -->
+<script src="assets/js/selectedNewRow.js"></script>
+<!--  Notifications Plugin    -->
+<script src="assets/js/bootstrap-notify.js"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="assets/js/demo.js"></script>

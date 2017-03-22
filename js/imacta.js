@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	$('#btnEditor').addClass('disabled');
 	$('#btnCancelar').removeClass('disabled');
+	$('#txtActCod').focus();
 
 	$('#btnListaValores').click(function(){
 		if(modal==1){
@@ -36,7 +37,8 @@ $(document).ready(function(){
 		if( (cod!='') && (vNe!='') ){
 			imprimirActa(cod);
 		}else{
-			alert('Porfavor coloque un acta valido')
+			var msgError = 'Porfavor coloque un acta valido';
+			demo.showNotification('bottom','left', msgError, 4);
 		}
 	});
 
@@ -72,7 +74,10 @@ function buscarActa(cod){
 	        	}
 	        }
 	    });
-	}else{ alert('Porfavor coloque una acta valida') }
+	}else{ 
+		var msgError = 'Porfavor coloque un acta valido';
+		demo.showNotification('bottom','left', msgError, 4);
+	}
 }
 function imprimirActa(cod){
 	var result = confirm("Esta seguro que desea imprimir el acta #"+cod);

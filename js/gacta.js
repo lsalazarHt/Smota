@@ -16,14 +16,17 @@ $(document).ready(function(){
 		modal = 1;
 		$('#txtTecNomb').val('');
 	});
-	$("#txtTecCod").keypress(function(event){
-		if(event.which == 13){
-			cod = $.trim($('#txtTecCod').val());
-			if( cod!='' ){
-				buscarTecnico(cod);
-			}else{ alert('Porfavor coloque un tecnico valido') }
-		}
-	});
+	// $("#txtTecCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cod = $.trim($('#txtTecCod').val());
+	// 		if( cod!='' ){
+	// 			buscarTecnico(cod);
+	// 		}else{ 
+	// 			var msgError = 'Porfavor coloque un tecnico valido';
+	// 			demo.showNotification('bottom','left', msgError, 4);
+	// 		}
+	// 	}
+	// });
 
 	$('#btnCancelar').click(function(){
 		modal = 1;
@@ -41,7 +44,8 @@ $(document).ready(function(){
 		if( (tec!='') && (tno!='') && (fec!='') ){
 			generarActa(tec,fec);
 		}else{
-			alert('Porfavor complete los datos')
+			var msgError = 'Porfavor complete los datos';
+			demo.showNotification('bottom','left', msgError, 4);
 		}
 	});
 });
@@ -73,7 +77,8 @@ function generarActa(tec,fec){
 	        dataType: 'json',
 	        success: function(data){
 	        	if(data[0]==1){
-	        		alert('El acta #'+data[1]+' se genero con exito')
+	        		var msgError = 'El acta #'+data[1]+' se genero con exito';
+					demo.showNotification('bottom','left', msgError, 2);
 	        		$('#btnCancelar').click();
 	        	}else{
 	        		alert(data)
@@ -86,4 +91,16 @@ function generarActa(tec,fec){
 function solonumeros(){
 	if ( (event.keyCode < 48) || (event.keyCode > 57)  ) 
 	    event.returnValue = false;
+}
+
+function pressEnter(campo){
+	if(campo==='txtTecCod'){
+			cod = $.trim($('#txtTecCod').val());
+			if( cod!='' ){
+				buscarTecnico(cod);
+			}else{ 
+				var msgError = 'Porfavor coloque un tecnico valido';
+				demo.showNotification('bottom','left', msgError, 4);
+			}
+	}
 }

@@ -10,6 +10,9 @@
         }
 ?>
 <?php require 'template/start.php'; ?>
+<!--  Material Dashboard CSS    -->
+<link href="assets/css/material-dashboard.css" rel="stylesheet"/>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
 		<?php require 'template/menu.php'; ?>
@@ -258,14 +261,14 @@
 					                	<div class="form-group">
 					                     	<label for="txtCod" class="col-sm-2 control-label text-right" style="margin-top:5px;">Orden</label>
 					                     	<div class="col-sm-3">
-				                        		<input id="txtDepOrd" style="float:left; width:50px;" type="text" class="form-control input-sm" onkeypress="solonumeros()">
-				                        		<input id="txtLocaOrd" style="float:left; width:50px; margin-left:8px;" type="text" class="form-control input-sm" onkeypress="solonumeros()">
-				                        		<input id="txtNumbOrd" style="float:left; width:100px; margin-left:8px;" type="text" class="form-control input-sm" onkeypress="solonumeros()">
+				                        		<input id="txtDepOrd" style="float:left; width:50px;" type="text" class="form-control input-sm e e1" onkeypress="solonumeros()">
+				                        		<input id="txtLocaOrd" style="float:left; width:50px; margin-left:8px;" type="text" class="form-control input-sm e e2" onkeypress="solonumeros()">
+				                        		<input id="txtNumbOrd" style="float:left; width:100px; margin-left:8px;" type="text" class="form-control input-sm e e3" onkeypress="solonumeros()">
 				                      		</div>
 
 				                      		<label class="col-sm-2 control-label text-right" style="margin-top:5px;">Fecha Orden</label>
 					                     	<div class="col-sm-4">
-				                        		<input id="txtFechOrd" style="float:left; width:150px;" type="date" class="form-control input-sm" onkeypress="solonumeros()">
+				                        		<input id="txtFechOrd" style="float:left; width:150px;" type="date" class="form-control input-sm e e4" onkeypress="solonumeros()">
 				                      		</div>
 
 					                    </div>
@@ -280,7 +283,7 @@
 
 				                      		<label class="col-sm-1 control-label text-right" style="margin-top:5px;">Tecnico</label>
 					                     	<div class="col-sm-5">
-				                        		<input id="txtCodiTecn" style="float:left; width:50px;" type="text" class="form-control input-sm" onkeypress="solonumeros()" onclick="swModal(2)">
+				                        		<input id="txtCodiTecn" style="float:left; width:50px;" type="text" class="form-control input-sm e e5 key" onkeypress="solonumeros()" onclick="swModal(2)">
 				                        		<input id="txtNombTecn" style="float:left; width:250px; margin-left:8px;" type="text" class="form-control input-sm" readonly>
 				                      		</div>
 					                    </div>
@@ -289,7 +292,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtCod" class="col-sm-2 control-label text-right" style="margin-top:5px;">Usuario</label>
 					                     	<div class="col-sm-4">
-				                        		<input id="txtCodiUsua" style="float:left; width:50px;" type="text" class="form-control input-sm" onkeypress="solonumeros()" onclick="swModal(3)">
+				                        		<input id="txtCodiUsua" style="float:left; width:50px;" type="text" class="form-control input-sm e e6 key" onkeypress="solonumeros()" onclick="swModal(3)">
 				                        		<input id="txtNombUsua" style="float:left; width:250px; margin-left:8px;" type="text" class="form-control input-sm" readonly>
 				                      		</div>
 				                      		<label class="col-sm-1 control-label text-right" style="margin-top:5px;">Cumplida</label>
@@ -310,7 +313,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtCod" class="col-sm-2 control-label text-right" style="margin-top:5px;">Trabajo Encontrado</label>
 					                     	<div class="col-sm-8">
-				                        		<input id="txtCodTrab" style="float:left; width:50px;" type="text" class="form-control input-sm" onkeypress="solonumeros()" onclick="swModal(4)">
+				                        		<input id="txtCodTrab" style="float:left; width:50px;" type="text" class="form-control input-sm e e7 key" onkeypress="solonumeros()" onclick="swModal(4)">
 				                        		<input id="txtNomTrab" style="float:left; width:565px; margin-left:8px;" type="text" class="form-control input-sm" readonly>
 				                      		</div>
 					                    </div>
@@ -319,11 +322,11 @@
 					                	<div class="form-group">
 					                     	<label for="txtHoraInicio" class="col-sm-2 control-label text-right" style="margin-top:5px;">Hora Inicial</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="time" class="form-control input-sm" id="txtHoraInicio">
+				                        		<input type="time" class="form-control input-sm e e8" id="txtHoraInicio">
 				                      		</div>
 					                     	<label for="txtHoraFinal" class="col-sm-2 control-label text-right" style="margin-top:5px;">Hora Final</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="time" class="form-control input-sm" id="txtHoraFinal">
+				                        		<input type="time" class="form-control input-sm e e9" id="txtHoraFinal">
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -332,7 +335,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtObservacion" class="col-sm-2 control-label text-right" style="margin-top:5px;">Observacion en la Legalizacion</label>
 					                     	<div class="col-sm-7">
-					                     		<textarea class="form-control input-sm" id="txtObservacion" rows="4" onclick="editor('txtObservacion')"></textarea>
+					                     		<textarea class="form-control input-sm e e10" id="txtObservacion" rows="4" onclick="editor('txtObservacion')"></textarea>
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -388,3 +391,14 @@
 </body>
 <?php require 'template/end.php'; ?>
 <script src="js/cror.js"></script>
+<!--  Detectar cambios en las Formas    -->
+<script src="assets/js/detectaCambiosEnFormas.js"></script>
+<!--  Seleccionar nuevo Item Talas    -->
+<script src="assets/js/selectedNewRow.js"></script>
+<script src="assets/js/selectedNewRowTwo.js"></script>
+<!--  Notifications Plugin    -->
+<script src="assets/js/bootstrap-notify.js"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="assets/js/demo.js"></script>
+<!--  TAB ENTER    -->
+<script src="assets/js/tabEnter.js"></script>

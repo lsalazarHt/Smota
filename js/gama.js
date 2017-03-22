@@ -5,6 +5,7 @@ $(document).ready(function(){
 	$('#btnConsulta').addClass('disabled');
 	$('#btnCancelar').removeClass('disabled');
 	$('#btnEditor').addClass('disabled');
+	$('#txtTecCod').focus();
 
 	$('#btnListaValores').click(function(){
 		if(modal==1){
@@ -23,7 +24,10 @@ $(document).ready(function(){
 			cod = $.trim($('#txtTecCod').val());
 			if( cod!='' ){
 				buscarTecnico(cod);
-			}else{ alert('Porfavor coloque un tecnico valido') }
+			}else{ 
+				var msgError = 'Porfavor coloque un tecnico valido';
+				demo.showNotification('bottom','left', msgError, 4);
+			}
 		}
 	});
 
@@ -53,7 +57,8 @@ $(document).ready(function(){
 				        dataType: 'json',
 				        success: function(data){
 				        	if(data[0]==1){
-				        		alert('El acta #'+data[1]+' se genero con exito')
+				        		var msgError = 'El acta #'+data[1]+' se genero con exito';
+								demo.showNotification('bottom','left', msgError, 2);
 								mostrarManosdeObra();
 				        	}else{
 				        		alert(data)
@@ -62,8 +67,8 @@ $(document).ready(function(){
 				    });
 				}
 			}else{
-
-				alert('Porfavor elija minimo una orden') 
+				var msgError = 'Porfavor elija minimo una orden';
+				demo.showNotification('bottom','left', msgError, 4);
 			}
 			//alert('Las ordenes se desasignaron correctamente al tenico')
 		}
@@ -117,7 +122,8 @@ function mostrarManosdeObra(){
 	        }
 	    });
 	}else{
-		alert('Porfavor Complete los datos para realizar el ordenamiento');
+		var msgError = 'Porfavor Complete los datos para realizar el ordenamiento';
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 //OTROS

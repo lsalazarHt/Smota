@@ -5,12 +5,12 @@ $(document).ready(function () {
 	$('#btnConsulta').removeClass('disabled');
 	$('#btnEditor').addClass('disabled');
 	
-	$("#txtCod").keypress(function(event){
-		if(event.which == 13){
-			codTec = $('#txtCod').val();
-			buscarTecnico(codTec);
-		}
-	});
+	// $("#txtCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		codTec = $('#txtCod').val();
+	// 		buscarTecnico(codTec);
+	// 	}
+	// });
 
 	$("#btnCancelar").click(function(){
 
@@ -49,12 +49,12 @@ $(document).ready(function () {
 		$('#btnListaValores').removeClass('disabled');
 	});
 
-	$("#txtClaseCod").keypress(function(event){
-		if(event.which == 13){
-			cod = $('#txtClaseCod').val();
-			buscarClase(cod);
-		}
-	});
+	// $("#txtClaseCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cod = $('#txtClaseCod').val();
+	// 		buscarClase(cod);
+	// 	}
+	// });
 
 	$('#btnGuardar').click(function(){
 		tipo = $('#swEstadoTecnico').val();
@@ -98,7 +98,8 @@ $(document).ready(function () {
 			        	//console.log(data)
 			            if(data==1){
 		                    $('#btnCancelar').click();
-		                    alert('El Tecnico se agrego con exito')
+		                    var msgError = 'El Tecnico se agrego con exito';
+							demo.showNotification('bottom','left', msgError, 2);
 			            }else{ alert(data+' Agregar!') }
 			        }
 			    });
@@ -112,13 +113,15 @@ $(document).ready(function () {
 			        success: function(data){
 			            if(data==1){
 		                    $('#btnCancelar').click();
-		                    alert('El Tecnico se edito con exito')
+		                    var msgError = 'El Tecnico se edito con exito';
+							demo.showNotification('bottom','left', msgError, 2);
 			            }else{ alert(data+' Editar!') }
 			        }
 			    });
 			}
 		}else{
-			alert('Error! Porfavor complete los datos')
+			var msgError = 'Error! Porfavor complete los datos';
+			demo.showNotification('bottom','left', msgError, 4);
 		}
 	});
 
@@ -233,7 +236,8 @@ function buscarTecnico(cod){
         		$('#btnCancelar').removeClass('disabled');
         	}else{
 				limpiar();
-        		alert('Error! El Tecnico no existe')
+				var msgError = 'Error! El Tecnico no existe';
+				demo.showNotification('bottom','left', msgError, 4);
         	}
         }
     });
@@ -296,4 +300,15 @@ function limpiar(){
 	$('#txtSalario').val('');
 	$('#div_ckDevProd').html('<input type="checkbox" id="ckDevProd">');
 	$('#swEstadoTecnico').val(0);
+}
+
+function pressEnter(campo){
+	if(campo==='txtCod'){
+		codTec = $('#txtCod').val();
+		buscarTecnico(codTec);
+	}
+	if(campo==='txtClaseCod'){
+		cod = $('#txtClaseCod').val();
+		buscarClase(cod);
+	}
 }
