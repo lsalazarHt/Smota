@@ -281,6 +281,7 @@ function pressEnter(campo){
 		}
 	}
 	if(campo==='txtLocCod'){
+		console.log('aqui');
 		dep = $.trim($('#txtDepCod').val());
 		loc = $.trim($('#txtLocCod').val());
 		if( (dep!='') && (loc!='') ){
@@ -291,7 +292,7 @@ function pressEnter(campo){
 			demo.showNotification('bottom','left', msgError, 4);
 		}
 	}
-	if(campo==='txtCodOrd'){ion(event){
+	if(campo==='txtCodOrd'){
 		dep = $.trim($('#txtDepCod').val());
 		loc = $.trim($('#txtLocCod').val());
 		ord = $.trim($('#txtCodOrd').val());
