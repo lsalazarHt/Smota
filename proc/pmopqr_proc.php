@@ -88,12 +88,13 @@
 
         $query ="INSERT INTO manobpqr (MOPQPQR, MOPQMOBR, MOPQCANT, MAPQVLOR, MAPQVLDB, MAPQVGAS) 
                 VALUES (".$_REQUEST["codPqr"].",".$_REQUEST["cod"].",".$_REQUEST["cant"].",".$_REQUEST["vPagar"].",".$_REQUEST["vVenci"].",".$_REQUEST["vGaser"].")";
-        $respuesta = $conn->prepare($query) or die ($query);
+        echo $query;
+        /*$respuesta = $conn->prepare($query) or die ($query);
         if(!$respuesta->execute()){
             echo 'Error!';
         }else{
             echo 1;
-        }
+        }*/
 	}
 	if($_REQUEST["accion"]=="editar_registros"){
         if( $_REQUEST["cant"]=='' ){ $_REQUEST["cant"]=0; }

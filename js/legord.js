@@ -53,6 +53,19 @@ $(document).ready(function(){
 		$('#editModal').modal('show');
 	});
 
+	//validar departamento
+	$("#txtDepOrd").keypress(function(event){
+		if(event.which == 13){
+			validar_cod_departamento($(this).val());
+		}
+	});
+	//validar localidad
+	$("#txtLocaOrd").keypress(function(event){
+		if(event.which == 13){
+			validar_cod_localidad($(this).val(), $("#txtDepOrd").val());
+		}
+	});
+	//validar numero de localidad
 	$("#txtNumbOrd").keypress(function(event){
 		if(event.which == 13){
 			dep = $.trim($('#txtDepOrd').val());
@@ -60,7 +73,36 @@ $(document).ready(function(){
 			num = $.trim($('#txtNumbOrd').val());
 			if( (dep!='') && (loc!='') && (num!='') ){
 				buscarOrden(dep,loc,num);
-			}else{ alert('Porfavor coloque un numero valido') }
+			}else{ 
+				demo.showNotification('bottom','left', 'Porfavor coloque un numero de orden valido', 4);
+			}
+		}
+	});
+	//fecha de cumplimiento
+	$("#txtFechaCumpl").keypress(function(event){
+		if(event.which == 13){
+			$('#txtPqrCodEnc').focus();
+			modal = 2;
+		}
+	});
+	//hora inicial
+	$("#txtHoraInicial").keypress(function(event){
+		if(event.which == 13){
+			if($(this).val()!=''){
+				$('#txtHoraFinal').focus();
+			}else{
+				demo.showNotification('bottom','left', 'Porfavor coloque una hora valida', 4);
+			}
+		}
+	});
+	//hora final
+	$("#txtHoraFinal").keypress(function(event){
+		if(event.which == 13){
+			if($(this).val()!=''){
+				$('#txtObservacion').focus();
+			}else{
+				demo.showNotification('bottom','left', 'Porfavor coloque una hora valida', 4);
+			}
 		}
 	});
 
@@ -119,7 +161,9 @@ $(document).ready(function(){
 			tec = $.trim($('#txtCodTecn').val());
 			if(tec!=''){
 				buscarTrabajo(cod,tec);
-			}else{ alert('Porfavor coloque un tecnico valido') }
+			}else{
+				demo.showNotification('bottom','left', 'Porfavor coloque un tecnico valido', 4);
+			}
 		}
 	});
 
@@ -186,6 +230,11 @@ $(document).ready(function(){
 	    b = '<input id="txtValManTotal'+rowCount+'" type="text" class="form-control input-sm text-right" onkeypress="solonumeros()" onclick="swEditor(\'txtValMan'+rowCount+'\',\'trSelect'+rowCount+'\',5,'+rowCount+')" readonly>';
 	    cell3.innerHTML = a+b;
 
+		idManGl = rowCount;
+		selectedNewRow(row.id);
+		$('#txtCodMan'+rowCount).focus();
+		$('#selectRow').val(rowCount);
+		
 	    $('#contRowMano').val(rowCount);
 	});
 
@@ -219,11 +268,14 @@ $(document).ready(function(){
 
 	    var cell3 = row.insertCell(3);
 	    cell3.className = 'text-center ';
-	    a = '<input id="txtValMat'+rowCount+'" type="text" class="form-control input-sm text-right" onkeypress="solonumeros()" onclick="swEditorMat(\'txtValMat'+rowCount+'\',\'trSelectMat'+rowCount+'\',6,'+rowCount+')">';
+	    a = '<input readonly id="txtValMat'+rowCount+'" type="text" class="form-control input-sm text-right" onkeypress="solonumeros()" onclick="swEditorMat(\'txtValMat'+rowCount+'\',\'trSelectMat'+rowCount+'\',6,'+rowCount+')">';
 	    b = '<input id="txtValMatMax'+rowCount+'" type="hidden" >';
 	    c = '<input id="txtCantMatInv'+rowCount+'" type="hidden" >';
 	    cell3.innerHTML = a+b+c; 
 
+		selectedNewRow(row.id);
+		$('#txtCodMat'+rowCount).focus();
+		$('#selectRow').val(rowCount);
 	    $('#contRowMate').val(rowCount);
 	});
 
@@ -232,6 +284,36 @@ var modal = 1;
 var idManGl = 0;
 var idMatGl = 0;
 var ediText = '';
+
+//validar departamento y localidad
+function validar_cod_departamento(cod){
+	$.ajax({
+        type:'POST',
+        url:'proc/legord_proc.php?accion=validar_cod_departamento',
+        data:{ cod:cod },
+        success: function(data){
+			if(data==1){
+				$('#txtLocaOrd').focus();
+			}else{
+				demo.showNotification('bottom','left', 'Porfavor coloque un departamento valido', 4);
+			}
+        }
+    });
+}
+function validar_cod_localidad(cod,dep){
+	$.ajax({
+        type:'POST',
+        url:'proc/legord_proc.php?accion=validar_cod_localidad',
+        data:{ cod:cod, dep:dep },
+        success: function(data){
+			if(data==1){
+				$('#txtNumbOrd').focus();
+			}else{
+				demo.showNotification('bottom','left', 'Porfavor coloque una localidad valida', 4);
+			}
+        }
+    });
+}
 
 /*
 function swSalir(){
@@ -243,6 +325,7 @@ function salir_ventana(){
 	    txt = "You pressed OK!";
 	}
 }*/
+//buscar datos de ordenes
 function buscarOrden(dep,loc,num){
 	$.ajax({
         type:'POST',
@@ -297,6 +380,8 @@ function buscarOrden(dep,loc,num){
 			//Desbloquear 
 			$('#btnGuardar').removeClass('disabled');
 			$('#btnCancelar').removeClass('disabled');
+
+			$('#txtFechaCumpl').focus();
         }
     });
 }
@@ -471,9 +556,10 @@ function buscarTrabajo(cod,tec){
         	if(data!=''){
 	            $('#txtPqrCodEnc').val(cod);
 	            $('#txtPqrNombEnc').val(data);
+				$('#txtHoraInicial').focus();
         	}else{
         		$('#txtPqrNombEnc').val('');
-        		alert('Porfavor coloque un pqr valido')
+				demo.showNotification('bottom','left', 'Porfavor coloque un pqr valido', 4);
         	}
         	$('#modalPqr').modal('hide');
         }
@@ -594,13 +680,20 @@ function buscarManoObraCant(cod){
 		            $('#txtCantManMAx'+idManGl).val(data[1]);
 		            $('#txtValMan'+idManGl).val(data[2]);
 		            $('#txtValManTotal'+idManGl).val(data[2]);
+					$('#txtCantMan'+idManGl).focus();
 	        	}else{
-	        		alert('Porfavor coloque una mano de obra valida')
+					demo.showNotification('bottom','left', 'Porfavor coloque una mano de obra valida', 4);
+					$('#txtCodMan'+idManGl).val('');
+		            $('#txtNombMan'+idManGl).val('');
+					$('#txtCantMan'+idManGl).val('');
+					$('#txtCantManMAx'+idManGl).val('');
+		            $('#txtValMan'+idManGl).val('');
+		            $('#txtValManTotal'+idManGl).val('');
 	        	}
 	        }
 	    });
 	}else{
-		alert('Error! La mano de obra ya existe')
+		demo.showNotification('bottom','left', 'Error! La mano de obra ya existe', 4);
 	}
 }
 function colocarManoObraCal(id){
@@ -611,7 +704,7 @@ function colocarManoObraCal(id){
 	if(cant<=cantMax){
 		$('#txtValManTotal'+id).val(cant*val);
 	}else{
-		alert('La Cantidad no es valida');
+		demo.showNotification('bottom','left', 'La Cantidad no es valida', 4);
 		$('#txtCantMan'+id).val(1);
 		$('#txtValManTotal'+id).val(val);
 	}
@@ -764,4 +857,14 @@ function calcularMaterial(id){
 			$('#txtValMat'+id).val(cantInv*val);
 		}
 	}
+}
+function selectedNewRow(id){
+	// $('table > tbody  > tr').each(function(tr) {
+	//     if($('#trSelect'+tr).hasClass('trSelect')===true){
+	//     	$('#trSelect'+tr).removeClass('trSelect');
+	//     }
+
+	// });
+	$('.trDefault').removeClass('trSelect');
+	$('#'+id).addClass('trSelect');
 }

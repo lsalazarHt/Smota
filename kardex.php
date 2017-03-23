@@ -128,7 +128,7 @@
 				                      		</div>
 				                      		<div class="col-sm-3">
 				                      			<a class="btn btn-sm btn-primary" onclick="limpiar()">Limpiar Pantalla</a>
-				                      			<a class="btn btn-sm btn-primary" onclick="consultar()">Consultar</a>
+				                      			<a id="btnConsultar_kardex" class="btn btn-sm btn-primary" onclick="consultar()">Consultar</a>
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -162,27 +162,27 @@
 					                	<div class="form-group">
 					                     	<label for="txtCantInic" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Cantidad Inicial</small></label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control" id="txtCantInic" placeholder="Cant" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control text-right" id="txtCantInic" placeholder="0" readonly>
 				                      		</div>
 				                      		<label for="txtEntrCant" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Entradas Cantidad</small></label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control" id="txtEntrCant" placeholder="Cant" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control text-right" id="txtEntrCant" placeholder="0" readonly>
 				                      		</div>
 				                      		<label for="txtSalidCant" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Salidas Cantidad</small></label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control" id="txtSalidCant" placeholder="Cant" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control text-right" id="txtSalidCant" placeholder="0" readonly>
 				                      		</div>
 				                      		<label for="txtCantFinSist" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Cant Final Sistema</small></label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control" id="txtCantFinSist" placeholder="Cant" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control text-right" id="txtCantFinSist" placeholder="0" readonly>
 				                      		</div>
 				                      		<label for="txtCantFinCalc" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Cant Final Calculada</small></label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control input-sm" id="txtCantFinCalc" placeholder="Cant" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control text-right input-sm" id="txtCantFinCalc" placeholder="0" readonly>
 				                      		</div>
-				                      		<label for="txtDifValor" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Diferencia Valor</small></label>
+				                      		<label for="txtDifValor" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Diferencia Cantidad</small></label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control input-sm" id="txtDifValor" placeholder="Cant" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control text-right input-sm" id="txtDifValor" placeholder="0" readonly>
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -190,27 +190,27 @@
 					                	<div class="form-group">
 					                     	<label for="txtCantInic" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Valor Inicial</small></label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control" id="txtCantInic" placeholder="Cant" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control text-right" id="txtCantInic" placeholder="0" readonly>
 				                      		</div>
 				                      		<label for="txtEntrCant" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Salidas Cantidad</small></label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control" id="txtEntrCant" placeholder="Cant" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control text-right" id="txtEntrCant" placeholder="0" readonly>
 				                      		</div>
 				                      		<label for="txtSalidCant" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Salidas Valor</small></label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control" id="txtSalidCant" placeholder="Cant" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control text-right" id="txtSalidCant" placeholder="0" readonly>
 				                      		</div>
 				                      		<label for="txtCantFinSist" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Valor Final Sistema</small></label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control" id="txtCantFinSist" placeholder="Cant" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control text-right" id="txtCantFinSist" placeholder="0" readonly>
 				                      		</div>
 				                      		<label for="txtCantFinCalc" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Valor Final Calculado</small></label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control input-sm" id="txtCantFinCalc" placeholder="Cant" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control text-right input-sm" id="txtCantFinCalc" placeholder="0" readonly>
 				                      		</div>
-				                      		<label for="txtDifValor" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Diferencia Cantidad</small></label>
+				                      		<label for="txtDifValor" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Diferencia Valor</small></label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control input-sm" id="txtDifValor" placeholder="Cant" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control text-right input-sm" id="txtDifValor" placeholder="0" readonly>
 				                      		</div>
 					                    </div>
 				                	</div>

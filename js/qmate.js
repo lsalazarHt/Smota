@@ -47,7 +47,7 @@ $(document).ready(function () {
 			if(bod!=''){
 				buscarMaterial(mat,bod);
 			}else{
-				alert('Porfavor coloque una bod valida')
+				demo.showNotification('bottom','left', 'Porfavor coloque una bodega valida', 4);
 			}
 		}
 	});
@@ -84,11 +84,14 @@ function buscarBodega(bod){
 	        data:{ bod:bod },
 	        success: function(data){
 	        	$('#txtBodNomb').val(data);
+				if(data!=''){
+					$('#txtMatCod').focus();
+				}
 	        	actualizarMateriales(bod)
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque una bodega valida')
+		demo.showNotification('bottom','left', 'Porfavor coloque una bodega valida', 4);
 	}
 }
 function buscarMaterial(mat,bod){
@@ -104,11 +107,11 @@ function buscarMaterial(mat,bod){
 	        	$('#txtValProp').val(number_format(data[2],0));
 	        	$('#txtCantSum').val(number_format(data[3],0));
 				$('#txtValSum').val(number_format(data[4],0));
-				actualizarSeriesMateriales(mat);
+				//actualizarSeriesMateriales(mat);
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque una bodega valida')
+		demo.showNotification('bottom','left', 'Porfavor coloque un material valida', 4);
 	}
 }
 

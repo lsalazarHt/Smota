@@ -59,8 +59,8 @@
     }
 
     if($_REQUEST["accion"]=="obtener_movimientos"){ 
-        $table = '';
-        $bodCod = $_REQUEST["bodCod"];
+        $table = date('2016-02-01',strtotime("-1 month")) ;
+        /*$bodCod = $_REQUEST["bodCod"];
         $matCod = $_REQUEST["matCod"];
         $anio   = $_REQUEST["anio"];
         $mes    = $_REQUEST["mes"];
@@ -87,7 +87,7 @@
                         <td class="text-right">'.number_format($row['MAMIVLOR'],0,"",".").'</td>
                     </tr>';
             }   
-        }
+        }*/
         echo $table;
     }
 ?>

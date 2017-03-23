@@ -79,7 +79,9 @@
 	                	</div><!-- /.modal-content -->
 	               	</div><!-- /.modal-dialog -->
 	            </div>
-	
+				
+				<input type="hidden" id="req_doc_soport">
+				<input type="hidden" id="req_doc_prove_gas">
 	            <div class="modal fade" id="modalTipoMovimiento">
 	             	<div class="modal-dialog" style="width:60%">
 	                	<div class="modal-content">
@@ -276,3 +278,5 @@
 	<script src="assets/js/bootstrap-notify.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 	 <script src="assets/js/demo.js"></script>
+<!--  Seleccionar nuevo Item Talas    -->
+<script src="assets/js/selectedNewRow.js"></script>
