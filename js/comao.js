@@ -2,75 +2,75 @@ $(document).ready(function(){
 	var modal = 1;
 	$('#btnCancelar').removeClass('disabled');
 
-	$("#txtDepCod").keypress(function(event){
-		if(event.which == 13){
-			dep = $("#txtDepCod").val();
-			buscarDepartamento(dep);
-		}
-	});
-	$("#txtLocCod").keypress(function(event){
-		if(event.which == 13){
-			dep = $("#txtDepCod").val();
-			loc = $("#txtLocCod").val();
-			if(dep!=''){
-				buscarLocalidad(dep,loc);
-			}
-		}
-	});
-	$("#txtZonaCod").keypress(function(event){
-		if(event.which == 13){
-			dep = $("#txtDepCod").val();
-			loc = $("#txtLocCod").val();
-			zon = $("#txtZonaCod").val();
-			if( (dep!='') && (loc!='') ){
-				buscarZona(dep,loc,zon);
-			}
-		}
-	});
-	$("#txtSectCod").keypress(function(event){
-		if(event.which == 13){
-			dep = $("#txtDepCod").val();
-			loc = $("#txtLocCod").val();
-			zon = $("#txtZonaCod").val();
-			sec = $("#txtSectCod").val();
-			if( (dep!='') && (loc!='') && (sec!='') ){
-				buscarSector(dep,loc,zon,sec);
-			}
-		}
-	});
-	$("#txtPqrCod").keypress(function(event){
-		if(event.which == 13){
-			pqr = $("#txtPqrCod").val();
-			buscarPqr(pqr);
-		}
-	});
-	$("#txtTecCod").keypress(function(event){
-		if(event.which == 13){
-			pqr = $("#txtPqrCod").val();
-			tec = $("#txtTecCod").val();
-			if(pqr!=''){
-				buscarTec(pqr,tec);
-			}
-		}
-	});
-	$("#txtCuaCod").keypress(function(event){
-		if(event.which == 13){
-			cuad = $("#txtCuaCod").val();
-			buscarCuadrilla(cuad);
-		}
-	});
-	$("#txtEstCod").keypress(function(event){
-		if(event.which == 13){
-			est = $("#txtEstCod").val();
-			buscarEstado(est);
-		}
-	});
-	$("#txtUsuCod").keypress(function(event){
-		if(event.which == 13){
-			usu = $("#txtUsuCod").val();
-			buscarUsuario(usu);
-		}
-	});
+	// $("#txtDepCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $("#txtDepCod").val();
+	// 		buscarDepartamento(dep);
+	// 	}
+	// });
+	// $("#txtLocCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $("#txtDepCod").val();
+	// 		loc = $("#txtLocCod").val();
+	// 		if(dep!=''){
+	// 			buscarLocalidad(dep,loc);
+	// 		}
+	// 	}
+	// });
+	// $("#txtZonaCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $("#txtDepCod").val();
+	// 		loc = $("#txtLocCod").val();
+	// 		zon = $("#txtZonaCod").val();
+	// 		if( (dep!='') && (loc!='') ){
+	// 			buscarZona(dep,loc,zon);
+	// 		}
+	// 	}
+	// });
+	// $("#txtSectCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $("#txtDepCod").val();
+	// 		loc = $("#txtLocCod").val();
+	// 		zon = $("#txtZonaCod").val();
+	// 		sec = $("#txtSectCod").val();
+	// 		if( (dep!='') && (loc!='') && (sec!='') ){
+	// 			buscarSector(dep,loc,zon,sec);
+	// 		}
+	// 	}
+	// });
+	// $("#txtPqrCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		pqr = $("#txtPqrCod").val();
+	// 		buscarPqr(pqr);
+	// 	}
+	// });
+	// $("#txtTecCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		pqr = $("#txtPqrCod").val();
+	// 		tec = $("#txtTecCod").val();
+	// 		if(pqr!=''){
+	// 			buscarTec(pqr,tec);
+	// 		}
+	// 	}
+	// });
+	// $("#txtCuaCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cuad = $("#txtCuaCod").val();
+	// 		buscarCuadrilla(cuad);
+	// 	}
+	// });
+	// $("#txtEstCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		est = $("#txtEstCod").val();
+	// 		buscarEstado(est);
+	// 	}
+	// });
+	// $("#txtUsuCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		usu = $("#txtUsuCod").val();
+	// 		buscarUsuario(usu);
+	// 	}
+	// });
 
 	$('#btnListaValores').click(function(){
 		if(modal==1){
@@ -113,7 +113,7 @@ $(document).ready(function(){
         	$('#modalUsuario').modal('show');
         }
     }); 
-    $('#txtDepCod').click(function(){
+    $('#txtDepCod').focus(function(){
     	modal = 1;
 		$('#txtLocCod').val('');
 		$('#txtLocNomb').val('');
@@ -122,40 +122,40 @@ $(document).ready(function(){
 		$('#txtSectCod').val('');
 		$('#txtSectNomb').val('');
     });
-    $('#txtLocCod').click(function(){
+    $('#txtLocCod').focus(function(){
     	modal = 2;
     	$('#txtZonaCod').val('');
 		$('#txtZonaNomb').val('');
 		$('#txtSectCod').val('');
 		$('#txtSectNomb').val('');
     });
-    $('#txtZonaCod').click(function(){
+    $('#txtZonaCod').focus(function(){
     	modal = 3;
     	$('#txtSectCod').val('');
 		$('#txtSectNomb').val('');
     });
-    $('#txtSectCod').click(function(){
+    $('#txtSectCod').focus(function(){
     	
     	modal = 4;
     });
-    $('#txtPqrCod').click(function(){
+    $('#txtPqrCod').focus(function(){
     	modal = 5;
     	$('#txtTecCod').val('');
 		$('#txtTecNomb').val('');
     });
-    $('#txtTecCod').click(function(){
+    $('#txtTecCod').focus(function(){
     	
     	modal = 6;
     });
-    $('#txtCuaCod').click(function(){
+    $('#txtCuaCod').focus(function(){
     	modal = 7;
     	$("#txtCuaNomb").val('');
     });
-    $('#txtEstCod').click(function(){
+    $('#txtEstCod').focus(function(){
     	
     	modal = 8;
     });
-    $('#txtUsuCod').click(function(){
+    $('#txtUsuCod').focus(function(){
     	
     	modal = 9;
     });
@@ -457,4 +457,60 @@ function limpiarTabla(){
 function solonumeros(){
     if ( (event.keyCode < 48) || (event.keyCode > 57)  ) 
         event.returnValue = false;
+}
+
+function pressEnter(campo){
+	if(campo==='txtDepCod'){
+		dep = $("#txtDepCod").val();
+		
+		console.log(dep);
+		buscarDepartamento(dep);
+	}
+	if(campo==='txtLocCod'){
+		dep = $("#txtDepCod").val();
+		loc = $("#txtLocCod").val();
+		if(dep!=''){
+			buscarLocalidad(dep,loc);
+		}
+	}
+	if(campo==='txtZonaCod'){
+		dep = $("#txtDepCod").val();
+		loc = $("#txtLocCod").val();
+		zon = $("#txtZonaCod").val();
+		if( (dep!='') && (loc!='') ){
+			buscarZona(dep,loc,zon);
+		}
+	}
+	if(campo==='txtSectCod'){
+		dep = $("#txtDepCod").val();
+		loc = $("#txtLocCod").val();
+		zon = $("#txtZonaCod").val();
+		sec = $("#txtSectCod").val();
+		if( (dep!='') && (loc!='') && (sec!='') ){
+			buscarSector(dep,loc,zon,sec);
+		}
+	}
+	if(campo==='txtPqrCod'){
+		pqr = $("#txtPqrCod").val();
+		buscarPqr(pqr);
+	}
+	if(campo==='txtTecCod'){
+		pqr = $("#txtPqrCod").val();
+		tec = $("#txtTecCod").val();
+		if(pqr!=''){
+			buscarTec(pqr,tec);
+		}
+	}
+	if(campo==='txtCuaCod'){
+		cuad = $("#txtCuaCod").val();
+		buscarCuadrilla(cuad);
+	}
+	if(campo==='txtEstCod'){
+		est = $("#txtEstCod").val();
+		buscarEstado(est);
+	}
+	if(campo==='txtUsuCod'){
+		usu = $("#txtUsuCod").val();
+		buscarUsuario(usu);
+	}
 }

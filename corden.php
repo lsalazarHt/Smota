@@ -7,6 +7,9 @@
 	$conn = require 'template/sql/conexion.php';
 	*/
 ?>
+<!--  Material Dashboard CSS    -->
+<link href="assets/css/material-dashboard.css" rel="stylesheet"/>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 <?php require 'template/start.php'; ?>
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
@@ -80,9 +83,9 @@
 					                	<div class="form-group">
 					                     	<div class="col-sm-12">
 					                     		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Orden</label>
-				                        		<input type="text" id="txtCodDep" class="form-control input-sm" style="margin-left: 8px; width:50px; float: left;" onkeypress="solonumeros()">
-				                        		<input type="text" id="txtCodLoc" class="form-control input-sm" style="width:50px; float: left; margin-left: 8px;" onkeypress="solonumeros()">
-				                        		<input type="text" id="txtCodNum" class="form-control input-sm" style="width:130px; float: left; margin-left: 10px;" onkeypress="solonumeros()">
+				                        		<input type="text" id="txtCodDep" class="form-control input-sm e e1 key" style="margin-left: 8px; width:50px; float: left;" onkeypress="solonumeros()">
+				                        		<input type="text" id="txtCodLoc" class="form-control input-sm e e2" style="width:50px; float: left; margin-left: 8px;" onkeypress="solonumeros()">
+				                        		<input type="text" id="txtCodNum" class="form-control input-sm e e3 key" style="width:130px; float: left; margin-left: 10px;" onkeypress="solonumeros()">
 					                     		
 					                     		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Tecnico</label>
 				                        		<input type="text" id="txtCodTec" class="form-control input-sm" readonly style="width:100px; float: left; margin-left: 8px;">
@@ -291,3 +294,13 @@
 </body>
 <?php require 'template/end.php'; ?>
 <script src="js/corden.js"></script>
+<!--  Detectar cambios en las Formas    -->
+<script src="assets/js/detectaCambiosEnFormas.js"></script>
+<!--  Seleccionar nuevo Item Talas    -->
+<script src="assets/js/selectedNewRow.js"></script>
+<!--  Notifications Plugin    -->
+<script src="assets/js/bootstrap-notify.js"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="assets/js/demo.js"></script>
+<!--  TAB ENTER    -->
+<script src="assets/js/tabEnter.js"></script>

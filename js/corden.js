@@ -1,17 +1,17 @@
 $(document).ready(function(){
 
-	$("#txtCodNum").keypress(function(event){
-		if(event.which == 13){
-			dep = $("#txtCodDep").val();
-			loc = $("#txtCodLoc").val();
-			num = $("#txtCodNum").val();
-			//if( (dep!='') && (loc!='') && (num!='') ){
-				buscarNumeroOrden(dep,loc,num);
-			//}else{
-			//	alert('Porfavor coloque un numero de orden valido')
-			//}
-		}
-	});
+	// $("#txtCodNum").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $("#txtCodDep").val();
+	// 		loc = $("#txtCodLoc").val();
+	// 		num = $("#txtCodNum").val();
+	// 		//if( (dep!='') && (loc!='') && (num!='') ){
+	// 			buscarNumeroOrden(dep,loc,num);
+	// 		//}else{
+	// 		//	alert('Porfavor coloque un numero de orden valido')
+	// 		//}
+	// 	}
+	// });
 
     $('#btnConsulta').click(function(){
         dep = $("#txtCodDep").val();
@@ -163,4 +163,13 @@ function obtenerMateriales(num){
 function solonumeros(){
     if ( (event.keyCode < 48) || (event.keyCode > 57)  ) 
         event.returnValue = false;
+}
+
+function pressEnter(campo){
+    if(campo==='txtCodNum'){
+        dep = $("#txtCodDep").val();
+        loc = $("#txtCodLoc").val();
+        num = $("#txtCodNum").val();
+        buscarNumeroOrden(dep,loc,num);
+    }
 }

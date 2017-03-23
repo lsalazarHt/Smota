@@ -2,6 +2,9 @@
 <?php 
 	date_default_timezone_set('America/Bogota');
 ?>
+<!--  Material Dashboard CSS    -->
+<link href="assets/css/material-dashboard.css" rel="stylesheet"/>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
 		<?php require 'template/menu.php'; ?>
@@ -75,7 +78,7 @@
 					                		<div class="col-sm-1"></div>
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Codigo Tecnico</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtTecCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e1 key" id="txtTecCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-6">
 				                        		<input type="text" class="form-control input-sm" id="txtTecNomb" placeholder="Nombre de Tecnico" readonly>
@@ -88,7 +91,7 @@
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Mano de obra hasta</label>
 					                     	<div class="col-sm-2">
 				                        		<input type="hidden" class="form-control input-sm" id="txtFechaOrg" placeholder="Codigo" value="<?php echo date('Y-m-d') ?>">
-				                        		<input type="date" class="form-control input-sm" id="txtFecha" placeholder="Codigo" value="<?php echo date('Y-m-d') ?>">
+				                        		<input type="date" class="form-control input-sm e e2" id="txtFecha" placeholder="Codigo" value="<?php echo date('Y-m-d') ?>">
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -108,3 +111,13 @@
 </body>
 <?php require 'template/end.php'; ?>
 <script src="js/gacta.js"></script>
+<!--  Detectar cambios en las Formas    -->
+<script src="assets/js/detectaCambiosEnFormas.js"></script>
+<!--  Seleccionar nuevo Item Talas    -->
+<script src="assets/js/selectedNewRow.js"></script>
+<!--  Notifications Plugin    -->
+<script src="assets/js/bootstrap-notify.js"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="assets/js/demo.js"></script>
+<!--  TAB ENTER    -->
+<script src="assets/js/tabEnter.js"></script>

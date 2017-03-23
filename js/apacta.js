@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	$('#btnEditor').addClass('disabled');
 	$('#btnCancelar').removeClass('disabled');
+	$('#txtActCod').focus();
 
 	$('#btnListaValores').click(function(){
 		if(modal==1){
@@ -37,7 +38,8 @@ $(document).ready(function(){
 		if( (cod!='') && (vNe!='') ){
 			aprobarActa(cod);
 		}else{
-			alert('Porfavor coloque un acta valido')
+			var msgError = 'Porfavor coloque un acta valido';
+			demo.showNotification('bottom','left', msgError, 4);
 		}
 	});
 
@@ -73,7 +75,10 @@ function buscarActa(cod){
 	        	}
 	        }
 	    });
-	}else{ alert('Porfavor coloque una acta valida') }
+	}else{ 
+		var msgError = 'Porfavor coloque una acta valida';
+		demo.showNotification('bottom','left', msgError, 4);
+	}
 }
 function aprobarActa(cod){
 	var result = confirm("Esta seguro que desea aprobar el acta #"+cod);
@@ -84,7 +89,9 @@ function aprobarActa(cod){
 	        data:{cod:cod},
 	        success: function(data){
 	        	if(data==1){
-	        		alert('El acta #'+cod+' se aprobo con exito')
+	        		var msgError = 'El acta #'+cod+' se aprobo con exito';
+					demo.showNotification('bottom','left', msgError, 2);
+	        		// alert('El acta #'+cod+' se aprobo con exito')
 					limpiar();
 					actualizarActas();
 	        	}else{

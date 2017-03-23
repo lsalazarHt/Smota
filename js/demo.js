@@ -26,12 +26,13 @@ $(document).ready(function(){
 			if(pqr!=''){
 				actualizarTecnico(pqr);
 			}else{
-				alert('Porfavor coloque un pqr valido')
+				var msgError = 'Porfavor coloque un pqr valido';
+				demo.showNotification('bottom','left', msgError, 4);
 			}
 		}
 	});
 
-	$('#txtDepCod').click(function(){
+	$('#txtDepCod').focus(function(){
 
 		modal=1;
 		$('#txtDepNomb').val('');
@@ -42,16 +43,16 @@ $(document).ready(function(){
 		$('#txtSectCod').val('');
 		$('#txtSectNomb').val('');
 	});
-	$("#txtDepCod").keypress(function(event){
-		if(event.which == 13){
-			dep = $.trim($('#txtDepCod').val());
-			if(dep!=''){
-				buscarDepartamento(dep);
-			}else{ alert('Porfavor coloque un departamento valido') }
-		}
-	});
+	// $("#txtDepCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $.trim($('#txtDepCod').val());
+	// 		if(dep!=''){
+	// 			buscarDepartamento(dep);
+	// 		}else{ alert('Porfavor coloque un departamento valido') }
+	// 	}
+	// });
 
-	$('#txtLocCod').click(function(){
+	$('#txtLocCod').focus(function(){
 
 		modal=2;
 		$('#txtLocNomb').val('');
@@ -59,64 +60,64 @@ $(document).ready(function(){
 		$('#txtSectCod').val('');
 		$('#txtSectNomb').val('');
 	});
-	$("#txtLocCod").keypress(function(event){
-		if(event.which == 13){
-			dep = $.trim($('#txtDepCod').val());
-			loc = $.trim($('#txtLocCod').val());
-			if( (dep!='') && (loc!='') ){
-				buscarDepartamento(dep);
-				buscarLocalidad(dep,loc);
-			}else{ alert('Porfavor coloque un departamento valido') }
-		}
-	});
+	// $("#txtLocCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $.trim($('#txtDepCod').val());
+	// 		loc = $.trim($('#txtLocCod').val());
+	// 		if( (dep!='') && (loc!='') ){
+	// 			buscarDepartamento(dep);
+	// 			buscarLocalidad(dep,loc);
+	// 		}else{ alert('Porfavor coloque un departamento valido') }
+	// 	}
+	// });
 
-	$('#txtSectCod').click(function(){
+	$('#txtSectCod').focus(function(){
 
 		modal=3;
 		$('#txtSectNomb').val('');
 	});
-	$("#txtSectCod").keypress(function(event){
-		if(event.which == 13){
-			dep = $.trim($('#txtDepCod').val());
-			loc = $.trim($('#txtLocCod').val());
-			sec = $.trim($('#txtSectCod').val());
-			if( (dep!='') && (loc!='') && (sec!='') ){
-				buscarDepartamento(dep);
-				buscarLocalidad(dep,loc);
-				buscarSector(dep,loc,sec);
-			}else{ alert('Porfavor coloque una localidad valido') }
-		}
-	});
+	// $("#txtSectCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $.trim($('#txtDepCod').val());
+	// 		loc = $.trim($('#txtLocCod').val());
+	// 		sec = $.trim($('#txtSectCod').val());
+	// 		if( (dep!='') && (loc!='') && (sec!='') ){
+	// 			buscarDepartamento(dep);
+	// 			buscarLocalidad(dep,loc);
+	// 			buscarSector(dep,loc,sec);
+	// 		}else{ alert('Porfavor coloque una localidad valido') }
+	// 	}
+	// });
 
-	$('#txtPqrCod').click(function(){
+	$('#txtPqrCod').focus(function(){
 		modal=4;
 		$('#txtPqrNomb').val('');
 	});
-	$("#txtPqrCod").keypress(function(event){
-		if(event.which == 13){
-			pqr = $.trim($('#txtPqrCod').val());
-			if( (pqr!='') ){
-				buscarPqr(pqr);
-			}else{ alert('Porfavor coloque un pqr valido') }
-		}
-	});
+	// $("#txtPqrCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		pqr = $.trim($('#txtPqrCod').val());
+	// 		if( (pqr!='') ){
+	// 			buscarPqr(pqr);
+	// 		}else{ alert('Porfavor coloque un pqr valido') }
+	// 	}
+	// });
 
-	$('#txtTecCod').click(function(){
+	$('#txtTecCod').focus(function(){
 
 		modal=5;
 		$('#txtTecNomb').val('');
 	});
-	$("#txtTecCod").keypress(function(event){
-		if(event.which == 13){
-			cod = $.trim($('#txtTecCod').val());
-			pqr = $('#txtPqrCod').val();
+	// $("#txtTecCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cod = $.trim($('#txtTecCod').val());
+	// 		pqr = $('#txtPqrCod').val();
 
-			if( (cod!='') && (pqr!='') ){
-				buscarPqr(pqr);
-				buscarTecnico(pqr,cod);
-			}else{ alert('Porfavor complete los datos') }
-		}
-	});
+	// 		if( (cod!='') && (pqr!='') ){
+	// 			buscarPqr(pqr);
+	// 			buscarTecnico(pqr,cod);
+	// 		}else{ alert('Porfavor complete los datos') }
+	// 	}
+	// });
 
 	//ASIGNAR ORDENES
 	$('#btnGuardar').click(function(){
@@ -138,8 +139,12 @@ $(document).ready(function(){
 					//END DEASIGNAR ORDEN AL TECNICO
 				}
 			}
-			if(!sw){ alert('Porfavor elija minimo una orden') }
-			alert('Las ordenes se desasignaron correctamente al tenico')
+			if(!sw){ 
+				var msgError = 'Porfavor elija minimo una orden';
+				demo.showNotification('bottom','left', msgError, 4);
+			}
+			var msgError = 'Las ordenes se desasignaron correctamente al tenico';
+			demo.showNotification('bottom','left', msgError, 2);
 			mostrarOrdenes();
 		}
 	});
@@ -294,7 +299,8 @@ function mostrarOrdenes(){
 	        }
 	    });
 	}else{
-		alert('Porfavor Complete los datos para realizar el ordenamiento')
+		var msgError = 'Porfavor Complete los datos para realizar el ordenamiento';
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function deasignarOrden(dep,loc,ord){
@@ -370,4 +376,60 @@ function escogencia(sw){
 		//$('#swCheckTodos').val(0);
 	}
 	$('.trDefault').removeClass('trSelect');
+}
+
+function pressEnter(campo){
+	if(campo==='txtDepCod'){
+		dep = $.trim($('#txtDepCod').val());
+		if(dep!=''){
+			buscarDepartamento(dep);
+		}else{ 
+			var msgError = 'Porfavor coloque un departamento valido';
+			demo.showNotification('bottom','left', msgError, 4);
+		}
+	}
+	if(campo==='txtLocCod'){
+		dep = $.trim($('#txtDepCod').val());
+		loc = $.trim($('#txtLocCod').val());
+		if( (dep!='') && (loc!='') ){
+			buscarDepartamento(dep);
+			buscarLocalidad(dep,loc);
+		}else{ 
+			var msgError = 'Porfavor coloque un departamento valido';
+			demo.showNotification('bottom','left', msgError, 4);
+		}
+	}
+	if(campo==='txtSectCod'){
+		dep = $.trim($('#txtDepCod').val());
+		loc = $.trim($('#txtLocCod').val());
+		sec = $.trim($('#txtSectCod').val());
+		if( (dep!='') && (loc!='') && (sec!='') ){
+			buscarDepartamento(dep);
+			buscarLocalidad(dep,loc);
+			buscarSector(dep,loc,sec);
+		}else{ 
+			var msgError = 'Porfavor coloque una localidad valido';
+			demo.showNotification('bottom','left', msgError, 4);
+		}
+	}
+	if(campo==='txtPqrCod'){
+		pqr = $.trim($('#txtPqrCod').val());
+		if( (pqr!='') ){
+			buscarPqr(pqr);
+		}else{ 
+			var msgError = 'Porfavor coloque un pqr valido';
+			demo.showNotification('bottom','left', msgError, 4);
+		}
+	}
+	if(campo==='txtTecCod'){
+		cod = $.trim($('#txtTecCod').val());
+		pqr = $('#txtPqrCod').val();
+		if( (cod!='') && (pqr!='') ){
+			buscarPqr(pqr);
+			buscarTecnico(pqr,cod);
+		}else{ 
+			var msgError = 'Porfavor complete los datos';
+			demo.showNotification('bottom','left', msgError, 4);
+		}
+	}
 }

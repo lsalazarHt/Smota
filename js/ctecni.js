@@ -131,7 +131,8 @@ function buscarTecnico(cod){
                 buscarHerramientas();
         	}else{
 				limpiar();
-        		alert('Error! El Tecnico no existe')
+                var msgError = 'Error! El Tecnico no existe';
+                demo.showNotification('bottom','left', msgError, 4);
         	}
         }
     });

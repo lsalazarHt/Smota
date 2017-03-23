@@ -1,4 +1,7 @@
 <?php require 'template/start.php'; ?>
+<!--  Material Dashboard CSS    -->
+<link href="assets/css/material-dashboard.css" rel="stylesheet"/>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
 		<?php require 'template/menu.php'; ?>
@@ -112,7 +115,7 @@
 					                		<div class="col-sm-1"></div>
 					                     	<label for="txtCod" class="col-sm-2 control-label text-right" style="margin-top:5px;">Codigo</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e1 key" id="txtCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                        		<input type="hidden" class="form-control input-sm" id="txtCodOrg" readonly>
 				                      		</div>
 					                    </div>
@@ -122,7 +125,7 @@
 					                		<div class="col-sm-1"></div>
 					                     	<label for="txtNom" class="col-sm-2 control-label text-right" style="margin-top:5px;">Nombre</label>
 				                      		<div class="col-sm-8">
-				                        		<input type="text" class="form-control input-sm" id="txtNom" placeholder="Nombre del Tecnico" onclick="swEditor('txtNom')" >  
+				                        		<input type="text" class="form-control input-sm e e2" id="txtNom" placeholder="Nombre del Tecnico" onclick="swEditor('txtNom')" >  
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -131,7 +134,7 @@
 					                		<div class="col-sm-1"></div>
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Clase</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtClaseCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e3 key" id="txtClaseCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-6">
 				                        		<input type="text" class="form-control input-sm" id="txtClaseNomb" placeholder="Nombre de la Clase" readonly>
@@ -151,13 +154,13 @@
 					                	<div class="form-group">
 					                     	<label for="txtFechaIng" class="col-sm-3 control-label text-right" style="margin-top:5px;">Fecha Ingreso</label>
 					                     	<div class="col-sm-2 marginTop3">
-				                        		<input type="date" class="form-control input-sm" id="txtFechaIng" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="date" class="form-control input-sm e e4" id="txtFechaIng" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 
 				                      		<div class="col-sm-2"></div>
 					                     	<label for="txtFechaRet" class="col-sm-2 control-label text-right" style="margin-top:5px;">Fecha Retiro</label>
 					                     	<div class="col-sm-2 marginTop3">
-				                        		<input type="date" class="form-control input-sm" id="txtFechaRet" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="date" class="form-control input-sm e e5" id="txtFechaRet" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -171,7 +174,7 @@
 				                      		<div class="col-sm-2"></div>
 					                     	<label id="divSwCodigoBodegaLabel" for="txtCodBodega" class="col-sm-2 control-label text-right" style="margin-top:5px;">Codigo Bodega</label>
 					                     	<div id="divSwCodigoBodegaInput" class="col-sm-2 marginTop3" >
-				                        		<input type="text" class="form-control input-sm" id="txtCodBodega" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e6" id="txtCodBodega" placeholder="Codigo" onkeypress="solonumeros()">
 				                        		<input type="hidden" id="txtCodBodegaVdd">
 				                      		</div>
 					                    </div>
@@ -180,7 +183,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtSalario" class="col-sm-3 control-label text-right" style="margin-top:5px;">Salario Basico</label>
 					                     	<div class="col-sm-2 marginTop3" >
-				                        		<input type="text" class="form-control input-sm" id="txtSalario" placeholder="Salario" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e7" id="txtSalario" placeholder="Salario" onkeypress="solonumeros()">
 				                      		</div>
 
 				                      		<div class="col-sm-1"></div>
@@ -204,3 +207,13 @@
 </body>
 <?php require 'template/end.php'; ?>
 <script src="js/ptecni.js"></script>
+<!--  Detectar cambios en las Formas    -->
+<script src="assets/js/detectaCambiosEnFormas.js"></script>
+<!--  Seleccionar nuevo Item Talas    -->
+<script src="assets/js/selectedNewRow.js"></script>
+<!--  Notifications Plugin    -->
+<script src="assets/js/bootstrap-notify.js"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="assets/js/demo.js"></script>
+<!--  TAB ENTER    -->
+<script src="assets/js/tabEnter.js"></script>
