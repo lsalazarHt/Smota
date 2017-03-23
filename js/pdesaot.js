@@ -281,7 +281,6 @@ function pressEnter(campo){
 		}
 	}
 	if(campo==='txtLocCod'){
-		console.log('aqui');
 		dep = $.trim($('#txtDepCod').val());
 		loc = $.trim($('#txtLocCod').val());
 		if( (dep!='') && (loc!='') ){

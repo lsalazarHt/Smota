@@ -754,7 +754,8 @@ function validarSector(id){
         		validarCodigoSector(cod,data[1],id);
         		//$('#txtNomb'+id).val(data[1]);
         	}else{
-        		alert('Error! El sector no es valido')
+        		var msgError = 'Error! El sector no es valido';
+				demo.showNotification('bottom','left', msgError, 4);
         		$('#txtCod'+id).val('');
         	}
         }
@@ -772,7 +773,8 @@ function validarCodigoSector(id,nomb,codID){
 	}
 
 	if(sw){
-		alert('Error! El Sector ya existe')
+		var msgError = 'Error! El Sector ya existe';
+		demo.showNotification('bottom','left', msgError, 4);
 		$('#txtCod'+codID).val('');
 		$('#txtNomb'+codID).val('');
 	}else{

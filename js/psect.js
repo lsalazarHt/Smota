@@ -119,7 +119,8 @@ $(document).ready(function () {
 				buscarNombreDepartamento(dep);
 				buscarNombreLocalidades(loc);
 			}else{
-				alert('Porfavor complete los datos')
+				var msgError = 'Porfavor complete los datos';
+				demo.showNotification('bottom','left', msgError, 4);
 			}
 		}
 	});
@@ -166,7 +167,7 @@ $(document).ready(function () {
 						ROJO = 4
 			*/
 			var msgError = 'Porfavor coloque los datos valido';
-			demo.showNotification('bottom','left', msgError, 3);
+			demo.showNotification('bottom','left', msgError, 4);
 		}
 	});
 	
@@ -361,7 +362,7 @@ $(document).ready(function () {
 						ROJO = 4
 				*/
 				var msgError = 'Porfavor coloque un departamento valido';
-				demo.showNotification('bottom','left', msgError, 3);
+				demo.showNotification('bottom','left', msgError, 4);
 			}
 		}
 
@@ -394,7 +395,7 @@ function buscarZonasOperativas(){
 						ROJO = 4
 				*/
 				var msgError = 'Porfavor complete los datos';
-				demo.showNotification('bottom','left', msgError, 3);
+				demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function buscarNombreDepartamento(id){
@@ -413,7 +414,7 @@ function buscarNombreDepartamento(id){
 						ROJO = 4
 				*/
 				var msgError = 'Porfavor coloque un departamento valido';
-				demo.showNotification('bottom','left', msgError, 3);
+				demo.showNotification('bottom','left', msgError, 4);
 		}
 	}
 }
@@ -512,7 +513,7 @@ function actModalLocalidades(){
 						ROJO = 4
 				*/
 				var msgError = 'Porfavor coloque un departamento valido';
-				demo.showNotification('bottom','left', msgError, 3);
+				demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 

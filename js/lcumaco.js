@@ -57,7 +57,8 @@ $(document).ready(function () {
 			if(cod!=''){
 				buscarNombreBodega(cod);
 			}else{
-				alert('Porfavor coloque un codigo valido')
+				var msgError = 'Porfavor coloque un codigo valido';
+				demo.showNotification('bottom','left', msgError, 4);
 			}
 		}
 	});
@@ -133,7 +134,8 @@ $(document).ready(function () {
 		if( (cod!='') && (nomb!='') ){
 			imprimirInventarioBodega(cod);
 		}else{
-			alert('Porfavor coloque un codigo valido')
+			var msgError = 'Porfavor coloque un codigo valido';
+			demo.showNotification('bottom','left', msgError, 4);
 		}
 	});
 
@@ -157,7 +159,8 @@ function btn_buscarNombreBodega(){
 	if(cod!=''){
 		buscarNombreBodega(cod);
 	}else{
-		alert('Porfavor coloque un codigo valido')
+		var msgError = 'Porfavor coloque un codigo valido';
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function buscarNombreBodega(cod){

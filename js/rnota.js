@@ -13,31 +13,31 @@ $(document).ready(function(){
 		}
 	});
 
-	$('#txtClasCod').click(function(){
+	$('#txtClasCod').focus(function(){
 		modal = 1;
 		$('#txtClasNomb').val('');
 	});
-	$("#txtClasCod").keypress(function(event){
-		if(event.which == 13){
-			cod = $.trim($('#txtClasCod').val());
-			if( cod!='' ){
-				buscarClase(cod);
-			}else{ alert('Porfavor coloque una clase valida') }
-		}
-	});
+	// $("#txtClasCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cod = $.trim($('#txtClasCod').val());
+	// 		if( cod!='' ){
+	// 			buscarClase(cod);
+	// 		}else{ alert('Porfavor coloque una clase valida') }
+	// 	}
+	// });
 
-	$('#txtTecCod').click(function(){
+	$('#txtTecCod').focus(function(){
 		modal = 2;
 		$('#txtTecNomb').val('');
 	});
-	$("#txtTecCod").keypress(function(event){
-		if(event.which == 13){
-			cod = $.trim($('#txtTecCod').val());
-			if( cod!='' ){
-				buscarTecnico(cod);
-			}else{ alert('Porfavor coloque un tecnico valido') }
-		}
-	});
+	// $("#txtTecCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cod = $.trim($('#txtTecCod').val());
+	// 		if( cod!='' ){
+	// 			buscarTecnico(cod);
+	// 		}else{ alert('Porfavor coloque un tecnico valido') }
+	// 	}
+	// });
 
 	$('#btnCancelar').click(function(){
 		modal = 1;
@@ -65,7 +65,8 @@ $(document).ready(function(){
 		if( (cod!='') && (cls!='') && (fec!='') && (tcr!='') && (fAp!='') && (tec!='') && (val!='') ){
 			guardarNota(cod,cls,fec,tcr,fAp,tec,val,obs);
 		}else{
-			alert('Porfavor complete los datos')
+			var msgError = 'Porfavor complete los datos';
+			demo.showNotification('bottom','left', msgError, 4);
 		}
 	});
 
@@ -121,7 +122,8 @@ function guardarNota(cod,cls,fech,tipo,fechApl,tec,val,obs){
         data:{cod:cod,cls:cls,fech:fech,tipo:tipo,fechApl:fechApl,tec:tec,val:val,obs:obs},
         success: function(data){
         	if(data==1){
-        		alert('La nota se guardo con exito')
+        		var msgError = 'La nota se guardo con exito';
+		demo.showNotification('bottom','left', msgError, 2);
         		$('#btnCancelar').click();
         	}else{
         		alert(data)
@@ -133,4 +135,25 @@ function guardarNota(cod,cls,fech,tipo,fechApl,tec,val,obs){
 function solonumeros(){
 	if ( (event.keyCode < 48) || (event.keyCode > 57)  ) 
 	    event.returnValue = false;
+}
+
+function pressEnter(campo){
+	if(campo==='txtClasCod'){
+		cod = $.trim($('#txtClasCod').val());
+		if( cod!='' ){
+			buscarClase(cod);
+		}else{ 
+			var msgError = 'Porfavor coloque una clase valida';
+			demo.showNotification('bottom','left', msgError, 4);
+		}
+	}
+	if(campo==='txtTecCod'){
+		cod = $.trim($('#txtTecCod').val());
+		if( cod!='' ){
+			buscarTecnico(cod);
+		}else{ 
+			var msgError = 'Porfavor coloque un tecnico valido';
+			demo.showNotification('bottom','left', msgError, 4);
+		}
+	}
 }
