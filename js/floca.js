@@ -309,7 +309,8 @@ function buscarNombreDepartamento(id){
 		if(dep!=''){
 			buscarLocalidades(dep);
 		}else{
-			alert('Porfavor coloque un departamento valido')
+			var msgError = 'Porfavor coloque un departamento valido';
+			demo.showNotification('bottom','left', msgError, 4);
 		}
 	}
 }

@@ -84,7 +84,8 @@ $(document).ready(function () {
 
 		if( (cod!='') && (nom!='') && (clas!='') && (clasNomb!='') ){
 			if( (clas!='') && (clasNomb=='') ){
-				alert('Error! Porfavor coloque una clase valido')
+				var msgError = 'Error! Porfavor coloque una clase valido';
+				demo.showNotification('bottom','left', msgError, 4);
 				return false;
 			}
 

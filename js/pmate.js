@@ -213,7 +213,8 @@ function validarClase(id){
         	if(data[0]!=0){
         		$('#txtClaseNomb'+id).val(data[1]);
         	}else{
-        		alert('Error! La Clase no es valida')
+        		var msgError = 'Error! La Clase no es valid';
+				demo.showNotification('bottom','left', msgError, 4);
         		$('#txtClase'+id).val('');
         	}
         }

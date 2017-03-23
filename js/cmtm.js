@@ -316,7 +316,8 @@ function buscarNombreTipoM(){
 	        }
 	    });
 	}else{
-		alert('Error! Porfavor coloque un Tipo de Movimiento valido')
+		var msgError = 'Error! Porfavor coloque un Tipo de Movimiento valido';
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function colocarClase(cod,nom){
@@ -335,7 +336,8 @@ function colocarClase(cod,nom){
 		$('#txtNomb'+idGlob).val(nom);
 		$('#modalClaseMaterial').modal('hide');
 	}else{
-		alert('Error! La Clase ya existe')
+		var msgError = 'Error! La Clase ya existe';
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function actualizar(){
@@ -392,7 +394,8 @@ function validarClase(id){
 	        }
 	    });
 	}else{
-		alert('Error! El material ya existe')
+		var msgError = 'Error! El material ya existe';
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function limpiarTabla(){
