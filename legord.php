@@ -1,5 +1,5 @@
 <?php require 'template/start.php'; ?>
-<body class="hold-transition skin-blue layout-top-nav" onclick="swSalir();">
+<body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
 		<?php require 'template/menu.php'; ?>
 		<div class="content-wrapper">
@@ -315,7 +315,6 @@
 				                      			
 				                      			<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:125px; float:left;">Fecha Legalizacion</label>
 				                        		<input id="txtFechaLega" type="text" class="form-control input-sm" readonly style="margin-left: 8px; width:80px; float: left;">
-				                      			
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -388,7 +387,7 @@
 							                		<input type="hidden" id="contRowMano">
 							                		<table id="tableManoObra" class="table table-bordered table-condensed">
 							                			<tr style="background-color: #3c8dbc; color:white;">
-							                				<td class="text-right" width="80"></td>
+							                				<td class="text-center" width="80">Codigo</td>
 							                				<td >Mano de Obra</td>
 							                				<td class="text-right" width="70">Cantidad</td>
 							                				<td class="text-right" width="100">Valor</td>

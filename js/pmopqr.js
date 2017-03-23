@@ -159,7 +159,7 @@ $(document).ready(function () {
 			
 
 			if( $('#txtTipo'+i).val() == 1){ //Editar
-				var codOrg = $.trim($('#txtCodOrg'+i).val());
+				/*var codOrg = $.trim($('#txtCodOrg'+i).val());
 				$.ajax({
 			        type:'POST',
 			        url:'proc/pmopqr_proc.php?accion=editar_registros',
@@ -170,7 +170,7 @@ $(document).ready(function () {
 		                    actualizar();
 			            }else{ alert(data+' Editar!') }
 			        }
-			    });
+			    });*/
 			}else{
 				if( (cod!='') && (nom!='') ){
 					$.ajax({
@@ -178,9 +178,10 @@ $(document).ready(function () {
 				        url:'proc/pmopqr_proc.php?accion=guardar_registros',
 				        data:{ codPqr:codPqr, cod:cod, cant:cant, vPagar:vPagar, vVenci:vVenci, vGaser:vGaser },
 				        success: function(data){
-				            if(data==1){
+							console.log(data)
+				            /*if(data==1){
 			                    actualizar();
-				            }else{ alert(data+' Agregar!') }
+				            }else{ alert(data+' Agregar!') }*/
 				        }
 				    });
 				}

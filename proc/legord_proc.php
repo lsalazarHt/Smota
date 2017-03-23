@@ -1,6 +1,31 @@
 <?php
     $conn = require '../template/sql/conexion.php';
 
+    //validar departamento y localidad
+    if($_REQUEST["accion"]=="validar_cod_departamento"){
+        $cod = $_REQUEST["cod"];
+        $query ="SELECT depacodi FROM departam WHERE depacodi = $cod AND depavisi = 1";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            echo 1;   
+        }else{
+            echo 0;
+        }
+    }
+    if($_REQUEST["accion"]=="validar_cod_localidad"){
+        $dep = $_REQUEST["dep"];
+        $cod = $_REQUEST["cod"];
+        $query ="SELECT locacodi FROM localidad WHERE locadepa = $dep AND locacodi = $cod AND locavisi = 1";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            echo 1;   
+        }else{
+            echo 0;
+        }
+    }
+    //obtener datos de una orden
     if($_REQUEST["accion"]=="obtener_orden"){
         $dep = $_REQUEST["dep"];
         $loc = $_REQUEST["loc"];
@@ -137,7 +162,8 @@
                      $numEstado,$horaInicial,$horaFinal,$obs,$asig,$recb,$lega);
         echo json_encode($arr);
     }
-
+    
+    
     if($_REQUEST["accion"]=="obtener_mano_obra"){
         $dep = $_REQUEST["dep"];
         $loc = $_REQUEST["loc"];
