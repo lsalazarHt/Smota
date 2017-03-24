@@ -115,23 +115,24 @@ $(document).ready(function () {
 		    cell3.className = '';
 		    cell3.innerHTML = '<input type="text" id="txtCantMax'+rowCount+'" class="form-control input-sm text-center" onclick="swEditor(\'txtCantMax'+rowCount+'\',\'trSelect'+rowCount+'\',0,0)">';
 		    //valPagar
-		    var cell3 = row.insertCell(2);
+		    var cell3 = row.insertCell(3);
 		    cell3.className = '';
 		    cell3.innerHTML = '<input type="text" id="txtValorPag'+rowCount+'" class="form-control input-sm text-center" onclick="swEditor(\'txtValorPag'+rowCount+'\',\'trSelect'+rowCount+'\',0,0)">';
 		    //valorPosterior
-		    var cell3 = row.insertCell(2);
+		    var cell3 = row.insertCell(4);
 		    cell3.className = '';
 		    cell3.innerHTML = '<input type="text" id="txtValorVec'+rowCount+'" class="form-control input-sm text-center" onclick="swEditor(\'txtValorVec'+rowCount+'\',\'trSelect'+rowCount+'\',0,0)">';
 		    //ValorGasera
-		    var cell3 = row.insertCell(2);
+		    var cell3 = row.insertCell(5);
 		    cell3.className = '';
 		    cell3.innerHTML = '<input type="text" id="txtValorGas'+rowCount+'" class="form-control input-sm text-center" onclick="swEditor(\'txtValorGas'+rowCount+'\',\'trSelect'+rowCount+'\',0,0)">';
 		    
 
 		    $('#contRow').val(rowCount);
-	    $('#txtCod'+rowCount).focus();
-	    selectedNewRow(row.id);
-
+	   	 	$('#txtCod'+rowCount).focus();
+	    	selectedNewRow(row.id);
+			modal = 2;
+			idGlob = rowCount;
 		}else{
 			/*
 					BACKGROUND-COLOR ALERTAS
@@ -140,9 +141,8 @@ $(document).ready(function () {
 						NARANJA = 3
 						ROJO = 4
 					*/
-		var msgError = 'Porfavor coloque un PQR valido';
-		demo.showNotification('bottom','left', msgError, 4);
-
+			var msgError = 'Porfavor coloque un PQR valido';
+			demo.showNotification('bottom','left', msgError, 4);
 		}
 	});
 	
@@ -159,7 +159,7 @@ $(document).ready(function () {
 			
 
 			if( $('#txtTipo'+i).val() == 1){ //Editar
-				/*var codOrg = $.trim($('#txtCodOrg'+i).val());
+				var codOrg = $.trim($('#txtCodOrg'+i).val());
 				$.ajax({
 			        type:'POST',
 			        url:'proc/pmopqr_proc.php?accion=editar_registros',
@@ -170,7 +170,7 @@ $(document).ready(function () {
 		                    actualizar();
 			            }else{ alert(data+' Editar!') }
 			        }
-			    });*/
+			    });
 			}else{
 				if( (cod!='') && (nom!='') ){
 					$.ajax({
@@ -178,10 +178,11 @@ $(document).ready(function () {
 				        url:'proc/pmopqr_proc.php?accion=guardar_registros',
 				        data:{ codPqr:codPqr, cod:cod, cant:cant, vPagar:vPagar, vVenci:vVenci, vGaser:vGaser },
 				        success: function(data){
-							console.log(data)
-				            /*if(data==1){
+							//console.log(data)
+							//alert(data)
+				            if(data==1){
 			                    actualizar();
-				            }else{ alert(data+' Agregar!') }*/
+				            }else{ alert(data+' Agregar!') }
 				        }
 				    });
 				}
@@ -420,7 +421,6 @@ function validarManoObra(id){
 	for(var i=1;i<=cont;i++){
 		var codOrg = $.trim($('#txtCod'+i).val());
 		if(codOrg==cod){
-
 			sw = true;
 		}
 	}
@@ -433,10 +433,13 @@ function validarManoObra(id){
 	        success: function(data){
 				$('#txtCod'+id).val(cod);
 				$('#txtNomb'+idGlob).val(data);
+				if(data!=''){
+					$('#txtCantMax'+idGlob).focus();
+				}
 	        }
 	    });
 	}else{
-		alert('Error! La Mano de obra ya existe')
+		demo.showNotification('bottom','left', 'La Mano de obra ya existe', 4);
 	}
 }
 function limpiarTabla(){
