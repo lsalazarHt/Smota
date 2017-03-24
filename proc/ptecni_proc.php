@@ -73,7 +73,7 @@
 		if($_REQUEST["salar"]==''){
 			$_REQUEST["salar"] = 0;
 		}
-       	$query ="INSERT INTO TECNICO (TECNCODI, TECNNOMB,TECNESTA,TECNCLAS,TECNFEIN,TECNFERE,TECNSALA,
+       	$query ="INSERT INTO tecnico (TECNCODI, TECNNOMB,TECNESTA,TECNCLAS,TECNFEIN,TECNFERE,TECNSALA,
        									TECNBODE,INDCDORPRDCCION)
 				VALUES (".$_REQUEST["cod"].",'".$_REQUEST["nom"]."','".$_REQUEST["act"]."',
 						".$_REQUEST["clas"].",'".$_REQUEST["fIng"]."','".$_REQUEST["fRet"]."',
@@ -83,6 +83,17 @@
         if(!$respuesta->execute()){
             echo 'Error!';
         }else{
+            $dato='';
+            $query ="SELECT BODECODI  FROM bodega WHERE BODECODI = ".$_REQUEST["cod"];
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                $query ="INSERT INTO bodega (BODECODI,BODENOMB,BODEESTA,BODEALMA,BODECLAS)
+                VALUES (".$_REQUEST["cod"].",'".$_REQUEST["nom"]."', 'A', 'N', 1)";
+                $respuesta = $conn->prepare($query) or die ($query);
+                $respuesta->execute();
+            }
+            
             echo 1;
         }
 	}
@@ -90,7 +101,7 @@
 		if($_REQUEST["salar"]==''){
 			$_REQUEST["salar"] = 0;
 		}
-		$query = "UPDATE TECNICO SET TECNCODI=".$_REQUEST["cod"].", TECNNOMB='".$_REQUEST["nom"]."',
+		$query = "UPDATE tecnico SET TECNNOMB='".$_REQUEST["nom"]."',
 					TECNESTA='".$_REQUEST["act"]."',TECNCLAS=".$_REQUEST["clas"].",TECNFEIN='".$_REQUEST["fIng"]."',
 					TECNFERE='".$_REQUEST["fRet"]."',TECNSALA=".$_REQUEST["salar"].",TECNBODE='".$_REQUEST["bod"]."',
 					INDCDORPRDCCION='".$_REQUEST["devPr"]."'
@@ -106,7 +117,7 @@
 	if($_REQUEST["accion"]=="consultar_tenicos"){
     	$dato='';
     	$i=0;
-		$query ="SELECT * FROM TECNICO";
+		$query ="SELECT * FROM tecnico";
         $respuesta = $conn->prepare($query) or die ($sql);
         if(!$respuesta->execute()) return false;
         if($respuesta->rowCount()>0){
@@ -151,7 +162,7 @@
                 while ($row=$respuesta->fetch()){
                     //USUARIO
                     $usuarioNom = '';
-                    $queryUser ='SELECT USUNOMB FROM USUARIOS WHERE USUCODI='.$row['OTUSUARIO'];
+                    $queryUser ='SELECT USUNOMB FROM usuarios WHERE USUCODI='.$row['OTUSUARIO'];
                     $respuestaUser = $conn->prepare($queryUser) or die ($sql);
                     if(!$respuestaUser->execute()) return false;
                     if($respuestaUser->rowCount()>0){
@@ -163,7 +174,7 @@
                     $pqrNom = '';
                     $pqrPlaz = '';
                     if($row['OTPQRREPO']!=''){
-                        $queryPqr ='SELECT PQRCODI,PQRDESC,PQRDIBL FROM PQR WHERE PQRCODI='.$row['OTPQRREPO'];
+                        $queryPqr ='SELECT PQRCODI,PQRDESC,PQRDIBL FROM pqr WHERE PQRCODI='.$row['OTPQRREPO'];
                         $respuestaPqr = $conn->prepare($queryPqr) or die ($sql);
                         if(!$respuestaPqr->execute()) return false;
                         if($respuestaPqr->rowCount()>0){
@@ -213,7 +224,7 @@
         $table='';
         $i=0;
         $query ="SELECT *  
-                 FROM OT 
+                 FROM ot 
                  WHERE OTTECN = $cod AND OTESTA = 3
                  ORDER BY $order";
             $respuesta = $conn->prepare($query) or die ($sql);
@@ -222,7 +233,7 @@
                 while ($row=$respuesta->fetch()){
                     //USUARIO
                     $usuarioNom = '';
-                    $queryUser ='SELECT USUNOMB FROM USUARIOS WHERE USUCODI='.$row['OTUSUARIO'];
+                    $queryUser ='SELECT USUNOMB FROM usuarios WHERE USUCODI='.$row['OTUSUARIO'];
                     $respuestaUser = $conn->prepare($queryUser) or die ($sql);
                     if(!$respuestaUser->execute()) return false;
                     if($respuestaUser->rowCount()>0){
@@ -231,7 +242,7 @@
                         }   
                     }
                     //PQR
-                    $queryPqr ='SELECT PQRCODI,PQRDESC,PQRDIBL FROM PQR WHERE PQRCODI='.$row['OTPQRREPO'];
+                    $queryPqr ='SELECT PQRCODI,PQRDESC,PQRDIBL FROM pqr WHERE PQRCODI='.$row['OTPQRREPO'];
                     $respuestaPqr = $conn->prepare($queryPqr) or die ($sql);
                     if(!$respuestaPqr->execute()) return false;
                     if($respuestaPqr->rowCount()>0){
@@ -279,7 +290,7 @@
         $table='';
         $i=0;
         $query ="SELECT *  
-                 FROM OT 
+                 FROM ot 
                  WHERE OTTECN = $cod AND OTESTA = 9
                  ORDER BY $order";
             $respuesta = $conn->prepare($query) or die ($sql);
@@ -288,7 +299,7 @@
                 while ($row=$respuesta->fetch()){
                     //USUARIO
                     $usuarioNom = '';
-                    $queryUser ='SELECT USUNOMB FROM USUARIOS WHERE USUCODI='.$row['OTUSUARIO'];
+                    $queryUser ='SELECT USUNOMB FROM usuarios WHERE USUCODI='.$row['OTUSUARIO'];
                     $respuestaUser = $conn->prepare($queryUser) or die ($sql);
                     if(!$respuestaUser->execute()) return false;
                     if($respuestaUser->rowCount()>0){
@@ -297,7 +308,7 @@
                         }   
                     }
                     //PQR
-                    $queryPqr ='SELECT PQRCODI,PQRDESC,PQRDIBL FROM PQR WHERE PQRCODI='.$row['OTPQRREPO'];
+                    $queryPqr ='SELECT PQRCODI,PQRDESC,PQRDIBL FROM pqr WHERE PQRCODI='.$row['OTPQRREPO'];
                     $respuestaPqr = $conn->prepare($queryPqr) or die ($sql);
                     if(!$respuestaPqr->execute()) return false;
                     if($respuestaPqr->rowCount()>0){
