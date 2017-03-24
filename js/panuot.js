@@ -32,7 +32,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$('#txtDepCod').click(function(){
+	$('#txtDepCod').focus(function(){
 
 		modal=1;
 		$('#txtDepNomb').val('');
@@ -43,34 +43,34 @@ $(document).ready(function(){
 		$('#txtCodOrd').val('');
 		$('#btnGuardar').addClass('disabled');
 	});
-	$("#txtDepCod").keypress(function(event){
-		if(event.which == 13){
-			dep = $.trim($('#txtDepCod').val());
-			if(dep!=''){
-				buscarDepartamento(dep);
-			}else{ alert('Porfavor coloque un departamento valido') }
-		}
-	});
+	// $("#txtDepCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $.trim($('#txtDepCod').val());
+	// 		if(dep!=''){
+	// 			buscarDepartamento(dep);
+	// 		}else{ alert('Porfavor coloque un departamento valido') }
+	// 	}
+	// });
 
-	$('#txtLocCod').click(function(){
+	$('#txtLocCod').focus(function(){
 
 		modal=2;
 		$('#txtLocNomb').val('');
 		$('#txtCodOrd').val('');
 		$('#btnGuardar').addClass('disabled');
 	});
-	$("#txtLocCod").keypress(function(event){
-		if(event.which == 13){
-			dep = $.trim($('#txtDepCod').val());
-			loc = $.trim($('#txtLocCod').val());
-			if( (dep!='') && (loc!='') ){
-				buscarDepartamento(dep);
-				buscarLocalidad(dep,loc);
-			}else{ alert('Porfavor coloque un departamento valido') }
-		}
-	});
+	// $("#txtLocCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $.trim($('#txtDepCod').val());
+	// 		loc = $.trim($('#txtLocCod').val());
+	// 		if( (dep!='') && (loc!='') ){
+	// 			buscarDepartamento(dep);
+	// 			buscarLocalidad(dep,loc);
+	// 		}else{ alert('Porfavor coloque un departamento valido') }
+	// 	}
+	// });
 
-	$('#txtCodOrd').click(function(){
+	$('#txtCodOrd').focus(function(){
 		$('#txtPqrCod').val('');
     	$('#txtPqrNomb').val('');
 
@@ -80,18 +80,18 @@ $(document).ready(function(){
     	$('#txtFechaAsig').val('');
     	$('#btnGuardar').addClass('disabled');
 	});
-	$("#txtCodOrd").keypress(function(event){
-		if(event.which == 13){
-			dep = $.trim($('#txtDepCod').val());
-			loc = $.trim($('#txtLocCod').val());
-			ord = $.trim($('#txtCodOrd').val());
-			if( (dep!='') && (loc!='') ){
-				buscarDepartamento(dep);
-				buscarLocalidad(dep,loc);
-				buscarOrden(dep,loc,ord);
-			}else{ alert('Porfavor coloque una localidad valida valido') }
-		}
-	});
+	// $("#txtCodOrd").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $.trim($('#txtDepCod').val());
+	// 		loc = $.trim($('#txtLocCod').val());
+	// 		ord = $.trim($('#txtCodOrd').val());
+	// 		if( (dep!='') && (loc!='') ){
+	// 			buscarDepartamento(dep);
+	// 			buscarLocalidad(dep,loc);
+	// 			buscarOrden(dep,loc,ord);
+	// 		}else{ alert('Porfavor coloque una localidad valida valido') }
+	// 	}
+	// });
 
 	$('#btnGuardar').click(function(){
 		dep = $.trim($('#txtDepCod').val());
@@ -104,7 +104,9 @@ $(document).ready(function(){
 			if(result){
 			    anularOrden(dep,loc,ord);
 			}
-		}else{ alert('Porfavor complete los datos') }
+		}else{ 
+			demo.showNotification('bottom','left', 'Porfavor complete los datos', 4); 
+		}
 	});
 
 });
@@ -185,6 +187,7 @@ function anularOrden(dep,loc,ord){
         data:{ dep:dep,loc:loc,ord:ord },
         success: function(data){
         	if(data==1){
+        		demo.showNotification('bottom','left', msgError, 4);
         		alert('La orden se anulo con exito')
         		$('#btnCancelar').click();
         	}else{
@@ -197,4 +200,37 @@ function anularOrden(dep,loc,ord){
 function solonumeros(){
 	if ( (event.keyCode < 48) || (event.keyCode > 57)  ) 
 	    event.returnValue = false;
+}
+
+function pressEnter(campo){
+	if(campo==='txtDepCod'){
+		dep = $.trim($('#txtDepCod').val());
+		if(dep!=''){
+			buscarDepartamento(dep);
+		}else{ 
+			demo.showNotification('bottom','left', 'Porfavor coloque un departamento valido', 4);
+		}
+	}
+	if(campo==='txtLocCod'){
+		dep = $.trim($('#txtDepCod').val());
+		loc = $.trim($('#txtLocCod').val());
+		if( (dep!='') && (loc!='') ){
+			buscarDepartamento(dep);
+			buscarLocalidad(dep,loc);
+		}else{ 
+			demo.showNotification('bottom','left', 'Porfavor coloque un departamento valido', 4);
+		}
+	}
+	if(campo==='txtCodOrd'){
+		dep = $.trim($('#txtDepCod').val());
+		loc = $.trim($('#txtLocCod').val());
+		ord = $.trim($('#txtCodOrd').val());
+		if( (dep!='') && (loc!='') ){
+			buscarDepartamento(dep);
+			buscarLocalidad(dep,loc);
+			buscarOrden(dep,loc,ord);
+		}else{ 
+			demo.showNotification('bottom','left', 'Porfavor coloque una localidad valida', 4);
+		}
+	}
 }

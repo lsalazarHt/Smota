@@ -60,7 +60,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$('#txtDepCod').click(function(){
+	$('#txtDepCod').focus(function(){
 		//$('#txtDepCod').val(cod);
 		modal=1;
 		$('#txtDepNomb').val('');
@@ -84,16 +84,19 @@ $(document).ready(function(){
 		
 		$('#txtObservAsign').val('');
 	});
-	$("#txtDepCod").keypress(function(event){
-		if(event.which == 13){
-			dep = $.trim($('#txtDepCod').val());
-			if(dep!=''){
-				buscarDepartamento(dep);
-			}else{ alert('Porfavor coloque un departamento valido') }
-		}
-	});
+	// $("#txtDepCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $.trim($('#txtDepCod').val());
+	// 		if(dep!=''){
+	// 			buscarDepartamento(dep);
+	// 		}else{ 
+	// 			var msgError = 'Porfavor coloque un departamento valido';
+	// 			demo.showNotification('bottom','left', msgError, 4);
+	// 		}
+	// 	}
+	// });
 
-	$('#txtLocCod').click(function(){
+	$('#txtLocCod').focus(function(){
 		modal=2;
 		//$('#txtLocCod').val();
 		$('#txtLocNomb').val('');
@@ -114,29 +117,32 @@ $(document).ready(function(){
 		
 		$('#txtObservAsign').val('');	
 	});
-	$("#txtLocCod").keypress(function(event){
-		if(event.which == 13){
-			dep = $.trim($('#txtDepCod').val());
-			loc = $.trim($('#txtLocCod').val());
-			if( (dep!='') && (loc!='') ){
-				buscarDepartamento(dep);
-				buscarLocalidad(dep,loc);
-			}else{ alert('Porfavor coloque un departamento valido') }
-		}
-	});
+	// $("#txtLocCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $.trim($('#txtDepCod').val());
+	// 		loc = $.trim($('#txtLocCod').val());
+	// 		if( (dep!='') && (loc!='') ){
+	// 			buscarDepartamento(dep);
+	// 			buscarLocalidad(dep,loc);
+	// 		}else{ 
+	// 			var msgError = 'Porfavor coloque un departamento validoo';
+	// 			demo.showNotification('bottom','left', msgError, 4);
+	// 		}
+	// 	}
+	// });
 
-	$("#txtCodOrd").keypress(function(event){
-		if(event.which == 13){
-			dep = $.trim($('#txtDepCod').val());
-			loc = $.trim($('#txtLocCod').val());
-			num = $.trim($('#txtCodOrd').val());
-			buscarDepartamento(dep);
-			buscarLocalidad(dep,loc);
-			if( (dep!='') && (loc!='') && (num!='') ){
-				buscarOrden(dep,loc,num);
-			}
-		}
-	});
+	// $("#txtCodOrd").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		dep = $.trim($('#txtDepCod').val());
+	// 		loc = $.trim($('#txtLocCod').val());
+	// 		num = $.trim($('#txtCodOrd').val());
+	// 		buscarDepartamento(dep);
+	// 		buscarLocalidad(dep,loc);
+	// 		if( (dep!='') && (loc!='') && (num!='') ){
+	// 			buscarOrden(dep,loc,num);
+	// 		}
+	// 	}
+	// });
 
 	$('#btnCancelar').click(function(){
 		limpiar();
@@ -144,7 +150,7 @@ $(document).ready(function(){
 		$('#btnCancelar').addClass('disabled');
 	});
 
-	$('#txtTecCod').click(function(){
+	$('#txtTecCod').focus(function(){
 		modal=3;
 		//$('#txtLocCod').val();
 		$('#txtTecNomb').val('');
@@ -167,18 +173,19 @@ $(document).ready(function(){
 		if( (dep!='') && (loc!='') && (num!='') && (fAg!='') && (tec!='') ){
 			guardarOrden(dep,loc,num,fAg,tec,obs);
 		}else{
-			alert('Error! Porfavor complete todos los campos')
+			var msgError = 'Error! Porfavor complete todos los campos';
+			demo.showNotification('bottom','left', msgError, 4);
 		}
 	});
 
-	$("#txtTecCod").keypress(function(event){
-		if(event.which == 13){
-			cod = $.trim($('#txtTecCod').val());
-			if(cod!=''){
-				buscarTecnico(cod);
-			}
-		}
-	});
+	// $("#txtTecCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cod = $.trim($('#txtTecCod').val());
+	// 		if(cod!=''){
+	// 			buscarTecnico(cod);
+	// 		}
+	// 	}
+	// });
 
 });
 
@@ -242,7 +249,8 @@ function buscarOrden(dep,loc,num){
         dataType: "json",
         success: function(data){
         	if(data[11]==0){
-        		alert('Error! Porfavor coloque un numero de orden valida para asignar')
+        		var msgError = 'Error! Porfavor coloque un numero de orden valida para asignar';
+				demo.showNotification('bottom','left', msgError, 4);
         	}else{
 	        	$('#txtDepCod').val(dep);
 				$('#txtLocCod').val(loc);
@@ -306,7 +314,8 @@ function guardarOrden(dep,loc,num,fAg,tec,obs){
         data:{dep:dep, loc:loc, num:num, fAg:fAg, tec:tec, obs:obs},
         success: function(data){
         	if(data==1){
-        		alert('La OT se asigno correctamente')
+        		var msgError = 'La OT se asigno correctamente';
+				demo.showNotification('bottom','left', msgError, 2);
         		limpiar();
         	}else{ alert(data) }
         }
@@ -327,4 +336,50 @@ function descargarEditor(){
 function solonumeros(){
 	if ( (event.keyCode < 48) || (event.keyCode > 57)  ) 
 	    event.returnValue = false;
+}
+
+function pressEnter(campo){
+	if(campo==='txtDepCod'){
+		dep = $.trim($('#txtDepCod').val());
+		if(dep!=''){
+			buscarDepartamento(dep);
+		}else{ 
+			var msgError = 'Porfavor coloque un departamento valido';
+			demo.showNotification('bottom','left', msgError, 4);
+		}
+	}
+	if(campo==='txtLocCod'){
+		dep = $.trim($('#txtDepCod').val());
+		loc = $.trim($('#txtLocCod').val());
+		if( (dep!='') && (loc!='') ){
+			buscarDepartamento(dep);
+			buscarLocalidad(dep,loc);
+		}else{ 
+			var msgError = 'Porfavor coloque un departamento valido';
+			demo.showNotification('bottom','left', msgError, 4);
+		}
+	}
+	if(campo==='txtCodOrd'){
+		dep = $.trim($('#txtDepCod').val());
+		loc = $.trim($('#txtLocCod').val());
+		num = $.trim($('#txtCodOrd').val());
+		buscarDepartamento(dep);
+		buscarLocalidad(dep,loc);
+		if( (dep!='') && (loc!='') && (num!='') ){
+			buscarOrden(dep,loc,num);
+		}else{ 
+			var msgError = 'Porfavor complete los campos';
+			demo.showNotification('bottom','left', msgError, 4);
+		}
+	}
+	if(campo==='txtTecCod'){
+		cod = $.trim($('#txtTecCod').val());
+		if(cod!=''){
+			buscarTecnico(cod);
+		}else{ 
+			var msgError = 'Porfavor coloque un Tecnico valido';
+			demo.showNotification('bottom','left', msgError, 4);
+		}
+	}
+
 }

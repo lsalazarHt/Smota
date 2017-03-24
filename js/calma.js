@@ -55,7 +55,11 @@ $(document).ready(function(){
     $("#txtMovCod").keypress(function(event){
 		if(event.which == 13){
 			txtMovCod = $.trim($('#txtMovCod').val());
-			consultarTipoMovimiento(txtMovCod);
+			if(txtMovCod!=''){
+				consultarTipoMovimiento(txtMovCod);
+			}else{
+				demo.showNotification('bottom','left', 'Porfavor coloque un Numero', 4);
+			}
 		}
 	});
 
