@@ -51,7 +51,7 @@
 	            </div>
 
 	            <div class="modal fade" id="modalManoObra">
-	             	<div class="modal-dialog">
+	             	<div class="modal-dialog" style="width: 70%;">
 	                	<div class="modal-content">
 			                <div class="modal-header" style="background-color: #3c8dbc; color:white;">
 			                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
