@@ -333,7 +333,7 @@ function buscarNombrePqr(){
 						ROJO = 4
 					*/
 		var msgError = 'Error! Porfavor coloque un PQR valido';
-		demo.showNotification('bottom','left', msgError, 3);
+		demo.showNotification('bottom','left', msgError, 4);
 	}
 }
 function buscarNombrePqr_Ant_Sgt(cod){

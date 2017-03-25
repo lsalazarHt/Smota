@@ -1,4 +1,7 @@
 <?php require 'template/start.php'; ?>
+<!--  Material Dashboard CSS    -->
+<link href="assets/css/material-dashboard.css" rel="stylesheet"/>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
 		<?php require 'template/menu.php'; ?>
@@ -232,7 +235,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Departamento</label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control input-sm" id="txtDepCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e1 key" id="txtDepCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input type="text" class="form-control input-sm" id="txtDepNomb" placeholder="Nombre del Departamento" readonly>
@@ -248,7 +251,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Localidad</label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control input-sm" id="txtLocCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e2 key" id="txtLocCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input type="text" class="form-control input-sm" id="txtLocNomb" placeholder="Nombre de la Localidad" readonly>
@@ -260,7 +263,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Zona</label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control input-sm" id="txtZonaCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e3 key" id="txtZonaCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input type="text" class="form-control input-sm" id="txtZonaNomb" placeholder="Nombre de la Zona" readonly>
@@ -281,7 +284,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Sector</label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control input-sm" id="txtSectCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e4 key" id="txtSectCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 					                     	<label class="col-sm-1 control-label text-center" style="margin-top:5px;"><small>Cero Todos</small></label>
 				                      		<div class="col-sm-3">
@@ -293,7 +296,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Codigo de Pqr</label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control input-sm" id="txtPqrCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e5 key" id="txtPqrCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 					                     	<label class="col-sm-1 control-label text-center" style="margin-top:5px;"><small>Cero Todos</small></label>
 				                      		<div class="col-sm-3">
@@ -309,7 +312,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Codigo Tecnico</label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control input-sm" id="txtTecCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm e e6 key" id="txtTecCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input type="text" class="form-control input-sm" id="txtTecNomb" placeholder="Nombre de Tecnico" readonly>
@@ -351,3 +354,11 @@
 </body>
 <?php require 'template/end.php'; ?>
 <script src="js/asma.js"></script>
+<!--  Detectar cambios en las Formas    -->
+<script src="assets/js/detectaCambiosEnFormas.js"></script>
+<!--  Notifications Plugin    -->
+<script src="assets/js/bootstrap-notify.js"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="assets/js/demo.js"></script>
+<!--  TAB ENTER    -->
+<script src="assets/js/tabEnter.js"></script>

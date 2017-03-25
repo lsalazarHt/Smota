@@ -25,8 +25,23 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="tools/dist/css/skins/_all-skins.min.css">
+
+    <!-- background slide -->
+    <link rel="shortcut icon" href="../favicon.ico"> 
+    <link rel="stylesheet" type="text/css" href="assets/css/background-slideCSS/demo.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/background-slideCSS/style1.css" />
+    <script type="text/javascript" src="assets/js/background-slideJS/modernizr.custom.86080.js"></script>
+
   </head>
   <body class="hold-transition login-page">
+  <ul class="cb-slideshow">
+            <li><span>Image 01</span><div><h3>ga·so·duc·to</h3></div></li>
+            <li><span>Image 02</span><div><h3>pla·n·ta·de·gas</h3></div></li>
+            <li><span>Image 03</span><div><h3>gas·na·tu·ral</h3></div></li>
+            <li><span>Image 04</span><div><h3>ga·so·duc·to</h3></div></li>
+            <li><span>Image 05</span><div><h3>pla·n·ta·de·gas</h3></div></li>
+            <li><span>Image 06</span><div><h3>gas·na·tu·ral</h3></div></li>
+        </ul>
     <div class="login-box">
       <div class="login-logo">
         <a><b>SIGCO</b></a>

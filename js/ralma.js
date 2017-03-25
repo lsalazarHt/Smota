@@ -47,14 +47,14 @@ $(document).ready(function(){
 		}else{ obtenerMateriales(); }
 	});
 
-	$('#txtEnCod').click(function(){ 
+	$('#txtEnCod').focus(function(){ 
 		modal=1;
 		$('#txtEnNomb').val('');
 
 		limpiarTablaMateriales();
 	});
 	
-    $('#txtTipoMovCod').click(function(){ 
+    $('#txtTipoMovCod').focus(function(){ 
 		modal=2;
 		$('#txtTipoMovNomb').val('');
 		$('#txtBodCod').val('');
@@ -62,38 +62,38 @@ $(document).ready(function(){
 		limpiarTablaMateriales();
 	});
 	
-    $('#txtBodCod').click(function(){ 
+    $('#txtBodCod').focus(function(){ 
 		modal=3;
 		$('#txtBodNomb').val('');
 	});
 	
-	$("#txtEnCod").keypress(function(event){
-		if(event.which == 13){
-			cod = $.trim($('#txtEnCod').val());
-			buscarBodegaPrincipal(cod);
-		}
-	});
+	// $("#txtEnCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cod = $.trim($('#txtEnCod').val());
+	// 		buscarBodegaPrincipal(cod);
+	// 	}
+	// });
 	
-    $("#txtBodCod").keypress(function(event){
-		if(event.which == 13){
-			cod = $.trim($('#txtBodCod').val());
-			tip = $.trim($('#txtTipoMovCod').val());
-			tipNom = $.trim($('#txtTipoMovNomb').val());
-			if(tipNom!=''){
-				buscarBodegaDestino(cod,tip);
-			}else{
-				alert('Porfavor coloque un tipo de movimiento valido')
-			}
-		}
-	});
+ //    $("#txtBodCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cod = $.trim($('#txtBodCod').val()); 
+	// 		tip = $.trim($('#txtTipoMovCod').val());
+	// 		tipNom = $.trim($('#txtTipoMovNomb').val());
+	// 		if(tipNom!=''){
+	// 			buscarBodegaDestino(cod,tip);
+	// 		}else{
+	// 			demo.showNotification('bottom','left', 'Porfavor coloque un tipo de movimiento valido', 4);
+	// 		}
+	// 	}
+	// });
 	
-    $("#txtTipoMovCod").keypress(function(event){
-		if(event.which == 13){
-			cod = $.trim($('#txtTipoMovCod').val());
-			tipo = $.trim($('#txtSWTipoMovCod').val());
-			buscarTipoMovimiento(cod,tipo);
-		}
-	});
+ //    $("#txtTipoMovCod").keypress(function(event){
+	// 	if(event.which == 13){
+	// 		cod = $.trim($('#txtTipoMovCod').val());
+	// 		tipo = $.trim($('#txtSWTipoMovCod').val());
+	// 		buscarTipoMovimiento(cod,tipo);
+	// 	}
+	// });
 
 	$('#btnGuardar').click(function(){
 		calcularMateriales()
@@ -232,9 +232,10 @@ function nuevoMaterial(){
     cell4.className = '';
     cell4.innerHTML = '<input type="text" id="txtVal'+rowCount+'" class="form-control input-sm text-right"' +readonly+'>';
 
-	selectedNewRow(row.id);
+	
     $('#contRow').val(rowCount);
 	$('#txtCod'+rowCount).focus();
+	selectedNewRow(row.id);
 	$('#selectRow').val(rowCount);
 }
 function obtenerMateriales(){
@@ -251,7 +252,7 @@ function obtenerMateriales(){
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque una bodega valida')
+		demo.showNotification('bottom','left', 'Porfavor coloque una bodega valida', 4);
 	}
 }
 function obtenerCodMovimiento(){
@@ -317,7 +318,7 @@ function buscarBodegaPrincipal(bod){
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque una bodega valida')
+		demo.showNotification('bottom','left', 'Porfavor coloque una bodega valida', 4);
 	}
 }
 function buscarBodegaDestino(bod,tipo){
@@ -338,7 +339,7 @@ function buscarBodegaDestino(bod,tipo){
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque una bodega valida')
+		demo.showNotification('bottom','left', 'Porfavor coloque una bodega valida', 4);
 	}
 }
 function buscarTipoMovimiento(cod,tipo){
@@ -357,7 +358,7 @@ function buscarTipoMovimiento(cod,tipo){
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque una bodega valida')
+		demo.showNotification('bottom','left', 'Porfavor coloque una bodega valida', 4);
 	}
 }
 function validarMaterial(mat,ident){
@@ -370,7 +371,9 @@ function validarMaterial(mat,ident){
 	}
 	if(!swMat){
 		buscarMaterial(mat);
-	}else{ alert('El material ya existe') }
+	}else{ 
+		demo.showNotification('bottom','left', 'El material ya existe', 4);
+	}
 }
 function buscarMaterial(mat){
 	bod = $('#txtEnCod').val();
@@ -394,7 +397,7 @@ function buscarMaterial(mat){
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque una bodega valida')
+		demo.showNotification('bottom','left', 'Porfavor coloque una bodega valida', 4);
 	}
 }
 //ADD
@@ -456,12 +459,15 @@ function verificar_documento_soporte(cod){
 function swModal(mod,id){
 	ident = id;
 	modal = 4;
+	$('.trDefault').removeClass('trSelect');
+	$('#trSelect'+id).addClass('trSelect');
+	console.log(id);
 	$('#selectRow').val(id);
 	/*$('#txtCod'+ident).val('');
 	$('#txtNomb'+ident).val('');
 	$('#txtCant'+ident).val('');
 	$('#txtVal'+ident).val('');*/
-
+	
 	calcularMateriales();
 }
 function solonumeros(){
@@ -541,4 +547,26 @@ function limpiarCampos(){
 	$('#txtSopCod').val('');
 	$('#txtDocSopCod').val('');
 	$('#txtObser').val('');
+}
+
+function pressEnter(campo){
+	if(campo==='txtEnCod'){
+		cod = $.trim($('#txtEnCod').val());
+		buscarBodegaPrincipal(cod);
+	}
+ 	if(campo==='txtBodCod'){
+		cod = $.trim($('#txtBodCod').val());
+		tip = $.trim($('#txtTipoMovCod').val());
+		tipNom = $.trim($('#txtTipoMovNomb').val());
+		if(tipNom!=''){
+			buscarBodegaDestino(cod,tip);
+		}else{
+			demo.showNotification('bottom','left', 'Porfavor coloque un tipo de movimiento valido', 4);
+		}
+	}
+	if(campo==='txtTipoMovCod'){
+		cod = $.trim($('#txtTipoMovCod').val());
+		tipo = $.trim($('#txtSWTipoMovCod').val());
+		buscarTipoMovimiento(cod,tipo);
+	}
 }

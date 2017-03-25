@@ -83,6 +83,17 @@
         if(!$respuesta->execute()){
             echo 'Error!';
         }else{
+            $dato='';
+            $query ="SELECT BODECODI  FROM bodega WHERE BODECODI = ".$_REQUEST["cod"];
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                $query ="INSERT INTO bodega (BODECODI,BODENOMB,BODEESTA,BODEALMA,BODECLAS)
+                VALUES (".$_REQUEST["cod"].",'".$_REQUEST["nom"]."', 'A', 'N', 1)";
+                $respuesta = $conn->prepare($query) or die ($query);
+                $respuesta->execute();
+            }
+            
             echo 1;
         }
 	}
@@ -90,7 +101,11 @@
 		if($_REQUEST["salar"]==''){
 			$_REQUEST["salar"] = 0;
 		}
+<<<<<<< HEAD
 		$query = "UPDATE tecnico SET TECNCODI=".$_REQUEST["cod"].", TECNNOMB='".$_REQUEST["nom"]."',
+=======
+		$query = "UPDATE tecnico SET TECNNOMB='".$_REQUEST["nom"]."',
+>>>>>>> refs/remotes/origin/master
 					TECNESTA='".$_REQUEST["act"]."',TECNCLAS=".$_REQUEST["clas"].",TECNFEIN='".$_REQUEST["fIng"]."',
 					TECNFERE='".$_REQUEST["fRet"]."',TECNSALA=".$_REQUEST["salar"].",TECNBODE='".$_REQUEST["bod"]."',
 					INDCDORPRDCCION='".$_REQUEST["devPr"]."'
@@ -151,7 +166,7 @@
                 while ($row=$respuesta->fetch()){
                     //USUARIO
                     $usuarioNom = '';
-                    $queryUser ='SELECT USUNOMB FROM USUARIOS WHERE USUCODI='.$row['OTUSUARIO'];
+                    $queryUser ='SELECT USUNOMB FROM usuarios WHERE USUCODI='.$row['OTUSUARIO'];
                     $respuestaUser = $conn->prepare($queryUser) or die ($sql);
                     if(!$respuestaUser->execute()) return false;
                     if($respuestaUser->rowCount()>0){
