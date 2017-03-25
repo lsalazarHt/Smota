@@ -4,7 +4,7 @@
 	if($_REQUEST["accion"]=="obtener_usuario"){
 		$dato='';
 		$sw=0;
-		$query ="SELECT * FROM TECNICO WHERE TECNCODI = ".$_REQUEST["cod"];
+		$query ="SELECT * FROM tecnico WHERE TECNCODI = ".$_REQUEST["cod"];
         $respuesta = $conn->prepare($query) or die ($sql);
         if(!$respuesta->execute()) return false;
         if($respuesta->rowCount()>0){
@@ -28,7 +28,7 @@
             }
 
 	        //CLASE
-	        $query ="SELECT CLTEDESC FROM CLASTECN WHERE CLTECODI = ".$dato2;
+	        $query ="SELECT CLTEDESC FROM clastecn WHERE CLTECODI = ".$dato2;
 	        $respuesta = $conn->prepare($query) or die ($sql);
 	        if(!$respuesta->execute()) return false;
 	        if($respuesta->rowCount()>0){
@@ -59,7 +59,7 @@
 	}
 	if($_REQUEST["accion"]=="buscar_clase"){
 		$dato='';
-		$query ="SELECT CLTEDESC  FROM CLASTECN WHERE CLTECODI = ".$_REQUEST["cod"];
+		$query ="SELECT CLTEDESC  FROM clastecn WHERE CLTECODI = ".$_REQUEST["cod"];
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
             if($respuesta->rowCount()>0){
@@ -101,7 +101,11 @@
 		if($_REQUEST["salar"]==''){
 			$_REQUEST["salar"] = 0;
 		}
+<<<<<<< HEAD
+		$query = "UPDATE tecnico SET TECNCODI=".$_REQUEST["cod"].", TECNNOMB='".$_REQUEST["nom"]."',
+=======
 		$query = "UPDATE tecnico SET TECNNOMB='".$_REQUEST["nom"]."',
+>>>>>>> refs/remotes/origin/master
 					TECNESTA='".$_REQUEST["act"]."',TECNCLAS=".$_REQUEST["clas"].",TECNFEIN='".$_REQUEST["fIng"]."',
 					TECNFERE='".$_REQUEST["fRet"]."',TECNSALA=".$_REQUEST["salar"].",TECNBODE='".$_REQUEST["bod"]."',
 					INDCDORPRDCCION='".$_REQUEST["devPr"]."'
@@ -153,7 +157,7 @@
         $table='';
         $i=0;
         $query ="SELECT *  
-                 FROM OT 
+                 FROM ot 
                  WHERE OTTECN = $cod AND OTESTA = 1
                  ORDER BY $order";
             $respuesta = $conn->prepare($query) or die ($sql);
@@ -353,7 +357,7 @@
         $table='';
         $i=0;
         $query ="SELECT *  
-                 FROM OT 
+                 FROM ot 
                  WHERE OTTECN = $cod AND OTESTA = 2
                  ORDER BY $order";
             $respuesta = $conn->prepare($query) or die ($sql);
@@ -362,7 +366,7 @@
                 while ($row=$respuesta->fetch()){
                     //USUARIO
                     $usuarioNom = '';
-                    $queryUser ='SELECT USUNOMB FROM USUARIOS WHERE USUCODI='.$row['OTUSUARIO'];
+                    $queryUser ='SELECT USUNOMB FROM usuarios WHERE USUCODI='.$row['OTUSUARIO'];
                     $respuestaUser = $conn->prepare($queryUser) or die ($sql);
                     if(!$respuestaUser->execute()) return false;
                     if($respuestaUser->rowCount()>0){
@@ -371,7 +375,7 @@
                         }   
                     }
                     //PQR
-                    $queryPqr ='SELECT PQRCODI,PQRDESC,PQRDIBL FROM PQR WHERE PQRCODI='.$row['OTPQRREPO'];
+                    $queryPqr ='SELECT PQRCODI,PQRDESC,PQRDIBL FROM pqr WHERE PQRCODI='.$row['OTPQRREPO'];
                     $respuestaPqr = $conn->prepare($queryPqr) or die ($sql);
                     if(!$respuestaPqr->execute()) return false;
                     if($respuestaPqr->rowCount()>0){
@@ -413,7 +417,7 @@
         $table='';
         $i=0;
         $query ="SELECT *  
-                 FROM OT 
+                 FROM ot 
                  WHERE OTTECN = $cod AND OTESTA = 4
                  ORDER BY $order";
             $respuesta = $conn->prepare($query) or die ($sql);
@@ -422,7 +426,7 @@
                 while ($row=$respuesta->fetch()){
                     //USUARIO
                     $usuarioNom = '';
-                    $queryUser ='SELECT USUNOMB FROM USUARIOS WHERE USUCODI='.$row['OTUSUARIO'];
+                    $queryUser ='SELECT USUNOMB FROM usuarios WHERE USUCODI='.$row['OTUSUARIO'];
                     $respuestaUser = $conn->prepare($queryUser) or die ($sql);
                     if(!$respuestaUser->execute()) return false;
                     if($respuestaUser->rowCount()>0){
@@ -431,7 +435,7 @@
                         }   
                     }
                     //PQR
-                    $queryPqr ='SELECT PQRCODI,PQRDESC,PQRDIBL FROM PQR WHERE PQRCODI='.$row['OTPQRREPO'];
+                    $queryPqr ='SELECT PQRCODI,PQRDESC,PQRDIBL FROM pqr WHERE PQRCODI='.$row['OTPQRREPO'];
                     $respuestaPqr = $conn->prepare($queryPqr) or die ($sql);
                     if(!$respuestaPqr->execute()) return false;
                     if($respuestaPqr->rowCount()>0){
@@ -472,9 +476,9 @@
         }
         $table='';
         $i=0;
-        $query ="SELECT MALEOTTR.* ,  OT.OTUSUARIO  
-                 FROM MALEOTTR
-                    INNER JOIN OT ON OT.OTNUME = MALEOTTR.MAOTNUMO
+        $query ="SELECT maleottr.* ,  ot.OTUSUARIO  
+                 FROM maleottr
+                    INNER JOIN ot ON ot.OTNUME = maleottr.MAOTNUMO
                  WHERE MAOTTECN = $cod
                  ORDER BY $order";
             $respuesta = $conn->prepare($query) or die ($sql);
@@ -483,7 +487,7 @@
                 while ($row=$respuesta->fetch()){
                     //MATERIAL
                     $materialNom = '';
-                    $queryMater ='SELECT MATEDESC FROM MATERIAL WHERE MATECODI='.$row['MAOTMATE'];
+                    $queryMater ='SELECT MATEDESC FROM material WHERE MATECODI='.$row['MAOTMATE'];
                     $respuestaMater = $conn->prepare($queryMater) or die ($sql);
                     if(!$respuestaMater->execute()) return false;
                     if($respuestaMater->rowCount()>0){
@@ -529,9 +533,9 @@
         }
         $table='';
         $i=0;
-        $query ="SELECT MOBROTTR.* ,  OT.OTUSUARIO  
-                 FROM MOBROTTR
-                  INNER JOIN OT ON OT.OTNUME = MOBROTTR.MOOTNUMO
+        $query ="SELECT mobrottr.* ,  ot.OTUSUARIO  
+                 FROM mobrottr 
+                  INNER JOIN ot ON ot.OTNUME = mobrottr.MOOTNUMO
                  WHERE MOOTTECN = $cod
                  ORDER BY $order";
             $respuesta = $conn->prepare($query) or die ($sql);
@@ -540,7 +544,7 @@
                 while ($row=$respuesta->fetch()){
                     //MANO DE OBRA
                     $manObraNom = '';
-                    $queryManoObr ='SELECT MOBRDESC FROM MANOBRA WHERE MOBRCODI='.$row['MOOTMOBR'];
+                    $queryManoObr ='SELECT MOBRDESC FROM manobra WHERE MOBRCODI='.$row['MOOTMOBR'];
                     $respuestaManoObr = $conn->prepare($queryManoObr) or die ($sql);
                     if(!$respuestaManoObr->execute()) return false;
                     if($respuestaManoObr->rowCount()>0){
@@ -569,7 +573,7 @@
         $cod = $_REQUEST["cod"];
         $table='';
         $query ="SELECT *  
-                 FROM ACTA
+                 FROM acta
                  WHERE ACTATECN = $cod";
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
@@ -591,8 +595,8 @@
     if($_REQUEST["accion"]=="consultar_mano_obra_acta"){
         $cod = $_REQUEST["cod"];
         $table='';
-        $query ="SELECT MOBROTTR.*
-                 FROM MOBROTTR
+        $query ="SELECT mobrottr.*
+                 FROM mobrottr 
                  WHERE MOOTTECN = $cod";
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
@@ -600,7 +604,7 @@
                 while ($row=$respuesta->fetch()){
                     //MANO DE OBRA
                     $manObraNom = '';
-                    $queryManoObr ='SELECT MOBRDESC FROM MANOBRA WHERE MOBRCODI='.$row['MOOTMOBR'];
+                    $queryManoObr ='SELECT MOBRDESC FROM manobra WHERE MOBRCODI='.$row['MOOTMOBR'];
                     $respuestaManoObr = $conn->prepare($queryManoObr) or die ($sql);
                     if(!$respuestaManoObr->execute()) return false;
                     if($respuestaManoObr->rowCount()>0){
@@ -625,7 +629,7 @@
         $cod = $_REQUEST["cod"];
         $table='';
         $query ="SELECT *
-                 FROM NOTA
+                 FROM nota
                  WHERE NOTATECN = $cod";
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
@@ -633,7 +637,7 @@
                 while ($row=$respuesta->fetch()){
                     //MANO DE OBRA
                     $claseNom = '';
-                    $queryClase ='SELECT CLNODESC FROM CLASNOTA WHERE CLNOCODI='.$row['NOTACLAS'];
+                    $queryClase ='SELECT CLNODESC FROM clasnota WHERE CLNOCODI='.$row['NOTACLAS'];
                     $respuestaClase = $conn->prepare($queryClase) or die ($sql);
                     if(!$respuestaClase->execute()) return false;
                     if($respuestaClase->rowCount()>0){
@@ -659,7 +663,7 @@
         $cod = $_REQUEST["cod"];
         $table='';
         $query ="SELECT *
-                 FROM INVENTARIO
+                 FROM inventario 
                  WHERE INVEBODE = $cod";
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
@@ -667,7 +671,7 @@
                 while ($row=$respuesta->fetch()){
                     //MATERIAL
                     $materialNom = '';
-                    $queryMater ='SELECT MATEDESC FROM MATERIAL WHERE MATECODI='.$row['INVEMATE'];
+                    $queryMater ='SELECT MATEDESC FROM material WHERE MATECODI='.$row['INVEMATE'];
                     $respuestaMater = $conn->prepare($queryMater) or die ($sql);
                     if(!$respuestaMater->execute()) return false;
                     if($respuestaMater->rowCount()>0){
@@ -695,7 +699,7 @@
         $cod = $_REQUEST["cod"];
         $table='';
         $query ="SELECT *
-                 FROM NOTA
+                 FROM nota
                  WHERE NOTATECN = $cod";
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
@@ -738,7 +742,7 @@
                 E.FECHAENTREGA,
                 E.FECHAMINREPOS,
                 E.FECHAREPOS
-                FROM ELEPROP E INNER JOIN MATERIAL M ON M.MATECODI = E.CODMATERIAL
+                FROM eleprop E INNER JOIN material M ON M.MATECODI = E.CODMATERIAL
                 WHERE TIPOELEPROP = 'E' AND CODTECNICO = $cod";
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
@@ -767,7 +771,7 @@
                 E.FECHAENTREGA,
                 E.FECHAMINREPOS,
                 E.FECHAREPOS
-                FROM ELEPROP E INNER JOIN MATERIAL M ON M.MATECODI = E.CODMATERIAL
+                FROM eleprop E INNER JOIN material M ON M.MATECODI = E.CODMATERIAL
                 WHERE TIPOELEPROP = 'H' AND CODTECNICO = $cod";
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;

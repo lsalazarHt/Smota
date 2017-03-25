@@ -1,6 +1,36 @@
 <?php
     $conn = require '../template/sql/conexion.php';
 
+    function obtener_bod_pqr($cod){
+        $campo = '';
+        $sw = 'N';
+        $conn = require '../template/sql/conexion.php';
+        $query ="SELECT PQRMAPR FROM pqr WHERE PQRCODI = $cod";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $campo = $row['PQRMAPR'];
+            }
+        }
+        return $campo; 
+
+    }
+    function obtener_valor_mate($mat,$tec,$campoTabl){
+        $campo = '';
+        $conn = require '../template/sql/conexion.php';
+        $query ="SELECT $campoTabl FROM inventario WHERE INVEBODE = $tec AND invemate = $mat";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $campo = $row[$campoTabl];
+            }
+        }
+        return $campo; 
+
+    }
+
     //validar departamento y localidad
     if($_REQUEST["accion"]=="validar_cod_departamento"){
         $cod = $_REQUEST["cod"];
@@ -162,8 +192,7 @@
                      $numEstado,$horaInicial,$horaFinal,$obs,$asig,$recb,$lega);
         echo json_encode($arr);
     }
-    
-    
+
     if($_REQUEST["accion"]=="obtener_mano_obra"){
         $dep = $_REQUEST["dep"];
         $loc = $_REQUEST["loc"];
@@ -470,12 +499,27 @@
                             $bod = $rowTec['TECNBODE'];  
                         }
                     }
+                //
                 //verificar inventario
-                    $queryInv ="SELECT * FROM inventario WHERE INVEBODE = $bod AND INVEMATE = $mate AND INVECAPRO > 0";
+                    $campoBod = obtener_bod_pqr($cod);
+                    if($campoBod){
+                        $cantUsar = 'INVECAPRO';
+                        $valoUsar = 'INVEVLRPRO';
+                    }else{
+                        $cantUsar = 'INVECAPRE';
+                        $valoUsar = 'INVEVLRPRE';
+                    }
+
+                    $queryInv ="SELECT $cantUsar, $valoUsar FROM inventario WHERE INVEBODE = $bod AND INVEMATE = $mate";
                     $respuestaInv = $conn->prepare($queryInv) or die ($sql);
                     if(!$respuestaInv->execute()) return false;
                     if($respuestaInv->rowCount()>0){
                         while ($rowInv=$respuestaInv->fetch()){
+                            
+                            $cantMat_inv = (int)$rowInv[$cantUsar];
+                            $valoMat_inv = (int)$rowInv[$valoUsar];
+                            
+                            $valor_und = ($valoMat_inv)/($cantMat_inv);
                             
                             //materiales datos
                             $queryU ="SELECT * FROM material WHERE MATECODI = $mate";
@@ -483,9 +527,12 @@
                             if(!$respuestaU->execute()) return false;
                             if($respuestaU->rowCount()>0){
                                 while ($rowU=$respuestaU->fetch()){
-                                    $dato .= '<tr onclick="buscarMaterial('.$rowU['MATECODI'].',\''.$cantFija.'\','.$cant.','.$rowInv['INVECAPRO'].','.$rowInv['INVEVLRPRO'].')">
+                                    $dato .= '<tr onclick="buscarMaterial('.$rowU['MATECODI'].',\''.$cantFija.'\','.$cant.','.$cantMat_inv.','.round($valor_und,2).')">
                                                 <td class="text-center">'.$rowU['MATECODI'].'</td>
                                                 <td>'.utf8_encode($rowU['MATEDESC']).'</td>
+                                                <td class="text-right">'.$cant.'</td>
+                                                <td class="text-right">'.$cantMat_inv.'</td>
+                                                <td class="text-right">'.round($valor_und,2).'</td>
                                               </tr>';
                                     //$dato .= utf8_encode($rowU['MOBRDESC']);
                                 }   
@@ -526,38 +573,55 @@
                             $bod = $rowTec['TECNBODE'];  
                         }
                     }
+                //
+
+
                 //verificar inventario
-                    $queryInv ="SELECT * FROM inventario WHERE INVEBODE = $bod AND INVEMATE = $mate AND INVECAPRO > 0";
+                    $campoBod = obtener_bod_pqr($pqr);
+                    if($campoBod){
+                        $cantUsar = 'INVECAPRO';
+                        $valoUsar = 'INVEVLRPRO';
+                    }else{
+                        $cantUsar = 'INVECAPRE';
+                        $valoUsar = 'INVEVLRPRE';
+                    }
+
+                    $queryInv ="SELECT $cantUsar, $valoUsar  FROM inventario WHERE INVEBODE = $bod AND INVEMATE = $mate";
                     $respuestaInv = $conn->prepare($queryInv) or die ($sql);
                     if(!$respuestaInv->execute()) return false;
                     if($respuestaInv->rowCount()>0){
                         while ($rowInv=$respuestaInv->fetch()){
-                            $invVal = $rowInv['INVECAPRO'];
-                            $invCant = $rowInv['INVEVLRPRO'];
                             
+                            $cantMat_inv = (int)$rowInv[$cantUsar];
+                            $valoMat_inv = (int)$rowInv[$valoUsar];
+                            
+                            $valor_und = ($valoMat_inv)/($cantMat_inv);
+
                             //materiales datos
-                            $queryU ="SELECT * FROM material WHERE MATECODI = $mate";
-                            $respuestaU = $conn->prepare($queryU) or die ($sql);
-                            if(!$respuestaU->execute()) return false;
-                            if($respuestaU->rowCount()>0){
-                                while ($rowU=$respuestaU->fetch()){
-                                    $dato = utf8_encode($rowU['MATEDESC']);
-                                }   
+                                $queryU ="SELECT * FROM material WHERE MATECODI = $mate";
+                                $respuestaU = $conn->prepare($queryU) or die ($sql);
+                                if(!$respuestaU->execute()) return false;
+                                if($respuestaU->rowCount()>0){
+                                    while ($rowU=$respuestaU->fetch()){
+                                        $dato = utf8_encode($rowU['MATEDESC']);
+                                    }   
                             }
                             //End materiales
                         }
                     }
             }   
         }
-        $arr = array($dato,$cant,$cantFija,$invVal,$invCant);
+        $arr = array($dato,$cant,$cantFija,round($valor_und,2),$cantMat_inv);
         echo json_encode($arr);
     }
     if($_REQUEST["accion"]=="guardar_ma_ot"){
-        $bod = '';
-        $tec = $_REQUEST["codTec"];
+        $bod     = '';
+        $tec     = $_REQUEST["codTec"];
         $cantInv = $_REQUEST["cantInv"];
-        $cant = $_REQUEST["can"];
-        $cod = $_REQUEST["cod"];
+        $cant    = $_REQUEST["can"];
+        $cod     = $_REQUEST["cod"];
+        $val     = $_REQUEST["val"];
+        $pqrEnc  = $_REQUEST["pqrEnc"];
 
         $queryInsert = "INSERT INTO maleottr (MAOTMATE,MAOTDEPA,MAOTLOCA,MAOTNUMO,MAOTCANT,MAOTVLOR,MAOTTECN,MAOTTILE,MAOTFECH) 
                         VALUES (".$_REQUEST["cod"].",".$_REQUEST["dep"].",".$_REQUEST["loc"].",
@@ -578,18 +642,45 @@
                         $bod = $rowTec['TECNBODE'];  
                     }
                 }
+            //
+
+            $campoBod = obtener_bod_pqr($pqrEnc);
+            if($campoBod){
+                $cantUsar = 'INVECAPRO';
+                $valoUsar = 'INVEVLRPRO';
+            }else{
+                $cantUsar = 'INVECAPRE';
+                $valoUsar = 'INVEVLRPRE';
+            }
+
+            //obtner inventario
+                $query ="SELECT $cantUsar, $valoUsar FROM inventario WHERE INVEBODE = $bod AND invemate = $cod";
+                $respuesta = $conn->prepare($query) or die ($sql);
+                if(!$respuesta->execute()) return false;
+                if($respuesta->rowCount()>0){
+                    while ($row=$respuesta->fetch()){
+                        $cant_invent = (int)$row[$cantUsar];
+                        $val_invent  = $row[$valoUsar];
+                    }
+                }
+            //
 
             //Actualizar Inventario
                 //Nueva cantidad en inventario
-                $newCant = ((int)$cantInv) - ((int)$cant);
-            $query_inventario = "UPDATE inventario SET INVECAPRO = $newCant WHERE INVEBODE = $bod AND INVEMATE = $cod";
+                $newCant = $cant_invent - (int)$cant;
+                $newVal = $val_invent  - (int)$val;
 
-            $respuesta_inventario = $conn->prepare($query_inventario) or die ($query_inventario);
-            if(!$respuesta_inventario->execute()){
-                echo $query_inventario;
-            }else{
-                echo 1;
-            }
+                $query_inventario = "UPDATE inventario 
+                                     SET $cantUsar = $newCant, $valoUsar = $newVal 
+                                     WHERE INVEBODE = $bod AND INVEMATE = $cod";
+
+                $respuesta_inventario = $conn->prepare($query_inventario) or die ($query_inventario);
+                if(!$respuesta_inventario->execute()){
+                    echo $query_inventario;
+                }else{
+                    echo 1;
+                }
+            //
         }
     }
 ?>

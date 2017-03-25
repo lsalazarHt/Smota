@@ -28,7 +28,7 @@
 					                        <tbody>
 					                        	<?php 
 		                                            //$conn = require 'inc/clases/conexion.php';
-		                                            $query ="SELECT * FROM CLASTECN ORDER BY CLTECODI";
+		                                            $query ="SELECT * FROM clastecn ORDER BY CLTECODI";
 		                                            $respuesta = $conn->prepare($query) or die ($sql);
 		                                            if(!$respuesta->execute()) return false;
 		                                            if($respuesta->rowCount()>0){
@@ -70,7 +70,7 @@
 					                        <tbody>
 					                        	<?php 
 		                                            //$conn = require 'inc/clases/conexion.php';
-		                                            $query ="SELECT * FROM BODEGA WHERE BODEESTA='A' ORDER BY BODECODI";
+		                                            $query ="SELECT * FROM bodega WHERE BODEESTA='A' ORDER BY BODECODI";
 		                                            $respuesta = $conn->prepare($query) or die ($sql);
 		                                            if(!$respuesta->execute()) return false;
 		                                            if($respuesta->rowCount()>0){

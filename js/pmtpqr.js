@@ -143,7 +143,7 @@ $(document).ready(function () {
 			var cod = $.trim($('#txtCod'+i).val());
 			var nom = $.trim($('#txtNomb'+i).val());
 			var cant = $('#txtCantMax'+i).val();
-			if($("#txtCkek"+i).is(':checked')) { chek = 1; }
+			if($("#txtCkek"+i).is(':checked')) { chek = 'S'; }
 			else{ chek = 'N'; }
 
 			if( $('#txtTipo'+i).val() == 1){ //Editar
