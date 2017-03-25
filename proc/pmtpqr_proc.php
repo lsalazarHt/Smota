@@ -85,7 +85,7 @@
 	}
 	if($_REQUEST["accion"]=="editar_registros"){
         if( $_REQUEST["cant"]=='' ){ $_REQUEST["cant"]=0; }
-
+        
         $query ="UPDATE matepqr SET MAPQMATE=".$_REQUEST["cod"].", MAPQCANT=".$_REQUEST["cant"].",
 		         MAPQFIJO='".$_REQUEST["chek"]."' 
 		         WHERE MAPQPQR=".$_REQUEST["codPqr"]." AND MAPQMATE=".$_REQUEST["codOrg"];

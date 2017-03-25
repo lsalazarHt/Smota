@@ -201,6 +201,9 @@
 					                            <tr style="background-color: #3c8dbc; color:white;">
 					                             	<th class="text-center" width="100">CODIGO</th>
 					                              	<th class="text-left">NOMBRE</th>
+					                              	<th class="text-right">CANT MAX LEG</th>
+					                              	<th class="text-right">CANT DISPONIBLE</th>
+					                              	<th class="text-right">VALOR UNID</th>
 					                            </tr>
 					                        </thead>
 					                        <tbody id="tablaDivMateriales">
@@ -403,7 +406,7 @@
 							                		<input type="hidden" id="contRowMate">
 							                		<table id="tableMateriales" class="table table-bordered table-condensed">
 							                			<tr style="background-color: #3c8dbc; color:white;">
-							                				<td class="text-right" width="80"></td>
+							                				<td class="text-center" width="80">Codigo</td>
 							                				<td >Materiales</td>
 							                				<td class="text-right" width="70">Cantidad</td>
 							                				<td class="text-right" width="100">Valor</td>
