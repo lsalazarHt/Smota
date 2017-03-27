@@ -431,7 +431,7 @@ function guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,leg){
 	//verificar mano de obra 
 		contMan = $('#contRowMano').val();
 		swMO = false;
-		for(var i=1;i<=contMan;i++){
+		/*for(var i=1;i<=contMan;i++){
 			cod = $('#txtCodMan'+i).val(); //codigo mano de obra
 			nom = $('#txtNombMan'+i).val(); //nombre mano de obra
 			can = $('#txtCantMan'+i).val(); //cantidad mano de obra
@@ -443,6 +443,7 @@ function guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,leg){
 			}
 		}
 		if(swMO){ demo.showNotification('bottom','left', 'Porfavor verifique los datos en las manos de obra', 4); }
+		*/
 	//
 
 	//verificar materiales

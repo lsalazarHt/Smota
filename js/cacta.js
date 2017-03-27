@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	$('#btnCancelar').removeClass('disabled');
+    $('#btnCancelar').removeClass('disabled');
     $("#txtActCod").focus();
 
 	$('#btnCancelar').click(function(){
@@ -27,6 +28,17 @@ $(document).ready(function(){
 	        }
 		}
 	});
+
+    $('#btnImprimir').click(function(){
+		cod = $('#txtActCod').val();
+		vNe = $('#txtValNeto').val();
+		if( (cod!='') && (vNe!='') ){
+			imprimirActa(cod);
+		}else{
+			var msgError = 'Porfavor coloque un acta valido';
+			demo.showNotification('bottom','left', msgError, 4);
+		}
+	});
 });
 
 function buscarActa(act){
@@ -45,6 +57,12 @@ function buscarActa(act){
             $('#txtObservacion').val(data[6]);
             manoObtaActa(act);
             notasActa(act);
+            //habilitar imprimir
+            if( data[6] != '' ){
+                $('#btnImprimir').removeClass('disabled');
+            }else{
+                $('#btnImprimir').addClass('disabled');
+            }
         }
     });
 }
@@ -83,4 +101,11 @@ function limpiarDatos(){
 function solonumeros(){
     if ( (event.keyCode < 48) || (event.keyCode > 57)  ) 
         event.returnValue = false;
+}
+function imprimirActa(cod){
+	var result = confirm("Esta seguro que desea imprimir el acta #"+cod);
+	if(result){
+		url = 'imactaprint.php?cod='+cod;
+		window.open(url,'_blank');
+	}
 }

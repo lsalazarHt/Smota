@@ -7,7 +7,7 @@
 	$conn = require 'template/sql/conexion.php';
 	*/
 ?>
-<!--  Material Dashboard CSS    -->
+<!--  Material Dashboard CSS -->
 <link href="assets/css/material-dashboard.css" rel="stylesheet"/>
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 <?php require 'template/start.php'; ?>
@@ -37,7 +37,7 @@
 					                        <tbody>
 					                        	<?php 
 		                                            //$conn = require 'inc/clases/conexion.php';
-		                                            $query ="SELECT * FROM tecnico WHERE TECNESTA='A' ORDER BY TECNNOMB";
+		                                           /* $query ="SELECT * FROM tecnico WHERE TECNESTA='A' ORDER BY TECNNOMB";
 		                                            $respuesta = $conn->prepare($query) or die ($sql);
 		                                            if(!$respuesta->execute()) return false;
 		                                            if($respuesta->rowCount()>0){
@@ -48,7 +48,7 @@
 		                                                    		<td>'.$row['TECNNOMB'].'</td>
 		                                                    	</tr>';                                   
 		                                                }   
-		                                            }
+		                                            }*/
 		                                        ?>
 					                        </tbody>
 					                    </table>
@@ -61,7 +61,6 @@
 
 				<section class="content-header">
 	             	<?php include 'template/sub_menu.php' ?>
-					<!-- <a id="btnSalida" onclick="enviarOrden()" class="btn btn-info btn-xs" data-toggle="tooltip" data-original-title="Salir"><i class="fa fa-sign-out"></i></a> -->
 	            	<ol class="breadcrumb">
 	                	<li><a href="#">Ordenes</a></li>
 	                	<li><a href="#">Consultas</a></li>

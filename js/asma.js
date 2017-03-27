@@ -166,19 +166,21 @@ $(document).ready(function(){
 
 						asignarOrden(dep,loc,ord,tec);
 					//END ASIGNAR ORDEN AL TECNICO
+					
+					var msgError = 'Las ordenes se asignaron correctamente al tenico';
+					demo.showNotification('bottom','left', msgError, 2);
 				}
 			}
 			if(!sw){ 
 				var msgError = 'Porfavor elija minimo una orden';
 				demo.showNotification('bottom','left', msgError, 4);
 			}
-			var msgError = 'Las ordenes se asignaron correctamente al tenico';
-			demo.showNotification('bottom','left', msgError, 2);
 			mostrarOrdenes();
 		}else{
 			var msgError = 'Porfavor coloque un tecnico valido';
 			demo.showNotification('bottom','left', msgError, 4);
 		}
+		limpiarPantalla();
 	});
 
 });

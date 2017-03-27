@@ -1,5 +1,7 @@
 <?php 
 	$conn = require '../template/sql/conexion.php';
+    session_start();
+    date_default_timezone_set('America/Bogota');
 
 	if($_REQUEST["accion"]=="buscar_departamento"){
         $dep = $_REQUEST["dep"];
@@ -290,7 +292,12 @@
     	$ord = $_REQUEST["ord"];
     	$tec = $_REQUEST["tec"];
 
-    	$query ="UPDATE ot SET OTTECN = $tec,OTESTA = 1 WHERE OTDEPA=$dep AND OTLOCA=$loc AND OTNUME=$ord";
+        $fecha = date('Y-m-d');
+        $usuario = $_SESSION['user'];
+
+    	$query ="UPDATE ot 
+                 SET OTTECN = $tec, OTFEAS = '$fecha', OTUSERASI = '$usuario', OTESTA = 1
+                 WHERE OTDEPA=$dep AND OTLOCA=$loc AND OTNUME=$ord";
         $respuesta = $conn->prepare($query) or die ($query);
         if(!$respuesta->execute()){
             echo 'Error!';

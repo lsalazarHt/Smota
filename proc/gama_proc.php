@@ -145,7 +145,7 @@
         		$i++;
             }   
         }
-        echo $table.'</table><input type="hidden" id="contRow" value="'.($i-1).'">';
+        echo $table.'</table><input type="hidden" id="contRow" value="'.($i).'">';
     }
     if($_REQUEST["accion"]=="generar_acta"){
 		$tec = $_REQUEST["tec"];
