@@ -287,15 +287,15 @@ $(document).ready(function(){
 	    var cell2 = row.insertCell(2);
 	    cell2.className = '';
 	    a = '<input id="txtCantMat'+rowCount+'" type="text" class="form-control input-sm text-right" onkeypress="colocarMateCant('+rowCount+')" onclick="swEditorMat(\'txtCantMat'+rowCount+'\',\'trSelectMat'+rowCount+'\',6,'+rowCount+')">';
-	    b = '<input id="txtCantMatMax'+rowCount+'" type="text" >';
-	    c = '<input id="txtCantMatFija'+rowCount+'" type="text" >';
+	    b = '<input id="txtCantMatMax'+rowCount+'" type="hidden" >';
+	    c = '<input id="txtCantMatFija'+rowCount+'" type="hidden" >';
 	    cell2.innerHTML = a+b+c;
 
 	    var cell3 = row.insertCell(3);
 	    cell3.className = 'text-center ';
 	    a = '<input readonly id="txtValMat'+rowCount+'" type="text" class="form-control input-sm text-right" onkeypress="solonumeros()" onclick="swEditorMat(\'txtValMat'+rowCount+'\',\'trSelectMat'+rowCount+'\',6,'+rowCount+')">';
-	    b = '<input id="txtValMatMax'+rowCount+'" type="text" >';
-	    c = '<input id="txtCantMatInv'+rowCount+'" type="text" >';
+	    b = '<input id="txtValMatMax'+rowCount+'" type="hidden" >';
+	    c = '<input id="txtCantMatInv'+rowCount+'" type="hidden" >';
 	    cell3.innerHTML = a+b+c; 
 
 		selectedNewRowMat(row.id);
@@ -450,6 +450,9 @@ function guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,leg){
 
 	//verificar materiales
 		contMat = $('#contRowMate').val();
+		pqrqObl = $('#txtPqrMatFijoCont').val();
+		contObl = 0;
+
 		swMA = false;
 		swMA_cant = false;
 		swMA_cant0 = false;
@@ -466,23 +469,19 @@ function guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,leg){
 			if( (cod!='') && (nom!='') && (can!='')  && (val!=0)){
 				if(can > cMax){ swMA_cant = true; $swMA = true; }
 				if(can == 0){ swMA_cant0 = true; $swMA = true; }
+				if(cFij == 'S'){ contObl++; }
 			}
-
-			//vefificar si la pqr tiene materiales obligartorios
-			$.ajax({
-				type:'POST',
-				url:'proc/legord_proc.php?accion=verificar_material_obligatorio',
-				data:{ pqrEnc:pqrEnc, cod:cod },
-				success: function(data){
-					alert(data)
-					swMA_obli = true;
-					swMA = true;
-				}
-			});
+	
+		}
+		if($('#txtPqrMatFijo').val()=='S'){
+			if(contObl!=pqrqObl){
+				swMA_obli = true;
+				$swMA = true;
+			}
 		}
 		if(swMA_cant){ demo.showNotification('bottom','left', 'La cantidada legalizar es mayor a la permitida', 4); }
 		if(swMA_cant0){ demo.showNotification('bottom','left', 'Coloque una cantidad mayor a 0', 4); }
-		if(swMA_obli){ demo.showNotification('bottom','left', 'Coloque una cantidad mayor a 0', 4); }
+		if(swMA_obli){ demo.showNotification('bottom','left', 'Porfavor coloque el o los materiales obligatorios para legalizar esta orden', 4); }
 
 	//
 
@@ -656,6 +655,18 @@ function obtener_fijo_pqr(){
         data:{ pqr:pqr },
         success: function(data){
 	        $('#txtPqrMatFijo').val(data);
+			if(data=='S'){
+				$.ajax({
+					type:'POST',
+					url:'proc/legord_proc.php?accion=cont_pqr_material_obligatorio',
+					data:{ pqr:pqr },
+					success: function(data){
+						$('#txtPqrMatFijoCont').val(data);
+					}
+				});
+			}else{
+				$('#txtPqrMatFijoCont').val(0);
+			}
         }
     });
 }
