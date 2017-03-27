@@ -244,14 +244,18 @@ function actualizarZonas(dep,loc){
     });
 }
 function buscarZona(dep,loc,zon){
-	$.ajax({
-        type:'POST',
-        url:'proc/asma_proc.php?accion=buscar_zona',
-        data:{dep:dep, loc:loc, zon:zon},
-        success: function(data){
-        	$('#txtZonaNomb').val(data);
-        }
-    });
+	if(zon!=0){
+		$.ajax({
+			type:'POST',
+			url:'proc/asma_proc.php?accion=buscar_zona',
+			data:{dep:dep, loc:loc, zon:zon},
+			success: function(data){
+				$('#txtZonaNomb').val(data);
+			}
+		});
+	}else{
+		$('#txtZonaNomb').val('Todos');
+	}
 }
 //SECTORES
 function addSector(cod,sec){

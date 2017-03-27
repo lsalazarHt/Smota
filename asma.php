@@ -265,8 +265,9 @@
 					                     	<div class="col-sm-1">
 				                        		<input type="text" class="form-control input-sm e e3 key" id="txtZonaCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
-				                      		<div class="col-sm-4">
-				                        		<input type="text" class="form-control input-sm" id="txtZonaNomb" placeholder="Nombre de la Zona" readonly>
+											<label class="col-sm-1 control-label text-center" style="margin-top:5px;"><small>Cero Todos</small></label>
+				                      		<div class="col-sm-3">
+				                        		<input type="text" class="form-control input-sm" id="txtZonaNomb" placeholder="Nombre del Zona" readonly>
 				                      		</div>
 				                      		<div class="col-sm-4 text-center" style="border: solid 1px; margin-left: 50px; background-color: #808080; color:white;">
 				                      			<small style="margin-top: 8px;">
@@ -323,7 +324,7 @@
 				                	<div class="row marginTop3">
 				                		<div class="col-md-12">
 				                			<input type="hidden" id="swCheckTodos" value="0">
-				                			<div id="tableOrdenes" style="height: 460px; overflow-y: scroll;">
+				                			<div id="tableOrdenes" style="height: 460px; overflow-y: scroll;" class="container-table-list">
 						                		<table class="table table-bordered table-condensed">
 						                			<tr style="background-color: #3c8dbc; color:white;">
 								        				<th class="text-center" width="100">NUMERO DE ORDEN</th>
