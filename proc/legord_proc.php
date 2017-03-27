@@ -683,4 +683,33 @@
             //
         }
     }
+    
+    //verificar si la pqr tiene materiales fijo
+    if($_REQUEST["accion"]=="verificar_pqr_material_obligatorio"){
+        $pqr = $_REQUEST["pqr"];
+
+        $query ="SELECT mapqfijo FROM matepqr WHERE mapqpqr = $pqr AND mapqfijo = 'S'";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            echo 'S';
+        }else{
+            echo 'N';
+        }
+    }
+    //verificar material a legalizar
+    if($_REQUEST["accion"]=="verificar_material_obligatorio"){
+        $sw='';
+        $mat = $_REQUEST["cod"];
+        $pqr = $_REQUEST["pqrEnc"];
+
+        $query ="SELECT mapqfijo FROM matepqr WHERE mapqpqr = $pqr AND mapqmate = $mat AND mapqfijo = 'S'";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            echo 'S';
+        }else{
+            echo 'N';
+        }
+    }
 ?>

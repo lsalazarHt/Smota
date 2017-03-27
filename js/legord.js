@@ -247,7 +247,7 @@ $(document).ready(function(){
 	    var cell2 = row.insertCell(2);
 	    cell2.className = '';
 	    a = '<input id="txtCantMan'+rowCount+'" type="text" class="form-control input-sm text-right" onkeypress="solonumerosEnterCalMano('+rowCount+')" onclick="swEditor(\'txtCantMan'+rowCount+'\',\'trSelect'+rowCount+'\',5,'+rowCount+')">';
-	    b = '<input id="txtCantManMAx'+rowCount+'" type="text" class="form-control input-sm" readonly>';
+	    b = '<input id="txtCantManMAx'+rowCount+'" type="hidden" class="form-control input-sm" readonly>';
 	    cell2.innerHTML = a+b;
 	    
 	    var cell3 = row.insertCell(3);
@@ -390,6 +390,8 @@ function buscarOrden(dep,loc,num){
 			
 			$('#txtAsignador').val(data[19]);
 			$('#txtRecibidor').val(data[20]);
+
+			obtener_fijo_pqr();
 			//$('#txtLegalizador').val(data[21]);
 
 			//obtenerManoObraOrden(dep,loc,num);
@@ -431,7 +433,7 @@ function guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,leg){
 	//verificar mano de obra 
 		contMan = $('#contRowMano').val();
 		swMO = false;
-		/*for(var i=1;i<=contMan;i++){
+		for(var i=1;i<=contMan;i++){
 			cod = $('#txtCodMan'+i).val(); //codigo mano de obra
 			nom = $('#txtNombMan'+i).val(); //nombre mano de obra
 			can = $('#txtCantMan'+i).val(); //cantidad mano de obra
@@ -439,16 +441,19 @@ function guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,leg){
 			val = $('#txtValManTotal'+i).val(); //valor mano de obra
 			if( (cod!='') && (nom!='') && (can!=0) && (val!=0) ){
 				if(can > cMax){ swMO = true; }
-				if(can != 0){ swMO = true; }
+				if(can == 0){ swMO = true; }
 			}
 		}
 		if(swMO){ demo.showNotification('bottom','left', 'Porfavor verifique los datos en las manos de obra', 4); }
-		*/
+		
 	//
 
 	//verificar materiales
 		contMat = $('#contRowMate').val();
 		swMA = false;
+		swMA_cant = false;
+		swMA_cant0 = false;
+		swMA_obli = false;
 		for(var i=1;i<=contMat;i++){
 			cod = $('#txtCodMat'+i).val(); //codigo del material
 			nom = $('#txtNombMat'+i).val(); //nombre del material
@@ -459,14 +464,29 @@ function guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,leg){
 			val = $('#txtValMat'+i).val(); //valor del material 
 			
 			if( (cod!='') && (nom!='') && (can!='')  && (val!=0)){
-				if(can > cMax){ swMA = true; }
-				if(can == 0){ swMA = true; }
+				if(can > cMax){ swMA_cant = true; $swMA = true; }
+				if(can == 0){ swMA_cant0 = true; $swMA = true; }
 			}
+
+			//vefificar si la pqr tiene materiales obligartorios
+			$.ajax({
+				type:'POST',
+				url:'proc/legord_proc.php?accion=verificar_material_obligatorio',
+				data:{ pqrEnc:pqrEnc, cod:cod },
+				success: function(data){
+					alert(data)
+					swMA_obli = true;
+					swMA = true;
+				}
+			});
 		}
-		if(swMA){ demo.showNotification('bottom','left', 'Porfavor verifique los datos en los materiales', 4); }
+		if(swMA_cant){ demo.showNotification('bottom','left', 'La cantidada legalizar es mayor a la permitida', 4); }
+		if(swMA_cant0){ demo.showNotification('bottom','left', 'Coloque una cantidad mayor a 0', 4); }
+		if(swMA_obli){ demo.showNotification('bottom','left', 'Coloque una cantidad mayor a 0', 4); }
+
 	//
 
-	if( (!swMA) && (!swMO) ){
+	/*if( (!swMA) && (!swMO) ){
 		obs = $('#txtObservacion').val();
 		codTec = $('#txtCodTecn').val();
 		
@@ -530,7 +550,7 @@ function guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,leg){
 				}else{ alert(data) }
 			}
 		});
-	}
+	}*/
 }
 function obtenerManoObraOrden(dep,loc,num){
 	$.ajax({
@@ -618,11 +638,24 @@ function buscarTrabajo(cod,tec){
 	            $('#txtPqrCodEnc').val(cod);
 	            $('#txtPqrNombEnc').val(data);
 				$('#txtHoraInicial').focus();
+				obtener_fijo_pqr();
         	}else{
         		$('#txtPqrNombEnc').val('');
 				demo.showNotification('bottom','left', 'Porfavor coloque un pqr valido', 4);
         	}
         	$('#modalPqr').modal('hide');
+        }
+    });
+}
+//verificar si la pqr tiene materiales fijo
+function obtener_fijo_pqr(){
+	pqr = $('#txtPqrCodEnc').val();
+	$.ajax({
+        type:'POST',
+        url:'proc/legord_proc.php?accion=verificar_pqr_material_obligatorio',
+        data:{ pqr:pqr },
+        success: function(data){
+	        $('#txtPqrMatFijo').val(data);
         }
     });
 }
