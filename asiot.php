@@ -207,7 +207,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtFechaIng" class="col-sm-3 control-label text-right" style="margin-top:5px;">Fecha Asignacion</label>
 					                     	<div class="col-sm-2 marginTop3">
-				                        		<input type="date" class="form-control input-sm e e4" id="txtFechaAsig" placeholder="Codigo">
+				                        		<input type="date" class="form-control input-sm e e4" id="txtFechaAsig" placeholder="Codigo" value="<?php echo date("Y-m-d"); ?>" readonly>
 				                      		</div>
 
 				                      		<div class="col-sm-2"></div>
