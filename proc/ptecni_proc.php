@@ -101,11 +101,8 @@
 		if($_REQUEST["salar"]==''){
 			$_REQUEST["salar"] = 0;
 		}
-<<<<<<< HEAD
-		$query = "UPDATE tecnico SET TECNCODI=".$_REQUEST["cod"].", TECNNOMB='".$_REQUEST["nom"]."',
-=======
+
 		$query = "UPDATE tecnico SET TECNNOMB='".$_REQUEST["nom"]."',
->>>>>>> refs/remotes/origin/master
 					TECNESTA='".$_REQUEST["act"]."',TECNCLAS=".$_REQUEST["clas"].",TECNFEIN='".$_REQUEST["fIng"]."',
 					TECNFERE='".$_REQUEST["fRet"]."',TECNSALA=".$_REQUEST["salar"].",TECNBODE='".$_REQUEST["bod"]."',
 					INDCDORPRDCCION='".$_REQUEST["devPr"]."'
