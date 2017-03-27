@@ -63,7 +63,6 @@
 		            <li class="display-none liConsul"><a href="cusu.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Consulta General de Usuarios</a></li>
 		            <li class="display-none liConsul"><a href="cnota.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Notas</a></li>
 		            <li class="display-none liConsul"><a href="corden.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Ordenes</a></li>
-		            <li class="display-none liConsul"><a href="#" style="margin-left:20px;"><i class="fa fa-circle-o"></i> Ordenes por Acta (NO CARGA)</a></li>
 	            <li class="mResto"><a href="cror.php"><i class="fa fa-circle"></i>Crear orden legalizada (hija/padre)</a></li>
 	            <li class="mResto"><a href="demo.php"><i class="fa fa-circle"></i>Desasignacion de Ordenes por Pantalla</a></li>
 	            <li class="mResto"><a href="pdelote.php"><i class="fa fa-circle"></i>Desasignación en bloque</a></li>

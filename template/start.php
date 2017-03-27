@@ -32,6 +32,11 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 
     <style type="text/css">
+        .container-table-list{
+            overflow-x: auto;
+            white-space: nowrap;
+            overflow-y: auto;
+        }
         .movObEntrada_border{
             border: solid 3px #40C080;
         }
