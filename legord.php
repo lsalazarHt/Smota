@@ -331,7 +331,8 @@
 												<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:130px; float:left;">PQR Encontrada</label>
 				                        		<input id="txtPqrCodEnc" type="text" class="form-control input-sm" style="width:50px; float: left; margin-left: 8px;">
 				                        		<input id="txtPqrNombEnc" type="text" class="form-control input-sm" readonly style="width:365px; float: left; margin-left: 10px;">
-				                        		<input id="txtPqrMatFijo" type="text">
+				                        		<input id="txtPqrMatFijo" type="hidden">
+				                        		<input id="txtPqrMatFijoCont" type="hidden">
 				                      		</div>
 					                    </div>
 				                	</div>

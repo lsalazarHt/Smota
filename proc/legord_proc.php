@@ -697,6 +697,20 @@
             echo 'N';
         }
     }
+    //contar el numero de veces que un material es obligario
+    if($_REQUEST["accion"]=="cont_pqr_material_obligatorio"){
+        $cont = 0;
+        $pqr = $_REQUEST["pqr"];
+        $query ="SELECT COUNT(mapqfijo) AS cont FROM matepqr WHERE mapqpqr = $pqr AND mapqfijo = 'S'";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $cont = $row['cont'];
+            }
+        }
+        echo $cont;
+    }
     //verificar material a legalizar
     if($_REQUEST["accion"]=="verificar_material_obligatorio"){
         $sw='';
