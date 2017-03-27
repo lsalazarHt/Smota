@@ -5,67 +5,106 @@
   }
 ?>
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SIGCO | Sistema de Informacion, Gestion de Contratistas</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="tools/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="tools/plugins/datatables/dataTables.bootstrap.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="tools/dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="tools/dist/css/skins/_all-skins.min.css">
+<html lang="en">
 
-    <!-- background slide -->
-    <link rel="shortcut icon" href="../favicon.ico"> 
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>SIGCO | Sistema de Informacion, Gestion de Contratistas</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css"> -->
+		<link rel="stylesheet" href="assets/css/form-elements.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- Favicon and touch icons -->
+        <!-- <link rel="shortcut icon" href="assets/ico/favicon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png"> -->
+
+        <!-- background slide -->
+    <!-- <link rel="shortcut icon" href="../favicon.ico">  -->
     <link rel="stylesheet" type="text/css" href="assets/css/background-slideCSS/demo.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/background-slideCSS/style1.css" />
     <script type="text/javascript" src="assets/js/background-slideJS/modernizr.custom.86080.js"></script>
 
-  </head>
-  <body class="hold-transition login-page">
-  <ul class="cb-slideshow">
-            <li><span>Image 01</span><div><h3>ga·so·duc·to</h3></div></li>
-            <li><span>Image 02</span><div><h3>pla·n·ta·de·gas</h3></div></li>
-            <li><span>Image 03</span><div><h3>gas·na·tu·ral</h3></div></li>
-            <li><span>Image 04</span><div><h3>ga·so·duc·to</h3></div></li>
-            <li><span>Image 05</span><div><h3>pla·n·ta·de·gas</h3></div></li>
-            <li><span>Image 06</span><div><h3>gas·na·tu·ral</h3></div></li>
-        </ul>
-    <div class="login-box">
-      <div class="login-logo">
-        <a><b>SIGCO</b></a>
-      </div><!-- /.login-logo -->
-      <div class="login-box-body">
-        <form action="verificar.php" method="post">
-          <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="Usuario" name="txtUser" autofocus autocomplete="off">
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-          </div>
-          <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Contraseña" name="txtPss">
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-          </div>
-          <div class="row">
-            <div class="col-xs-7">
-            </div><!-- /.col -->
-            <div class="col-xs-5">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Iniciar sesión</button>
-            </div><!-- /.col -->
-          </div>
-        </form>
+    </head>
 
-      </div><!-- /.login-box-body -->
-    </div><!-- /.login-box -->
-  </body>
-<?php require 'template/end.php'; ?>
+    <body>
+
+        <!-- Top content -->
+        <div class="top-content">
+        	
+            <div class="inner-bg">
+                <div class="container">
+                 <ul class="cb-slideshow">
+            <li><span>Image 01</span><div><h3><!-- ga·so·duc·to --></h3></div></li>
+            <li><span>Image 02</span><div><h3><!-- pla·n·ta·de·gas --></h3></div></li>
+            <li><span>Image 03</span><div><h3><!-- gas·na·tu·ral --></h3></div></li>
+            <li><span>Image 04</span><div><h3><!-- ga·so·duc·to --></h3></div></li>
+            <li><span>Image 05</span><div><h3><!-- pla·n·ta·de·gas --></h3></div></li>
+            <li><span>Image 06</span><div><h3><!-- gas·na·tu·ral --></h3></div></li>
+        </ul>
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                            <h1><strong>SIGCO</strong> System Info</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                        	<div class="form-top">
+                        		<div class="form-top-left">
+                        			<h3>Inicia sesion</h3>
+                            		<p>Escribe tu usuario y contraseña para iniciar sesion:</p>
+                        		</div>
+                        		<div class="form-top-right">
+                        			<i class="fa fa-lock"></i>
+                        		</div>
+                            </div>
+                            <div class="form-bottom">
+			                    <form role="form" action="verificar.php" method="post" class="login-form">
+			                    	<div class="form-group">
+			                    		<!-- <label class="sr-only" for="form-username">Username</label> -->
+			                        	<input type="text" name="txtUser" placeholder="Usuario..." class="form-username form-control" id="form-username" autofocus autocomplete="off">
+			                        </div>
+			                        <div class="form-group">
+			                        	<!-- <label class="sr-only" for="form-password">Password</label> -->
+			                        	<input type="password" name="txtPss" placeholder="Contraseña..." class="form-password form-control" id="form-password">
+			                        </div>
+			                        <button type="submit" class="btn">Entrar!</button>
+			                    </form>
+		                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+
+        <!-- Javascript -->
+     <!--    <script src="assets/js/jquery-1.11.1.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.backstretch.min.js"></script>
+        <script src="assets/js/scripts.js"></script>
+         -->
+        <!--[if lt IE 10]>
+            <script src="assets/js/placeholder.js"></script>
+        <![endif]-->
+
+    </body>
+
+</html>

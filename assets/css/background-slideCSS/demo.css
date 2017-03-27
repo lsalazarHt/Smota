@@ -41,8 +41,8 @@ caption,th {
 	text-align:left;
 }
 h1,h2,h3,h4,h5,h6 {
-	font-size:100%;
-	font-weight:normal;
+	/*font-size:100%;
+	font-weight:normal;*/
 }
 q:before,q:after {
 	content:'';
@@ -51,7 +51,7 @@ abbr,acronym { border:0;
 }
 /* General Demo Style */
 body{
-	font-family: Constantia, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+	/*font-family: Constantia, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;*/
 	background: #000;
 	font-weight: 400;
 	font-size: 15px;
