@@ -166,19 +166,21 @@ $(document).ready(function(){
 
 						asignarOrden(dep,loc,ord,tec);
 					//END ASIGNAR ORDEN AL TECNICO
+					
+					var msgError = 'Las ordenes se asignaron correctamente al tenico';
+					demo.showNotification('bottom','left', msgError, 2);
 				}
 			}
 			if(!sw){ 
 				var msgError = 'Porfavor elija minimo una orden';
 				demo.showNotification('bottom','left', msgError, 4);
 			}
-			var msgError = 'Las ordenes se asignaron correctamente al tenico';
-			demo.showNotification('bottom','left', msgError, 2);
 			mostrarOrdenes();
 		}else{
 			var msgError = 'Porfavor coloque un tecnico valido';
 			demo.showNotification('bottom','left', msgError, 4);
 		}
+		limpiarPantalla();
 	});
 
 });
@@ -244,14 +246,18 @@ function actualizarZonas(dep,loc){
     });
 }
 function buscarZona(dep,loc,zon){
-	$.ajax({
-        type:'POST',
-        url:'proc/asma_proc.php?accion=buscar_zona',
-        data:{dep:dep, loc:loc, zon:zon},
-        success: function(data){
-        	$('#txtZonaNomb').val(data);
-        }
-    });
+	if(zon!=0){
+		$.ajax({
+			type:'POST',
+			url:'proc/asma_proc.php?accion=buscar_zona',
+			data:{dep:dep, loc:loc, zon:zon},
+			success: function(data){
+				$('#txtZonaNomb').val(data);
+			}
+		});
+	}else{
+		$('#txtZonaNomb').val('Todos');
+	}
 }
 //SECTORES
 function addSector(cod,sec){

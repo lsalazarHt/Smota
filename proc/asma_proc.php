@@ -1,5 +1,7 @@
-<?php  
+<?php 
 	$conn = require '../template/sql/conexion.php';
+    session_start();
+    date_default_timezone_set('America/Bogota');
 
 	if($_REQUEST["accion"]=="buscar_departamento"){
         $dep = $_REQUEST["dep"];
@@ -115,8 +117,13 @@
         $zon = $_REQUEST["zon"];
         $sec = $_REQUEST["sec"];
         
+        $wZon = '';
+        if($zon!=0){
+            $wZon = 'AND SEZOZOOP '.$zon;
+        }
+
         $nomb = '';
-        $query ="SELECT * FROM seopzoop WHERE SEZODEPA = $dep AND SEZOLOCA = $loc AND SEZOZOOP = $zon AND SEZOVISI = 1";
+        $query ="SELECT * FROM seopzoop WHERE SEZODEPA = $dep AND SEZOLOCA = $loc  AND SEZOVISI = 1";
         $respuesta = $conn->prepare($query) or die ($sql);
         if(!$respuesta->execute()) return false;
         if($respuesta->rowCount()>0){
@@ -171,9 +178,9 @@
         				<th class="text-center" width="70">FECHA</th>
         				<th class="text-center" width="70">PQR</th>
         				<th class="text-center" width="70">RUTA</th>
-        				<th class="text-center" width="100">USUARIO</th>
-        				<th class="text-center" width="100">OBSERVACION</th>
-        				<th class="text-center" width="100">DIRECCION</th>
+        				<th width="100">USUARIO</th>
+        				<th width="100">OBSERVACION</th>
+        				<th width="100">DIRECCION</th>
         				<th class="text-center" width="100">SECTOR</th>
         				<th class="text-center" width="10"><input type="checkbox" id="txtCheckTodosP" onclick="selectTodos()"></th>
         			</tr>
@@ -187,45 +194,54 @@
         $critOrd = $_REQUEST["critOrd"];
 
         //VALIDAMOS CRITERIOS
-        $orderby = "";
-        switch ($critOrd){
-        	case 1: //DIRECCION
-        		$orderby = "ORDER BY usuarios.USUDIRE";
-        	break;
-        	case 2: //RUTA
-        		$orderby = "ORDER BY usuarios.USURUTA";
-        	break;
-        	case 3: //FECHA
-        		$orderby = "ORDER BY ot.OTFEORD";
-        	break;
-        	case 4: //PQR
-        		$orderby = "ORDER BY ot.OTPQRREPO";
-        	break;
-        	case 5: //SECTOR
-        		$orderby = "ORDER BY usuarios.USUSEOP";
-        	break;
-        	case 6: //USUARIO
-        		$orderby = "ORDER BY usuarios.USUNOMB";
-        	break;
-        }
+            $orderby = "";
+            switch ($critOrd){
+                case 1: //DIRECCION
+                    $orderby = "ORDER BY usuarios.USUDIRE";
+                break;
+                case 2: //RUTA
+                    $orderby = "ORDER BY usuarios.USURUTA";
+                break;
+                case 3: //FECHA
+                    $orderby = "ORDER BY ot.OTFEORD";
+                break;
+                case 4: //PQR
+                    $orderby = "ORDER BY ot.OTPQRREPO";
+                break;
+                case 5: //SECTOR
+                    $orderby = "ORDER BY usuarios.USUSEOP";
+                break;
+                case 6: //USUARIO
+                    $orderby = "ORDER BY usuarios.USUNOMB";
+                break;
+            }
+        //
 
         //CREAR WHERE
-        $wSec = "";
-        if($sec!=0){
+            $wSec = "";
+            if($sec!=0){
 
-        	$wSec = "AND usuarios.USUSEOP = $sec";
-        }
-        $wPqr = "";
-        if($pqr!=0){
+                $wSec = "AND usuarios.USUSEOP = $sec";
+            }
+            $wZon = "";
+            $fZon = "";
+            if($zon!=0){
+                $wZon = "AND seopzoop.SEZOZOOP = $zon"; //where
+                $fZon = "LEFT JOIN seopzoop ON seopzoop.SEZOSEOP = usuarios.USUSEOP"; //from
+            }
+            $wPqr = "";
+            if($pqr!=0){
 
-        	$wPqr = "AND ot.OTPQRREPO = $pqr";
-        }
-        $where = "WHERE ot.OTDEPA = $dep AND ot.OTLOCA = $loc $wSec $wPqr AND ot.OTESTA=0";
+                $wPqr = "AND ot.OTPQRREPO = $pqr";
+            }
+            $where = "WHERE ot.OTDEPA = $dep AND ot.OTLOCA = $loc $wSec $wZon $wPqr AND ot.OTESTA=0";
+        //
         
         $i=0;
         $query ="SELECT ot.OTDEPA,ot.OTLOCA,ot.OTNUME,ot.OTFEORD,ot.OTPQRREPO,usuarios.USURUTA,usuarios.USUNOMB,ot.OTOBSEAS,usuarios.USUDIRE,usuarios.USUSEOP 
 				 FROM ot
-				 INNER JOIN usuarios ON usuarios.USUCODI = ot.OTUSUARIO
+				    JOIN usuarios ON usuarios.USUCODI = ot.OTUSUARIO
+                    $fZon
 				 $where
 				 $orderby";
         $respuesta = $conn->prepare($query) or die ($sql);
@@ -251,7 +267,7 @@
             	$i++;
             }   
         }
-        echo $table.'</table><input type="hidden" id="contRow" value="'.($i-1).'">';
+        echo $table.'</table><input type="hidden" id="contRow" value="'.($i).'">';
     }
     if($_REQUEST["accion"]=="limpiar_tabla"){
     	$table = '
@@ -276,7 +292,12 @@
     	$ord = $_REQUEST["ord"];
     	$tec = $_REQUEST["tec"];
 
-    	$query ="UPDATE ot SET OTTECN = $tec,OTESTA = 1 WHERE OTDEPA=$dep AND OTLOCA=$loc AND OTNUME=$ord";
+        $fecha = date('Y-m-d');
+        $usuario = $_SESSION['user'];
+
+    	$query ="UPDATE ot 
+                 SET OTTECN = $tec, OTFEAS = '$fecha', OTUSERASI = '$usuario', OTESTA = 1
+                 WHERE OTDEPA=$dep AND OTLOCA=$loc AND OTNUME=$ord";
         $respuesta = $conn->prepare($query) or die ($query);
         if(!$respuesta->execute()){
             echo 'Error!';
