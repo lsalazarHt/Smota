@@ -2,56 +2,88 @@
 	session_start();
 	date_default_timezone_set('America/Bogota');
 	$conn = require '../template/sql/conexion.php';
-
+	
+	if($_REQUEST["accion"]=="consultar_ordenes"){
+    	$dato='';
+    	$i=0;
+		$query ="SELECT * FROM ot";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+            	$i++;
+                $dato .='<input type="hidden" id="txtCod_consulta_dep'.$i.'" value="'.$row['OTDEPA'].'">';
+                $dato .='<input type="hidden" id="txtCod_consulta_loc'.$i.'" value="'.$row['OTLOCA'].'">';
+                $dato .='<input type="hidden" id="txtCod_consulta_nun'.$i.'" value="'.$row['OTNUME'].'"><br>';
+            }   
+        }
+       	echo $dato.'<br>
+            <input type="hidden" id="txtActual_consulta" value="1"><br>
+        <input type="hidden" id="txtToltal_consulta" value="'.$i.'">';
+        //echo $query;
+	}
+	
 	if($_REQUEST["accion"]=="buscar_orden"){
-		$num = $_REQUEST["num"];
-		$dep = "";
-		$loc = "";
+		$depOt  = $_REQUEST["dep"];
+		$locOt  = $_REQUEST["loc"];
+		$numOt  = $_REQUEST["num"];
+		$tecnic = $_REQUEST["tec"];
+		$pqrRep = $_REQUEST["pqrR"];
+		$pqrEnc = $_REQUEST["pqrE"];
+		$usuCod = $_REQUEST["usu"];
+		$estCod = $_REQUEST["est"];
 
-		$tecnic		= "";
-		$tecnicNomb	= "";
+		//variables
+			$tecnicNomb	= "";
+			$fecRec = "";
+			$fecOrd = "";
+			$fecCum = "";
+			$fecAsi = "";
+			$fecLeg = "";
 
-		$fecRec = "";
-		$fecOrd = "";
-		$fecCum = "";
-		$fecAsi = "";
-		$fecLeg = "";
+			$pqrRepoNomb = "";
 
-		$pqrRepo = "";
-		$pqrRepoNomb = "";
+			$pqrEncoNomb = "";
 
-		$pqrEnco = "";
-		$pqrEncoNomb = "";
+			$canoa = "";
+			$atencionNomb = "";
 
-		$canoa = "";
-		$atencionNomb = "";
+			$causlec = "";
+			$atencionNoNomb = "";
 
-		$causlec = "";
-		$atencionNoNomb = "";
+			$usuarioNomb = "";
+			$usuarioDirec = "";
+			$usuarioMedidor = "";
 
-		$usuarioNomb = "";
-		$usuarioDirec = "";
-		$usuarioMedidor = "";
+			$recibidor = "";
+			$metodoCorte = 1;
+			$asignador = "";
+			$legalizacion = "";
 
-		$recibidor = "";
-		$metodoCorte = 1;
-		$asignador = "";
-		$legalizacion = "";
+			$lectura = "";
+			$causaLect = "";
+			$obsLectu = "";
 
-		$lectura = "";
-		$causaLect = "";
-		$obsLectu = "";
+			$estado = "";
+			$estadoNomb = "";
 
-		$estado = "";
-		$estadoNomb = "";
+			$horaInicial = "";
+			$horaFinal = "";
 
-		$horaInicial = "";
-		$horaFinal = "";
+			$objDeOrden = "";
+			$objDeAsign = "";
+			$objDeLegal = "";
+			$objDeCerti = "";
+		//
 
-		$objDeOrden = "";
-		$objDeAsign = "";
-		$objDeLegal = "";
-		$objDeCerti = "";
+		//generar where
+			$sqlDep = ($depOt!='') ? " OTDEPA = $depOt" : '' ;
+			$sqlLoc = ($locOt!='') ? " OTLOCA = $locOt" : '' ;
+			$sqlNum = ($numOt!='') ? " OTNUME = $numOt" : '' ;
+
+			
+			
+		//
 
 		$query ="SELECT * FROM ot WHERE OTNUME = $num";
 	    $respuesta = $conn->prepare($query) or die ($sql);
@@ -73,15 +105,15 @@
 				        	}
 				        }
 		    		}else{ $tecnic = ''; $tecnicNomb = ''; }
-
+				//
 		    	//fechas
 		    		$fecRec = $row['OTFERECI'];
 		    		$fecOrd = $row['OTFEORD'];
 		    		$fecCum = $row['OTCUMP'];
 		    		$fecAsi = $row['OTFEAS'];
 		    		$fecLeg = $row['OTFELE'];
-
-		    	//pqr
+				//
+				//pqr
 			    	$pqrRepo = $row['OTPQRREPO'];
 		    		if($pqrRepo!=''){
 			    		$pqrRepoNomb='';
@@ -107,8 +139,8 @@
 					        	}
 					        }
 		    		}else{ $pqrEncoNomb=''; }
-
-		    	//causa
+				//
+		    	//causal
 		    		$canoa = $row['OTCAAT'];
 		    		if($canoa!=''){
 			    		$atencionNomb='';
@@ -134,7 +166,7 @@
 					        	}
 					        }
 		    		}else{ $atencionNoNomb='Causa de NO atencion idefinida'; }
-
+				//
 		    	//usuario
 		    		$usuarioCodigo = $row['OTUSUARIO'];
 		    		$usuarioNomb = '';  
@@ -152,6 +184,7 @@
 				        	}
 				        }
 		    		}
+				//
 
 			    //user
 			    	$recibidor = $row['OTUSERCRE'];
@@ -160,12 +193,12 @@
 			    	}
 		    		$asignador = $row['OTUSERASI'];
 		    		$legalizacion = $row['OTUSERLEG'];
-
+				//
 		    	//lectura
 		    		$lectura = $row['OTLECT'];
 		    		$causaLect = $row['OTCAUSLEC'];
 		    		$obsLectu = $row['OTOBSELEC'];
-
+				//
 		    	//estado
 		    		$estado = $row['OTESTA'];
 		    		$estadoNomb='';
@@ -179,17 +212,17 @@
 					        	}
 					        }
 		    		}
-
+				//
 		    	//hora
 				    $horaInicial = str_pad($row['OTHORAIN'],2,"0",STR_PAD_LEFT).':'.str_pad($row['OTMIIN'],2,"0",STR_PAD_LEFT);
 				    $horaFinal = str_pad($row['OTHORAFI'],2,"0",STR_PAD_LEFT).':'.str_pad($row['OTMIFI'],2,"0",STR_PAD_LEFT);
-	    		
+	    		//
 	    		//observaciones
 				    $objDeOrden = $row['OTOBSEAS'];
 				    $objDeAsign = $row['OTOBSERVAS'];
 				    $objDeLegal = $row['OTOBSELE'];
 				    $objDeCerti = $row['OTOBSCER'];
-
+				//
 	    	}
 	    }
 	    $arr = array($dep,$loc,$tecnic,$tecnicNomb,$fecRec,$fecOrd,$fecCum,$fecAsi,$fecLeg,$pqrRepo,$pqrRepoNomb,$pqrEnco,$pqrEncoNomb,$canoa,$atencionNomb,$causlec,$atencionNoNomb,$usuarioCodigo,$usuarioNomb,$usuarioDirec,$usuarioMedidor,$recibidor,$metodoCorte,$asignador,$legalizacion,$lectura,$causaLect,$obsLectu,$estado,$estadoNomb,$horaInicial,$horaFinal,$objDeOrden,$objDeAsign,$objDeLegal,$objDeCerti);
