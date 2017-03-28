@@ -77,7 +77,11 @@
 		//
 
 		//generar where
-			$sqlDep = ($depO!='') ? '' : '';
+			$sqlDep = ($depOt!='') ? " OTDEPA = $depOt" : '' ;
+			$sqlLoc = ($locOt!='') ? " OTLOCA = $locOt" : '' ;
+			$sqlNum = ($numOt!='') ? " OTNUME = $numOt" : '' ;
+
+			
 			
 		//
 
