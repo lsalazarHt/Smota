@@ -7,9 +7,6 @@
 	$conn = require 'template/sql/conexion.php';
 	*/
 ?>
-<!--  Material Dashboard CSS -->
-<link href="assets/css/material-dashboard.css" rel="stylesheet"/>
-<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 <?php require 'template/start.php'; ?>
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
@@ -37,7 +34,7 @@
 					                        <tbody>
 					                        	<?php 
 		                                            //$conn = require 'inc/clases/conexion.php';
-		                                           /* $query ="SELECT * FROM tecnico WHERE TECNESTA='A' ORDER BY TECNNOMB";
+		                                            $query ="SELECT * FROM tecnico WHERE TECNESTA='A' ORDER BY TECNNOMB";
 		                                            $respuesta = $conn->prepare($query) or die ($sql);
 		                                            if(!$respuesta->execute()) return false;
 		                                            if($respuesta->rowCount()>0){
@@ -48,7 +45,7 @@
 		                                                    		<td>'.$row['TECNNOMB'].'</td>
 		                                                    	</tr>';                                   
 		                                                }   
-		                                            }*/
+		                                            }
 		                                        ?>
 					                        </tbody>
 					                    </table>
@@ -67,7 +64,6 @@
 	                	<li class="active">Ordenes</li>
 	             	</ol>
 	            </section>
-
 				<section class="content">
 					<div class="row">
 						<div class="col-md-12">
@@ -77,17 +73,17 @@
 			                    </div><!-- /.box-header -->
 			                    <div class="box-body">
 			                    	<input type="hidden" id="swEstadoPqr" value="0" readonly>
-			                   	 	<div id="divConsultarPqrs" class="display-none"></div>
+			                   	 	<div id="divConsultarOt" class="display-none"></div>
 			                    	<div class="row">
 					                	<div class="form-group">
 					                     	<div class="col-sm-12">
 					                     		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Orden</label>
-				                        		<input type="text" id="txtCodDep" class="form-control input-sm e e1 key" style="margin-left: 8px; width:50px; float: left;" onkeypress="solonumeros()">
-				                        		<input type="text" id="txtCodLoc" class="form-control input-sm e e2" style="width:50px; float: left; margin-left: 8px;" onkeypress="solonumeros()">
-				                        		<input type="text" id="txtCodNum" class="form-control input-sm e e3 key" style="width:130px; float: left; margin-left: 10px;" onkeypress="solonumeros()">
+				                        		<input type="text" id="txtCodDep" class="form-control input-sm" style="margin-left: 8px; width:50px; float: left;" onkeypress="solonumeros()">
+				                        		<input type="text" id="txtCodLoc" class="form-control input-sm" style="width:50px; float: left; margin-left: 8px;" onkeypress="solonumeros()">
+				                        		<input type="text" id="txtCodNum" class="form-control input-sm" style="width:130px; float: left; margin-left: 10px;" onkeypress="solonumeros()">
 					                     		
 					                     		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Tecnico</label>
-				                        		<input type="text" id="txtCodTec" class="form-control input-sm" readonly style="width:100px; float: left; margin-left: 8px;">
+				                        		<input type="text" id="txtCodTec" class="form-control input-sm" style="width:100px; float: left; margin-left: 8px;">
 				                        		<input type="text" id="txtNomTec" class="form-control input-sm" readonly style="width:300px; float: left; margin-left: 10px;">
 				                      		</div>
 					                    </div>
@@ -116,11 +112,11 @@
 					                	<div class="form-group">
 					                     	<div class="col-sm-12 ">
 					                     		<label for="txtPqrRep" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">PQR Reportada</label>
-				                        		<input type="text" id="txtPqrRep" class="form-control input-sm" readonly style="width:50px; float: left; margin-left: 8px;">
+				                        		<input type="text" id="txtPqrRep" class="form-control input-sm" style="width:50px; float: left; margin-left: 8px;">
 				                        		<input type="text" id="txtPqrRepNom" class="form-control input-sm" readonly style="width:350px; float: left; margin-left: 10px;">
 				                      			
 												<label for="txtPqrEnc" class="control-label text-right" style="margin-top:5px; width:130px; float:left;">PQR Encontrada</label>
-				                        		<input type="text" id="txtPqrEnc" class="form-control input-sm" readonly style="width:50px; float: left; margin-left: 8px;">
+				                        		<input type="text" id="txtPqrEnc" class="form-control input-sm" style="width:50px; float: left; margin-left: 8px;">
 				                        		<input type="text" id="txtPqrEncNom" class="form-control input-sm" readonly style="width:365px; float: left; margin-left: 10px;">
 				                      			
 				                      		</div>
@@ -143,7 +139,7 @@
 					                	<div class="form-group">
 					                     	<div class="col-sm-12 ">
 					                     		<label for="txtUsua" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Usuario</label>
-				                        		<input type="text" id="txtUsua" class="form-control input-sm" readonly style="width:100px; float: left; margin-left: 8px;">
+				                        		<input type="text" id="txtUsua" class="form-control input-sm" style="width:100px; float: left; margin-left: 8px;">
 				                        		<input type="text" id="txtUsuaNomb" class="form-control input-sm" readonly style="width:300px; float: left; margin-left: 10px;">
 				                      			
 												<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:130px; float:left;">Recibidor</label>
@@ -191,7 +187,7 @@
 				                        		<input type="text" id="txtLectObsj" class="form-control input-sm" readonly style="width:150px; float: left; margin-left: 10px;">
 
 				                        		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:50px; float:left;">Estado</label>
-				                        		<input type="text" id="txtEst" class="form-control input-sm" readonly style="width:40px; float: left; margin-left: 10px;">
+				                        		<input type="text" id="txtEst" class="form-control input-sm" style="width:40px; float: left; margin-left: 10px;">
 				                        		<input type="text" id="txtEstNom" class="form-control input-sm" readonly style="width:130px; float: left; margin-left: 10px;">
 
 				                        		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:80px; float:left;">Hora Inicial</label>

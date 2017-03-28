@@ -12,18 +12,95 @@ $(document).ready(function(){
 	// 		//}
 	// 	}
 	// });
-
+    $('#btnListaValores').click(function(){
+        if(modal == 1){
+            $("#modarOrdenes").modal('show');
+        } 
+    });
+    
     $('#btnConsulta').click(function(){
-        dep = $("#txtCodDep").val();
+        
+        $('#btnNuevo').addClass('disabled');
+		$('#btnConsulta').addClass('disabled');
+		$('#btnCancelar').removeClass('disabled');
+		buscarOrdenes();
+        
+        
+        /*dep = $("#txtCodDep").val();
         loc = $("#txtCodLoc").val();
         num = $("#txtCodNum").val();
-        buscarNumeroOrden(dep,loc,num);
+        buscarNumeroOrden(dep,loc,num);*/
     });
 
-    $('#btnCancelar').removeClass('disabled');
+    $('#btnPrimer').click(function(){
+        //actual
+		$('#txtActual_consulta').val(1);
+        //obtener codigo
+		dep = $('#txtCod_consulta_dep1').val();
+		loc = $('#txtCod_consulta_loc1').val();
+		num = $('#txtCod_consulta_nun1').val();
+        //verificar total
+        if($('#txtToltal_consulta').val()!=0 ){
+			buscarNumeroOrden(dep,loc,num);
+		}
+	});
+	$('#btnAnterior').click(function(){
+        //actual 
+        codId = parseInt($('#txtActual_consulta').val());
+        //sumamos 1 al actual
+        $('#txtActual_consulta').val(codId-1);
+        //obtenemos actual 
+        codId = parseInt($('#txtActual_consulta').val());
+        //obtenemos el ultimo
+        codUlt = parseInt($('#txtToltal_consulta').val());
+        //verificamos que no se pase del ultimo
+        if(codId>=1){
+            //obtenemos orden
+            dep = $('#txtCod_consulta_dep'+codId).val();
+            loc = $('#txtCod_consulta_loc'+codId).val();
+            num = $('#txtCod_consulta_nun'+codId).val();
+            buscarNumeroOrden(dep,loc,num);
+        }else{
+            $('#txtActual_consulta').val(1);
+        }
+	});
+	$('#btnSiguiente').click(function(){
+        //actual 
+        codId = parseInt($('#txtActual_consulta').val());
+        //sumamos 1 al actual
+        $('#txtActual_consulta').val(codId+1);
+        //obtenemos actual 
+        codId = parseInt($('#txtActual_consulta').val());
+        //obtenemos el ultimo
+        codUlt = parseInt($('#txtToltal_consulta').val());
+        //verificamos que no se pase del ultimo
+        if(codId<=codUlt){
+            //obtenemos orden
+            dep = $('#txtCod_consulta_dep'+codId).val();
+            loc = $('#txtCod_consulta_loc'+codId).val();
+            num = $('#txtCod_consulta_nun'+codId).val();
+            buscarNumeroOrden(dep,loc,num);
+        }else{
+            $('#txtToltal_consulta').val(codUlt);
+        }
+	});
+	$('#btnUltimo').click(function(){
+        //actual
+        codUlt = parseInt($('#txtToltal_consulta').val());
+        //actualizar actual
+        $('#txtActual_consulta').val(codUlt);
+        //obtener codigo
+		dep = $('#txtCod_consulta_dep'+codUlt).val();
+		loc = $('#txtCod_consulta_loc'+codUlt).val();
+		num = $('#txtCod_consulta_nun'+codUlt).val();
+		buscarNumeroOrden(dep,loc,num);
+	});
+
+    //$('#btnCancelar').removeClass('disabled');
     $('#btnCancelar').click(function(){
         $('#txtCodDep').val('');
         $('#txtCodLoc').val('');
+        $('#txtCodNum').val('');
         //tecnico
         $('#txtCodTec').val('');
         $('#txtNomTec').val('');
@@ -71,18 +148,55 @@ $(document).ready(function(){
 
         $('#divManoObra').html('');
         $('#divMaterial').html('');
+        
+        $('#divConsultarOt').html('');
     });
 });
+modal = 1;
+function buscarOrdenes(){
+	$('#divConsultarOt').html('');
+
+	$.ajax({
+        type:'POST',
+        url:'proc/corden_proc.php?accion=consultar_ordenes',
+        data:{ cod:'1'},
+        success: function(data){
+        	$('#divConsultarOt').html(data);
+
+        	$('#btnPrimer').click();
+        }
+    });
+
+    $('#btnPrimer').removeClass('disabled');
+    $('#btnAnterior').removeClass('disabled');
+    $('#btnSiguiente').removeClass('disabled');
+    $('#btnUltimo').removeClass('disabled');
+
+    $('#btnCancelar').removeClass('disabled');
+    $('#btnConsulta').addClass('disabled');	
+}
 
 function buscarNumeroOrden(dep,loc,num){
+    $('#divConsultarOt').html('');
+
+    //obtener datos
+    tec  = $('#txtCodTec').val();
+
+    pqrR = $('#txtPqrRep').val();
+    pqrE = $('#txtPqrEnc').val();
+
+    usu  = $('#txtUsua').val();
+    est  = $('#txtEst').val();
+
     $.ajax({
         type:'POST',
         url:'proc/corden_proc.php?accion=buscar_orden',
-        data:{ num:num },
+        data:{ dep:dep, loc:loc, num:num, tec:tec, pqrR:pqrR, pqrE:pqrE, usu:usu, est:est },
         dataType: "json",
         success: function(data){
             $('#txtCodDep').val(data[0]);
             $('#txtCodLoc').val(data[1]);
+            $('#txtCodNum').val(num);
             //tecnico
             $('#txtCodTec').val(data[2]);
             $('#txtNomTec').val(data[3]);
