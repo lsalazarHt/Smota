@@ -1,7 +1,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+    font-size: 8px;
     font-weight: 300;
     color: #888;
     line-height: 30px;
@@ -25,7 +25,7 @@ h1, h2 {
 }
 
 h3 {
-	font-size: 22px;
+	font-size: 20px;
     font-weight: 300;
     color: #555;
     line-height: 30px;
@@ -82,7 +82,9 @@ img { max-width: 100%; }
 /***** Top content *****/
 
 .inner-bg {
-    padding: 100px 0 170px 0;
+/*    padding: 100px 0 170px 0;*/
+	padding-top: 40px;
+    align-content: center; 
 }
 
 .top-content .text {
@@ -109,7 +111,7 @@ img { max-width: 100%; }
 
 .form-top {
 	overflow: hidden;
-	padding: 0 25px 15px 25px;
+	padding: 0 20px 15px 25px;
 	background: #fff;
 	-moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;
 	text-align: left;
@@ -118,7 +120,7 @@ img { max-width: 100%; }
 .form-top-left {
 	float: left;
 	width: 75%;
-	padding-top: 25px;
+	padding-top: 10px;
 }
 
 .form-top-left h3 { margin-top: 0; }
@@ -128,7 +130,7 @@ img { max-width: 100%; }
 	width: 25%;
 	padding-top: 5px;
 	font-size: 66px;
-	color: #ddd;
+	color: #BD2F2F;
 	line-height: 100px;
 	text-align: right;
 }
@@ -171,11 +173,11 @@ img { max-width: 100%; }
 
 @media (min-width: 768px) and (max-width: 991px) {}
 
-@media (max-width: 767px) {
+/*@media (max-width: 767px) {
 	
 	.inner-bg { padding: 60px 0 110px 0; }
 
-}
+}*/
 
 @media (max-width: 415px) {
 	

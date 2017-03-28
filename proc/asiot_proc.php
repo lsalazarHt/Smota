@@ -73,7 +73,11 @@
                     $codTecOt = $row['OTTECN'];
                     $codUser = $row['OTUSUARIO'];
                     $pqrReport = $row['OTPQRREPO'];
-                    $fechAsig = $row['OTFEAS'];
+                    if($row['OTFEAS']!='' && $row['OTFEAS']!=null){
+                        $fechAsig = $row['OTFEAS'];
+                    }else{
+                        $fechAsig = date("Y-m-d");
+                    }
                     $fechRecib = $row['OTFERECI'];
                     $fechCump = $row['OTCUMP'];
                     $obs = $row['OTOBSERVAS'];
@@ -150,6 +154,8 @@
             while ($row=$respuesta->fetch()){
                 $nomb = utf8_encode($row['TECNNOMB']);
             }   
+        }else{
+            $nomb = 0;
         }
         echo $nomb;
     }
