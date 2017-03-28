@@ -271,7 +271,7 @@
 				                	<div class="row marginTop3">
 				                		<div class="col-md-12">
 				                			<input type="hidden" id="swCheckTodos" value="0">
-				                			<div id="tableOrdenes" style="height: 460px; overflow-y: scroll;">
+				                			<div id="tableOrdenes" style="height: 460px; overflow-y: scroll;" class="container-table-list">
 						                		<table class="table table-bordered table-condensed">
 						                			<tr style="background-color: #3c8dbc; color:white;">
 						                				<th class="text-center" width="100">NUMERO DE ORDEN</th>
