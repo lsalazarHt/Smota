@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	$('#btnNuevo').removeClass('disabled');
-	$('#btnGuardar').removeClass('disabled');
+	$('#btnGuardar').addClass('disabled');
 	$('#btnListaValores').addClass('disabled');
 	$('#btnConsulta').removeClass('disabled');
 	$('#btnEditor').addClass('disabled');
@@ -24,6 +24,7 @@ $(document).ready(function () {
 	    $('#btnAnterior').addClass('disabled');
 	    $('#btnSiguiente').addClass('disabled');
 	    $('#btnUltimo').addClass('disabled');
+        $('#btnGuardar').addClass('disabled');
 	});
 
 	$("#btnNuevo").click(function(){
@@ -31,6 +32,7 @@ $(document).ready(function () {
 		limpiar();
 		$('#btnConsulta').addClass('disabled');
         $('#btnCancelar').removeClass('disabled');
+        $('#btnGuardar').removeClass('disabled');
 
         $('#btnPrimer').addClass('disabled');
 	    $('#btnAnterior').addClass('disabled');
@@ -101,7 +103,10 @@ $(document).ready(function () {
 		                    $('#btnCancelar').click();
 		                    var msgError = 'El Tecnico se agrego con exito';
 							demo.showNotification('bottom','left', msgError, 2);
-			            }else{ alert(data+' Agregar!') }
+			            }else{ 
+			            	var msgError = 'Error! El codigo del tecnico ya existe';
+							demo.showNotification('bottom','left', msgError, 4);
+						}
 			        }
 			    });
 			}else{ //Editar
@@ -235,8 +240,10 @@ function buscarTecnico(cod){
 
         		$('#btnConsulta').addClass('disabled');
         		$('#btnCancelar').removeClass('disabled');
+        		$('#txtCod').attr("readonly", "true");
         	}else{
 				limpiar();
+				$('#txtCod').removeAttr("readonly");
 				var msgError = 'Error! El Tecnico no existe';
 				demo.showNotification('bottom','left', msgError, 4);
         	}
@@ -264,7 +271,7 @@ function buscarTecnicos(){
         data:{ codTec:'1'},
         success: function(data){
         	$('#divConsultarTecnicos').html(data);
-
+        	$('#txtCod').attr("readonly", "true");
         	$('#btnPrimer').click();
         }
     });
@@ -287,6 +294,7 @@ function solonumeros(){
         event.returnValue = false;
 }
 function limpiar(){
+	$('#txtCod').removeAttr("readonly");
 	$('#txtCod').val('');
 	$('#txtNom').val('');
 	$('#txtClaseCod').val('');
@@ -304,7 +312,9 @@ function limpiar(){
 }
 
 function pressEnter(campo){
-	if(campo==='txtCod'){
+	console.log($("#btnGuardar").hasClass('disabled'));
+	if(campo==='txtCod' && $("#btnGuardar").hasClass('disabled')===true ){
+		console.log("entro");
 		codTec = $('#txtCod').val();
 		buscarTecnico(codTec);
 	}

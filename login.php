@@ -59,12 +59,12 @@
                         <li><span>Image 06</span><div><h3><!-- gas·na·tu·ral --></h3></div></li>
                     </ul>
                     <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 text">
+                        <div class="col-sm-8 col-sm-offset-6 text">
                             <h1><strong>SIGCO</strong> System Info</h1>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 col-sm-offset-4 form-box">
+                        <div class="col-sm-4 col-sm-offset-8 form-box">
                         	<div class="form-top">
                         		<div class="form-top-left">
                         			<h3>Inicia sesion</h3>
