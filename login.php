@@ -17,7 +17,7 @@
         <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-        <!-- <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css"> -->
+        <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="assets/css/form-elements.css">
         <link rel="stylesheet" href="assets/css/style.css">
 
@@ -50,21 +50,21 @@
         	
             <div class="inner-bg">
                 <div class="container">
-                 <ul class="cb-slideshow">
-            <li><span>Image 01</span><div><h3><!-- ga·so·duc·to --></h3></div></li>
-            <li><span>Image 02</span><div><h3><!-- pla·n·ta·de·gas --></h3></div></li>
-            <li><span>Image 03</span><div><h3><!-- gas·na·tu·ral --></h3></div></li>
-            <li><span>Image 04</span><div><h3><!-- ga·so·duc·to --></h3></div></li>
-            <li><span>Image 05</span><div><h3><!-- pla·n·ta·de·gas --></h3></div></li>
-            <li><span>Image 06</span><div><h3><!-- gas·na·tu·ral --></h3></div></li>
-        </ul>
+                     <ul class="cb-slideshow">
+                        <li><span>Image 01</span><div><h3><!-- ga·so·duc·to --></h3></div></li>
+                        <li><span>Image 02</span><div><h3><!-- pla·n·ta·de·gas --></h3></div></li>
+                        <li><span>Image 03</span><div><h3><!-- gas·na·tu·ral --></h3></div></li>
+                        <li><span>Image 04</span><div><h3><!-- ga·so·duc·to --></h3></div></li>
+                        <li><span>Image 05</span><div><h3><!-- pla·n·ta·de·gas --></h3></div></li>
+                        <li><span>Image 06</span><div><h3><!-- gas·na·tu·ral --></h3></div></li>
+                    </ul>
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2 text">
                             <h1><strong>SIGCO</strong> System Info</h1>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                        <div class="col-sm-4 col-sm-offset-4 form-box">
                         	<div class="form-top">
                         		<div class="form-top-left">
                         			<h3>Inicia sesion</h3>

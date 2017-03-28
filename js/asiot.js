@@ -1,3 +1,4 @@
+var existeTecnico = false;
 $(document).ready(function(){
 
 	$('#btnConsulta').addClass('disabled');
@@ -152,6 +153,7 @@ $(document).ready(function(){
 
 	$('#txtTecCod').focus(function(){
 		modal=3;
+		existeTecnico = false;
 		//$('#txtLocCod').val();
 		$('#txtTecNomb').val('');
 	});
@@ -170,7 +172,7 @@ $(document).ready(function(){
 		tec = $.trim($('#txtTecCod').val());
 		obs = $.trim($('#txtObservAsign').val());
 
-		if( (dep!='') && (loc!='') && (num!='') && (fAg!='') && (tec!='') ){
+		if( (dep!='') && (loc!='') && (num!='') && (fAg!='') && (tec!='' && existeTecnico === true) ){
 			guardarOrden(dep,loc,num,fAg,tec,obs);
 		}else{
 			var msgError = 'Error! Porfavor complete todos los campos';
@@ -196,7 +198,14 @@ function buscarTecnico(cod){
         url:'proc/asiot_proc.php?accion=buscar_tecnico',
         data:{cod:cod},
         success: function(data){
-        	$('#txtTecNomb').val(data);
+        	if(data === '0'){
+        		existeTecnico = false;
+        		var msgError = 'El Tecnico no Existe en Base de datos';
+				demo.showNotification('bottom','left', msgError, 3);
+        	}else{
+        		existeTecnico = true;
+        		$('#txtTecNomb').val(data);
+        	}
         }
     });
 }
@@ -283,6 +292,7 @@ function addTecnico(cod,nom){
 	$('#txtTecCod').val(cod);
 	$('#txtTecNomb').val(nom);
 	$('#modalTecnicos').modal('hide');
+	existeTecnico = true;
 }
 function limpiar(){
 	$('#txtDepCod').val('');
@@ -377,6 +387,7 @@ function pressEnter(campo){
 		if(cod!=''){
 			buscarTecnico(cod);
 		}else{ 
+			existeTecnico = false;
 			var msgError = 'Porfavor coloque un Tecnico valido';
 			demo.showNotification('bottom','left', msgError, 4);
 		}

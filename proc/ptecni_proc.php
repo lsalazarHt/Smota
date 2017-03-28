@@ -87,7 +87,7 @@
             $query ="SELECT BODECODI  FROM bodega WHERE BODECODI = ".$_REQUEST["cod"];
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
-            if($respuesta->rowCount()>0){
+            if($respuesta->rowCount()===0){
                 $query ="INSERT INTO bodega (BODECODI,BODENOMB,BODEESTA,BODEALMA,BODECLAS)
                 VALUES (".$_REQUEST["cod"].",'".$_REQUEST["nom"]."', 'A', 'N', 1)";
                 $respuesta = $conn->prepare($query) or die ($query);
