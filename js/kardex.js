@@ -148,15 +148,32 @@ function consultar(){
 	if( (bodCod!='') && (bodNom!='') && (matCod!='') && (matNom!='') && 
 			(anio!='') && (mes!='') ){
 		$('#tableMovimientosMaterial').html('');
-		$.ajax({
-	        type:'POST',
-	        url:'proc/kardex_proc.php?accion=obtener_movimientos',
-	        data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo  },
-	        success: function(data){
-				alert(data)
-	        	$('#tableMovimientosMaterial').html(data);
-	        }
-	    });
+		//obtener cantidad inicial
+			canIni = 0;
+			valIni = 0;
+			$.ajax({
+				type:'POST',
+				url:'proc/kardex_proc.php?accion=obtener_cant_val_inicial',
+				data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo  },
+				dataType: 'json',
+				success: function(data){
+					$('#txtCantInic').val(number_format(data[0],0));
+					$('#txtValoInic').val(number_format(data[1],0));
+					canIni = data[0];
+					valIni = data[1];
+				}
+			});
+		//
+		//obtener movimientos
+			$.ajax({
+				type:'POST',
+				url:'proc/kardex_proc.php?accion=obtener_movimientos',
+				data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo, canIni:canIni, valIni:valIni  },
+				success: function(data){
+					$('#tableMovimientosMaterial').html(data);
+				}
+			});
+		//
 	}else{
 		alert('Porfavor complete los datos')
 	}

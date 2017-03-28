@@ -137,7 +137,7 @@
 				                	<div class="row marginTop3">
 				                		<div class="col-md-12">
 				                			<input type="hidden" id="swCheckTodos" value="0">
-				                			<div id="tableOrdenes" style="height: 360px; overflow-y: scroll;">
+				                			<div id="tableOrdenes" style="height: 360px; overflow-y: scroll;" class="container-table-list">
 						                		<table class="table table-bordered table-condensed">
 						                			<thead>
 							                			<tr style="background-color: #3c8dbc; color:white;">
@@ -146,7 +146,7 @@
 									        				<th class="text-center" width="60">TIPO</th>
 									        				<th class="" width="300">DESCRIPCION</th>
 									        				<th class="text-center" width="20">E/S</th>
-									        				<th class="text-center" width="90">CANTIDAD</th>
+									        				<th class="text-right" width="90">CANTIDAD</th>
 									        				<th class="text-right" width="90">VALOR</th>
 									        				<th class="text-right" width="120">SALDO CANTIDAD</th>
 									        				<th class="text-right" width="90">SALDO VALOR</th>
@@ -188,9 +188,9 @@
 				                	</div>
 				                	<div class="row marginTop3">
 					                	<div class="form-group">
-					                     	<label for="txtCantInic" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Valor Inicial</small></label>
+					                     	<label for="txtValoInic" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Valor Inicial</small></label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control text-right" id="txtCantInic" placeholder="0" readonly>
+				                        		<input type="text" class="form-control text-right" id="txtValoInic" placeholder="0" readonly>
 				                      		</div>
 				                      		<label for="txtEntrCant" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Salidas Cantidad</small></label>
 					                     	<div class="col-sm-1">
