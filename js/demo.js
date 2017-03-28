@@ -145,7 +145,8 @@ $(document).ready(function(){
 			}
 			var msgError = 'Las ordenes se desasignaron correctamente al tenico';
 			demo.showNotification('bottom','left', msgError, 2);
-			mostrarOrdenes();
+			//mostrarOrdenes();
+			limpiarPantalla();
 		}
 	});
 });
@@ -276,14 +277,19 @@ function buscarTecnico(pqr,tec){
 }
 //ORDENES
 function mostrarOrdenes(){
-	dep = $('#txtDepCod').val();
-	loc = $('#txtLocCod').val();
-	sec = $('#txtSectCod').val();
-	pqr = $('#txtPqrCod').val();
-	tec = $('#txtTecCod').val();
+	dep     = $('#txtDepCod').val();
+	depNom  = $('#txtDepNomb').val();
+	loc     = $('#txtLocCod').val();
+	locNom  = $('#txtLocNomb').val();
+	sec     = $('#txtSectCod').val();
+	secNom  = $('#txtSectNomb').val();
+	pqr     = $('#txtPqrCod').val();
+	pqrNom  = $('#txtPqrNomb').val();
+	tec     = $('#txtTecCod').val();
+	tecNom  = $('#txtTecNomb').val();
 	critOrd = $('input:radio[name=critOrd]:checked').val();
 
-	if( (dep!='') && (loc!='') && (sec!='') && (pqr!='') ){
+	if( (depNom!='') && (locNom!='') && (secNom!='') && (pqrNom!='') && (tecNom!='')){
 		$.ajax({
 	        type:'POST',
 	        url:'proc/demo_proc.php?accion=realizar_ordenamieno',
@@ -329,6 +335,7 @@ function limpiarPantalla(){
 	$('#txtPqrNomb').val('');
 	$('#txtTecCod').val('');
 	$('#txtTecNomb').val('');
+	$('#btnGuardar').addClass('disabled');
 	limpiarTabla();
 }
 function limpiarTabla(){
