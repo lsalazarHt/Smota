@@ -60,7 +60,7 @@
                     </ul>
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-6 text">
-                            <h1><strong>SIGCO</strong> System Info</h1>
+                            <h1><strong>SIGCO</strong> Info System</h1>
                         </div>
                     </div>
                     <div class="row">
