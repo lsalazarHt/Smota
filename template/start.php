@@ -114,5 +114,8 @@
         .nav-tabs-custom>.nav-tabs>li.active{
             border-top-color: transparent !important;
         }
+        .border-blue{
+            border: solid 1px blue;
+        }
     </style>
   </head>

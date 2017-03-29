@@ -122,8 +122,8 @@
 				                      		<div class="col-sm-4"></div>
 					                     	<div class="col-sm-2">
 					                     		<select class="form-control input-sm" id="selcTipo">
-					                     			<option value="1">PROPIO</option>
-					                     			<option value="2">PRESTADO</option>
+					                     			<option value="S">PROPIO</option>
+					                     			<option value="N">PRESTADO</option>
 					                     		</select>
 				                      		</div>
 				                      		<div class="col-sm-3">
@@ -158,58 +158,67 @@
 				                		</div>
 				                	</div>
 				                	<hr>
-				                	<div class="row marginTop3">
+									<div class="row marginTop3">
 					                	<div class="form-group">
-					                     	<label for="txtCantInic" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Cantidad Inicial</small></label>
-					                     	<div class="col-sm-1">
+					                     	<label for="txtCantInic" class="col-sm-1 control-label text-right"><small>Cantidad Inicial</small></label>
+					                     	<div class="col-sm-2">
 				                        		<input type="text" class="form-control text-right" id="txtCantInic" placeholder="0" readonly>
 				                      		</div>
-				                      		<label for="txtEntrCant" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Entradas Cantidad</small></label>
-					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control text-right" id="txtEntrCant" placeholder="0" readonly>
-				                      		</div>
-				                      		<label for="txtSalidCant" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Salidas Cantidad</small></label>
-					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control text-right" id="txtSalidCant" placeholder="0" readonly>
-				                      		</div>
-				                      		<label for="txtCantFinSist" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Cant Final Sistema</small></label>
-					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control text-right" id="txtCantFinSist" placeholder="0" readonly>
-				                      		</div>
-				                      		<label for="txtCantFinCalc" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Cant Final Calculada</small></label>
-					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control text-right input-sm" id="txtCantFinCalc" placeholder="0" readonly>
-				                      		</div>
-				                      		<label for="txtDifValor" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Diferencia Cantidad</small></label>
-					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control text-right input-sm" id="txtDifValor" placeholder="0" readonly>
-				                      		</div>
-					                    </div>
-				                	</div>
-				                	<div class="row marginTop3">
-					                	<div class="form-group">
-					                     	<label for="txtValoInic" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Valor Inicial</small></label>
-					                     	<div class="col-sm-1">
+											<label for="txtValoInic" class="col-sm-1 control-label text-right"><small>Valor<br> Inicial</small></label>
+					                     	<div class="col-sm-2">
 				                        		<input type="text" class="form-control text-right" id="txtValoInic" placeholder="0" readonly>
 				                      		</div>
-				                      		<label for="txtEntrCant" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Salidas Cantidad</small></label>
-					                     	<div class="col-sm-1">
+										</div>
+									</div>
+									<div class="row marginTop3">
+					                	<div class="form-group">
+				                      		<label for="txtEntrCant" class="col-sm-1 control-label text-right"><small>Entradas Cantidad</small></label>
+					                     	<div class="col-sm-2">
 				                        		<input type="text" class="form-control text-right" id="txtEntrCant" placeholder="0" readonly>
 				                      		</div>
-				                      		<label for="txtSalidCant" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Salidas Valor</small></label>
-					                     	<div class="col-sm-1">
+											<label for="txtSalidCant" class="col-sm-1 control-label text-right"><small>Salidas Cantidad</small></label>
+					                     	<div class="col-sm-2">
 				                        		<input type="text" class="form-control text-right" id="txtSalidCant" placeholder="0" readonly>
 				                      		</div>
-				                      		<label for="txtCantFinSist" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Valor Final Sistema</small></label>
-					                     	<div class="col-sm-1">
+				                      		<label for="txtEntrVal" class="col-sm-1 control-label text-right"><small>Entrada Valor</small></label>
+					                     	<div class="col-sm-2">
+				                        		<input type="text" class="form-control text-right" id="txtEntrVal" placeholder="0" readonly>
+				                      		</div>
+											  <label for="txtSalidVal" class="col-sm-1 control-label text-right"><small>Salidas Valor</small></label>
+					                     	<div class="col-sm-2">
+				                        		<input type="text" class="form-control text-right" id="txtSalidVal" placeholder="0" readonly>
+				                      		</div>
+										</div>
+									</div>
+									<hr>
+									<div class="row marginTop3">
+					                	<div class="form-group">
+				                      		<label for="txtCantFinCalc" class="col-sm-1 control-label text-right"><small>Cant Final Calculada</small></label>
+					                     	<div class="col-sm-2">
+				                        		<input type="text" class="form-control text-right input-sm border-blue" id="txtCantFinCalc" placeholder="0" readonly>
+				                      		</div>
+											<label for="txtValFinCalc" class="col-sm-1 control-label text-right"><small>Valor Final Calculado</small></label>
+					                     	<div class="col-sm-2">
+				                        		<input type="text" class="form-control text-right input-sm border-blue" id="txtValFinCalc" placeholder="0" readonly>
+				                      		</div>
+				                      		<label for="txtCantFinSist" class="col-sm-1 control-label text-right"><small>Cant Final Sistema</small></label>
+					                     	<div class="col-sm-2">
 				                        		<input type="text" class="form-control text-right" id="txtCantFinSist" placeholder="0" readonly>
 				                      		</div>
-				                      		<label for="txtCantFinCalc" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Valor Final Calculado</small></label>
-					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control text-right input-sm" id="txtCantFinCalc" placeholder="0" readonly>
+											<label for="txtValoFinSist" class="col-sm-1 control-label text-right"><small>Valor Final Sistema</small></label>
+					                     	<div class="col-sm-2">
+				                        		<input type="text" class="form-control text-right" id="txtValoFinSist" placeholder="0" readonly>
+				                      		</div>
+										</div>
+									</div>
+				                	<div class="row marginTop3">
+					                	<div class="form-group">
+				                      		<label for="txtDifValor" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Diferencia Cantidad</small></label>
+					                     	<div class="col-sm-2">
+				                        		<input type="text" class="form-control text-right input-sm" id="txtDifValor" placeholder="0" readonly>
 				                      		</div>
 				                      		<label for="txtDifValor" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Diferencia Valor</small></label>
-					                     	<div class="col-sm-1">
+					                     	<div class="col-sm-2">
 				                        		<input type="text" class="form-control text-right input-sm" id="txtDifValor" placeholder="0" readonly>
 				                      		</div>
 					                    </div>
@@ -219,6 +228,10 @@
 						</div>
 					</div>
 				</section>
+
+				<form method="POST" action="calma.php" class="display-none" id="formDetalleMovimientoPost">
+					<input type="hidden" id="txtDocumentoMovimiento" name="txtDocumentoMovimiento">
+				</form>
 
 			</div>
 		</div>

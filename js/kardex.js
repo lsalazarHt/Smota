@@ -149,8 +149,6 @@ function consultar(){
 			(anio!='') && (mes!='') ){
 		$('#tableMovimientosMaterial').html('');
 		//obtener cantidad inicial
-			canIni = 0;
-			valIni = 0;
 			$.ajax({
 				type:'POST',
 				url:'proc/kardex_proc.php?accion=obtener_cant_val_inicial',
@@ -161,21 +159,76 @@ function consultar(){
 					$('#txtValoInic').val(number_format(data[1],0));
 					canIni = data[0];
 					valIni = data[1];
-				}
-			});
-		//
-		//obtener movimientos
-			$.ajax({
-				type:'POST',
-				url:'proc/kardex_proc.php?accion=obtener_movimientos',
-				data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo, canIni:canIni, valIni:valIni  },
-				success: function(data){
-					$('#tableMovimientosMaterial').html(data);
+
+					//obtener detalle
+						$.ajax({
+							type:'POST',
+							url:'proc/kardex_proc.php?accion=obtener_movimientos_detalle',
+							data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo  },
+							dataType: 'json',
+							success: function(data){
+								console.log(data)
+								entraCant = data[0];
+								salidCant = data[1];
+
+								entraValor = data[2];
+								salidValor = data[3];
+
+								$('#txtEntrCant').val(number_format(entraCant,0));
+								$('#txtSalidCant').val(number_format(salidCant,0));
+								$('#txtEntrVal').val(number_format(entraValor,0));
+								$('#txtSalidVal').val(number_format(salidValor,0));
+
+								//cantidad final calculada
+									cantFinal = (parseInt(canIni) + parseInt(entraCant)) - parseInt(salidCant);
+									$('#txtCantFinCalc').val(number_format(cantFinal,0));
+
+								//valor final calculado
+									valorFinal = (parseInt(valIni) + parseInt(entraValor)) - parseInt(salidValor);
+									$('#txtValFinCalc').val(number_format(valorFinal,0));
+							}
+						});
+					//
+
+					//obtener valor del sistema
+						$.ajax({
+							type:'POST',
+							url:'proc/kardex_proc.php?accion=obtener_valor_sistema',
+							data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo },
+							dataType: 'json',
+							success: function(data){
+								cantsistema = data[0];
+								valoSistema = data[1];
+
+								$('#txtCantFinSist').val(number_format(cantsistema,0));
+								$('#txtValoFinSist').val(number_format(valoSistema,0));
+							}
+						});
+					//
+
+					//obtener movimientos
+						$.ajax({
+							type:'POST',
+							url:'proc/kardex_proc.php?accion=obtener_movimientos',
+							data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo, canIni:canIni, valIni:valIni  },
+							success: function(data){
+								$('#tableMovimientosMaterial').html(data);
+							}
+						});
+					//
 				}
 			});
 		//
 	}else{
 		alert('Porfavor complete los datos')
+	}
+}
+function enviarMovimiento(documento,tipo){
+	if(tipo=='A'){//almacen
+		$('#txtDocumentoMovimiento').val(documento);
+		$('#formDetalleMovimientoPost').submit();
+	}else{//legalizacion
+
 	}
 }
 
@@ -205,4 +258,8 @@ function number_format(amount,decimals){
         amount_parts[0] = amount_parts[0].replace(regexp, '$1' + '.' + '$2');
 
     return amount_parts.join('.');
+}
+function trSelect(trId){
+	$('.trDefault').removeClass('trSelect');
+	$('#'+trId).addClass('trSelect');
 }

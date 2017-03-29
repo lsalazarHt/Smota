@@ -79,9 +79,7 @@
         }
         echo $table;
     }
-
-
-
+    
     if($_REQUEST["accion"]=="cargar_movimientos"){
         $dato='';
         $i=0;
