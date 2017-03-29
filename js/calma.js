@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+	
     $('#btnEditor').addClass('disabled'); //deshabilitar editor
 	
     $('#btnListaValores').click(function(){
@@ -99,9 +99,8 @@ $(document).ready(function(){
 		codDep = $('#txt_CodMov'+codUlt).val();
 		consultarTipoMovimiento(codDep);
 	});
-
+	
 });
-
 function consultarTipoMovimiento(txtMovCod){
     $.ajax({
         type:'POST',
@@ -157,10 +156,6 @@ function consultarTipoMovimientoAll(){
 		}
 	});
 }
-
-
-
-
 
 //Tools
 modal = 1;

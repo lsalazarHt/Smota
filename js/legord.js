@@ -485,7 +485,7 @@ function guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,leg){
 
 	//
 
-	/*if( (!swMA) && (!swMO) ){
+	if( (!swMA) && (!swMO) ){
 		obs = $('#txtObservacion').val();
 		codTec = $('#txtCodTecn').val();
 		
@@ -549,7 +549,7 @@ function guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,leg){
 				}else{ alert(data) }
 			}
 		});
-	}*/
+	}
 }
 function obtenerManoObraOrden(dep,loc,num){
 	$.ajax({

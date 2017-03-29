@@ -6,7 +6,97 @@
 	if($_REQUEST["accion"]=="consultar_ordenes"){
     	$dato='';
     	$i=0;
-		$query ="SELECT * FROM ot";
+		
+		$depOt  = $_REQUEST["dep"];
+		$locOt  = $_REQUEST["loc"];
+		$numOt  = $_REQUEST["num"];
+		$tecnic = $_REQUEST["tec"];
+		$pqrRep = $_REQUEST["pqrR"];
+		$pqrEnc = $_REQUEST["pqrE"];
+		$usuCod = $_REQUEST["usu"];
+		$estCod = $_REQUEST["est"];
+
+		$swWhere = false;
+		//generar where
+			$sqlDep = '';
+			$sqlLoc = '';
+			$sqlNum = '';
+			$sqlTec = '';
+			$sqlPqrRep = '';
+			$sqlPqrEnc = '';
+			$sqlUsu = '';
+			$sqlEst = '';
+			if($depOt!=''){//departamento
+				$sqlDep = "OTDEPA = $depOt";
+				$swWhere = true;
+			}
+
+			if($locOt!=''){//localidad
+				if($depOt!=''){
+					$sqlLoc = "AND OTLOCA = $locOt";					
+				}else{
+					$sqlLoc = "OTLOCA = $locOt";
+				}
+				$swWhere = true;
+			}
+
+			if($numOt!=''){//numero ot
+				if( ($depOt!='') || ($locOt!='') ){
+					$sqlNum = "AND OTNUME = $numOt";					
+				}else{
+					$sqlNum = "OTNUME = $numOt";
+				}
+				$swWhere = true;
+			}
+
+			if($tecnic!=''){//tecnico
+				if( ($depOt!='') || ($locOt!='') || ($numOt!='') ){
+					$sqlTec = "AND OTTECN = $tecnic";					
+				}else{
+					$sqlTec = "OTTECN = $tecnic";
+				}
+				$swWhere = true;
+			}
+
+			if($pqrRep!=''){//pqr reportada
+				if( ($depOt!='') || ($locOt!='') || ($numOt!='') || ($tecnic!='') ){
+					$sqlPqrRep = "AND OTPQRREPO = $pqrRep";					
+				}else{
+					$sqlPqrRep = "OTPQRREPO = $pqrRep";
+				}
+				$swWhere = true;
+			}
+
+			if($pqrEnc!=''){//pqr encontrada
+				if( ($depOt!='') || ($locOt!='') || ($numOt!='') || ($tecnic!='') || ($pqrRep!='') ){
+					$sqlPqrEnc = "AND OTPQRENCO = $pqrEnc";					
+				}else{
+					$sqlPqrEnc = "OTPQRENCO = $pqrEnc";
+				}
+				$swWhere = true;
+			}
+
+			if($usuCod!=''){//usuario
+				if( ($depOt!='') || ($locOt!='') || ($numOt!='') || ($tecnic!='') || ($pqrRep!='') || ($pqrEnc!='') ){
+					$sqlUsu = "AND OTUSUARIO = $usuCod";					
+				}else{
+					$sqlUsu = "OTUSUARIO = $usuCod";
+				}
+				$swWhere = true;
+			}
+
+			if($estCod!=''){//estado
+				if( ($depOt!='') || ($locOt!='') || ($numOt!='') || ($tecnic!='') || ($pqrRep!='') || ($pqrEnc!='') || ($usuCod!='')){
+					$sqlEst = "AND OTESTA = $estCod";					
+				}else{
+					$sqlEst = "OTESTA = $estCod";
+				}
+				$swWhere = true;
+			}
+		//
+		$sqlWhere = '';
+		if($swWhere){ $sqlWhere = 'WHERE '; }
+		$query ="SELECT OTDEPA,OTLOCA,OTNUME FROM ot $sqlWhere $sqlDep $sqlLoc $sqlNum $sqlTec $sqlPqrRep $sqlPqrEnc $sqlUsu $sqlEst ";
         $respuesta = $conn->prepare($query) or die ($sql);
         if(!$respuesta->execute()) return false;
         if($respuesta->rowCount()>0){
@@ -20,18 +110,17 @@
        	echo $dato.'<br>
             <input type="hidden" id="txtActual_consulta" value="1"><br>
         <input type="hidden" id="txtToltal_consulta" value="'.$i.'">';
-        //echo $query;
 	}
 	
 	if($_REQUEST["accion"]=="buscar_orden"){
 		$depOt  = $_REQUEST["dep"];
 		$locOt  = $_REQUEST["loc"];
 		$numOt  = $_REQUEST["num"];
-		$tecnic = $_REQUEST["tec"];
-		$pqrRep = $_REQUEST["pqrR"];
-		$pqrEnc = $_REQUEST["pqrE"];
-		$usuCod = $_REQUEST["usu"];
-		$estCod = $_REQUEST["est"];
+		$tecnic = '';
+		$pqrRep = '';
+		$pqrEnc = '';
+		$usuCod = '';
+		$estCod = '';
 
 		//variables
 			$tecnicNomb	= "";
@@ -76,16 +165,8 @@
 			$objDeCerti = "";
 		//
 
-		//generar where
-			$sqlDep = ($depOt!='') ? " OTDEPA = $depOt" : '' ;
-			$sqlLoc = ($locOt!='') ? " OTLOCA = $locOt" : '' ;
-			$sqlNum = ($numOt!='') ? " OTNUME = $numOt" : '' ;
-
-			
-			
-		//
-
-		$query ="SELECT * FROM ot WHERE OTNUME = $num";
+		$query ="SELECT * FROM ot 
+				 WHERE OTDEPA = $depOt AND  OTLOCA = $locOt AND OTNUME = $numOt";
 	    $respuesta = $conn->prepare($query) or die ($sql);
 	    if(!$respuesta->execute()) return false;
 	    if($respuesta->rowCount()>0){

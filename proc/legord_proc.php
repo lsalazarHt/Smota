@@ -622,11 +622,14 @@
         $cod     = $_REQUEST["cod"];
         $val     = $_REQUEST["val"];
         $pqrEnc  = $_REQUEST["pqrEnc"];
+        $user    = $_SESSION['user'];
 
-        $queryInsert = "INSERT INTO maleottr (MAOTMATE,MAOTDEPA,MAOTLOCA,MAOTNUMO,MAOTCANT,MAOTVLOR,MAOTTECN,MAOTTILE,MAOTFECH) 
+        $campoBod = obtener_bod_pqr($pqrEnc);
+
+        $queryInsert = "INSERT INTO maleottr (MAOTMATE,MAOTDEPA,MAOTLOCA,MAOTNUMO,MAOTCANT,MAOTVLOR,MAOTTECN,MAOTTILE,MAOTFECH,MAOTPROP,MAOTUSER) 
                         VALUES (".$_REQUEST["cod"].",".$_REQUEST["dep"].",".$_REQUEST["loc"].",
                                 ".$_REQUEST["num"].",".$_REQUEST["can"].",".$_REQUEST["val"].",
-                                ".$_REQUEST["codTec"].",'D','".date('Y-m-d')."')";
+                                ".$_REQUEST["codTec"].",'D','".date('Y-m-d')."','$campoBod','$user')";
 
         $respuestaInsert = $conn->prepare($queryInsert) or die ($queryInsert);
         if(!$respuestaInsert->execute()){
@@ -645,7 +648,7 @@
             //
 
             $campoBod = obtener_bod_pqr($pqrEnc);
-            if($campoBod){
+            if($campoBod=='S'){
                 $cantUsar = 'INVECAPRO';
                 $valoUsar = 'INVEVLRPRO';
             }else{

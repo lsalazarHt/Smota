@@ -12,6 +12,8 @@ $(document).ready(function(){
 	// 		//}
 	// 	}
 	// });
+    $('#btnListaValores').addClass('disabled');
+
     $('#btnListaValores').click(function(){
         if(modal == 1){
             $("#modarOrdenes").modal('show');
@@ -24,7 +26,6 @@ $(document).ready(function(){
 		$('#btnConsulta').addClass('disabled');
 		$('#btnCancelar').removeClass('disabled');
 		buscarOrdenes();
-        
         
         /*dep = $("#txtCodDep").val();
         loc = $("#txtCodLoc").val();
@@ -150,17 +151,34 @@ $(document).ready(function(){
         $('#divMaterial').html('');
         
         $('#divConsultarOt').html('');
+
+        $('#btnConsulta').removeClass('disabled');
+		$('#btnCancelar').addClass('disabled');
     });
 });
 modal = 1;
 function buscarOrdenes(){
 	$('#divConsultarOt').html('');
 
+    dep  = $('#txtCodDep').val();
+    loc  = $('#txtCodLoc').val();
+    num  = $('#txtCodNum').val();
+
+    //obtener datos
+    tec  = $('#txtCodTec').val();
+
+    pqrR = $('#txtPqrRep').val();
+    pqrE = $('#txtPqrEnc').val();
+
+    usu  = $('#txtUsua').val();
+    est  = $('#txtEst').val();
+
 	$.ajax({
         type:'POST',
         url:'proc/corden_proc.php?accion=consultar_ordenes',
-        data:{ cod:'1'},
+        data:{ dep:dep, loc:loc, num:num, tec:tec, pqrR:pqrR, pqrE:pqrE, usu:usu, est:est },
         success: function(data){
+            console.log(data)
         	$('#divConsultarOt').html(data);
 
         	$('#btnPrimer').click();
@@ -177,21 +195,10 @@ function buscarOrdenes(){
 }
 
 function buscarNumeroOrden(dep,loc,num){
-    $('#divConsultarOt').html('');
-
-    //obtener datos
-    tec  = $('#txtCodTec').val();
-
-    pqrR = $('#txtPqrRep').val();
-    pqrE = $('#txtPqrEnc').val();
-
-    usu  = $('#txtUsua').val();
-    est  = $('#txtEst').val();
-
     $.ajax({
         type:'POST',
         url:'proc/corden_proc.php?accion=buscar_orden',
-        data:{ dep:dep, loc:loc, num:num, tec:tec, pqrR:pqrR, pqrE:pqrE, usu:usu, est:est },
+        data:{ dep:dep, loc:loc, num:num },
         dataType: "json",
         success: function(data){
             $('#txtCodDep').val(data[0]);

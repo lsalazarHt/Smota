@@ -58,36 +58,285 @@
         echo json_encode($arr);
     }
 
-    if($_REQUEST["accion"]=="obtener_movimientos"){ 
-        $table = date('2016-02-01',strtotime("-1 month")) ;
-        /*$bodCod = $_REQUEST["bodCod"];
+    //calcular cantidad y valor inicial
+    if($_REQUEST["accion"]=="obtener_cant_val_inicial"){ 
+        $bodCod = $_REQUEST["bodCod"];
         $matCod = $_REQUEST["matCod"];
         $anio   = $_REQUEST["anio"];
         $mes    = $_REQUEST["mes"];
-        $query ="SELECT moviinve.MOINDOSO, moviinve.MOINFECH, moviinve.MOINTIMO, tipomovi.TIMODESC, 
-                        tipomovi.TIMOSAEN, matemoin.MAMICANT, matemoin.MAMIVLOR
-                    FROM matemoin
-                        INNER JOIN moviinve ON moviinve.MOINCODI = matemoin.MAMIMOIN
+        $tipo   = $_REQUEST["tipo"];
+
+        $fecha  = $anio.'-'.$mes;
+        $nuevafecha = strtotime ( '-1 month' , strtotime ( $fecha ) ) ;
+		$nuevafecha = date ( 'Y-m' , $nuevafecha );
+
+        $canEnt = 0; 
+        $valEnt = 0;
+        $canSal = 0; 
+        $valSal = 0;
+        $can = 0;
+        $val = 0;
+        
+        //Entrada Almacen
+            $query ="SELECT sum(matemoin.MAMICANT) AS sumCant, sum(matemoin.MAMIVLOR) AS sumVal
+                    FROM moviinve
+                        JOIN matemoin ON moviinve.MOINCODI = matemoin.MAMIMOIN
                         JOIN tipomovi ON tipomovi.TIMOCODI = moviinve.MOINTIMO
-                    WHERE matemoin.MAMIMATE = $matCod AND moviinve.MOINBOOR = $bodCod AND 
-                            ( (SUBSTRING(moviinve.MOINFECH,1,4)=$anio) AND 
-                              (SUBSTRING(moviinve.MOINFECH,6,2)=$mes) )";
-        $respuesta = $conn->prepare($query) or die ($sql);
-        if(!$respuesta->execute()) return false;
-        if($respuesta->rowCount()>0){
-            while ($row=$respuesta->fetch()){
-                $table .= '
-                    <tr>
-                        <td class="text-center">'.$row['MOINDOSO'].'</td>
-                        <td class="text-center">'.$row['MOINFECH'].'</td>
-                        <td class="text-center">'.$row['MOINTIMO'].'</td>
-                        <td class="">'.$row['TIMODESC'].'</td>
-                        <td class="text-center">'.$row['TIMOSAEN'].'</td>
-                        <td class="text-center">'.$row['MAMICANT'].'</td>
-                        <td class="text-right">'.number_format($row['MAMIVLOR'],0,"",".").'</td>
-                    </tr>';
-            }   
-        }*/
+                        JOIN bodega ON bodega.bodecodi = moviinve.MOINBOOR
+                    WHERE (moviinve.MOINBOOR = $bodCod OR moviinve.MOINBODE = $bodCod) -- comparamos bodega 
+                        AND matemoin.MAMIMATE = $matCod -- comparamos material
+                        AND DATE_FORMAT(moviinve.MOINFECH, '%Y-%m') = '$nuevafecha' -- comparamos fecha
+                        AND tipomovi.TIMOSAEN = 'E' -- seleccionamos Entrada/Salida
+                        AND matemoin.MAMIPROP = '$tipo' -- material propio prestado";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+                    $canEnt =$row['sumCant'];
+                    $valEnt =$row['sumVal'];
+                }
+            }
+        //
+        //Salida Almacen
+            $query ="SELECT sum(matemoin.MAMICANT) AS sumCant, sum(matemoin.MAMIVLOR) AS sumVal
+                    FROM moviinve
+                        JOIN matemoin ON moviinve.MOINCODI = matemoin.MAMIMOIN
+                        JOIN tipomovi ON tipomovi.TIMOCODI = moviinve.MOINTIMO
+                        JOIN bodega ON bodega.bodecodi = moviinve.MOINBOOR
+                    WHERE (moviinve.MOINBOOR = $bodCod OR moviinve.MOINBODE = $bodCod) -- comparamos bodega 
+                        AND matemoin.MAMIMATE = $matCod -- comparamos material
+                        AND DATE_FORMAT(moviinve.MOINFECH, '%Y-%m') = '$nuevafecha' -- comparamos fecha
+                        AND tipomovi.TIMOSAEN = 'S' -- seleccionamos Entrada/Salida
+                        AND matemoin.MAMIPROP = '$tipo' -- material propio prestado";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+                    $canSal =$row['sumCant'];
+                    $valSal =$row['sumVal'];
+                }
+            }
+        //
+
+
+
+        $can = $canEnt - $canSal;
+        $val = $valEnt - $valSal;
+
+        $arr = array($can,$val);
+        echo json_encode($arr);
+    }
+
+    // calcular entradas y salidas de materian el bodega
+    if($_REQUEST["accion"]=="obtener_movimientos_detalle"){ 
+        $bodCod = $_REQUEST["bodCod"];
+        $matCod = $_REQUEST["matCod"];
+        $anio   = $_REQUEST["anio"];
+        $mes    = $_REQUEST["mes"];
+        $tipo   = $_REQUEST["tipo"];
+
+        $fecha  = $anio.'-'.$mes;
+        
+        $canEnt = 0; 
+        $valEnt = 0;
+        $canSal = 0; 
+        $valSal = 0;
+        //Entrada
+            $query ="SELECT sum(matemoin.MAMICANT) AS sumCant, sum(matemoin.MAMIVLOR) AS sumVal
+                    FROM moviinve
+                        JOIN matemoin ON moviinve.MOINCODI = matemoin.MAMIMOIN
+                        JOIN tipomovi ON tipomovi.TIMOCODI = moviinve.MOINTIMO
+                        JOIN bodega ON bodega.bodecodi = moviinve.MOINBOOR
+                    WHERE (moviinve.MOINBOOR = $bodCod OR moviinve.MOINBODE = $bodCod) -- comparamos bodega 
+                        AND matemoin.MAMIMATE = $matCod -- comparamos material
+                        AND DATE_FORMAT(moviinve.MOINFECH, '%Y-%m') >= '$fecha' -- comparamos fecha
+                        AND tipomovi.TIMOSAEN = 'E' -- seleccionamos Entrada/Salida
+                        AND matemoin.MAMIPROP = '$tipo' -- material propio prestado";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+                    $canEnt =$row['sumCant'];
+                    $valEnt =$row['sumVal'];
+                }
+            }
+        //
+        //Salida
+            $query ="SELECT sum(matemoin.MAMICANT) AS sumCant, sum(matemoin.MAMIVLOR) AS sumVal
+                    FROM moviinve
+                        JOIN matemoin ON moviinve.MOINCODI = matemoin.MAMIMOIN
+                        JOIN tipomovi ON tipomovi.TIMOCODI = moviinve.MOINTIMO
+                        JOIN bodega ON bodega.bodecodi = moviinve.MOINBOOR
+                    WHERE (moviinve.MOINBOOR = $bodCod OR moviinve.MOINBODE = $bodCod) -- comparamos bodega 
+                        AND matemoin.MAMIMATE = $matCod -- comparamos material
+                        AND DATE_FORMAT(moviinve.MOINFECH, '%Y-%m') >= '$fecha' -- comparamos fecha
+                        AND tipomovi.TIMOSAEN = 'S' -- seleccionamos Entrada/Salida
+                        AND matemoin.MAMIPROP = '$tipo' -- material propio prestado";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+                    $canSal =$row['sumCant'];
+                    $valSal =$row['sumVal'];
+                }
+            }
+        //
+
+        $arr = array($canEnt,$canSal,$valEnt,$valSal);
+        echo json_encode($arr);
+    }
+
+    //calcular valor del bodega - material
+    if($_REQUEST["accion"]=="obtener_valor_sistema"){ 
+        $bodCod = $_REQUEST["bodCod"];
+        $matCod = $_REQUEST["matCod"];
+        $anio   = $_REQUEST["anio"];
+        $mes    = $_REQUEST["mes"];
+        $tipo   = $_REQUEST["tipo"];
+
+        $can = 0;
+        $val = 0;
+        //
+            if($tipo=='S'){
+                $sqlCant = 'INVECAPRO';
+                $sqlValo = 'INVEVLRPRO';
+            }else{
+                $sqlCant = 'INVECAPRE';
+                $sqlValo = 'INVEVLRPRE';
+            }
+
+            $query ="SELECT $sqlCant, $sqlValo FROM inventario 
+            WHERE invebode = $bodCod AND invemate = $matCod";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+                    $can =$row[$sqlCant];
+                    $val =$row[$sqlValo];
+                }
+            }
+        //
+
+        $arr = array($can,$val);
+        echo json_encode($arr);
+    }
+
+    if($_REQUEST["accion"]=="obtener_movimientos"){
+        $table  = ''; 
+        $bodCod = $_REQUEST["bodCod"];
+        $matCod = $_REQUEST["matCod"];
+        $anio   = $_REQUEST["anio"];
+        $mes    = $_REQUEST["mes"];
+        $tipo   = $_REQUEST["tipo"];
+
+        $canIni = (int)$_REQUEST["canIni"]; //cantidad inicial
+        $valIni = (int)$_REQUEST["valIni"]; //valor inicial
+        $fecha  = $anio.'-'.$mes;
+
+        $canTotal = $canIni; //cantidades totales
+        $valTotal = $valIni; //valores totales 
+
+        $salCant = 0; //cantidad tabla
+        $salValo = 0; //valor tabla
+
+        $i = 0;
+        //Almacen
+            $query ="SELECT moviinve.MOINCODI AS docum, DATE_FORMAT(moviinve.MOINFECH, '%d/%m/%Y') AS fecha, 'A' AS tipo, CONCAT(tipomovi.TIMODESC,' - ',bodega.BODENOMB) AS descrip,
+                        tipomovi.TIMOSAEN AS es, matemoin.MAMICANT AS cant, matemoin.MAMIVLOR AS val
+                    FROM moviinve
+                        JOIN matemoin ON moviinve.MOINCODI = matemoin.MAMIMOIN
+                        JOIN tipomovi ON tipomovi.TIMOCODI = moviinve.MOINTIMO
+                        JOIN bodega ON bodega.bodecodi = moviinve.MOINBOOR
+                    WHERE (moviinve.MOINBOOR = $bodCod OR moviinve.MOINBODE = $bodCod) -- comparamos bodega 
+                        AND matemoin.MAMIMATE = $matCod -- comparamos material
+                        AND moviinve.MOINFECH >= '$fecha' -- comparamos fecha
+                        AND matemoin.MAMIPROP = '$tipo' -- material propio prestado";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+
+                    if($row['es']=='S'){
+                        $salCant = (int)$canTotal - (int)$row['cant'];
+                        $salValo = (int)$valTotal - (int)$row['val'];
+
+                        $canTotal = $salCant;
+                        $valTotal = $salValo;
+                    }else{
+                        $salCant = (int)$canTotal + (int)$row['cant'];
+                        $salValo = (int)$valTotal + (int)$row['val'];
+
+                        $canTotal = $salCant;
+                        $valTotal = $salValo;
+                    }
+
+                    $tbCant = $canTotal;
+                    $tbVal  = $valTotal;
+
+                    $table .= '
+                        <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\')" ondblclick="enviarMovimiento('.$row['docum'].',\'A\')">
+                            <td class="text-center">'.$row['docum'].'</td>
+                            <td class="text-center">'.$row['fecha'].'</td>
+                            <td class="text-center">'.$row['tipo'].'</td>
+                            <td>'.$row['descrip'].'</td>
+                            <td class="text-center">'.$row['es'].'</td>
+                            <td class="text-right">'.number_format($row['cant'],0,"",".").'</td>
+                            <td class="text-right">'.number_format($row['val'],0,"",".").'</td>
+
+                            <td class="text-right">'.number_format($tbCant,0,"",".").'</td>
+                            <td class="text-right">'.number_format($tbVal,0,"",".").'</td>
+                        </tr>';
+                    $i++;
+                }   
+            }
+        //
+
+        //Legalizacion
+            $query ="SELECT MAOTNUMO AS docum, DATE_FORMAT(MAOTFECH,'%d/%m/%Y') AS fecha,'L' AS tipo,'LEGALIZACION' AS descrip,'S' AS es, MAOTCANT AS cant, MAOTVLOR AS val
+                     FROM maleottr 
+                     WHERE maottecn = $bodCod -- comparamos bodega
+                        AND maotmate = $matCod -- comparamos material
+                        AND MAOTFECH >= '$fecha' -- comparamos fecha
+                        AND MAOTPROP = '$tipo' -- material propio prestado";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+
+                    if($row['es']=='S'){
+                        $salCant = (int)$canTotal - (int)$row['cant'];
+                        $salValo = (int)$valTotal - (int)$row['val'];
+
+                        $canTotal = $salCant;
+                        $valTotal = $salValo;
+                    }else{
+                        $salCant = (int)$canTotal + (int)$row['cant'];
+                        $salValo = (int)$valTotal + (int)$row['val'];
+
+                        $canTotal = $salCant;
+                        $valTotal = $salValo;
+                    }
+
+                    $tbCant = $canTotal;
+                    $tbVal  = $valTotal;
+
+                    $table .= '
+                        <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\')" ondblclick="enviarMovimiento('.$row['docum'].',\'L\')">
+                            <td class="text-center">'.$row['docum'].'</td>
+                            <td class="text-center">'.$row['fecha'].'</td>
+                            <td class="text-center">'.$row['tipo'].'</td>
+                            <td>'.$row['descrip'].'</td>
+                            <td class="text-center">'.$row['es'].'</td>
+                            <td class="text-right">'.number_format($row['cant'],0,"",".").'</td>
+                            <td class="text-right">'.number_format($row['val'],0,"",".").'</td>
+
+                            <td class="text-right">'.number_format($tbCant,0,"",".").'</td>
+                            <td class="text-right">'.number_format($tbVal,0,"",".").'</td>
+                        </tr>';
+                    $i++;
+                }   
+            }
+        //
         echo $table;
     }
 ?>

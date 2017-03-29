@@ -121,23 +121,27 @@ $(document).ready(function(){
 
 					//todo bien
 					if(sw){
-						$.ajax({
-							type:'POST',
-							url:'proc/ralma_proc.php?accion=guardar_movimiento_inventario',
-							data:{ codMov:codMov, fecha:fecha, codEn:codEn, nomEn:nomEn, valor:valor, codTip:codTip,
-									nomTip:nomTip, codBod:codBod, nomBod:nomBod, sop:sop, docSop:docSop,
-									obs:obs
-								},
-							success: function(data){
-								if(data==1){
-									guardarMaterialesMovimiento(codMov,codTip);
-									limpiarCampos();
-									obtenerCodMovimiento();
-									demo.showNotification('bottom','left', 'Se genero el movimiento con exito', 2);
-									window.open('calma_report.php?id='+codMov, "Imprimir Movimiento", "width=1200, height=620");
+						if(!validarMateriales){
+							$.ajax({
+								type:'POST',
+								url:'proc/ralma_proc.php?accion=guardar_movimiento_inventario',
+								data:{ codMov:codMov, fecha:fecha, codEn:codEn, nomEn:nomEn, valor:valor, codTip:codTip,
+										nomTip:nomTip, codBod:codBod, nomBod:nomBod, sop:sop, docSop:docSop,
+										obs:obs
+									},
+								success: function(data){
+									if(data==1){
+										guardarMaterialesMovimiento(codMov,codTip);
+										limpiarCampos();
+										obtenerCodMovimiento();
+										demo.showNotification('bottom','left', 'Se genero el movimiento con exito', 2);
+										window.open('calma_report.php?id='+codMov, "Imprimir Movimiento", "width=1200, height=620");
+									}
 								}
-							}
-						});
+							});
+						}else{
+							demo.showNotification('bottom','left', 'Porfavor verifique los materiales', 4);
+						}
 					}else{
 						demo.showNotification('bottom','left', 'Porfavor complete los datos', 4);
 					}
@@ -181,6 +185,7 @@ BACKGROUND-COLOR ALERTAS
 	ROJO = 4
 */
 var modal = 1;
+var validarMateriales = false;
 function actualizarTipoMovimiento(tipo){
 	$.ajax({
         type:'POST',
@@ -287,16 +292,19 @@ function calcularMaterial(codMat,cantMat,rowCount){
 		dataType: 'json',
 		success: function(data){
 			if(data[0]==2){
+				validarMateriales = true;
 				demo.showNotification('bottom','left', 'La bodega de origen no tiene cantidad sufuciente para realizar esta operacion', 4);
 				//$('#txtCant'+rowCount).val(0);
 				$('#txtVal'+rowCount).val(0);
 			}else if(data[0]==3){
+				validarMateriales = true;
 				demo.showNotification('bottom','left', 'La bodega destino no tiene el cupo disponible para realizar esta operacion', 4);
 				$('#txtVal'+rowCount).val(0);
 			}else if(data[0]==4){
 				$('#txtVal'+rowCount).val('');
 				$('#txtVal'+rowCount).focus();
 			}else{
+				validarMateriales = false;
 				$('#txtVal'+rowCount).val(data[1]);
 			}
 			calcularMateriales();
