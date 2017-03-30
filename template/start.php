@@ -78,7 +78,7 @@
             background-color: #E0E0E0;
         }
         .trSelect{
-            background-color: #CCCCFF;
+            background-color: #A9F5BC !important;
         }
         .marginTop8{
             margin-top: 8px;

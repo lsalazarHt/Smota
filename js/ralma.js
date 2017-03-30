@@ -160,7 +160,7 @@ function guardarMaterialesMovimiento(codMov,codTip){
 		var can = $('#txtCant'+i).val();
 		var val = $('#txtVal'+i).val();
 		
-		if( (cod!='') && (nom!='')){
+		if( (cod!='') && (nom!='') && (val!=0)){
 			var tipo = $('#txtSWTipoMovCod').val();
 			var bodO = $('#txtEnCod').val();
 			var bodD = $('#txtBodCod').val();

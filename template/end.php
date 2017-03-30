@@ -15,6 +15,8 @@
 	<script src="tools/dist/js/demo.js"></script>
 	<!-- Bootbox -->
 	<script src="tools/dist/js/bootbox.min.js"></script>
+	<!-- BlockUI -->
+	<script src="tools/dist/js/blockUI.js"></script>
 	<!--  Notifications Plugin    -->
 	<script src="assets/js/bootstrap-notify.js"></script>
 	<!-- Material Dashboard DEMO methods, don't include it in your project! -->

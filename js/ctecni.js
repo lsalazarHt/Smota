@@ -123,8 +123,8 @@ function buscarTecnico(cod){
         		buscarMaterialesLegalizados(1);
         		buscarManoObraLegalizadas(1);
         		buscarActa();
-        		buscarManoObraActa();
-        		buscarNotasActa();
+        		//buscarManoObraActa();
+        		//buscarNotasActa();
         		buscarInventario();
         		buscarNotas();
                 buscarElementProtecPersonal();
@@ -233,25 +233,24 @@ function buscarActa(){
         }
     });
 }
-function buscarManoObraActa(){
+function buscarManoObraActa(idActa){
 	$('#table_manoObraActa').html('');
-	cod = $('#txtCod').val();
 	$.ajax({
         type:'POST',
         url:'proc/ptecni_proc.php?accion=consultar_mano_obra_acta',
-        data:{ cod:cod},
+        data:{ idActa:idActa},
         success: function(data){
         	$('#table_manoObraActa').html(data);
         }
     });
 }
-function buscarNotasActa(){
+function buscarNotasActa(idActa){
 	$('#table_notaAsociadaActa').html('');
-	cod = $('#txtCod').val();
+	tec = $('#txtCod').val();
 	$.ajax({
         type:'POST',
         url:'proc/ptecni_proc.php?accion=consultar_notas_acta',
-        data:{ cod:cod},
+        data:{ idActa:idActa, tec:tec},
         success: function(data){
         	$('#table_notaAsociadaActa').html(data);
         }
@@ -367,10 +366,20 @@ function trSelect(trId,idOrden){
         }
     });
 }
+function trSelect_acta(trId,idActa){
+    $('.trDefault').removeClass('trSelect');
+    $('#'+trId).addClass('trSelect');
+
+	buscarManoObraActa(idActa);
+	buscarNotasActa(idActa);
+}
 function enviarOrden(idOrden,usuario){
 
     $('#txtIdUsuarioPost').val(usuario);
     $('#txtIdOrdenPost').val(idOrden);
+    
+	tecn = $('#txtCod').val();
+	$('#txtIdTecnicoPost').val(tecn);
 
     $('#formDetalleOrdenPost').submit();
 

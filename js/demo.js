@@ -134,17 +134,16 @@ $(document).ready(function(){
 					loc = $('#txtHiddenLoca'+i).val();
 					ord = $('#txtHiddenOrde'+i).val();
 					//DEASIGNAR ORDEN AL TECNICO
-
 						deasignarOrden(dep,loc,ord);
 					//END DEASIGNAR ORDEN AL TECNICO
+					var msgError = 'Se desasigno la orden <'+ord+'> correctamente del tenico';
+					demo.showNotification('bottom','left', msgError, 2);
 				}
 			}
 			if(!sw){ 
 				var msgError = 'Porfavor elija minimo una orden';
 				demo.showNotification('bottom','left', msgError, 4);
 			}
-			var msgError = 'Las ordenes se desasignaron correctamente al tenico';
-			demo.showNotification('bottom','left', msgError, 2);
 			//mostrarOrdenes();
 			limpiarPantalla();
 		}

@@ -327,6 +327,7 @@
 				                			<div id="tableOrdenes" style="height: 460px; overflow-y: scroll;" class="container-table-list">
 						                		<table class="table table-bordered table-condensed">
 						                			<tr style="background-color: #3c8dbc; color:white;">
+								        				<th class="text-center" width="10"><input type="checkbox"></th>
 								        				<th class="text-center" width="100">NUMERO DE ORDEN</th>
 								        				<th class="text-center" width="70">FECHA</th>
 								        				<th class="text-center" width="70">PQR</th>
@@ -335,7 +336,6 @@
 								        				<th class="text-center" width="100">OBSERVACION</th>
 								        				<th class="text-center" width="100">DIRECCION</th>
 								        				<th class="text-center" width="100">SECTOR</th>
-								        				<th class="text-center" width="10"><input type="checkbox"></th>
 								        			</tr>
 						                		</table>
 				                			</div>

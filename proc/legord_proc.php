@@ -86,39 +86,42 @@
         $recb = '';
         $lega = '';
 
+        $estadoOt = 0;
+
         $query ="SELECT * FROM ot WHERE OTDEPA = $dep AND OTLOCA = $loc AND OTNUME = $num AND OTESTA = 1";
-            $respuesta = $conn->prepare($query) or die ($sql);
-            if(!$respuesta->execute()) return false;
-            if($respuesta->rowCount()>0){
-                while ($row=$respuesta->fetch()){
-                    $codTecOt = $row['OTTECN'];
-                    $estOt = $row['OTESTA'];
-                    $fechRecib = $row['OTFERECI'];
-                    $fechOrdn = $row['OTFEORD'];
-                    $fechCump = $row['OTCUMP'];
-                    $fechAsig = $row['OTFEAS'];
-                    if($row['OTFELE']!=''){
-                        $fechLega = $row['OTFELE'];
-                    }else{
-                        $fechLega = date('Y-m-d');
-                    }
-                    $pqrReport = $row['OTPQRREPO'];
-                    $pqrEncont = $row['OTPQRENCO'];
-                    $codUser = $row['OTUSUARIO'];
-                    $codEstado = $row['OTESTA'];
-
-                    $horIni = $row['OTHORAIN'];
-                    $minIni = $row['OTMIIN'];
-                    $horFin = $row['OTHORAFI'];
-                    $minFin = $row['OTMIFI'];
-
-                    $obs = $row['OTOBSELE'];
-
-                    $asig = $row['OTUSERASI'];
-                    $recb = $row['OTUSERCRE'];
-                    $lega = $row['OTUSERLEG'];
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $estadoOt = 1;
+                $codTecOt = $row['OTTECN'];
+                $estOt = $row['OTESTA'];
+                $fechRecib = $row['OTFERECI'];
+                $fechOrdn = $row['OTFEORD'];
+                $fechCump = $row['OTCUMP'];
+                $fechAsig = $row['OTFEAS'];
+                if($row['OTFELE']!=''){
+                    $fechLega = $row['OTFELE'];
+                }else{
+                    $fechLega = date('Y-m-d');
                 }
+                $pqrReport = $row['OTPQRREPO'];
+                $pqrEncont = $row['OTPQRENCO'];
+                $codUser = $row['OTUSUARIO'];
+                $codEstado = $row['OTESTA'];
+
+                $horIni = $row['OTHORAIN'];
+                $minIni = $row['OTMIIN'];
+                $horFin = $row['OTHORAFI'];
+                $minFin = $row['OTMIFI'];
+
+                $obs = $row['OTOBSELE'];
+
+                $asig = $row['OTUSERASI'];
+                $recb = $row['OTUSERCRE'];
+                $lega = $row['OTUSERLEG'];
             }
+        }
 
         $numPqrRepor='';
         if($pqrReport!=''){
@@ -189,7 +192,7 @@
 
         $arr = array($codTecOt,$numTecn,$estOt,$fechRecib,$fechOrdn,$fechCump,$fechAsig,$fechLega,
                      $pqrReport,$numPqrRepor,$pqrEncont,$numPqrEncont,$codUser,$nomUser,$codEstado,
-                     $numEstado,$horaInicial,$horaFinal,$obs,$asig,$recb,$lega);
+                     $numEstado,$horaInicial,$horaFinal,$obs,$asig,$recb,$lega,$estadoOt);
         echo json_encode($arr);
     }
 

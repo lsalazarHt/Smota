@@ -1,4 +1,15 @@
-<?php require 'template/start.php'; ?>
+<?php 
+	require 'template/start.php'; 
+
+	echo '<script src="tools/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        	<script type="text/javascript">
+				$(document).ready(function () {
+					if($("#txtCod").val()!=""){
+						buscarTecnico($("#txtCod").val());
+					}
+				});
+			</script>';
+?>
 <!--  Material Dashboard CSS    -->
 <link href="assets/css/material-dashboard.css" rel="stylesheet"/>
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
@@ -399,8 +410,8 @@
 													                            <tr style="background-color: #3c8dbc; color:white;">
 													                             	<th class="text-center" width="70">NUMERO</th>
 													                             	<th class="text-center" width="120">FECHA</th>
-													                             	<th class="text-center" width="100">VALOR BRUTO</th>
-													                             	<th class="text-center" width="100">VALOR NETO</th>
+													                             	<th class="text-right" width="100">VALOR BRUTO</th>
+													                             	<th class="text-right" width="100">VALOR NETO</th>
 													                             	<th class="text-center" width="70">ESTADO</th>
 													                            </tr>
 													                        </thead>
@@ -421,8 +432,8 @@
 													                        <thead>
 													                            <tr style="background-color: #3c8dbc; color:white;">
 													                             	<th class="text-center" colspan="2">MANO DE OBRA</th>
-													                             	<th class="text-center" width="70">CANTIDAD</th>
-													                             	<th class="text-center" width="120">VALOR</th>
+													                             	<th class="text-right" width="70">CANTIDAD</th>
+													                             	<th class="text-right" width="120">VALOR</th>
 													                             	<th class="text-center" width="100">FECHA</th>
 													                            </tr>
 													                        </thead>
@@ -437,11 +448,10 @@
 													            		<table id="table" class="table table-condensed">
 													                        <thead>
 													                            <tr style="background-color: #3c8dbc; color:white;">
-													                             	<th class="text-center" width="70">NUMERO</th>
 													                             	<th class="text-center" colspan="2">CLASE DE NOTA</th>
 													                             	<th class="text-center" width="100">SIGNO</th>
 													                             	<th class="text-center" width="10">FECHA</th>
-													                             	<th class="text-center" width="100">VALOR</th>
+													                             	<th class="text-right" width="100">VALOR</th>
 													                            </tr>
 													                        </thead>
 													                        <tbody id="table_notaAsociadaActa" style="font-size: 13px;">
@@ -466,14 +476,13 @@
 												            		<table id="table" class="table table-condensed">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
-												                             	<th class="text-center" width="120">MATERIAL</th>
-												                             	<th class="text-center">DESCRIPCION</th>
-												                             	<th class="text-center" width="70">BODEGA</th>
+												                             	<th class="text-left" width="120">MATERIAL</th>
+												                             	<th class="text-left">DESCRIPCION</th>
 												                             	<th class="text-center" width="70">CUPO</th>
-												                             	<th class="text-center" width="120">CANTIDAD PROPIA</th>
-												                             	<th class="text-center" width="120">VALOR PROPIO</th>
-												                             	<th class="text-center" width="120">CANTIDAD PRESTADA</th>
-												                             	<th class="text-center" width="120">VALOR PRESTADO</th>
+												                             	<th class="text-right" width="120">CANTIDAD PROPIA</th>
+												                             	<th class="text-right" width="120">VALOR PROPIO</th>
+												                             	<th class="text-right" width="120">CANTIDAD PRESTADA</th>
+												                             	<th class="text-right" width="120">VALOR PRESTADO</th>
 												                            </tr>
 												                        </thead>
 												                        <tbody id="table_inventario" style="font-size: 13px;">
@@ -575,6 +584,7 @@
 				<form method="POST" action="cusuOrden.php" class="display-none" id="formDetalleOrdenPost">
 					<input type="hidden" id="txtIdOrdenPost" name="txtIdOrdenPost">
 					<input type="hidden" id="txtIdUsuarioPost" name="txtIdUsuarioPost">
+					<input type="hidden" id="txtIdTecnicoPost" name="txtIdTecnicoPost">
 				</form>
 
 			</div>

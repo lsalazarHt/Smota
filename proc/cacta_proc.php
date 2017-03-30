@@ -41,21 +41,7 @@
         if(!$respuesta->execute()) return false;
         if($respuesta->rowCount()>0){
             while ($row=$respuesta->fetch()){
-            	//OBTENER PQR DE LA ORDEN
-            		$codPqr ="";
-            		$nomPqr ="";
-            		$query = 'SELECT ot.OTPQRENCO, pqr.PQRDESC
-								FROM ot INNER JOIN pqr ON pqr.PQRCODI = ot.OTPQRENCO
-								WHERE ot.OTDEPA = 76 AND ot.OTLOCA = 1 AND ot.OTNUME = 28122118';
-			        $respuestaPqr = $conn->prepare($query) or die ($sql);
-			        if(!$respuestaPqr->execute()) return false;
-			        if($respuestaPqr->rowCount()>0){
-			            while ($rowPqr=$respuestaPqr->fetch()){
-			            	$codPqr = $rowPqr['OTPQRENCO'];
-			            	$nomPqr = $rowPqr['PQRDESC'];
-			            }
-			        }
-            	//
+            	
                 $table .= '
                 		<tr>
                 			<td class="text-center">'.$row['MOOTDEPA'].' - '.$row['MOOTLOCA'].' - '.$row['MOOTNUMO'].'</td>

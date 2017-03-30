@@ -11,7 +11,6 @@
                      	<th class="text-center" width="130">UND DE MEDIDA</th>
                       	<th class="text-center" width="200"></th>
                       	<th class="text-center" width="80">ESTADO</th>
-                     	<th class="text-center" width="130">MANEJA SERIAL</th>
                         <th class="text-center" width="100">VIDA UTIL (DIAS)</th>
                         <th class="text-center" width="100">CANT MAX DOTACIÓN</th>
                     </tr>
@@ -26,8 +25,8 @@
             while ($row=$respuesta->fetch()){
                 if($row['MATEESTA']=='A'){ $visible = 'checked="checked"'; }
                 else{ $visible = '';}
-                if($row['MATEEXTRA']=='A'){ $manejaSerial = 'checked="checked"'; }
-                else{ $manejaSerial = '';}
+                /*if($row['MATEEXTRA']=='A'){ $manejaSerial = 'checked="checked"'; }
+                else{ $manejaSerial = '';}*/
                 if($row['CLMACODI']==5 || $row['CLMACODI']==6){ $readonly = ''; }
                 else{ $readonly = 'readonly';}
 
@@ -53,9 +52,6 @@
                             </td>
                             <td class="text-center">
                                 <input type="checkbox" id="txtCkek'.$i.'" '.$visible.' onclick="swEditor(\'\',\'trSelect'.$i.'\')"> Activo
-                            </td>
-                            <td class="text-center">
-                                <input type="checkbox" id="txtManSerial'.$i.'" '.$manejaSerial.' onclick="swEditor(\'\',\'trSelect'.$i.'\')"> Maneja Serial
                             </td>
                             <td>
                                 <input type="text" id="txtVidaUtil'.$i.'" class="form-control input-sm" value="'.$row['MATEVIUT'].'" onkeypress="solonumeros('.$i.')" onclick="swEditor(\'txtVidaUtil'.$i.'\',\'trSelect'.$i.'\')" '.$readonly.'>
@@ -89,8 +85,8 @@
     }
 
     if($_REQUEST["accion"]=="guardar_registros"){
-        $query ="INSERT INTO material (MATECODI,MATEDESC,MATECLAS,MATEUNME,MATEESTA,MATEEXTRA,MATEVIUT,MATEMXCT) 
-                VALUES (".$_REQUEST["cod"].",'".$_REQUEST["nom"]."',".$_REQUEST["cls"].",'".$_REQUEST["uMed"]."','".$_REQUEST["chek"]."','".$_REQUEST["mSerial"]."','".$_REQUEST["vdUtl"]."','".$_REQUEST["cnMxDt"]."')";
+        $query ="INSERT INTO material (MATECODI,MATEDESC,MATECLAS,MATEUNME,MATEESTA,MATEVIUT,MATEMXCT) 
+                VALUES (".$_REQUEST["cod"].",'".$_REQUEST["nom"]."',".$_REQUEST["cls"].",'".$_REQUEST["uMed"]."','".$_REQUEST["chek"]."','".$_REQUEST["vdUtl"]."','".$_REQUEST["cnMxDt"]."')";
         $respuesta = $conn->prepare($query) or die ($query);
         if(!$respuesta->execute()){
             echo 'Error!';
@@ -103,7 +99,6 @@
         $query ="UPDATE material
         		 SET MATECODI=".$_REQUEST["cod"].", MATEDESC='".$_REQUEST["nom"]."',
         		 	 MATECLAS=".$_REQUEST["cls"].", MATEUNME='".$_REQUEST["uMed"]."',
-        		 	 MATEESTA='".$_REQUEST["chek"]."', MATEEXTRA='".$_REQUEST["mSerial"]."',
                      MATEVIUT='".$_REQUEST["vdUtl"]."', MATEMXCT='".$_REQUEST["cnMxDt"]."'
         		 WHERE MATECODI=".$_REQUEST["codOrg"];
         $respuesta = $conn->prepare($query) or die ($query);

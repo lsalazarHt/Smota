@@ -4,6 +4,19 @@ $(document).ready(function () {
 	$('#btnGuardar').removeClass('disabled');
 	$('#btnListaValores').addClass('disabled');
 	$('#btnConsulta').addClass('disabled');
+	$(document).ajaxStart(function () { 
+		$.blockUI({
+			message: "Un momento por favor....",
+			css: { 
+	            border: 'none', 
+	            padding: '15px', 
+	            backgroundColor: '#000', 
+	            '-webkit-border-radius': '10px', 
+	            '-moz-border-radius': '10px', 
+	            opacity: .5, 
+	            color: '#fff' 
+	        } })
+	}).ajaxStop($.unblockUI);
 	actualizar();
 
 	//Agregar campos
@@ -31,15 +44,15 @@ $(document).ready(function () {
 	    
 	    //Legalizacion Especial
 	    //No Se Asocia Tecnico
-	    var cell4 = row.insertCell(3);
+	    /*var cell4 = row.insertCell(3);
 	    cell4.className = 'text-center ';
 	    cell4.innerHTML = '<input type="checkbox" id="ckLegEspec'+rowCount+'" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')"> Legalizacion Especial';
-	    //No Se Asocia Tecnico
-	    var cell4 = row.insertCell(4);
+	    *///No Se Asocia Tecnico
+	    var cell4 = row.insertCell(3);
 	    cell4.className = 'text-center ';
 	    cell4.innerHTML = '<input type="checkbox" id="ckAsocTec'+rowCount+'" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')"> No se asocia al Tecnico';
 	    //Visible
-	    var cell6 = row.insertCell(5);
+	    var cell6 = row.insertCell(4);
 	    cell6.className = 'text-center ';
 	    cell6.innerHTML = '<input type="checkbox" id="txtCkek'+rowCount+'" checked="checked" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')"> ';
 	  
@@ -56,8 +69,8 @@ $(document).ready(function () {
 			var nom = $('#txtNomb'+i).val();
 			var med = $('#txtUndMed'+i).val();
 			
-			if($("#ckLegEspec"+i).is(':checked')) { espe = 1; }
-			else{ espe = 0; }
+			/*if($("#ckLegEspec"+i).is(':checked')) { espe = 1; }
+			else{ espe = 0; }*/
 
 			if($("#ckAsocTec"+i).is(':checked')) { note = 1; }
 			else{ note = 0; }
@@ -71,7 +84,7 @@ $(document).ready(function () {
 					$.ajax({
 				        type:'POST',
 				        url:'proc/pmobr_proc.php?accion=editar_registros',
-				        data:{ codOrg:codOrg, cod:cod, nom:nom, med:med, espe:espe, note:note, chek:chek},
+				        data:{ codOrg:codOrg, cod:cod, nom:nom, med:med, note:note, chek:chek},
 				        success: function(data){
 				            console.log(data)
 				            if(data==1){

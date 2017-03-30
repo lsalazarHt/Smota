@@ -59,6 +59,7 @@
     	$table = '
     			<table id="tableMateriales" class="table table-bordered table-condensed">
         			<tr style="background-color: #3c8dbc; color:white;">
+        				<th class="text-center" width="10" style="vertical-align:middle"><input type="checkbox"></th>
         				<th class="text-center" width="120">NUMERO DE ORDEN</th>
         				<th class="text-center" width="100" style="vertical-align:middle">FECHA ORDEN</th>
         				<th class="text-center" width="100">FECHA ASIGNACION</th>
@@ -67,7 +68,6 @@
         				<th class="text-center" style="vertical-align:middle">MANO DE OBRA</th>
         				<th class="text-center" style="vertical-align:middle">USUARIO</th>
         				<th class="text-center" width="100" style="vertical-align:middle">VALOR</th>
-        				<th class="text-center" width="10" style="vertical-align:middle"><input type="checkbox"></th>
         			</tr>
         		</table>
         		';
@@ -102,6 +102,7 @@
     	$table = '
     			<table id="tableMateriales" class="table table-bordered table-condensed">
         			<tr style="background-color: #3c8dbc; color:white;">
+        				<th class="text-center" width="10"  style="vertical-align:middle"><input type="checkbox" onclick="selectTodos()"></th>
         				<th class="text-center" width="120" style="vertical-align:middle">NUMERO DE ORDEN</th>
         				<th class="text-center" width="100" style="vertical-align:middle">FECHA ORDEN</th>
         				<th class="text-center" width="100" style="vertical-align:middle">FECHA ASIGNACION</th>
@@ -110,7 +111,6 @@
         				<th class="text-center" style="vertical-align:middle">MANO DE OBRA</th>
         				<th class="" style="vertical-align:middle">USUARIO</th>
         				<th class="text-right" width="100" style="vertical-align:middle">VALOR</th>
-        				<th class="text-center" width="10"  style="vertical-align:middle"><input type="checkbox" onclick="selectTodos()"></th>
         			</tr>
         		';
 
@@ -129,6 +129,10 @@
             	$usuar = buscarUsuario( $row['OTUSUARIO'] );
             	$table .= '
             		<tr>
+        				<td class="text-center" width="10" style="vertical-align:middle">
+        					<input type="hidden" id="idManObra'.$i.'" value="'.$row['ID'].'">
+        					<input type="checkbox" id="txtCheck'.$i.'">
+        				</td>
         				<td class="" width="120" style="vertical-align:middle">'.$row['MOOTDEPA'].'-'.$row['MOOTLOCA'].'-'.$row['MOOTNUMO'].'</td>
         				<td class="text-center" width="100" style="vertical-align:middle">'.$row['OTFEORD'].'</td>
         				<td class="text-center" width="100" style="vertical-align:middle">'.$row['OTFEAS'].'</td>
@@ -137,10 +141,6 @@
         				<td class="" style="vertical-align:middle"><small>'.$mObra.'</small></td>
         				<td class="" style="vertical-align:middle"><small>'.$usuar.'</small></td>
         				<td class="text-right" width="100" style="vertical-align:middle">$ '.number_format($row['MOOTVAPA'],0,"",".").'</td>
-        				<td class="text-center" width="10" style="vertical-align:middle">
-        					<input type="hidden" id="idManObra'.$i.'" value="'.$row['ID'].'">
-        					<input type="checkbox" id="txtCheck'.$i.'">
-        				</td>
         			</tr>';
         		$i++;
             }   

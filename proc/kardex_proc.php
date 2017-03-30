@@ -76,8 +76,8 @@
         $valSal = 0;
         $can = 0;
         $val = 0;
-        
-        //Entrada Almacen
+
+        /*//Entrada Almacen
             $query ="SELECT sum(matemoin.MAMICANT) AS sumCant, sum(matemoin.MAMIVLOR) AS sumVal
                     FROM moviinve
                         JOIN matemoin ON moviinve.MOINCODI = matemoin.MAMIMOIN
@@ -96,7 +96,7 @@
                     $valEnt =$row['sumVal'];
                 }
             }
-        //
+        //*/
         //Salida Almacen
             $query ="SELECT sum(matemoin.MAMICANT) AS sumCant, sum(matemoin.MAMIVLOR) AS sumVal
                     FROM moviinve
@@ -118,6 +118,22 @@
             }
         //
 
+        //salida legalizacion
+            $query ="SELECT sum(MAOTCANT) AS sumCant, sum(MAOTVLOR) AS sumVal
+                     FROM maleottr 
+                     WHERE maottecn = $bodCod -- comparamos bodega
+                     AND maotmate = $matCod -- comparamos material
+                     AND DATE_FORMAT(MAOTFECH, '%Y-%m') = '$nuevafecha' -- comparamos fecha
+                     AND MAOTPROP = '$tipo'  -- material propio prestado";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+                    $canSalLeg =$row['sumCant'];
+                    $valSalLeg =$row['sumVal'];
+                }
+            }
+        //
 
 
         $can = $canEnt - $canSal;
@@ -275,7 +291,7 @@
 
                     $table .= '
                         <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\')" ondblclick="enviarMovimiento('.$row['docum'].',\'A\')">
-                            <td class="text-center">'.$row['docum'].'</td>
+                            <td class="text-left">'.$row['docum'].'</td>
                             <td class="text-center">'.$row['fecha'].'</td>
                             <td class="text-center">'.$row['tipo'].'</td>
                             <td>'.$row['descrip'].'</td>
@@ -322,7 +338,7 @@
 
                     $table .= '
                         <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\')" ondblclick="enviarMovimiento('.$row['docum'].',\'L\')">
-                            <td class="text-center">'.$row['docum'].'</td>
+                            <td class="text-left">'.$row['docum'].'</td>
                             <td class="text-center">'.$row['fecha'].'</td>
                             <td class="text-center">'.$row['tipo'].'</td>
                             <td>'.$row['descrip'].'</td>
