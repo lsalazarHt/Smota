@@ -69,7 +69,9 @@
 			                    	<div id="divLista" class="display-none"></div>
 			                    	<div class="row">
 					                	<div class="form-group">
-					                		<div class="col-sm-1"></div>
+					                		<div class="col-sm-1">
+					                			<label for="txtNom" class="col-sm-2 control-label text-right" style="margin-top:5px;">Codigo</label>
+					                		</div>
 					                     	<div class="col-sm-2">
 				                        		<input type="text" class="form-control" id="txtCodBodega" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>

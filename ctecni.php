@@ -14,6 +14,25 @@
 <link href="assets/css/material-dashboard.css" rel="stylesheet"/>
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 <body class="hold-transition skin-blue layout-top-nav">
+<style>
+
+.nav-tabs > li > a	{ 
+	background-color: #f5f5f5; 
+	color: #676767; 
+	border-color: #dddddd; 
+	border-width: 1px; 
+	padding: 5px 15px; 
+	line-height: 2; 
+	-webkit-transition: all 0.75s; 
+	-moz-transition: all 0.75s; 
+	transition: all 0.75s; 
+} 
+.tabbable-line > .nav-tabs > li > a:active		{ background-color: #3c8dbc; color: #f5f5f5;}
+.tabbable-line > .nav-tabs > li > a:focus 		{ background-color: #3c8dbc; color: #f5f5f5;} 
+.tabbable-line > .nav-tabs > li > a:hover 		{ background-color: #52A6D6; color: #f5f5f5; border-color: #dddddd;} 
+
+.tabbable-line > .nav-tabs > .active > a { background-color: #3c8dbc; color: #f5f5f5;}
+</style>
 	<div class="wrapper">
 		<?php require 'template/menu.php'; ?>
 		<div class="content-wrapper">
@@ -158,7 +177,7 @@
 				                	<hr>
 				                	<div class="row marginTop3 text-center text-center">
 				                		<div class="col-md-12">
-				                			<div class="nav-tabs-custom">
+				                			<div class="tabbable-line">
 										        <ul class="nav nav-tabs">
 										        	<li class="active"><a href="#ordenesSinCumplir" data-toggle="tab">Ordenes sin Cumplir</a></li>
 									          		<li><a href="#ordenesCumplidasXcertificar" data-toggle="tab">Ordenes Cumplidas x Certificar</a></li>
@@ -405,63 +424,73 @@
 												        	<div class="row marginTop5">
 													            <div class="col-md-5">
 												            		<div class="row" style="height: 530px; overflow-y: scroll;">
-													            		<table id="table" class="table table-condensed">
-													                        <thead>
-													                            <tr style="background-color: #3c8dbc; color:white;">
-													                             	<th class="text-center" width="70">NUMERO</th>
-													                             	<th class="text-center" width="120">FECHA</th>
-													                             	<th class="text-right" width="100">VALOR BRUTO</th>
-													                             	<th class="text-right" width="100">VALOR NETO</th>
-													                             	<th class="text-center" width="70">ESTADO</th>
-													                            </tr>
-													                        </thead>
-													                        <tbody id="table_acta" style="font-size: 13px;">
-													                            
-													                        </tbody>
-													                    </table>
+													            		<div class="col-md-12">
+														            		<table id="table" class="table table-condensed">
+														                        <thead>
+														                            <tr style="background-color: #3c8dbc; color:white;">
+														                             	<th class="text-center" width="70">NUMERO</th>
+														                             	<th class="text-center" width="120">FECHA</th>
+														                             	<th class="text-right" width="100">VALOR BRUTO</th>
+														                             	<th class="text-right" width="100">VALOR NETO</th>
+														                             	<th class="text-center" width="70">ESTADO</th>
+														                            </tr>
+														                        </thead>
+														                        <tbody id="table_acta" style="font-size: 13px;">
+														                            
+														                        </tbody>
+														                    </table>
+														                </div>
 													            	</div>
 													            	<div class="row marginTop5">
-												                     	<label for="txtObservacion" class="text-right" style="margin-top:5px; margin-left: 20px; float:left;">Observacion</label>
-												                     	<textarea style="float:left; margin-left: 20px; width=50px;" class="form-control input-sm" id="txtObservacion" placeholder="Observacion"></textarea>
+													            		<div class="col-md-12">
+													                     	<label for="txtObservacion" class="text-right" style="margin-top:5px; margin-left: 20px; float:left;">Observacion</label>
+													                     	<textarea style="float:left; margin-left: 20px; width=50px;" class="form-control input-sm" id="txtObservacion" placeholder="Observacion"></textarea>
+												                     	</div>
 													            	</div>
 												            	</div>
 												        		<div class="col-md-6" style="margin-left: 20px;">
 												            		<div class="row marginTop5" style="height: 250px; overflow-y: scroll;">
-												            			<h5><b>Mano de Obra de Acta</b></h5>
-													            		<table id="table" class="table table-condensed">
-													                        <thead>
-													                            <tr style="background-color: #3c8dbc; color:white;">
-													                             	<th class="text-center" colspan="2">MANO DE OBRA</th>
-													                             	<th class="text-right" width="70">CANTIDAD</th>
-													                             	<th class="text-right" width="120">VALOR</th>
-													                             	<th class="text-center" width="100">FECHA</th>
-													                            </tr>
-													                        </thead>
-													                        <tbody id="table_manoObraActa" style="font-size: 13px;">
-													                            
-													                        </tbody>
-													                    </table>
+												            			<div class="col-md-12">
+													            			<h5><b>Mano de Obra de Acta</b></h5>
+														            		<table id="table" class="table table-condensed">
+														                        <thead>
+														                            <tr style="background-color: #3c8dbc; color:white;">
+														                             	<th class="text-center" colspan="2">MANO DE OBRA</th>
+														                             	<th class="text-right" width="70">CANTIDAD</th>
+														                             	<th class="text-right" width="120">VALOR</th>
+														                             	<th class="text-center" width="100">FECHA</th>
+														                            </tr>
+														                        </thead>
+														                        <tbody id="table_manoObraActa" style="font-size: 13px;">
+														                            
+														                        </tbody>
+														                    </table>
+													                    </div>
 												            		</div>
 												            		<br>
 												            		<div class="row marginTop5" style="height: 250px; overflow-y: scroll;">
-													            		<h5><b>Notas Asociadas al Acta</b></h5>
-													            		<table id="table" class="table table-condensed">
-													                        <thead>
-													                            <tr style="background-color: #3c8dbc; color:white;">
-													                             	<th class="text-center" colspan="2">CLASE DE NOTA</th>
-													                             	<th class="text-center" width="100">SIGNO</th>
-													                             	<th class="text-center" width="10">FECHA</th>
-													                             	<th class="text-right" width="100">VALOR</th>
-													                            </tr>
-													                        </thead>
-													                        <tbody id="table_notaAsociadaActa" style="font-size: 13px;">
-													                            
-													                        </tbody>
-													                    </table>
+												            			<div class="col-md-12">
+														            		<h5><b>Notas Asociadas al Acta</b></h5>
+														            		<table id="table" class="table table-condensed">
+														                        <thead>
+														                            <tr style="background-color: #3c8dbc; color:white;">
+														                             	<th class="text-center" colspan="2">CLASE DE NOTA</th>
+														                             	<th class="text-center" width="100">SIGNO</th>
+														                             	<th class="text-center" width="10">FECHA</th>
+														                             	<th class="text-right" width="100">VALOR</th>
+														                            </tr>
+														                        </thead>
+														                        <tbody id="table_notaAsociadaActa" style="font-size: 13px;">
+														                            
+														                        </tbody>
+														                    </table>
+													                    </div>
 												            		</div>
 												            		<div class="row marginTop5">
-												                     	<label for="txtObservacion" class="text-right" style="margin-top:5px; margin-left: 20px; float:left;">Observacion</label>
-												                     	<textarea style="float:left; margin-left: 20px; width=50px;" class="form-control input-sm" id="txtObservacion" placeholder="Observacion"></textarea>
+												            			<div class="col-md-12">
+													                     	<label for="txtObservacion" class="text-right" style="margin-top:5px; margin-left: 20px; float:left;">Observacion</label>
+													                     	<textarea style="float:left; margin-left: 20px; width=50px;" class="form-control input-sm" id="txtObservacion" placeholder="Observacion"></textarea>
+												                     	</div>
 													            	</div>
 												            	</div>
 												        	</div>
@@ -572,7 +601,7 @@
 											        <!-- END Herramientas -->
 
 										        </div><!-- /.tab-content -->
-										    </div>
+										    </div>  <!-- Fin nav TAB -->
 				                		</div>
 				                	</div>
 			                    </div>
