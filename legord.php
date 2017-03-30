@@ -387,8 +387,12 @@
 				                	<div class="row marginTop3">
 				                		<div class="col-md-6">
 						                	<fieldset>
-						                		<legend><a class="" data-toggle="tooltip" data-original-title="Agregar" id="addManoObra"><i class="fa fa-plus"></i></a> Mano de Obra</legend>
-						                		<div style="height: 190px; overflow-y: scroll;">
+						                		<legend>
+													<a class="" data-toggle="tooltip" data-original-title="Agregar" id="addManoObra"><i class="fa fa-plus"></i></a> 
+													<a class="text-red" data-toggle="tooltip" data-original-title="Quitar" id="removeManoObra"><i class="fa fa-minus"></i></a> 
+													Mano de Obra
+												</legend>
+						                		<div style="height: 250px; overflow-y: scroll;">
 							                		<input type="hidden" id="contRowMano">
 							                		<table id="tableManoObra" class="table table-bordered table-condensed">
 							                			<tr style="background-color: #3c8dbc; color:white;">
@@ -403,8 +407,13 @@
 				                		</div>
 				                		<div class="col-md-6">
 						                	<fieldset>
-						                		<legend><a class="" data-toggle="tooltip" data-original-title="Agregar" id="addMateriales"><i class="fa fa-plus"></i></a> Materiales</legend>
-						                		<div style="height: 190px; overflow-y: scroll;">
+						                		<legend>
+													<a class="" data-toggle="tooltip" data-original-title="Agregar" id="addMateriales"><i class="fa fa-plus"></i></a>
+													<a class="text-red" data-toggle="tooltip" data-original-title="Quitar" id="removedMateriales"><i class="fa fa-minus"></i></a> 
+													Materiales
+												</legend>
+														
+												<div style="height: 250px; overflow-y: scroll;">
 							                		<input type="hidden" id="contRowMate">
 							                		<table id="tableMateriales" class="table table-bordered table-condensed">
 							                			<tr style="background-color: #3c8dbc; color:white;">

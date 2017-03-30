@@ -1,5 +1,17 @@
 $(document).ready(function () {
-	
+	$(document).ajaxStart(function () { 
+		$.blockUI({
+			message: "Un momento por favor....",
+			css: { 
+	            border: 'none', 
+	            padding: '15px', 
+	            backgroundColor: '#000', 
+	            '-webkit-border-radius': '10px', 
+	            '-moz-border-radius': '10px', 
+	            opacity: .5, 
+	            color: '#fff' 
+	        } })
+	}).ajaxStop($.unblockUI);
 	$('#tableDepa').DataTable({
 	    //ajax : 'assets/inc/clss/tbl/tabla-apuestas-adm-apuesta.php?camp=0',
 	    "iDisplayLength": 5,

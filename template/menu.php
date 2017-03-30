@@ -63,7 +63,6 @@
 		            <li class="display-none liConsul"><a href="cnota.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Notas</a></li>
 		            <li class="display-none liConsul"><a href="corden.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Ordenes</a></li>
 	            <li class="mResto"><a href="demo.php"><i class="fa fa-circle"></i>Desasignacion de Ordenes por Pantalla</a></li>
-	            <li class="mResto"><a href="pdelote.php"><i class="fa fa-circle"></i>Desasignación en bloque</a></li>
 	            <li class="mResto"><a href="pdesaot.php"><i class="fa fa-circle"></i>Desasignacion individual</a></li>
 	            <li class="mResto"><a href="incot.php"><i class="fa fa-circle"></i>Incumplir una orden</a></li>
 	            <li class="mResto"><a href="legord.php"><i class="fa fa-circle"></i>Legalizacion individual</a></li>

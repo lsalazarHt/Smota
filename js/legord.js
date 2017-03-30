@@ -81,14 +81,17 @@ $(document).ready(function(){
 	//fecha de cumplimiento
 	$("#txtFechaCumpl").keypress(function(event){
 		if(event.which == 13){
-			fCump = $(this).val();
+			fCump = $('#txtFechaCumpl').val();
 			fAsig = $('#txtFechaAsig').val();
-			if($(this).val()!=''){
-				if(fCump >= fAsig){
+			fHoy  = $('#txtFechaLega').val();
+
+			if(fCump!=''){
+				//fecha de cumplimiento entre fecha de asignacion y la fecha de hoy
+				if( (fCump >= fAsig) && (fCump <= fHoy) ){
 					$('#txtPqrCodEnc').focus();
 					modal = 2;
 				}else{
-					demo.showNotification('bottom','left','La fecha de cumplimiento debe ser mayor que la de asignacion',4)
+					demo.showNotification('bottom','left','La fecha de cumplimiento debe ser mayor que la de asignacion y menor a la fecha de hoy',4)
 				}
 			}else{
 				demo.showNotification('bottom','left', 'Porfavor coloque una fecha valida', 4);
@@ -98,9 +101,9 @@ $(document).ready(function(){
 	//hora inicial
 	$("#txtHoraInicial").keypress(function(event){
 		if(event.which == 13){
-			hIni = $(this).val();
+			hIni = $('#txtHoraInicial').val();
 			hFin = $('#txtHoraFinal').val();
-			if($(this).val()!=''){
+			if(hIni!=''){
 				if(hFin!=''){
 					if(hIni < hFin){
 						$('#txtHoraFinal').focus();
@@ -165,17 +168,55 @@ $(document).ready(function(){
 		loc = $('#txtLocaOrd').val();
 		num = $('#txtNumbOrd').val();
 
-		fCumpl = $('#txtFechaCumpl').val();
-		pqrEnc = $('#txtPqrCodEnc').val();
+		fCumpl 	  = $('#txtFechaCumpl').val();
+		pqrEnc    = $('#txtPqrCodEnc').val();
+		pqrEncNom = $('#txtPqrNombEnc').val();
 
 		horIni = $('#txtHoraInicial').val();
 		horFin = $('#txtHoraFinal').val();
 
 		legali = $('#txtLegalizador').val();
 
-		if( (dep!='') && (loc!='') && (num!='') && (fCumpl!='') && (pqrEnc!='') && (horIni!='') 
+		if( (dep!='') && (loc!='') && (num!='') && (fCumpl!='') && (pqrEnc!='') && (pqrEncNom!='') && (horIni!='') 
 			&& (horFin!='') && (legali!='') ){
-			guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,legali);
+				swFecha = false;
+				swHoraIn = false;
+				swHoraFi = false;
+				//validar fecha cumplimiento
+					fCumpl = $('#txtFechaCumpl').val();
+					fAsig = $('#txtFechaAsig').val();
+					fHoy  = $('#txtFechaLega').val();
+
+					if(fCumpl!=''){
+						//fecha de cumplimiento entre fecha de asignacion y la fecha de hoy
+						if( (fCumpl >= fAsig) && (fCumpl <= fHoy) ){
+							swFecha = true;
+						}
+					}
+				//
+				//validar hora inicial
+					if(horIni!=''){
+						if(horFin!=''){
+							if(horIni < horFin){
+								swHoraIn = true;
+							}
+						}
+					}
+				//
+				//validar hora final
+					horIni = $('#txtHoraInicial').val();
+					horFin = $('#txtHoraFinal').val();
+					if(horFin!=''){
+						if(horIni < horFin){
+							swHoraFi = true;
+						}
+					}
+				//
+				if((swFecha) && (swHoraIn) && (swHoraFi)){
+					guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,legali);
+				}else{
+					demo.showNotification('bottom','left', 'Porfavor verifique los datos, para poder legalizar la orden', 4);
+				}
 		}else{
 			demo.showNotification('bottom','left', 'Porfavor complete los datos, para poder legalizar la orden', 4);
 		}
@@ -205,7 +246,7 @@ $(document).ready(function(){
 
 		if( (hIni!='') && (hFin!='') ){
 			if(hIni>=hFin){
-				alert('La hora de inicio no es valida')
+				demo.showNotification('bottom','left', 'La hora de inicio no es valida', 4);
 				$('#txtHoraInicial').val('');
 			}
 		}
@@ -217,7 +258,7 @@ $(document).ready(function(){
 		
 		if( (hIni!='') && (hFin!='') ){
 			if(hIni>=hFin){
-				alert('La hora de inicio no es valida')
+				demo.showNotification('bottom','left', 'La hora de inicio no es valida', 4);
 				$('#txtHoraInicial').val('');
 			}
 		}
@@ -263,6 +304,12 @@ $(document).ready(function(){
 		
 	    $('#contRowMano').val(rowCount);
 	});
+	//Btn Quitar
+	$('#removeManoObra').click(function(){
+		id = $('#contRowMano').val();
+		$('#trSelect'+id).remove();
+		$('#contRowMano').val(parseInt(id)-1);
+	});
 
 	$('#addMateriales').click(function(){
 
@@ -303,6 +350,14 @@ $(document).ready(function(){
 		$('#selectRow').val(rowCount);
 	    $('#contRowMate').val(rowCount);
 		idMatGl = rowCount;
+	});
+
+	//Btn Quitar
+	$('#removedMateriales').click(function(){
+		id = $('#contRowMate').val();
+		$('#trSelectMat'+id).remove();
+		$('#contRowMate').val(parseInt(id)-1);
+		
 	});
 
 });
@@ -351,57 +406,54 @@ function buscarOrden(dep,loc,num){
         data:{dep:dep, loc:loc, num:num},
         dataType: "json",
         success: function(data){
-			$('#modalOrdenes').modal('hide');
-        	$('#txtDepOrd').val(dep);
-			$('#txtLocaOrd').val(loc);
-			$('#txtNumbOrd').val(num);
-			//Tecnico
-			$('#txtCodTecn').val(data[0]);
-			$('#txtNomTecn').val(data[1]);
-			//console.log(data[1])
-			//Cumplida
-			/*if(data[2]==3){
-				$('#divEstOrd').html('<input type="checkbox" style="margin-left: 20px; margin-top:10px;" checked><label style="margin-left: 10px; color:red;">Cumplida</label>');
+			if(data[22]==1){
+				$('#modalOrdenes').modal('hide');
+				$('#txtDepOrd').val(dep);
+				$('#txtLocaOrd').val(loc);
+				$('#txtNumbOrd').val(num);
+				//Tecnico
+				$('#txtCodTecn').val(data[0]);
+				$('#txtNomTecn').val(data[1]);
+				//Fechas
+				$('#txtFechaRecib').val(data[3]);
+				$('#txtFechaOrd').val(data[4]);
+				$('#txtFechaCumpl').val(data[5]);
+				$('#txtFechaAsig').val(data[6]);
+				$('#txtFechaLega').val(data[7]);
+				//Pqr
+				$('#txtPqrCodRep').val(data[8]);
+				$('#txtPqrNombRep').val(data[9]);
+				$('#txtPqrCodEnc').val(data[10]);
+				$('#txtPqrNombEnc').val(data[11]);
+				//Usuario
+				$('#txtCodUser').val(data[12]);
+				$('#txtNomUser').val(data[13]);
+				//Estado
+				$('#txtCodEst').val(data[14]);
+				$('#txtNomEst').val(data[15]);
+				//Hora
+				$('#txtHoraInicial').val(data[16]);
+				$('#txtHoraFinal').val(data[17]);
+				//
+				$('#txtObservacion').val(data[18]);
+				
+				$('#txtAsignador').val(data[19]);
+				$('#txtRecibidor').val(data[20]);
+
+				obtener_fijo_pqr();
+				//$('#txtLegalizador').val(data[21]);
+
+				//obtenerManoObraOrden(dep,loc,num);
+				//obtenerMaterialesOrden(dep,loc,num);
+
+				//Desbloquear 
+				$('#btnGuardar').removeClass('disabled');
+				$('#btnCancelar').removeClass('disabled');
+
+				$('#txtFechaCumpl').focus();
 			}else{
-				$('#divEstOrd').html('<input type="checkbox" style="margin-left: 20px; margin-top:10px;"><label style="margin-left: 10px; color:red;">Cumplida</label>');
-			}*/
-			//Fechas
-			$('#txtFechaRecib').val(data[3]);
-			$('#txtFechaOrd').val(data[4]);
-			$('#txtFechaCumpl').val(data[5]);
-			$('#txtFechaAsig').val(data[6]);
-			$('#txtFechaLega').val(data[7]);
-			//Pqr
-			$('#txtPqrCodRep').val(data[8]);
-			$('#txtPqrNombRep').val(data[9]);
-			$('#txtPqrCodEnc').val(data[10]);
-			$('#txtPqrNombEnc').val(data[11]);
-			//Usuario
-			$('#txtCodUser').val(data[12]);
-			$('#txtNomUser').val(data[13]);
-			//Estado
-			$('#txtCodEst').val(data[14]);
-			$('#txtNomEst').val(data[15]);
-			//Hora
-			$('#txtHoraInicial').val(data[16]);
-			$('#txtHoraFinal').val(data[17]);
-			//
-			$('#txtObservacion').val(data[18]);
-			
-			$('#txtAsignador').val(data[19]);
-			$('#txtRecibidor').val(data[20]);
-
-			obtener_fijo_pqr();
-			//$('#txtLegalizador').val(data[21]);
-
-			//obtenerManoObraOrden(dep,loc,num);
-			//obtenerMaterialesOrden(dep,loc,num);
-
-			//Desbloquear 
-			$('#btnGuardar').removeClass('disabled');
-			$('#btnCancelar').removeClass('disabled');
-
-			$('#txtFechaCumpl').focus();
+				demo.showNotification('bottom','left', 'Porfavor coloque una orden valida', 4);
+			}
         }
     });
 }
@@ -430,8 +482,10 @@ function descargarEditor(){
 }
 function guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,leg){
 	
+	contMan = $('#contRowMano').val();
+	contMat = $('#contRowMate').val();
+
 	//verificar mano de obra 
-		contMan = $('#contRowMano').val();
 		swMO = false;
 		for(var i=1;i<=contMan;i++){
 			cod = $('#txtCodMan'+i).val(); //codigo mano de obra
@@ -445,11 +499,8 @@ function guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,leg){
 			}
 		}
 		if(swMO){ demo.showNotification('bottom','left', 'Porfavor verifique los datos en las manos de obra', 4); }
-		
 	//
-
 	//verificar materiales
-		contMat = $('#contRowMate').val();
 		pqrqObl = $('#txtPqrMatFijoCont').val();
 		contObl = 0;
 
@@ -484,6 +535,14 @@ function guardarOrdenIndiv(dep,loc,num,fCumpl,pqrEnc,horIni,horFin,leg){
 		if(swMA_obli){ demo.showNotification('bottom','left', 'Porfavor coloque el o los materiales obligatorios para legalizar esta orden', 4); }
 
 	//
+	
+	//verificamos elementos en las tablas
+	if( (contMan!='') || (contMat!='') ){
+
+	}else{
+		console.log(data)
+		demo.showNotification('bottom','left', 'Porfavor complete los datos en las tablas para poder legalizar la orden', 4);
+	}
 
 	if( (!swMA) && (!swMO) ){
 		obs = $('#txtObservacion').val();

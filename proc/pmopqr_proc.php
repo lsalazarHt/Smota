@@ -26,10 +26,10 @@
                 </thead><tbody>';
         $i=0;
         
-		$query ="SELECT MANOBPQR.*, manobra.MOBRDESC
-                 FROM MANOBPQR manobpqr
-                 INNER JOIN manobra ON manobra.MOBRCODI = MANOBPQR.MOPQMOBR
-                 WHERE manobra.MOBRVISI = 1 AND MANOBPQR.MOPQPQR = ".$_REQUEST["cod"]."
+		$query ="SELECT manobpqr.*, manobra.MOBRDESC
+                 FROM manobpqr 
+                 INNER JOIN manobra ON manobra.MOBRCODI = manobpqr.MOPQMOBR
+                 WHERE manobra.MOBRVISI = 1 AND manobpqr.MOPQPQR = ".$_REQUEST["cod"]."
                  ORDER BY manobra.MOBRCODI";
         $respuesta = $conn->prepare($query) or die ($sql);
         if(!$respuesta->execute()) return false;
@@ -45,20 +45,20 @@
                                 <input type="hidden" id="txtTipo'.$i.'" value="1">
                             </td>
                             <td>
-                                <input readonly type="text" id="txtNomb'.$i.'" class="form-control input-sm" value="'.$row['MOBRDESC'].'" onclick="swEditor(\'txtNomb'.$i.'\',\'trSelect'.$i.'\',0,0)">
+                                <input readonly type="text" id="txtNomb'.$i.'" class="form-control input-sm" value="'.$row['MOBRDESC'].'" onclick="swEditor(\'txtNomb'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
                             </td>
                             <td>
-                                <input type="text" id="txtCantMax'.$i.'" class="form-control text-center input-sm" onkeypress="solonumeros()" value="'.$row['MOPQCANT'].'" onclick="swEditor(\'txtCantMax'.$i.'\',\'trSelect'.$i.'\'0,0)">
+                                <input type="text" id="txtCantMax'.$i.'" class="form-control text-center input-sm" onkeypress="solonumeros()" value="'.$row['MOPQCANT'].'" onclick="swEditor(\'txtCantMax'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
                             </td>
 
                             <td>
-                                <input type="text" id="txtValorPag'.$i.'" class="form-control text-center input-sm" onkeypress="solonumeros()" value="'.$row['MAPQVLOR'].'" onclick="swEditor(\'txtValorPag'.$i.'\',\'trSelect'.$i.'\'0,0)">
+                                <input type="text" id="txtValorPag'.$i.'" class="form-control text-center input-sm" onkeypress="solonumeros()" value="'.$row['MAPQVLOR'].'" onclick="swEditor(\'txtValorPag'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
                             </td>
                             <td>
-                                <input type="text" id="txtValorVec'.$i.'" class="form-control text-center input-sm" onkeypress="solonumeros()" value="'.$row['MAPQVLDB'].'" onclick="swEditor(\'txtValorVec'.$i.'\',\'trSelect'.$i.'\'0,0)">
+                                <input type="text" id="txtValorVec'.$i.'" class="form-control text-center input-sm" onkeypress="solonumeros()" value="'.$row['MAPQVLDB'].'" onclick="swEditor(\'txtValorVec'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
                             </td>
                             <td>
-                                <input type="text" id="txtValorGas'.$i.'" class="form-control text-center input-sm" onkeypress="solonumeros()" value="'.$row['MAPQVGAS'].'" onclick="swEditor(\'txtValorGas'.$i.'\',\'trSelect'.$i.'\'0,0)">
+                                <input type="text" id="txtValorGas'.$i.'" class="form-control text-center input-sm" onkeypress="solonumeros()" value="'.$row['MAPQVGAS'].'" onclick="swEditor(\'txtValorGas'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
                             </td>
                             
                         </tr>

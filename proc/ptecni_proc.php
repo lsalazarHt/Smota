@@ -132,6 +132,7 @@
         <input type="hidden" id="txtToltal" value="'.$i.'">';
         //echo $query;
 	}
+    //ordenes sin cumplir
     if($_REQUEST["accion"]=="consultar_ordenes"){
         $cod = $_REQUEST["cod"];
         switch ($_REQUEST["order"]) {
@@ -569,6 +570,7 @@
     if($_REQUEST["accion"]=="consultar_acta"){
         $cod = $_REQUEST["cod"];
         $table='';
+        $i = 0;
         $query ="SELECT *  
                  FROM acta
                  WHERE ACTATECN = $cod";
@@ -578,44 +580,36 @@
                 while ($row=$respuesta->fetch()){
 
                     $table .= '
-                        <tr>
+                        <tr id="trSelect_acta_'.$i.'" class="trDefault" onClick="trSelect_acta(\'trSelect_acta_'.$i.'\','.$row['ACTANUME'].')">
                             <td>'.$row['ACTANUME'].'</td>
                             <td>'.$row['ACTAFECH'].'</td>
                             <td class="text-right">'.number_format($row['ACTAVABR'],0,'.',',').'</td>
                             <td class="text-right">'.number_format($row['ACTAVANE'],0,'.',',').'</td>
                             <td>'.$row['ACTAESTA'].'</td>
                         </tr>'; 
+                    $i++;
                 } 
             }
             echo $table;
     }
     if($_REQUEST["accion"]=="consultar_mano_obra_acta"){
-        $cod = $_REQUEST["cod"];
+        $cod = $_REQUEST["idActa"];
         $table='';
-        $query ="SELECT mobrottr.*
-                 FROM mobrottr 
-                 WHERE MOOTTECN = $cod";
+        $query ="SELECT manobra.MOBRCODI, manobra.MOBRDESC, mobrottr.MOOTCANT, mobrottr.MOOTVASU,mobrottr.MOOTFECH
+                    FROM mobrottr 
+                    JOIN manobra ON manobra.MOBRCODI = mobrottr.MOOTMOBR
+                    WHERE mobrottr.MOOTACTA = $cod";
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
             if($respuesta->rowCount()>0){
                 while ($row=$respuesta->fetch()){
-                    //MANO DE OBRA
-                    $manObraNom = '';
-                    $queryManoObr ='SELECT MOBRDESC FROM manobra WHERE MOBRCODI='.$row['MOOTMOBR'];
-                    $respuestaManoObr = $conn->prepare($queryManoObr) or die ($sql);
-                    if(!$respuestaManoObr->execute()) return false;
-                    if($respuestaManoObr->rowCount()>0){
-                        while ($rowManoObr=$respuestaManoObr->fetch()){
-                            $manObraNom = $rowManoObr['MOBRDESC'];
-                        }   
-                    }
 
                     $table .= '
                         <tr>
-                            <td><b>'.$row['MOOTMOBR'].'</b></td>
-                            <td class="text-left">'.$manObraNom.'</td>
-                            <td>'.$row['MOOTCANT'].'</td>
-                            <td class="text-right">'.number_format($row['MOOTVAPA'],0,'.',',').'</td>
+                            <td class="text-left"><b>'.$row['MOBRCODI'].'</b></td>
+                            <td class="text-left">'.$row['MOBRDESC'].'</td>
+                            <td class="text-right">'.$row['MOOTCANT'].'</td>
+                            <td class="text-right">'.number_format($row['MOOTVASU'],0,'.',',').'</td>
                             <td>'.$row['MOOTFECH'].'</td>
                         </tr>'; 
                 } 
@@ -623,31 +617,21 @@
             echo $table;
     }
     if($_REQUEST["accion"]=="consultar_notas_acta"){
-        $cod = $_REQUEST["cod"];
+        $cod = $_REQUEST["idActa"];
+        $tec = $_REQUEST["tec"];
         $table='';
-        $query ="SELECT *
-                 FROM nota
-                 WHERE NOTATECN = $cod";
+        $query ="SELECT nota.notacodi,  nota.NOTACLAS, clasnota.CLNODESC, nota.NOTASIGN, nota.NOTAFECH, nota.NOTAVALO
+                 FROM nota JOIN clasnota ON clasnota.CLNOCODI = nota.NOTACLAS
+                 WHERE nota.NOTAACTA = $cod  AND nota.NOTATECN = $tec";
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
             if($respuesta->rowCount()>0){
                 while ($row=$respuesta->fetch()){
-                    //MANO DE OBRA
-                    $claseNom = '';
-                    $queryClase ='SELECT CLNODESC FROM clasnota WHERE CLNOCODI='.$row['NOTACLAS'];
-                    $respuestaClase = $conn->prepare($queryClase) or die ($sql);
-                    if(!$respuestaClase->execute()) return false;
-                    if($respuestaClase->rowCount()>0){
-                        while ($rowClase=$respuestaClase->fetch()){
-                            $claseNom = $rowClase['CLNODESC'];
-                        }   
-                    }
 
                     $table .= '
                         <tr>
-                            <td>'.$row['NOTACODI'].'</td>
                             <td><b>'.$row['NOTACLAS'].'</b></td>
-                            <td class="text-left">'.$claseNom.'</td>
+                            <td class="text-left">'.$row['CLNODESC'].'</td>
                             <td>'.$row['NOTASIGN'].'</td>
                             <td>'.$row['NOTAFECH'].'</td>
                             <td class="text-right">'.number_format($row['NOTAVALO'],0,'.',',').'</td>
@@ -659,29 +643,19 @@
     if($_REQUEST["accion"]=="consultar_inventario"){
         $cod = $_REQUEST["cod"];
         $table='';
-        $query ="SELECT *
+        $query ="SELECT material.MATECODI, material.MATEDESC, inventario.INVECUPO, inventario.INVECAPRO, inventario.INVEVLRPRO, inventario.INVECAPRE, inventario.INVEVLRPRE
                  FROM inventario 
+                    JOIN material on material.MATECODI = inventario.INVEMATE
                  WHERE INVEBODE = $cod";
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
             if($respuesta->rowCount()>0){
                 while ($row=$respuesta->fetch()){
-                    //MATERIAL
-                    $materialNom = '';
-                    $queryMater ='SELECT MATEDESC FROM material WHERE MATECODI='.$row['INVEMATE'];
-                    $respuestaMater = $conn->prepare($queryMater) or die ($sql);
-                    if(!$respuestaMater->execute()) return false;
-                    if($respuestaMater->rowCount()>0){
-                        while ($rowMater=$respuestaMater->fetch()){
-                            $materialNom = $rowMater['MATEDESC'];
-                        }   
-                    }
-
+                    
                     $table .= '
                         <tr>
-                            <td>'.$row['INVEMATE'].'</td>
-                            <td class="text-left">'.$materialNom.'</td>
-                            <td>'.$row['INVEMATE'].'</td>
+                            <td class="text-left">'.$row['MATECODI'].'</td>
+                            <td class="text-left">'.$row['MATEDESC'].'</td>
                             <td>'.$row['INVECUPO'].'</td>
                             <td class="text-right">'.number_format($row['INVECAPRO'],0,'.',',').'</td>
                             <td class="text-right">'.number_format($row['INVECAPRE'],0,'.',',').'</td>

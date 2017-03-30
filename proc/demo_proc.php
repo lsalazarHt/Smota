@@ -174,6 +174,7 @@
     	$table = '
     			<table class="table table-bordered table-condensed">
         			<tr style="background-color: #3c8dbc; color:white;">
+        				<th class="text-center" width="10"><input type="checkbox"></th>
         				<th class="text-center" width="100">NUMERO DE ORDEN</th>
         				<th class="text-center" width="70">FECHA</th>
         				<th class="text-center" width="70">PQR</th>
@@ -182,7 +183,6 @@
         				<th class="text-center" width="100">OBSERVACION</th>
         				<th class="text-center" width="100">DIRECCION</th>
         				<th class="text-center" width="100">SECTOR</th>
-        				<th class="text-center" width="10"><input type="checkbox"></th>
         			</tr>
         		';
         echo $table.'</table>';
@@ -191,6 +191,7 @@
     	$table = '
     			<table class="table table-bordered table-condensed">
         			<tr style="background-color: #3c8dbc; color:white;">
+        				<th class="text-center" width="10"><input type="checkbox" onclick="selectTodos()"></th>
         				<th class="text-center" width="100">NUMERO DE ORDEN</th>
         				<th class="text-center" width="70">FECHA</th>
         				<th class="text-center" width="70">PQR</th>
@@ -199,7 +200,6 @@
         				<th class="text-center" width="100">OBSERVACION</th>
         				<th class="text-center" width="100">DIRECCION</th>
         				<th class="text-center" width="100">SECTOR</th>
-        				<th class="text-center" width="10"><input type="checkbox" onclick="selectTodos()"></th>
         			</tr>
         		';
     	$dep = $_REQUEST["dep"];
@@ -257,6 +257,7 @@
         if($respuesta->rowCount()>0){
             while ($row=$respuesta->fetch()){
                 $table .= '<tr id="trSelect'.$i.'" class="trDefault" onclick="swEditor(\'trSelect'.$i.'\')">
+                				<td class="text-center"><input type="checkbox" id="txtCheck'.$i.'"></td>
                 				<td>
                 					'.$row['OTDEPA'].'-'.$row['OTLOCA'].'-'.$row['OTNUME'].'
                 					<input type="hidden" id="txtHiddenDepa'.$i.'" value="'.$row['OTDEPA'].'">
@@ -270,7 +271,6 @@
                 				<td>'.utf8_encode($row['OTOBSEAS']).'</td>
                 				<td>'.$row['USUDIRE'].'</td>
                 				<td>'.$row['USUSEOP'].'</td>
-                				<td class="text-center"><input type="checkbox" id="txtCheck'.$i.'"></td>
                 			</tr>';
             	$i++;
             }   

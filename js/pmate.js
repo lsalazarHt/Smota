@@ -5,6 +5,19 @@ $(document).ready(function () {
 	$('#btnGuardar').removeClass('disabled');
 	$('#btnListaValores').addClass('disabled');
 	$('#btnConsulta').addClass('disabled');
+	$(document).ajaxStart(function () { 
+		$.blockUI({
+			message: "Un momento por favor....",
+			css: { 
+	            border: 'none', 
+	            padding: '15px', 
+	            backgroundColor: '#000', 
+	            '-webkit-border-radius': '10px', 
+	            '-moz-border-radius': '10px', 
+	            opacity: .5, 
+	            color: '#fff' 
+	        } })
+	}).ajaxStop($.unblockUI);
 
 	//Agregar campos
 	$('#btnNuevo').click(function(){
@@ -43,18 +56,19 @@ $(document).ready(function () {
 	    var cell6 = row.insertCell(5);
 	    cell6.className = 'text-center ';
 	    cell6.innerHTML = '<input type="checkbox" id="txtCkek'+rowCount+'" checked="checked" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')" > Activo';
+	   
 	    //Maneja Serial
-	    var cell7 = row.insertCell(6);
+	    /*var cell7 = row.insertCell(6);
 	    cell7.className = 'text-center ';
 	    cell7.innerHTML = '<input type="checkbox" id="txtManSerial'+rowCount+'" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')" > Maneja Serial';
-
+		*/
 	    //Vida Util
-	    var cell4 = row.insertCell(7);
+	    var cell4 = row.insertCell(6);
 	    cell4.className = 'text-center';
 	    cell4.innerHTML = '<input type="text" id="txtVidaUtil'+rowCount+'" class="form-control input-sm" onclick="swEditor(\'txtVidaUtil'+rowCount+'\',\'trSelect'+rowCount+'\')" readonly>';
 	    
 	    //Cantidad Maxima de Dotacion
-	    var cell4 = row.insertCell(8);
+	    var cell4 = row.insertCell(7);
 	    cell4.className = 'text-center';
 	    cell4.innerHTML = '<input type="text" id="txtCantMax'+rowCount+'" class="form-control input-sm" onclick="swEditor(\'txtCantMax'+rowCount+'\',\'trSelect'+rowCount+'\')" readonly>';
 	    
@@ -114,14 +128,14 @@ $(document).ready(function () {
 				if($("#txtCkek"+i).is(':checked')) { chek = 'A'; }
 				else{ chek = 'N'; }
 
-				if($("#txtManSerial"+i).is(':checked')) { mSerial = 'A'; }
-				else{ mSerial = 'N'; }
+				/*if($("#txtManSerial"+i).is(':checked')) { mSerial = 'A'; }
+				else{ mSerial = 'N'; }*/
 
 					if( $('#txtTipo'+i).val() == 1){ //Editar
 						$.ajax({
 					        type:'POST',
 					        url:'proc/pmate_proc.php?accion=editar_registros',
-					        data:{codOrg:codOrg, cod:cod, nom:nom, cls:cls, uMed:uMed, chek:chek, mSerial:mSerial, vdUtl:vdUtl, cnMxDt:cnMxDt },
+					        data:{codOrg:codOrg, cod:cod, nom:nom, cls:cls, uMed:uMed, chek:chek, vdUtl:vdUtl, cnMxDt:cnMxDt },
 					        success: function(data){
 					            if(data==1){
 				                    actualizar();
@@ -133,7 +147,7 @@ $(document).ready(function () {
 							$.ajax({
 						        type:'POST',
 						        url:'proc/pmate_proc.php?accion=guardar_registros',
-						        data:{cod:cod, nom:nom, cls:cls, uMed:uMed, chek:chek, mSerial:mSerial, vdUtl:vdUtl, cnMxDt:cnMxDt },
+						        data:{cod:cod, nom:nom, cls:cls, uMed:uMed, chek:chek, vdUtl:vdUtl, cnMxDt:cnMxDt },
 						        success: function(data){
 						            if(data==1){
 					                    actualizar();
