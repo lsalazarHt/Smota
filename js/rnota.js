@@ -44,7 +44,7 @@ $(document).ready(function(){
 		obtenerUltimo();
 		$('#txtClasCod').val('');
 		$('#txtClasNomb').val('');
-		$('#txFech').val('');
+		//$('#txFech').val('');
 		$('#txFecApli').val('');
 		$('#txtTecCod').val('');
 		$('#txtTecNomb').val('');
@@ -123,7 +123,7 @@ function guardarNota(cod,cls,fech,tipo,fechApl,tec,val,obs){
         success: function(data){
         	if(data==1){
         		var msgError = 'La nota se guardo con exito';
-		demo.showNotification('bottom','left', msgError, 2);
+				demo.showNotification('bottom','left', msgError, 2);
         		$('#btnCancelar').click();
         	}else{
         		alert(data)

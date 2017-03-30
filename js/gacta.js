@@ -68,24 +68,25 @@ function buscarTecnico(cod){
 }
 //ACTA
 function generarActa(tec,fec){
-	var result = confirm("Esta seguro que desea generar el acta");
-	if(result){
-		$.ajax({
-	        type:'POST',
-	        url:'proc/gacta_proc.php?accion=generar_acta',
-	        data:{tec:tec,fec:fec},
-	        dataType: 'json',
-	        success: function(data){
-	        	if(data[0]==1){
-	        		var msgError = 'El acta #'+data[1]+' se genero con exito';
-					demo.showNotification('bottom','left', msgError, 2);
-	        		$('#btnCancelar').click();
-	        	}else{
-	        		alert(data)
-	        	}
-	        }
-	    });
-	}
+	bootbox.confirm("Esta seguro que desea generar el acta", function(result) {
+		if(result){
+			$.ajax({
+				type:'POST',
+				url:'proc/gacta_proc.php?accion=generar_acta',
+				data:{tec:tec,fec:fec},
+				dataType: 'json',
+				success: function(data){
+					if(data[0]==1){
+						var msgError = 'El acta #'+data[1]+' se genero con exito';
+						demo.showNotification('bottom','left', msgError, 2);
+						$('#btnCancelar').click();
+					}else{
+						alert(data)
+					}
+				}
+			});
+		}
+	});
 }
 //OTROS
 function solonumeros(){

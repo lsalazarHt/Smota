@@ -304,10 +304,10 @@
 						                			<thead>
 							                			<tr style="background-color: #3c8dbc; color:white;">
 									        				<th class="text-center" width="120">OT</th>
-									        				<th colspan="2">MANO DE OBRA</th>
+									        				<th>MANO DE OBRA</th>
 									        				<th class="text-center" width="100">USUARIO</th>
-									        				<th colspan="2">PQR</th>
-									        				<th class="text-center" width="40">CANT</th>
+									        				<th>PQR</th>
+									        				<th class="text-right" width="40">CANT</th>
 									        				<th class="text-right" width="100">VALOR TOTAL</th>
 									        				<th class="text-center" width="100">FECHA</th>
 									        			</tr>
@@ -330,7 +330,7 @@
 						                			<thead>
 							                			<tr style="background-color: #3c8dbc; color:white;">
 									        				<th class="text-center" width="100">NUMERO</th>
-									        				<th class="text-center" colspan="2">CLASE</th>
+									        				<th class="">CLASE</th>
 									        				<th class="text-center" width="100">FECHA</th>
 									        				<th class="text-center" width="100">SIGNO</th>
 									        				<th class="text-right" width="100">VALOR</th>
