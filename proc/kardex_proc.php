@@ -3,10 +3,24 @@
 	date_default_timezone_set('America/Bogota');
 	$conn = require '../template/sql/conexion.php';
 
+    function obtenerClassBodega($id){
+	    $conn = require '../template/sql/conexion.php';
+        $dato = '';
+        $query ="SELECT bodeclas FROM bodega WHERE bodecodi = $id";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $dato = $row['bodeclas'];
+            }   
+        }
+        return $dato;
+    }
+
 	if($_REQUEST["accion"]=="buscar_bodega_principal"){
         $cod = $_REQUEST["bod"];
         $dato = '';
-        $query =" SELECT * FROM bodega WHERE BODEESTA='A' AND BODECODI = $cod";
+        $query =" SELECT * FROM bodega WHERE BODEESTA='A' AND BODECODI = $cod AND (BODECLAS = 1 OR BODECLAS = 3)";
         $respuesta = $conn->prepare($query) or die ($sql);
         if(!$respuesta->execute()) return false;
         if($respuesta->rowCount()>0){
@@ -66,6 +80,7 @@
         $mes    = $_REQUEST["mes"];
         $tipo   = $_REQUEST["tipo"];
 
+        $mes = ($mes<10) ? '0'.$mes : $mes;
         $fecha  = $anio.'-'.$mes;
         $nuevafecha = strtotime ( '-1 month' , strtotime ( $fecha ) ) ;
 		$nuevafecha = date ( 'Y-m' , $nuevafecha );
@@ -77,7 +92,7 @@
         $can = 0;
         $val = 0;
 
-        /*//Entrada Almacen
+        //Entrada Almacen
             $query ="SELECT sum(matemoin.MAMICANT) AS sumCant, sum(matemoin.MAMIVLOR) AS sumVal
                     FROM moviinve
                         JOIN matemoin ON moviinve.MOINCODI = matemoin.MAMIMOIN
@@ -96,7 +111,7 @@
                     $valEnt =$row['sumVal'];
                 }
             }
-        //*/
+        //
         //Salida Almacen
             $query ="SELECT sum(matemoin.MAMICANT) AS sumCant, sum(matemoin.MAMIVLOR) AS sumVal
                     FROM moviinve
@@ -118,26 +133,31 @@
             }
         //
 
-        //salida legalizacion
-            $query ="SELECT sum(MAOTCANT) AS sumCant, sum(MAOTVLOR) AS sumVal
-                     FROM maleottr 
-                     WHERE maottecn = $bodCod -- comparamos bodega
-                     AND maotmate = $matCod -- comparamos material
-                     AND DATE_FORMAT(MAOTFECH, '%Y-%m') = '$nuevafecha' -- comparamos fecha
-                     AND MAOTPROP = '$tipo'  -- material propio prestado";
-            $respuesta = $conn->prepare($query) or die ($sql);
-            if(!$respuesta->execute()) return false;
-            if($respuesta->rowCount()>0){
-                while ($row=$respuesta->fetch()){
-                    $canSalLeg =$row['sumCant'];
-                    $valSalLeg =$row['sumVal'];
+        //clase tipo tecnico //legalizacion
+        $clasBod = obtenerClassBodega($bodCod);
+        if($clasBod==1){
+            //salida legalizacion
+                $query ="SELECT sum(MAOTCANT) AS sumCant, sum(MAOTVLOR) AS sumVal
+                         FROM maleottr 
+                         WHERE maottecn = $bodCod -- comparamos bodega
+                         AND maotmate = $matCod -- comparamos material
+                         AND DATE_FORMAT(MAOTFECH, '%Y-%m') = '$nuevafecha' -- comparamos fecha
+                         AND MAOTPROP = '$tipo'  -- material propio prestado";
+                $respuesta = $conn->prepare($query) or die ($sql);
+                if(!$respuesta->execute()) return false;
+                if($respuesta->rowCount()>0){
+                    while ($row=$respuesta->fetch()){
+                        $canSalLeg =$row['sumCant'];
+                        $valSalLeg =$row['sumVal'];
+                    }
                 }
-            }
-        //
-
-
-        $can = $canEnt - $canSal;
-        $val = $valEnt - $valSal;
+            //
+            $can = ($canSal + $canSalLeg) - $canEnt;
+            $val = ($valSal + $valSalLeg) - $valEnt;
+        }else{
+            $can = $canEnt - $canSal;
+            $val = $valEnt - $valSal;
+        }
 
         $arr = array($can,$val);
         echo json_encode($arr);
@@ -150,7 +170,7 @@
         $anio   = $_REQUEST["anio"];
         $mes    = $_REQUEST["mes"];
         $tipo   = $_REQUEST["tipo"];
-
+        $mes = ($mes<10) ? '0'.$mes : $mes;
         $fecha  = $anio.'-'.$mes;
         
         $canEnt = 0; 
@@ -198,7 +218,36 @@
             }
         //
 
-        $arr = array($canEnt,$canSal,$valEnt,$valSal);
+        //clase tecnico //legalizacion
+        if(obtenerClassBodega($bodCod) == 1){
+            $query ="SELECT SUM(MAOTCANT) AS cant, SUM(MAOTVLOR) AS val
+                        FROM maleottr 
+                        WHERE maottecn = $bodCod -- comparamos bodega
+                        AND maotmate = $matCod -- comparamos material
+                        AND DATE_FORMAT(MAOTFECH, 'Y-%m%') >= '$fecha' -- comparamos fecha
+                        AND MAOTPROP = '$tipo' -- material propio prestado";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+                    $canEnt = $canEnt + (int) $row['cant'];
+                    $valEnt = $valEnt + (int) $row['val'];
+                }
+            }
+            $canEnt = ($canEnt==null) ? 0 : $canEnt;
+            $canSal = ($canSal==null) ? 0 : $canSal;
+            $valEnt = ($valEnt==null) ? 0 : $valEnt;
+            $valSal = ($valSal==null) ? 0 : $valSal;
+
+            $arr = array($canSal,$canEnt,$valSal,$valEnt);
+        }else{
+            $canEnt = ($canEnt==null) ? 0 : $canEnt;
+            $canSal = ($canSal==null) ? 0 : $canSal;
+            $valEnt = ($valEnt==null) ? 0 : $valEnt;
+            $valSal = ($valSal==null) ? 0 : $valSal;
+
+            $arr = array($canEnt,$canSal,$valEnt,$valSal);
+        }
         echo json_encode($arr);
     }
 
@@ -256,6 +305,7 @@
         $salValo = 0; //valor tabla
 
         $i = 0;
+        $clasBod = obtenerClassBodega($bodCod);
         //Almacen
             $query ="SELECT moviinve.MOINCODI AS docum, DATE_FORMAT(moviinve.MOINFECH, '%d/%m/%Y') AS fecha, 'A' AS tipo, CONCAT(tipomovi.TIMODESC,' - ',bodega.BODENOMB) AS descrip,
                         tipomovi.TIMOSAEN AS es, matemoin.MAMICANT AS cant, matemoin.MAMIVLOR AS val
@@ -265,14 +315,20 @@
                         JOIN bodega ON bodega.bodecodi = moviinve.MOINBOOR
                     WHERE (moviinve.MOINBOOR = $bodCod OR moviinve.MOINBODE = $bodCod) -- comparamos bodega 
                         AND matemoin.MAMIMATE = $matCod -- comparamos material
-                        AND moviinve.MOINFECH >= '$fecha' -- comparamos fecha
+                        AND DATE_FORMAT(moviinve.MOINFECH, 'Y-%m%') >= '$fecha' -- comparamos fecha
                         AND matemoin.MAMIPROP = '$tipo' -- material propio prestado";
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
             if($respuesta->rowCount()>0){
                 while ($row=$respuesta->fetch()){
+                    $ent_sal = $row['es'];
 
-                    if($row['es']=='S'){
+                    if($clasBod==1){
+                        $ent_sal = ($row['es']=='S') ? 'E':'S'; 
+                    }
+                    
+
+                    if($ent_sal=='S'){
                         $salCant = (int)$canTotal - (int)$row['cant'];
                         $salValo = (int)$valTotal - (int)$row['val'];
 
@@ -295,7 +351,7 @@
                             <td class="text-center">'.$row['fecha'].'</td>
                             <td class="text-center">'.$row['tipo'].'</td>
                             <td>'.$row['descrip'].'</td>
-                            <td class="text-center">'.$row['es'].'</td>
+                            <td class="text-center">'.$ent_sal.'</td>
                             <td class="text-right">'.number_format($row['cant'],0,"",".").'</td>
                             <td class="text-right">'.number_format($row['val'],0,"",".").'</td>
 
@@ -307,19 +363,22 @@
             }
         //
 
-        //Legalizacion
-            $query ="SELECT MAOTNUMO AS docum, DATE_FORMAT(MAOTFECH,'%d/%m/%Y') AS fecha,'L' AS tipo,'LEGALIZACION' AS descrip,'S' AS es, MAOTCANT AS cant, MAOTVLOR AS val
-                     FROM maleottr 
-                     WHERE maottecn = $bodCod -- comparamos bodega
-                        AND maotmate = $matCod -- comparamos material
-                        AND MAOTFECH >= '$fecha' -- comparamos fecha
-                        AND MAOTPROP = '$tipo' -- material propio prestado";
-            $respuesta = $conn->prepare($query) or die ($sql);
-            if(!$respuesta->execute()) return false;
-            if($respuesta->rowCount()>0){
-                while ($row=$respuesta->fetch()){
-
-                    if($row['es']=='S'){
+        //clase tipo tecnico // legalizacion
+        if($clasBod==1){
+            //Legalizacion
+                $query ="SELECT MAOTNUMO AS docum, DATE_FORMAT(MAOTFECH,'%d/%m/%Y') AS fecha,'L' AS tipo,'LEGALIZACION' AS descrip,'S' AS es, MAOTCANT AS cant, MAOTVLOR AS val
+                         FROM maleottr 
+                         WHERE maottecn = $bodCod -- comparamos bodega
+                            AND maotmate = $matCod -- comparamos material
+                            AND DATE_FORMAT(MAOTFECH, 'Y-%m%')  >= '$fecha' -- comparamos fecha
+                            AND MAOTPROP = '$tipo' -- material propio prestado";
+                $respuesta = $conn->prepare($query) or die ($sql);
+                if(!$respuesta->execute()) return false;
+                if($respuesta->rowCount()>0){
+                    while ($row=$respuesta->fetch()){
+                        $ent_sal = $row['es'];
+                        
+                       if($ent_sal=='S'){
                         $salCant = (int)$canTotal - (int)$row['cant'];
                         $salValo = (int)$valTotal - (int)$row['val'];
 
@@ -336,23 +395,25 @@
                     $tbCant = $canTotal;
                     $tbVal  = $valTotal;
 
-                    $table .= '
-                        <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\')" ondblclick="enviarMovimiento('.$row['docum'].',\'L\')">
-                            <td class="text-left">'.$row['docum'].'</td>
-                            <td class="text-center">'.$row['fecha'].'</td>
-                            <td class="text-center">'.$row['tipo'].'</td>
-                            <td>'.$row['descrip'].'</td>
-                            <td class="text-center">'.$row['es'].'</td>
-                            <td class="text-right">'.number_format($row['cant'],0,"",".").'</td>
-                            <td class="text-right">'.number_format($row['val'],0,"",".").'</td>
+                        $table .= '
+                            <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\')" ondblclick="enviarMovimiento('.$row['docum'].',\'L\')">
+                                <td class="text-left">'.$row['docum'].'</td>
+                                <td class="text-center">'.$row['fecha'].'</td>
+                                <td class="text-center">'.$row['tipo'].'</td>
+                                <td>'.$row['descrip'].'</td>
+                                <td class="text-center">'.$row['es'].'</td>
+                                <td class="text-right">'.number_format($row['cant'],0,"",".").'</td>
+                                <td class="text-right">'.number_format($row['val'],0,"",".").'</td>
 
-                            <td class="text-right">'.number_format($tbCant,0,"",".").'</td>
-                            <td class="text-right">'.number_format($tbVal,0,"",".").'</td>
-                        </tr>';
-                    $i++;
-                }   
-            }
-        //
+                                <td class="text-right">'.number_format($tbCant,0,"",".").'</td>
+                                <td class="text-right">'.number_format($tbVal,0,"",".").'</td>
+                            </tr>';
+                        $i++;
+                    }   
+                }
+            //
+        }
+
         echo $table;
     }
 ?>
