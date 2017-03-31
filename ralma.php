@@ -178,7 +178,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">En</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm e e1 key" id="txtEnCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm" id="txtEnCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input type="text" class="form-control input-sm" id="txtEnNomb" placeholder="Nombre de la Bodega principal" readonly>
@@ -193,7 +193,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Tipo de Movimiento</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm e e2 key" id="txtTipoMovCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm" id="txtTipoMovCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input type="text" class="form-control input-sm" id="txtTipoMovNomb" placeholder="Nombre del Tipo Movimiento" readonly>
@@ -204,7 +204,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Bodega</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm e e3 key" id="txtBodCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm" id="txtBodCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input type="text" class="form-control input-sm" id="txtBodNomb" placeholder="Nombre de la bodega" readonly>
@@ -215,7 +215,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Soporte</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm e e4" id="txtSopCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm" id="txtSopCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -223,7 +223,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Documente Soporte</label>
 					                     	<div class="col-sm-3">
-				                        		<input type="text" class="form-control input-sm e e5" id="txtDocSopCod" placeholder="Codigo">
+				                        		<input type="text" class="form-control input-sm " id="txtDocSopCod" placeholder="Codigo">
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -231,13 +231,14 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Observacion</label>
 					                     	<div class="col-sm-9">
-					                     		<textarea rows="4" class="form-control input-sm movObEntrada_border e e6" id="txtObser" placeholder="Observacion del movimiento"></textarea>
+					                     		<textarea rows="4" class="form-control input-sm movObEntrada_border" id="txtObser" placeholder="Observacion del movimiento"></textarea>
 				                      		</div>
 					                    </div>
 				                	</div>
 				                	<hr>
 				                	<h4 style="margin-left: 10px;">
-				                		<a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Add Material" onclick="nuevoMaterial()"><i class="fa fa-plus"></i></a>
+										<a class="" data-toggle="tooltip" data-original-title="Agregar" onclick="nuevoMaterial()"><i class="fa fa-plus"></i></a>
+										<a class="text-red" data-toggle="tooltip" data-original-title="Quitar" onclick="deleteMaterial()"><i class="fa fa-minus"></i></a> 
 										Materiales
 				                	</h4>
 				                	<hr>
@@ -283,5 +284,4 @@
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
 <!--  TAB ENTER    -->
-<script src="assets/js/tabEnter.js"></script>
 <script src="assets/js/selectedNewRow.js"></script>

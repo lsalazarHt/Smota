@@ -104,7 +104,7 @@ function buscarMaterial(mat){
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque una bodega valida')
+		demo.showNotification('bottom','left', 'Porfavor coloque un material valida', 4);
 	}
 }
 //OBTENER
@@ -122,7 +122,7 @@ function obtenerMateriales(){
 	        }
 	    });
 	}else{
-		alert('Porfavor coloque una bodega valida')
+		demo.showNotification('bottom','left', 'Porfavor coloque una bodega valida', 4);
 	}
 }
 
@@ -160,6 +160,8 @@ function consultar(){
 					canIni = data[0];
 					valIni = data[1];
 
+					cantFinal  = 0;
+					valorFinal = 0;
 					//obtener detalle
 						$.ajax({
 							type:'POST',
@@ -197,11 +199,33 @@ function consultar(){
 							data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo },
 							dataType: 'json',
 							success: function(data){
-								cantsistema = data[0];
-								valoSistema = data[1];
+								cantsistema = parseInt(data[0]);
+								valoSistema = parseInt(data[1]);
 
 								$('#txtCantFinSist').val(number_format(cantsistema,0));
 								$('#txtValoFinSist').val(number_format(valoSistema,0));
+
+								//calcular diferencia
+								//console.log("cantidad final: "+cantFinal)
+								//console.log("valor final: "+valorFinal)
+								difCant = cantFinal  - cantsistema;
+								difValo = valorFinal - valoSistema;
+								if( (difCant!=0) || (difValo!=0) ){
+									$('#txtDifCantidad').removeClass('border-green');
+									$('#txtDifValor').removeClass('border-green');
+
+									$('#txtDifCantidad').addClass('border-red');
+									$('#txtDifValor').addClass('border-red');
+								}else{
+									$('#txtDifCantidad').removeClass('border-red');
+									$('#txtDifValor').removeClass('border-red');
+
+									$('#txtDifCantidad').addClass('border-green');
+									$('#txtDifValor').addClass('border-green');
+								}
+								$('#txtDifCantidad').val(number_format(difCant,0));
+								$('#txtDifValor').val(number_format(difValo,0));
+
 							}
 						});
 					//
@@ -220,7 +244,7 @@ function consultar(){
 			});
 		//
 	}else{
-		alert('Porfavor complete los datos')
+		demo.showNotification('bottom','left', 'Por favorcomplete los datos', 4);
 	}
 }
 function enviarMovimiento(documento,tipo){

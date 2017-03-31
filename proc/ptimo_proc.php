@@ -2,6 +2,31 @@
     date_default_timezone_set('America/Bogota');
 	$conn = require '../template/sql/conexion.php';
 
+    function validarClase($id){
+        $sw = 0;
+	    $conn = require '../template/sql/conexion.php';
+        $query ="SELECT CLBOCODI FROM clasbode WHERE CLBOCODI = $id";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            $sw = 1;
+        }
+        return $sw;        
+    }
+    function obtenerTipoMovSop($id){
+        $nom = '';
+	    $conn = require '../template/sql/conexion.php';
+        $query ="SELECT TIMODESC FROM tipomovi WHERE TIMOCODI = $id";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+           while ($row=$respuesta->fetch()){
+               $nom = $row['TIMODESC'];   
+           }
+        }
+        return $nom;        
+    }
+
 	if($_REQUEST["accion"]=="actualizar_registros"){
 		$table='<thead>
                     <tr style="background-color: #3c8dbc; color:white;">
@@ -17,7 +42,7 @@
         $i=0;
 		$query ='SELECT tipomovi.*, clasbode.CLBODESC
 				 FROM tipomovi
-				 INNER JOIN clasbode ON clasbode.CLBOCODI = tipomovi.TIMVCLBO';
+				 JOIN clasbode ON clasbode.CLBOCODI = tipomovi.TIMVCLBO';
         $respuesta = $conn->prepare($query) or die ($sql);
         if(!$respuesta->execute()) return false;
         if($respuesta->rowCount()>0){
@@ -36,6 +61,8 @@
                 if($row['TIMOMVSO']=='0'){ $codTipSoport = ''; }
                 else{ $codTipSoport = $row['TIMOMVSO'];}
 
+                $movSop = obtenerTipoMovSop($codTipSoport);
+
                 $i++;
                 $table.='
                         <tr id="trSelect'.$i.'" class="trDefault">
@@ -53,13 +80,13 @@
                                 <input type="checkbox" id="txtMInvPro'.$i.'" '.$mInvPropio.' onclick="swEditor(\'\',\'trSelect'.$i.'\')"> <small>Mueve Inv. Propio</small>
                             </td>
                             <td>
-                                <input type="text" id="txtCodTipoSoporte'.$i.'" class="form-control input-sm text-center" value="'.$codTipSoport.'" onkeypress="solonumerosEnter('.$i.')" onclick="swEditor(\'\',\'trSelect'.$i.'\')">
+                                <input type="text" id="txtCodTipoSoporte'.$i.'" class="form-control input-sm text-center" value="'.$codTipSoport.'" onkeypress="solonumerosEnter('.$i.',2)" onclick="swEditorM(\'\',\'trSelect'.$i.'\',1,'.$i.')">
                             </td>
                             <td>
-                                <input type="text" id="txtNomTipoSoporte'.$i.'" class="form-control input-sm" value="" placeholder="Indefinido" onclick="swEditor(\'\',\'trSelect'.$i.'\')" readonly>
+                                <input type="text" id="txtNomTipoSoporte'.$i.'" class="form-control input-sm" value="'.$movSop.'" placeholder="Indefinido" onclick="swEditor(\'\',\'trSelect'.$i.'\')" readonly>
                             </td>
                             <td>
-                                <input type="text" id="txtCodClaseBodega'.$i.'" class="form-control input-sm text-center" value="'.$row['TIMVCLBO'].'" onkeypress="solonumerosEnter('.$i.')" onclick="swEditorM(\'\',\'trSelect'.$i.'\',1,'.$i.')">
+                                <input type="text" id="txtCodClaseBodega'.$i.'" class="form-control input-sm text-center" value="'.$row['TIMVCLBO'].'" onkeypress="solonumerosEnter('.$i.',1)" onclick="swEditorM(\'\',\'trSelect'.$i.'\',2,'.$i.')">
                             </td>
                             <td>
                                 <input type="text" id="txtNomClaseBodega'.$i.'" class="form-control input-sm" value="'.$row['CLBODESC'].'" onclick="swEditor(\'\',\'trSelect'.$i.'\')" readonly>
@@ -89,29 +116,60 @@
         echo json_encode($arr);
     }
 
-    if($_REQUEST["accion"]=="guardar_registros"){
-    	if($_REQUEST["tMovSop"]==''){ $_REQUEST["tMovSop"]=0; }
-        $query ="INSERT INTO tipomovi (TIMOCODI, TIMODESC, TIMOSAEN, TIMOPROP, TIMOMVSO, TIMVCLBO) 
-                VALUES (".$_REQUEST["cod"].",'".$_REQUEST["nom"]."','".$_REQUEST["e_s"]."',
-                		'".$_REQUEST["chek"]."',".$_REQUEST["tMovSop"].",".$_REQUEST["clBodDes"].")";
-        $respuesta = $conn->prepare($query) or die ($query);
-        if(!$respuesta->execute()){
-            echo $query;
+    if($_REQUEST["accion"]=="validar_movSoporte"){
+        $sw=0;
+        $query ='SELECT TIMOCODI, TIMODESC FROM tipomovi WHERE TIMOCODI = '.$_REQUEST["cod"];
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $sw = 1;
+                $dato = $row['TIMODESC'];                              
+            }
         }else{
-            echo 1;
+            $sw = 0;
+            $dato = 0;
         }
+        $arr = array($sw,$dato);
+        echo json_encode($arr);
+    }
+
+    if($_REQUEST["accion"]=="guardar_registros"){
+
+        $sw = validarClase($_REQUEST["clBodDes"]);
+        if($sw==1){
+            if($_REQUEST["tMovSop"]==''){ $_REQUEST["tMovSop"]=0; }
+            $query ="INSERT INTO tipomovi (TIMOCODI, TIMODESC, TIMOSAEN, TIMOPROP, TIMOMVSO, TIMVCLBO) 
+                    VALUES (".$_REQUEST["cod"].",'".$_REQUEST["nom"]."','".$_REQUEST["e_s"]."',
+                            '".$_REQUEST["chek"]."',".$_REQUEST["tMovSop"].",".$_REQUEST["clBodDes"].")";
+            $respuesta = $conn->prepare($query) or die ($query);
+            if(!$respuesta->execute()){
+                echo $query;
+            }else{
+                echo 1;
+            }
+        }else{
+            echo 1;            
+        }
+
 	}
 
 	if($_REQUEST["accion"]=="editar_registros"){
-        if($_REQUEST["tMovSop"]==''){ $_REQUEST["tMovSop"]=0; }
-        $query ="UPDATE tipomovi
-        		 SET TIMOCODI=".$_REQUEST["cod"].", TIMODESC='".$_REQUEST["nom"]."',
-        		 	 TIMOSAEN='".$_REQUEST["e_s"]."', TIMOPROP='".$_REQUEST["chek"]."',
-        		 	 TIMOMVSO=".$_REQUEST["tMovSop"].", TIMVCLBO=".$_REQUEST["clBodDes"]."
-        		 WHERE TIMOCODI=".$_REQUEST["codOrg"];
-        $respuesta = $conn->prepare($query) or die ($query);
-        if(!$respuesta->execute()){
-            echo 'Error!';
+
+        $sw = validarClase($_REQUEST["clBodDes"]);
+        if($sw==1){
+            if($_REQUEST["tMovSop"]==''){ $_REQUEST["tMovSop"]=0; }
+            $query ="UPDATE tipomovi
+                    SET TIMOCODI=".$_REQUEST["cod"].", TIMODESC='".$_REQUEST["nom"]."',
+                        TIMOSAEN='".$_REQUEST["e_s"]."', TIMOPROP='".$_REQUEST["chek"]."',
+                        TIMOMVSO=".$_REQUEST["tMovSop"].", TIMVCLBO=".$_REQUEST["clBodDes"]."
+                    WHERE TIMOCODI=".$_REQUEST["codOrg"];
+            $respuesta = $conn->prepare($query) or die ($query);
+            if(!$respuesta->execute()){
+                echo 'Error!';
+            }else{
+                echo 1;
+            }
         }else{
             echo 1;
         }

@@ -290,11 +290,11 @@
 					                     		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Orden</label>
 				                        		<input id="txtDepOrd" type="text" class="form-control input-sm" style="margin-left: 8px; width:50px; float: left;">
 				                        		<input id="txtLocaOrd" type="text" class="form-control input-sm" style="width:50px; float: left; margin-left: 8px;">
-				                        		<input id="txtNumbOrd" type="text" class="form-control input-sm" style="width:130px; float: left; margin-left: 10px;">
+				                        		<input id="txtNumbOrd" type="text" class="form-control input-sm" style="width:155px; float: left; margin-left: 10px;">
 					                     		
 					                     		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Tecnico</label>
 				                        		<input id="txtCodTecn" type="text" class="form-control input-sm" readonly style="width:100px; float: left; margin-left: 8px;">
-				                        		<input id="txtNomTecn" type="text" class="form-control input-sm" readonly style="width:300px; float: left; margin-left: 10px;">
+				                        		<input id="txtNomTecn" type="text" class="form-control input-sm" readonly style="width:480px; float: left; margin-left: 10px;">
 				                      			<div id="divEstOrd" class="display-none">
 				                      				<input type="checkbox" style="margin-left: 20px; margin-top:10px;"><label style="margin-left: 10px; color:red;">Cumplida</label>
 				                      			</div>

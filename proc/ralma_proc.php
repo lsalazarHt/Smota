@@ -66,6 +66,19 @@
         }
         return $tipoMov;
     }
+    function obtenerClassBodega($id){
+	    $conn = require '../template/sql/conexion.php';
+        $dato = '';
+        $query ="SELECT bodeclas FROM bodega WHERE bodecodi = $id";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $dato = $row['bodeclas'];
+            }   
+        }
+        return $dato;
+    }
 
     if($_REQUEST["accion"]=="buscar_bodega_principal"){
         $cod = $_REQUEST["bod"];
@@ -157,19 +170,38 @@
         $dato2 = '';
         $bod = $_REQUEST["bod"];
         $mat = $_REQUEST["mat"];
-        $query ="SELECT material.MATECODI, material.MATEDESC, inventario.INVECAPRO, inventario.INVEVLRPRO
-                 FROM inventario
-                    INNER JOIN material ON material.MATECODI = inventario.INVEMATE
-                 WHERE inventario.INVEBODE = $bod AND material.MATECODI = $mat";
-        $respuesta = $conn->prepare($query) or die ($sql);
-        if(!$respuesta->execute()) return false;
-        if($respuesta->rowCount()>0){
-            while ($row=$respuesta->fetch()){
-                $dato0 = str_replace("\"","",$row['MATEDESC']);
-                $dato1 = $row['INVECAPRO'];
-                $dato2 = $row['INVEVLRPRO'];
-            }   
+
+        $bodDesc = $_REQUEST["bodD"];
+        $classBodega = obtenerClassBodega($bodDesc);
+        if( ($classBodega==5) || ($classBodega==6) ){
+            $query ="SELECT material.MATECODI, material.MATEDESC
+                    FROM material
+                    WHERE  material.MATECODI = $mat";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+                    $dato0 = str_replace("\"","",$row['MATEDESC']);
+                    $dato1 = 0;
+                    $dato2 =0;
+                }   
+            }
+        }else{
+            $query ="SELECT material.MATECODI, material.MATEDESC, inventario.INVECAPRO, inventario.INVEVLRPRO
+                    FROM inventario
+                        INNER JOIN material ON material.MATECODI = inventario.INVEMATE
+                    WHERE inventario.INVEBODE = $bod AND material.MATECODI = $mat";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+                    $dato0 = str_replace("\"","",$row['MATEDESC']);
+                    $dato1 = $row['INVECAPRO'];
+                    $dato2 = $row['INVEVLRPRO'];
+                }   
+            }
         }
+        
         $arr = array($dato0,$dato1,$dato2);
         echo json_encode($arr);
     }
@@ -188,21 +220,42 @@
     if($_REQUEST["accion"]=="obtener_materiales"){ 
         $table = '';
         $bod = $_REQUEST["bod"];
-        $query ="SELECT material.MATECODI, material.MATEDESC, inventario.INVECAPRO, inventario.INVEVLRPRO
-                 FROM inventario
-                    INNER JOIN material ON material.MATECODI = inventario.INVEMATE
-                 WHERE INVEBODE = $bod";
-        $respuesta = $conn->prepare($query) or die ($sql);
-        if(!$respuesta->execute()) return false;
-        if($respuesta->rowCount()>0){
-            while ($row=$respuesta->fetch()){
-                $mat = str_replace("\"","",$row['MATEDESC']);
-                $table .= '
-                    <tr onclick="addMaterial('.$row['MATECODI'].',\''.$mat.'\','.$row['INVECAPRO'].','.$row['INVEVLRPRO'].')">
-                        <td class="text-center">'.$row['MATECODI'].'</td>
-                        <td>'.$mat.'</td>
-                    </tr>';
-            }   
+        $bodDesc = $_REQUEST["bodD"];
+        $classBodega = obtenerClassBodega($bodDesc);
+
+        //bodega clase proveedor(5) o gasera(6)
+        if( ($classBodega==5) || ($classBodega==6) ){
+            $query ="SELECT material.MATECODI, material.MATEDESC
+                    FROM material";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+                    $mat = str_replace("\"","",$row['MATEDESC']);
+                    $table .= '
+                        <tr onclick="addMaterial('.$row['MATECODI'].',\''.$mat.'\',0,0)">
+                            <td class="text-center">'.$row['MATECODI'].'</td>
+                            <td>'.$mat.'</td>
+                        </tr>';
+                }   
+            }
+        }else{
+            $query ="SELECT material.MATECODI, material.MATEDESC, inventario.INVECAPRO, inventario.INVEVLRPRO
+                     FROM inventario
+                        JOIN material ON material.MATECODI = inventario.INVEMATE
+                     WHERE INVEBODE = $bod";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+                    $mat = str_replace("\"","",$row['MATEDESC']);
+                    $table .= '
+                        <tr onclick="addMaterial('.$row['MATECODI'].',\''.$mat.'\','.$row['INVECAPRO'].','.$row['INVEVLRPRO'].')">
+                            <td class="text-center">'.$row['MATECODI'].'</td>
+                            <td>'.$mat.'</td>
+                        </tr>';
+                }   
+            }
         }
         echo $table;
     }
@@ -293,6 +346,7 @@
         $valMatOrig = 0; //valor material origen
 
         $cupMatDes = 0; //cupo bodega destino
+        $cupExMatDes = 0;//cupo extra
         $canMatDes = 0; //cantidad materia destino
 
         $canTotMat = 0; //total cantidad material
@@ -326,6 +380,9 @@
                         $canMatDes   = (int)$row[$canti];
                     }
                 }
+                /*$cupMatDes   = ($cupMatDes==null) ? 0 : $cupMatDes;
+                $cupExMatDes = ($cupExMatDes==null) ? 0 : $cupExMatDes;
+                $canMatDes   = ($canMatDes==null) ? 0 : $canMatDes;*/
             //
 
             //Validamos la cantidad agregar no es mayor al cupo
@@ -422,20 +479,19 @@
             //
 
             //VERIFICAMOS QUE LA BODEGA DESTINO TENGA EL MATERIAL
+                $swDest = 0;
                 $caMatDest = 0;
                 $vlMatDest = 0;
-                $query ="SELECT $canti, $valor  FROM inventario WHERE INVEMATE = $cod AND INVEBODE = $codeVal_Destino";
+
+                $query ="SELECT INVEMATE FROM inventario WHERE INVEMATE = $cod AND INVEBODE = $codeVal_Destino";
                 $respuesta = $conn->prepare($query) or die ($sql);
                 if(!$respuesta->execute()) return false;
                 if($respuesta->rowCount()>0){
-                    while ($row=$respuesta->fetch()){
-                        $caMatDest = (int)$row[$canti];
-                        $vlMatDest = (int)$row[$valor];
-                    }
+                    $swDes = 1;
                 }
 
                 //SINO EXISTE LO AGREGAMOS
-                if($caMatDest==0){
+                if($swDes==0){
                     $query ="INSERT INTO inventario (INVEMATE, INVEBODE, $canti, $valor)  
                                 VALUES ($cod, $codeVal_Destino, $can, $val)";
                     $respuesta = $conn->prepare($query) or die ($query);
@@ -443,6 +499,16 @@
                         echo 'Error!';
                     }else{  }
                 }else{ //SI EXISTE LO ACTUALIZAMOS
+                    $query ="SELECT $canti, $valor FROM inventario WHERE INVEMATE = $cod AND INVEBODE = $codeVal_Destino";
+                    $respuesta = $conn->prepare($query) or die ($sql);
+                    if(!$respuesta->execute()) return false;
+                    if($respuesta->rowCount()>0){
+                        while ($row=$respuesta->fetch()){
+                            $caMatDest = (int)$row[$canti];
+                            $vlMatDest = (int)$row[$valor];
+                        }
+                    }
+
                     $totalcan = (int)$caMatDest + (int)$can;
                     $totalval = (int)$vlMatDest + (int)$val;
                     $query ="UPDATE inventario 

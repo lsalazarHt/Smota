@@ -1,5 +1,19 @@
 $(document).ready(function () {
 	
+	$(document).ajaxStart(function () { 
+		$.blockUI({
+			message: "Un momento por favor....",
+			css: { 
+	            border: 'none', 
+	            padding: '15px', 
+	            backgroundColor: '#000', 
+	            '-webkit-border-radius': '10px', 
+	            '-moz-border-radius': '10px', 
+	            opacity: .5, 
+	            color: '#fff' 
+	        } })
+	}).ajaxStop($.unblockUI);
+
 	actualizar();
     $('#btnNuevo').removeClass('disabled');
 	$('#btnGuardar').removeClass('disabled');
@@ -37,7 +51,7 @@ $(document).ready(function () {
 	    //Cod Tipo Movimiento Soporte
 	    var cell4 = row.insertCell(3);
 	    cell4.className = 'text-center';
-	    cell4.innerHTML = '<input type="text" id="txtCodTipoSoporte'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumerosEnter('+rowCount+')" onclick="swEditor(\'txtCodTipoSoporte'+rowCount+'\',\'trSelect'+rowCount+'\')">';
+	    cell4.innerHTML = '<input type="text" id="txtCodTipoSoporte'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumerosEnter('+rowCount+')" onclick="swEditorM(\'txtCodTipoSoporte'+rowCount+'\',\'trSelect'+rowCount+'\',1,'+rowCount+')">';
 	    
 	    //Nom Tipo Movimiento Soporte
 	    var cell5 = row.insertCell(4);
@@ -47,14 +61,13 @@ $(document).ready(function () {
 	    //Cod Clase Bodega Destino
 	    var cell4 = row.insertCell(5);
 	    cell4.className = 'text-center';
-	    cell4.innerHTML = '<input type="text" id="txtCodClaseBodega'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumerosEnter('+rowCount+')" onclick="swEditorM(\'\',\'trSelect'+rowCount+'\',1,'+rowCount+')">';
+	    cell4.innerHTML = '<input type="text" id="txtCodClaseBodega'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumerosEnter('+rowCount+')" onclick="swEditorM(\'\',\'trSelect'+rowCount+'\',2,'+rowCount+')">';
 	    
 	    //Nom Clase Bodega Destino
 	    var cell5 = row.insertCell(6);
 	    cell5.className = 'text-center';
 	    cell5.innerHTML = '<input type="text" id="txtNomClaseBodega'+rowCount+'" class="form-control input-sm" onclick="swEditor(\'\',\'trSelect'+rowCount+'\')" readonly>';
 	    
-
 	    $('#contRow').val(rowCount);	    
 	    $('#txtCod'+rowCount).focus();
 	    selectedNewRow(row.id);
@@ -72,12 +85,14 @@ $(document).ready(function () {
 			if($("#txtMInvPro"+i).is(':checked')) { chek = 'S'; }
 			else{ chek = 'N'; }
 
-			var tMovSop = $.trim($('#txtCodTipoSoporte'+i).val());
-			var clBodDes = $.trim($('#txtCodClaseBodega'+i).val());
+			var tMovSop    = $.trim($('#txtCodTipoSoporte'+i).val());
+			var tMovSopNom = $.trim($('#txtNomTipoSoporte'+i).val());
+			var clBodDes   = $.trim($('#txtCodClaseBodega'+i).val());
 
 			//
 			if( $('#txtTipo'+i).val() == 1){ //Editar
 				var codOrg = $.trim($('#txtCodOrg'+i).val());
+				if(tMovSopNom==''){ tMovSop = ''; }
 				$.ajax({
 			        type:'POST',
 			        url:'proc/ptimo_proc.php?accion=editar_registros',
@@ -90,6 +105,7 @@ $(document).ready(function () {
 			    });
 			}else{ // Nuevo
 				if( (cod!='') && (nom!='') && (clBodDes!='') ){
+					if(tMovSopNom==''){ tMovSop = ''; }
 					$.ajax({
 				        type:'POST',
 				        url:'proc/ptimo_proc.php?accion=guardar_registros',
@@ -107,8 +123,11 @@ $(document).ready(function () {
 
 	//Btn Lista Valores
 	$('#btnListaValores').click(function(){
-
-		$('#modalClases').modal('show');
+		if(modal==1){
+			$('#modalMovSoporte').modal('show');			
+		}else if(modal==2){
+			$('#modalClases').modal('show');
+		}
 	});
 
 	//Btn Editor
@@ -119,7 +138,7 @@ $(document).ready(function () {
 	});
 
 });
-
+modal = 0;
 function actualizar(){
 	$('#table').html('');
 	$.ajax({
@@ -137,16 +156,19 @@ function solonumeros(){
     if ( (event.keyCode < 48) || (event.keyCode > 57)  ) 
         event.returnValue = false;
 }
-function solonumerosEnter(id){
+function solonumerosEnter(id,tipo){
 	if(event.which == 13){
-		validarClase(id);
+		if(tipo==1){
+			validarClase(id);
+		}else{
+			validarMovSoporte(id);
+		}
 	}else{
 	    if ( (event.keyCode < 48) || (event.keyCode > 57)  ) 
 	        event.returnValue = false;
 	}
 }
 function validarClase(id){
-	$('#txtNomClaseBodega'+id).val('');
 	cod = $('#txtCodClaseBodega'+id).val();
 	$.ajax({
         type:'POST',
@@ -164,12 +186,52 @@ function validarClase(id){
         }
     });
 }
+function validarMovSoporte(id) {
+	cod 	= $('#txtCodTipoSoporte'+id).val();
+	codMov = $('#txtCod'+id).val();
+	if(codMov!=cod){
+		$('#txtNomTipoSoporte'+id).val('');
+		$.ajax({
+			type:'POST',
+			url:'proc/ptimo_proc.php?accion=validar_movSoporte',
+			data:{ cod:cod },
+			dataType: "json",
+			success: function(data){
+				if(data[0]!=0){
+					$('#txtNomTipoSoporte'+id).val(data[1]);
+				}else{
+					var msgError = 'Error! El Movimiento no es valido';
+					demo.showNotification('bottom','left', msgError, 4);
+					$('#txtNomTipoSoporte'+id).val('');
+				}
+			}
+		});
+	}else{
+		var msgError = 'Por favor coloque un Movimiento de Soporte Valido';
+		demo.showNotification('bottom','left', msgError, 4);
+		$('#txtCodTipoSoporte'+id).val('');
+		$('#txtNomTipoSoporte'+id).val('');
+	}
+}
 
 var idGlb = 0;
 function colocarClase(id,nom){
 	$('#txtCodClaseBodega'+idGlb).val(id);
 	$('#txtNomClaseBodega'+idGlb).val(nom);
 	$('#modalClases').modal('hide');
+}
+function colocarMovSop(id,nom){
+	codMov = $('#txtCod'+idGlb).val();
+	if(codMov!=id){
+		$('#txtCodTipoSoporte'+idGlb).val(id);
+		$('#txtNomTipoSoporte'+idGlb).val(nom);
+		$('#modalMovSoporte').modal('hide');
+	}else{
+		var msgError = 'Por favor coloque un Movimiento de Soporte Valido';
+		demo.showNotification('bottom','left', msgError, 4);
+		$('#txtCodTipoSoporte'+idGlb).val('');
+		$('#txtNomTipoSoporte'+idGlb).val('');
+	}
 }
 //Ver origen del editor
 var varEditor = '';
@@ -180,14 +242,10 @@ function swEditor(id,trId){
 	$('#'+trId).addClass('trSelect');
 }
 function swEditorM(id,trId,mdSec,i){
-
 	varEditor = id;
 	$('.trDefault').removeClass('trSelect');
 	$('#'+trId).addClass('trSelect');
-
-	if(mdSec==1){
-		modal = 3;
-	}
+	modal = mdSec;
 	idGlb = i;
 
 	$('#btnListaValores').removeClass('disabled');

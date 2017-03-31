@@ -25,7 +25,7 @@
 					                        <tbody>
 					                        	<?php 
 		                                            //$conn = require 'inc/clases/conexion.php';
-		                                            $query ="SELECT * FROM bodega WHERE BODEESTA='A'";
+		                                            $query ="SELECT * FROM bodega WHERE BODEESTA='A' AND (BODECLAS = 1 OR BODECLAS = 3)";
 		                                            $respuesta = $conn->prepare($query) or die ($sql);
 		                                            if(!$respuesta->execute()) return false;
 		                                            if($respuesta->rowCount()>0){
@@ -138,7 +138,7 @@
 				                		<div class="col-md-12">
 				                			<input type="hidden" id="swCheckTodos" value="0">
 				                			<div id="tableOrdenes" style="height: 360px; overflow-y: scroll;" class="container-table-list">
-						                		<table class="table table-bordered table-condensed">
+						                		<table class="table table-bordered table-condensed table-striped">
 						                			<thead>
 							                			<tr style="background-color: #3c8dbc; color:white;">
 									        				<th class="text-center" width="70">DOCUMENTO</th>
@@ -203,23 +203,23 @@
 				                      		</div>
 				                      		<label for="txtCantFinSist" class="col-sm-1 control-label text-right"><small>Cant Final Sistema</small></label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control text-right" id="txtCantFinSist" placeholder="0" readonly>
+				                        		<input type="text" class="form-control text-right border-black" id="txtCantFinSist" placeholder="0" readonly>
 				                      		</div>
 											<label for="txtValoFinSist" class="col-sm-1 control-label text-right"><small>Valor Final Sistema</small></label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control text-right" id="txtValoFinSist" placeholder="0" readonly>
+				                        		<input type="text" class="form-control text-right border-black" id="txtValoFinSist" placeholder="0" readonly>
 				                      		</div>
 										</div>
 									</div>
 				                	<div class="row marginTop3">
 					                	<div class="form-group">
-				                      		<label for="txtDifValor" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Diferencia Cantidad</small></label>
+				                      		<label for="txtDifCantidad" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Diferencia Cantidad</small></label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control text-right input-sm" id="txtDifValor" placeholder="0" readonly>
+				                        		<input type="text" class="form-control text-right input-sm border-green" id="txtDifCantidad" placeholder="0" readonly>
 				                      		</div>
 				                      		<label for="txtDifValor" class="col-sm-1 control-label text-right" style="margin-top:5px;"><small>Diferencia Valor</small></label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control text-right input-sm" id="txtDifValor" placeholder="0" readonly>
+				                        		<input type="text" class="form-control text-right input-sm border-green" id="txtDifValor" placeholder="0" readonly>
 				                      		</div>
 					                    </div>
 				                	</div>
