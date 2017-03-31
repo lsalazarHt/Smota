@@ -78,13 +78,13 @@
 					                	<div class="form-group">
 					                     	<div class="col-sm-12">
 					                     		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Orden</label>
-				                        		<input type="text" id="txtCodDep" class="form-control input-sm" style="margin-left: 8px; width:50px; float: left;" onkeypress="solonumeros()">
-				                        		<input type="text" id="txtCodLoc" class="form-control input-sm" style="width:50px; float: left; margin-left: 8px;" onkeypress="solonumeros()">
-				                        		<input type="text" id="txtCodNum" class="form-control input-sm" style="width:130px; float: left; margin-left: 10px;" onkeypress="solonumeros()">
+				                        		<input type="text" id="txtCodDep" class="form-control input-sm" style="margin-left: 8px; width:60px; float: left;" placeholder="Depart." onkeypress="solonumeros()">
+				                        		<input type="text" id="txtCodLoc" class="form-control input-sm" style="width:60px; float: left; margin-left: 8px;" placeholder="Locali." onkeypress="solonumeros()">
+				                        		<input type="text" id="txtCodNum" class="form-control input-sm" style="width:145px; float: left; margin-left: 10px;" placeholder="Numero OT" onkeypress="solonumeros()">
 					                     		
-					                     		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Tecnico</label>
-				                        		<input type="text" id="txtCodTec" class="form-control input-sm" style="width:100px; float: left; margin-left: 8px;">
-				                        		<input type="text" id="txtNomTec" class="form-control input-sm" readonly style="width:300px; float: left; margin-left: 10px;">
+					                     		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:140px; float:left;">Tecnico</label>
+				                        		<input type="text" id="txtCodTec" class="form-control input-sm" placeholder="Codigo" style="width:100px; float: left; margin-left: 8px;">
+				                        		<input type="text" id="txtNomTec" class="form-control input-sm" readonly style="width:433px; float: left; margin-left: 10px;">
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -101,10 +101,10 @@
 				                        		<input type="text" id="txtFecCum" class="form-control input-sm" readonly style="margin-left: 8px; width:90px; float: left;">
 				                        		
 												<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:120px; float:left;">Fecha Asignacion</label>
-				                        		<input type="text" id="txtFecAsi" class="form-control input-sm" readonly style="margin-left: 8px; width:95px; float: left;">
+				                        		<input type="text" id="txtFecAsi" class="form-control input-sm" readonly style="margin-left: 8px; width:96px; float: left;">
 				                      			
 				                      			<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:125px; float:left;">Fecha Legalizacion</label>
-				                        		<input type="text" id="txtFecLeg" class="form-control input-sm" readonly style="margin-left: 8px; width:95px; float: left;">
+				                        		<input type="text" id="txtFecLeg" class="form-control input-sm" readonly style="margin-left: 8px; width:96px; float: left;">
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -112,12 +112,12 @@
 					                	<div class="form-group">
 					                     	<div class="col-sm-12 ">
 					                     		<label for="txtPqrRep" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">PQR Reportada</label>
-				                        		<input type="text" id="txtPqrRep" class="form-control input-sm" style="width:50px; float: left; margin-left: 8px;">
-				                        		<input type="text" id="txtPqrRepNom" class="form-control input-sm" readonly style="width:350px; float: left; margin-left: 10px;">
+				                        		<input type="text" id="txtPqrRep" class="form-control input-sm"  placeholder="Codigo" style="width:60px; float: left; margin-left: 8px;">
+				                        		<input type="text" id="txtPqrRepNom" class="form-control input-sm" readonly style="width:340px; float: left; margin-left: 10px;">
 				                      			
 												<label for="txtPqrEnc" class="control-label text-right" style="margin-top:5px; width:130px; float:left;">PQR Encontrada</label>
-				                        		<input type="text" id="txtPqrEnc" class="form-control input-sm" style="width:50px; float: left; margin-left: 8px;">
-				                        		<input type="text" id="txtPqrEncNom" class="form-control input-sm" readonly style="width:365px; float: left; margin-left: 10px;">
+				                        		<input type="text" id="txtPqrEnc" class="form-control input-sm" placeholder="Codigo" style="width:60px; float: left; margin-left: 8px;">
+				                        		<input type="text" id="txtPqrEncNom" class="form-control input-sm" readonly style="width:356px; float: left; margin-left: 10px;">
 				                      			
 				                      		</div>
 					                    </div>
@@ -139,10 +139,10 @@
 					                	<div class="form-group">
 					                     	<div class="col-sm-12 ">
 					                     		<label for="txtUsua" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Usuario</label>
-				                        		<input type="text" id="txtUsua" class="form-control input-sm" style="width:100px; float: left; margin-left: 8px;">
+				                        		<input type="text" id="txtUsua" class="form-control input-sm" placeholder="Codigo" style="width:100px; float: left; margin-left: 8px;">
 				                        		<input type="text" id="txtUsuaNomb" class="form-control input-sm" readonly style="width:300px; float: left; margin-left: 10px;">
 				                      			
-												<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:130px; float:left;">Recibidor</label>
+												<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:128px; float:left;">Recibidor</label>
 				                        		<input type="text" id="txtRecibi" class="form-control input-sm" readonly style="width:200px; float: left; margin-left: 10px;">
 												
 												<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:140px; float:left;">Metodo de Corte</label>
@@ -155,14 +155,13 @@
 				                	<div class="row marginTop5">
 					                	<div class="form-group">
 					                     	<div class="col-sm-12 ">
-					                     		<label for="txtUsuaDire" class="control-label text-right" style="margin-top:5px; width:100px; float:left;"></label>
+					                     		<label for="txtUsuaDire" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Direccion Usua.</label>
 				                        		<input type="text" id="txtUsuaDire" class="form-control input-sm" readonly style="width:410px; float: left; margin-left: 8px;">
 				                      			
-												<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:70px; float:left;">Asignador</label>
-				                        		<input type="text" id="txtAsigna" class="form-control input-sm" readonly style="width:197px; float: left; margin-left: 10px;">
+												<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:128px; float:left;">Asignador</label>
+				                        		<input type="text" id="txtAsigna" class="form-control input-sm" readonly style="width:425px; float: left; margin-left: 10px;">
 												
-												<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:80px; float:left;">Legalizador</label>
-				                        		<input type="text" id="txtLegali" class="form-control input-sm" readonly style="width:197px; float: left; margin-left: 10px;">
+												
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -170,10 +169,13 @@
 					                	<div class="form-group">
 					                     	<div class="col-sm-12 ">
 					                     		<label for="txtUsuMedid" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Medidor</label>
-				                        		<input type="text" id="txtUsuMedid" class="form-control input-sm" readonly style="width:200px; float: left; margin-left: 8px;">
+				                        		<input type="text" id="txtUsuMedid" class="form-control input-sm" readonly style="width:160px; float: left; margin-left: 8px;">
 				                      			
 												<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:80px; float:left;">Lectura</label>
-				                        		<input type="text" id="txtLect" class="form-control input-sm" readonly style="width:200px; float: left; margin-left: 10px;">
+				                        		<input type="text" id="txtLect" class="form-control input-sm" readonly style="width:160px; float: left; margin-left: 10px;">
+
+				                        		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:128px; float:left;">Legalizador</label>
+				                        		<input type="text" id="txtLegali" class="form-control input-sm" readonly style="width:425px; float: left; margin-left: 10px;">
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -181,20 +183,20 @@
 					                	<div class="form-group">
 					                     	<div class="col-sm-12 ">
 					                     		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Causa Lectura</label>
-				                        		<input type="text" id="txtLectCausa" class="form-control input-sm" readonly style="width:100px; float: left; margin-left: 8px;">
+				                        		<input type="text" id="txtLectCausa" class="form-control input-sm" readonly style="width:105px; float: left; margin-left: 8px;">
 				                      			
 												<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:140px; float:left;">Observacion Lectura</label>
-				                        		<input type="text" id="txtLectObsj" class="form-control input-sm" readonly style="width:150px; float: left; margin-left: 10px;">
+				                        		<input type="text" id="txtLectObsj" class="form-control input-sm" readonly style="width:155px; float: left; margin-left: 10px;">
 
-				                        		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:50px; float:left;">Estado</label>
-				                        		<input type="text" id="txtEst" class="form-control input-sm" style="width:40px; float: left; margin-left: 10px;">
+				                        		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:59px; float:left;">Estado</label>
+				                        		<input type="text" id="txtEst" class="form-control input-sm" placeholder="#" style="width:40px; float: left; margin-left: 10px;">
 				                        		<input type="text" id="txtEstNom" class="form-control input-sm" readonly style="width:130px; float: left; margin-left: 10px;">
 
-				                        		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:80px; float:left;">Hora Inicial</label>
-				                        		<input type="text" id="txtHoraIni" class="form-control input-sm" readonly style="width:80px; float: left; margin-left: 10px;">
+				                        		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:70px; float:left;">Hora Ini.</label>
+				                        		<input type="text" id="txtHoraIni" class="form-control input-sm" readonly style="width:77px; float: left; margin-left: 10px;">
 				                        		
-				                        		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:70px; float:left;">Hora Final</label>
-				                        		<input type="text" id="txtHoraFin" class="form-control input-sm" readonly style="width:80px; float: left; margin-left: 10px;">
+				                        		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:70px; float:left;">Hora Fin.</label>
+				                        		<input type="text" id="txtHoraFin" class="form-control input-sm" readonly style="width:77px; float: left; margin-left: 10px;">
 				                      		</div>
 					                    </div>
 				                	</div>
