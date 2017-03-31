@@ -432,14 +432,15 @@ function swEditor(id,trId,mod,i){
 	idGlb = i;	
 	if(id===2){
 		varEditor = id;
-		$('.trDefault').removeClass('trSelect');
-		$('#'+trId).addClass('trSelect');
+		
 		modal=mod;
 		
 		console.log(idGlb);
 	}else{
 		modal=mod;
 	}
+	$('.trDefault').removeClass('trSelect');
+		$('#'+trId).addClass('trSelect');
 }
 function formato_numero(numero, decimales, separador_decimal, separador_miles){
 
