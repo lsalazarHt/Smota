@@ -1,5 +1,6 @@
 <?php
     $conn = require '../template/sql/conexion.php';
+    date_default_timezone_set('America/Bogota');
 
     function obtener_bod_pqr($cod){
         $campo = '';
@@ -453,10 +454,10 @@
     if($_REQUEST["accion"]=="guardar_mo_ot"){
         if($_REQUEST["codTec"]==''){ $_REQUEST["codTec"]=0; }
         
-        $queryInsert = "INSERT INTO mobrottr (MOOTMOBR,MOOTDEPA,MOOTLOCA,MOOTNUMO,MOOTCANT,MOOTVAPA,MOOTTECN,MOOTTILE,MOOTFECH) 
+        $queryInsert = "INSERT INTO mobrottr (MOOTMOBR,MOOTDEPA,MOOTLOCA,MOOTNUMO,MOOTCANT,MOOTVAPA,MOOTTECN,MOOTTILE,MOOTFECH,fechaMov) 
                         VALUES (".$_REQUEST["cod"].",".$_REQUEST["dep"].",".$_REQUEST["loc"].",
                                 ".$_REQUEST["num"].",".$_REQUEST["can"].",".$_REQUEST["val"].",
-                                ".$_REQUEST["codTec"].",'D','".date('Y-m-d')."')";
+                                ".$_REQUEST["codTec"].",'D','".date('Y-m-d')."','".date('Y-m-d H:i:s')."')";
 
         $respuestaInsert = $conn->prepare($queryInsert) or die ($queryInsert);
         if(!$respuestaInsert->execute()){
@@ -629,10 +630,10 @@
 
         $campoBod = obtener_bod_pqr($pqrEnc);
 
-        $queryInsert = "INSERT INTO maleottr (MAOTMATE,MAOTDEPA,MAOTLOCA,MAOTNUMO,MAOTCANT,MAOTVLOR,MAOTTECN,MAOTTILE,MAOTFECH,MAOTPROP,MAOTUSER) 
+        $queryInsert = "INSERT INTO maleottr (MAOTMATE,MAOTDEPA,MAOTLOCA,MAOTNUMO,MAOTCANT,MAOTVLOR,MAOTTECN,MAOTTILE,MAOTFECH,MAOTPROP,MAOTUSER,fechaLeg) 
                         VALUES (".$_REQUEST["cod"].",".$_REQUEST["dep"].",".$_REQUEST["loc"].",
                                 ".$_REQUEST["num"].",".$_REQUEST["can"].",".$_REQUEST["val"].",
-                                ".$_REQUEST["codTec"].",'D','".date('Y-m-d')."','$campoBod','$user')";
+                                ".$_REQUEST["codTec"].",'D','".date('Y-m-d')."','$campoBod','$user','".date('Y-m-d H:i:s')."')";
 
         $respuestaInsert = $conn->prepare($queryInsert) or die ($queryInsert);
         if(!$respuestaInsert->execute()){

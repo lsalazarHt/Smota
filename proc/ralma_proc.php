@@ -388,8 +388,22 @@
             //Validamos la cantidad agregar no es mayor al cupo
                 $canTotMat = $cantMatAgr + $canMatDes;
                 $totCupoDe = $cupMatDes + $cupExMatDes;
-                if($canTotMat > $totCupoDe){
-                    $swResult = 3;
+                //validar tipo de bodega destino | solo validar cupo cuando destino sea tecnico
+                $clasBodDest = obtenerClassBodega($codBodDes);
+                if( ($clasBodDest==1) && ($tipo_movi_e_s=='S') ){
+                    if($canTotMat > $totCupoDe){
+                        $swResult = 3;
+                    }else{
+                        //validamos cantidad de material en inventario
+                            if($canMatOrig >= $cantMatAgr){
+                                $swResult = 1;
+                                $valorMaterial = round(($valMatOrig/$canMatOrig),2);
+                                $valTotMat = $cantMatAgr * $valorMaterial;
+                            }else{
+                                $swResult = 2;
+                            }
+                        //
+                    }
                 }else{
                     //validamos cantidad de material en inventario
                         if($canMatOrig >= $cantMatAgr){
