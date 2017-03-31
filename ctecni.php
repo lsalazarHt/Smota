@@ -145,7 +145,7 @@
 					                     	<label for="txtCod" class="col-sm-2 control-label text-right" style="margin-top:5px;">Codigo</label>
 					                     	<div class="col-sm-9">
 				                        		<input style="float:left; width:100px;" type="text" class="form-control input-sm" id="txtCod" placeholder="Codigo" onkeypress="solonumeros()">
-				                        		<input style="float:left; width:694px; margin-left:8px;" type="text" class="form-control input-sm" id="txtNom" placeholder="Nombre del Tecnico" onclick="swEditor('txtNom')" readonly>  
+				                        		<input style="float:left; width:692px; margin-left:8px;" type="text" class="form-control input-sm" id="txtNom" placeholder="Nombre del Tecnico" onclick="swEditor('txtNom')" readonly>  
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -158,7 +158,7 @@
 				                      		<div class="col-sm-7">
 						                     	<label style="float:left; margin-top: 5px;" for="txtNom" class="control-label text-right" style="margin-top:5px;">Clase</label>
 					                        	<input style="float:left; width:100px; margin-left:8px;" type="text" class="form-control input-sm" id="txtClaseCod" placeholder="Codigo" onclick="swEditor('txtClaseCod')" readonly>  
-					                        	<input style="float:left; width:465px; margin-left:8px;"type="text" class="form-control input-sm" id="txtClaseNomb" placeholder="Codigo del Tecnico" onclick="swEditor('txtClaseNomb')" readonly> 
+					                        	<input style="float:left; width:464px; margin-left:8px;"type="text" class="form-control input-sm" id="txtClaseNomb" placeholder="Codigo del Tecnico" onclick="swEditor('txtClaseNomb')" readonly> 
 				                      		</div>
 					                    </div>
 				                	</div>
