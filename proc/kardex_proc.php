@@ -326,7 +326,6 @@
                     if($clasBod==1){
                         $ent_sal = ($row['es']=='S') ? 'E':'S'; 
                     }
-                    
 
                     if($ent_sal=='S'){
                         $salCant = (int)$canTotal - (int)$row['cant'];
