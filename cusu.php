@@ -230,7 +230,7 @@
 			                    <div class="box-body">
 			                    	<div class="row" style="height: 350px; overflow-y: scroll;">
 			                    		<div class="col-sm-12" id="tabla_historial_ordenes">
-					                    	<table class="table table-condensed">
+					                    	<table class="table table-condensed table-bordered table-striped">
 						                        <thead>
 						                            <tr style="background-color: #3c8dbc; color:white;">
 						                             	<th class="text-center" width="130">ORDEN</th>

@@ -83,8 +83,8 @@
 				                        		<input type="text" id="txtCodNum" class="form-control input-sm" style="width:145px; float: left; margin-left: 10px;" placeholder="Numero OT" onkeypress="solonumeros()">
 					                     		
 					                     		<label for="txtCod" class="control-label text-right" style="margin-top:5px; width:140px; float:left;">Tecnico</label>
-				                        		<input type="text" id="txtCodTec" class="form-control input-sm" placeholder="Codigo" style="width:100px; float: left; margin-left: 8px;">
-				                        		<input type="text" id="txtNomTec" class="form-control input-sm" readonly style="width:433px; float: left; margin-left: 10px;">
+				                        		<input type="text" id="txtCodTec" class="form-control input-sm" placeholder="Codigo" style="width:90px; float: left; margin-left: 8px;">
+				                        		<input type="text" id="txtNomTec" class="form-control input-sm" readonly style="width:443px; float: left; margin-left: 10px;">
 				                      		</div>
 					                    </div>
 				                	</div>
@@ -235,7 +235,7 @@
 														<fieldset>
 															<legend><small><strong>Mano de Obra</strong></small></legend>
 															<div style="height: 150px; overflow-y: scroll;">
-																<table class="table table-condensed table-hover">
+																<table class="table table-condensed table-hover table-bordered table-striped">
 																	<thead>
 											                            <tr style="background-color: #3c8dbc; color:white;">
 											                             	<th class="text-center" width="50">Codigo</th>
@@ -258,7 +258,7 @@
 														<fieldset>
 															<legend><small><strong>Materiales</strong></small></legend>
 															<div style="height: 150px; overflow-y: scroll;">
-																<table class="table table-condensed table-hover">
+																<table class="table table-condensed table-hover table-bordered table-striped">
 																	<thead>
 											                            <tr style="background-color: #3c8dbc; color:white;">
 											                             	<th class="text-center" width="50">Codigo</th>

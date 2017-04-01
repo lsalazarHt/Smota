@@ -485,7 +485,7 @@
 				                			<input type="hidden" id="swCheckTodos" value="0">
 				                			<div id="tableOrdenes" style="height: 460px; overflow-y: scroll;">
 						                		<div id="divOrden">
-							                		<table class="table table-bordered table-condensed">
+							                		<table class="table table-condensed table-bordered table-striped">
 							                			<thead>
 								                			<tr style="background-color: #3c8dbc; color:white;">
 										        				<th class="text-center" width="100">NRO DE ORDEN</th>

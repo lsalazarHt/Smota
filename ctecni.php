@@ -205,7 +205,7 @@
 												        	</div>
 												        	<div class="row marginTop5">
 												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
-												            		<table id="table" class="table table-condensed">
+												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-center" width="120">NUMERO</th>
@@ -238,7 +238,7 @@
 												        	</div>
 												        	<div class="row marginTop5">
 												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
-												            		<table id="table" class="table table-condensed">
+												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-center" width="120">NUMERO</th>
@@ -271,7 +271,7 @@
 												        	</div>
 												        	<div class="row marginTop5">
 												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
-												            		<table id="table" class="table table-condensed">
+												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-center" width="120">NUMERO</th>
@@ -303,7 +303,7 @@
 												        	</div>
 												        	<div class="row marginTop5">
 												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
-												            		<table id="table" class="table table-condensed">
+												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-center" width="120">NUMERO</th>
@@ -332,7 +332,7 @@
 												        	</div>
 												        	<div class="row marginTop5">
 												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
-												            		<table id="table" class="table table-condensed">
+												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-center" width="120">NUMERO</th>
@@ -361,7 +361,7 @@
 												        	</div>
 												        	<div class="row marginTop5">
 												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
-												            		<table id="table" class="table table-condensed">
+												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-center" width="120">NUMERO</th>
@@ -396,7 +396,7 @@
 												        	</div>
 												        	<div class="row marginTop5">
 												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
-												            		<table id="table" class="table table-condensed">
+												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-center" width="120">NUMERO</th>
@@ -425,7 +425,7 @@
 													            <div class="col-md-5">
 												            		<div class="row" style="height: 530px; overflow-y: scroll;">
 													            		<div class="col-md-12">
-														            		<table id="table" class="table table-condensed">
+														            		<table id="table" class="table table-condensed table-bordered table-striped">
 														                        <thead>
 														                            <tr style="background-color: #3c8dbc; color:white;">
 														                             	<th class="text-center" width="70">NUMERO</th>
@@ -452,7 +452,7 @@
 												            		<div class="row marginTop5" style="height: 250px; overflow-y: scroll;">
 												            			<div class="col-md-12">
 													            			<h5><b>Mano de Obra de Acta</b></h5>
-														            		<table id="table" class="table table-condensed">
+														            		<table id="table" class="table table-condensed table-bordered table-striped">
 														                        <thead>
 														                            <tr style="background-color: #3c8dbc; color:white;">
 														                             	<th class="text-center" colspan="2">MANO DE OBRA</th>
@@ -471,7 +471,7 @@
 												            		<div class="row marginTop5" style="height: 250px; overflow-y: scroll;">
 												            			<div class="col-md-12">
 														            		<h5><b>Notas Asociadas al Acta</b></h5>
-														            		<table id="table" class="table table-condensed">
+														            		<table id="table" class="table table-condensed table-bordered table-striped">
 														                        <thead>
 														                            <tr style="background-color: #3c8dbc; color:white;">
 														                             	<th class="text-center" colspan="2">CLASE DE NOTA</th>
@@ -502,7 +502,7 @@
 												        	<br>
 												        	<div class="row marginTop5">
 												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
-												            		<table id="table" class="table table-condensed">
+												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-left" width="120">MATERIAL</th>
@@ -528,7 +528,7 @@
 												        	<br>
 												        	<div class="row marginTop5">
 												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
-												            		<table id="table" class="table table-condensed">
+												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-center" width="70">NUMERO</th>
@@ -555,7 +555,7 @@
 												        	<br>
 												        	<div class="row marginTop5">
 												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
-												            		<table id="table" class="table table-condensed">
+												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-center" width="120">COD. MATERIAL</th>
@@ -580,7 +580,7 @@
 												        	<br>
 												        	<div class="row marginTop5">
 												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
-												            		<table id="table" class="table table-condensed">
+												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-center" width="120">COD. MATERIAL</th>

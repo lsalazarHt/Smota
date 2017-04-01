@@ -75,7 +75,7 @@
         echo json_encode($arr);
 	}
 	if($_REQUEST["accion"]=="actualizar_ordenes"){
-		$table = '<table class="table table table-condensed">
+		$table = '<table class="table table table-condensed table-bordered table-striped">
                     <thead>
                         <tr style="background-color: #3c8dbc; color:white;">
                          	<th class="text-center" width="130">ORDEN</th>
