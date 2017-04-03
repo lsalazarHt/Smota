@@ -49,9 +49,9 @@
                 $table .= '
                 		<tr>
                 			<td class="text-center">'.$row['CODIOT'].'</td>
-                			<td>'.utf8_encode($row['MANOBR']).'</td>
+                			<td class="text-left">'.utf8_encode($row['MANOBR']).'</td>
                 			<td class="text-center">'.$row['OTUSUARIO'].'</td>
-                			<td>'.utf8_encode($row['PQRENC']).'</td>
+                			<td class="text-left">'.utf8_encode($row['PQRENC']).'</td>
                 			<td class="text-right">'.$row['MOOTCANT'].'</td>
                 			<td class="text-right">$'.number_format($row['MOOTVAPA'],0,"",".").'</td>
                 			<td class="text-center">'.$row['MOOTFECH'].'</td>
@@ -76,7 +76,7 @@
                 $table .= '
                 		<tr>
                 			<td class="text-center">'.$row['NOTACODI'].'</td>
-                			<td>'.$row['CLNOCODI'].'-'.utf8_encode($row['CLNODESC']).'</td>
+                			<td class="text-left">'.$row['CLNOCODI'].'-'.utf8_encode($row['CLNODESC']).'</td>
                 			<td class="text-center">'.$row['NOTAFECH'].'</td>
                 			<td class="text-center">'.$row['NOTASIGN'].'</td>
                 			<td class="text-right">$ '.number_format($row['NOTAVALO'],0,'.','.').'</td>

@@ -397,7 +397,9 @@ function mostrarOrdenes(){
 		        $('#divOrden').html(data);
 		    }
 		});
-	}else{ alert('Porfavor coloque un departamento y una localidad valida.') }
+	}else{ 
+		demo.showNotification('bottom','left', 'Porfavor coloque un departamento y una localidad valida.', 4);
+	}
 }
 function swEditor(trId){
 
@@ -446,10 +448,10 @@ function limpiarTabla(){
 	a += '<th class="text-center" width="70">FECHA</th>';
 	a += '<th class="text-center" width="70">PQR</th>';
 	a += '<th class="text-center" width="100">TECNICO</th>';
-	a += '<th class="text-center" width="100">USUARIO</th>';
-	a += '<th class="text-center" width="100">OBSERVACION</th>';
-	a += '<th class="text-center" width="100">ESTADO</th>';
-	a += '<th class="text-center" width="100">DIRECCION</th>';
+	a += '<th class="text-left" width="100">USUARIO</th>';
+	a += '<th class="text-left" width="100">OBSERVACION</th>';
+	a += '<th class="text-left" width="100">ESTADO</th>';
+	a += '<th class="text-left" width="100">DIRECCION</th>';
 	a += '<th class="text-center" width="100">SECTOR</th>';
 	a += '</tr></thead><tbody></tbody></table>';
 	$('#divOrden').html(a);

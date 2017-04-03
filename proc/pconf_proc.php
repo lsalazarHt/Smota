@@ -5,9 +5,9 @@
 		$table='<thead>
                     <tr style="background-color: #3c8dbc; color:white;">
                      	<th class="text-center" width="200">CODIGO</th>
-                     	<th class="text-center" width="150">VALOR NUMERICO</th>
+                     	<th class="text-right" width="150">VALOR NUMERICO</th>
                      	<th class="text-center" width="150">VALOR CARACTER</th>
-                      	<th class="text-center">OBSERVACION</th>
+                      	<th class="text-left">OBSERVACION</th>
                       	<th class="text-center" width="50">VISIBLE</th>
                     </tr>
                 </thead><tbody>';
@@ -29,7 +29,7 @@
                                 <input type="hidden" id="txtTipo'.$i.'" value="1">
                             </td>
                             <td>
-                                <input type="text" id="txtValorNum'.$i.'" class="form-control input-sm" value="'.$row['PARAVANU'].'" onclick="swEditor(\'txtValorNum'.$i.'\',\'trSelect'.$i.'\')">
+                                <input type="text" id="txtValorNum'.$i.'" class="form-control text-right input-sm" value="'.$row['PARAVANU'].'" onclick="swEditor(\'txtValorNum'.$i.'\',\'trSelect'.$i.'\')">
                             </td>
                             <td>
                                 <input type="text" id="txtValorCar'.$i.'" class="form-control input-sm" value="'.$row['PARAVAST'].'" onclick="swEditor(\'txtValorCar'.$i.'\',\'trSelect'.$i.'\')">

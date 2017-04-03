@@ -77,8 +77,8 @@
 				                              	<th class="text-center" width="200"></th>
 				                              	<th class="text-center" width="80">ESTADO</th>
 				                             	<th class="text-center" width="130">MANEJA SERIAL</th>
-				                             	<th class="text-center" width="100">VIDA UTIL (DIAS)</th>
-				                             	<th class="text-center" width="100">CANT MAX DOTACIÓN</th>
+				                             	<th class="text-right" width="100">VIDA UTIL (DIAS)</th>
+				                             	<th class="text-right" width="100">CANT MAX DOTACIÓN</th>
 				                            </tr>
 				                        </thead>
 				                        <tbody>

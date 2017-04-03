@@ -17,11 +17,11 @@
 		$table='<thead>
                     <tr style="background-color: #3c8dbc; color:white;">
                         <th class="text-center" width="100">CODIGO</th>
-                        <th class="text-center">DESCRIPCION</th>
-                        <th class="text-center" width="150">CANTIDAD MAXIMA A LEGALIZAR</th>
-                        <th class="text-center" width="130">VALOR A PAGAR</th>
-                        <th class="text-center" width="190">VALOR A PAGAR POSTERIOR AL VENCIMINTO</th>
-                        <th class="text-center" width="160">VALOR A PAGAR POR GASERA</th>
+                        <th class="text-left">DESCRIPCION</th>
+                        <th class="text-right" width="150">CANTIDAD MAXIMA A LEGALIZAR</th>
+                        <th class="text-right" width="130">VALOR A PAGAR</th>
+                        <th class="text-right" width="190">VALOR A PAGAR POSTERIOR AL VENCIMINTO</th>
+                        <th class="text-right" width="160">VALOR A PAGAR POR GASERA</th>
                     </tr>
                 </thead><tbody>';
         $i=0;
@@ -48,17 +48,17 @@
                                 <input readonly type="text" id="txtNomb'.$i.'" class="form-control input-sm" value="'.$row['MOBRDESC'].'" onclick="swEditor(\'txtNomb'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
                             </td>
                             <td>
-                                <input type="text" id="txtCantMax'.$i.'" class="form-control text-center input-sm" onkeypress="solonumeros()" value="'.$row['MOPQCANT'].'" onclick="swEditor(\'txtCantMax'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
+                                <input type="text" id="txtCantMax'.$i.'" class="form-control text-right input-sm" onkeypress="solonumeros()" value="'.$row['MOPQCANT'].'" onclick="swEditor(\'txtCantMax'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
                             </td>
 
                             <td>
-                                <input type="text" id="txtValorPag'.$i.'" class="form-control text-center input-sm" onkeypress="solonumeros()" value="'.$row['MAPQVLOR'].'" onclick="swEditor(\'txtValorPag'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
+                                <input type="text" id="txtValorPag'.$i.'" class="form-control text-right input-sm" onkeypress="solonumeros()" value="'.$row['MAPQVLOR'].'" onclick="swEditor(\'txtValorPag'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
                             </td>
                             <td>
-                                <input type="text" id="txtValorVec'.$i.'" class="form-control text-center input-sm" onkeypress="solonumeros()" value="'.$row['MAPQVLDB'].'" onclick="swEditor(\'txtValorVec'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
+                                <input type="text" id="txtValorVec'.$i.'" class="form-control text-right input-sm" onkeypress="solonumeros()" value="'.$row['MAPQVLDB'].'" onclick="swEditor(\'txtValorVec'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
                             </td>
                             <td>
-                                <input type="text" id="txtValorGas'.$i.'" class="form-control text-center input-sm" onkeypress="solonumeros()" value="'.$row['MAPQVGAS'].'" onclick="swEditor(\'txtValorGas'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
+                                <input type="text" id="txtValorGas'.$i.'" class="form-control text-right input-sm" onkeypress="solonumeros()" value="'.$row['MAPQVGAS'].'" onclick="swEditor(\'txtValorGas'.$i.'\',\'trSelect'.$i.'\',2,'.$i.')">
                             </td>
                             
                         </tr>

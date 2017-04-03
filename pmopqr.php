@@ -137,11 +137,11 @@
 				                        <thead>
 				                            <tr style="background-color: #3c8dbc; color:white;">
 				                             	<th class="text-center" width="100">CODIGO</th>
-				                              	<th class="text-center">DESCRIPCION</th>
-				                              	<th class="text-center" width="150">CANTIDAD MAXIMA A LEGALIZAR</th>
-				                              	<th class="text-center" width="130">VALOR A PAGAR</th>
-				                              	<th class="text-center" width="190">VALOR A PAGAR POSTERIOR AL VENCIMINTO</th>
-				                              	<th class="text-center" width="160">VALOR A PAGAR POR GASERA</th>
+				                              	<th class="text-left">DESCRIPCION</th>
+				                              	<th class="text-right" width="150">CANTIDAD MAXIMA A LEGALIZAR</th>
+				                              	<th class="text-right" width="130">VALOR A PAGAR</th>
+				                              	<th class="text-right" width="190">VALOR A PAGAR POSTERIOR AL VENCIMINTO</th>
+				                              	<th class="text-right" width="160">VALOR A PAGAR POR GASERA</th>
 				                            </tr>
 				                        </thead>
 				                        <tbody>

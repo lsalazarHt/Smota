@@ -324,7 +324,7 @@
 					<tr>
 						<td class="text-center">'.$row['MOOTMOBR'].'</td>
 						<td class="text-left">'.$row['MOBRDESC'].'</td>
-						<td class="text-center">'.$row['MOOTCANT'].'</td>
+						<td class="text-right">'.$row['MOOTCANT'].'</td>
 						<td class="text-right">'.$row['MOOTVAPA'].'</td>
 						<td class="text-center">'.$row['MOOTTECN'].'</td>
 					</tr>
@@ -348,7 +348,7 @@
 					<tr>
 						<td class="text-center">'.$row['MAOTMATE'].'</td>
 						<td class="text-left">'.$row['MATEDESC'].'</td>
-						<td class="text-center">'.$row['MAOTCANT'].'</td>
+						<td class="text-right">'.$row['MAOTCANT'].'</td>
 						<td class="text-right">'.$row['MAOTVLOR'].'</td>
 						<td class="text-center">'.$row['MAOTTILE'].'</td>
 						<td class="text-center requerido">'.$row['MAOTPROP'].'</td>

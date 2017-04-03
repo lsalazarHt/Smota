@@ -250,10 +250,10 @@
 	    				<th class="text-center" width="70">FECHA</th>
 	    				<th class="text-center" width="70">PQR</th>
 	    				<th class="text-center" width="100">TECNICO</th>
-	    				<th class="text-center" width="100">USUARIO</th>
-	    				<th class="text-center" width="100">OBSERVACION</th>
-	    				<th class="text-center" width="100">ESTADO</th>
-	    				<th class="text-center" width="100">DIRECCION</th>
+	    				<th class="text-left" width="100">USUARIO</th>
+	    				<th class="text-left" width="100">OBSERVACION</th>
+	    				<th class="text-left" width="100">ESTADO</th>
+	    				<th class="text-left" width="100">DIRECCION</th>
 	    				<th class="text-center" width="100">SECTOR</th>
         			</tr>
         		';
@@ -329,10 +329,10 @@
                 				<td class="text-center">'.$row['OTFEORD'].'</td>
                 				<td class="text-center">'.$row['OTPQRREPO'].'</td>
                 				<td class="text-center">'.$row['OTTECN'].'</td>
-                				<td class="text-center">'.$row['USUNOMB'].'</td>
-                				<td>'.utf8_encode($row['OTOBSEAS']).'</td>
-                				<td class="text-center">'.$row['ESOTDESC'].'</td>
-                				<td>'.$row['USUDIRE'].'</td>
+                				<td class="text-left">'.$row['USUNOMB'].'</td>
+                				<td class="text-left">'.utf8_encode($row['OTOBSEAS']).'</td>
+                				<td class="text-left">'.$row['ESOTDESC'].'</td>
+                				<td class="text-left">'.$row['USUDIRE'].'</td>
                 				<td class="text-center">'.$row['USUSEOP'].'</td>
                 			</tr>';
             	$i++;

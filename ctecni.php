@@ -214,7 +214,7 @@
 												                             	<th class="text-center" colspan="2">USUARIO</th>
 												                             	<th class="text-center" colspan="2">PQR</th>
 												                             	<th class="text-center" width="70">ASIGNADO DESDE</th>
-												                             	<th class="text-center" width="70">PLAZO</th>
+												                             	<th class="text-right" width="70">PLAZO</th>
 												                            </tr>
 												                        </thead>
 												                        <tbody id="table_ordenesSinCumplir" style="font-size: 13px;">
@@ -247,7 +247,7 @@
 												                             	<th class="text-center" colspan="2">USUARIO</th>
 												                             	<th class="text-center" colspan="2">PQR</th>
 												                             	<th class="text-center" width="80">TIEMPO DE ATENCION</th>
-												                             	<th class="text-center" width="70">PLAZO</th>
+												                             	<th class="text-right" width="70">PLAZO</th>
 												                            </tr>
 												                        </thead>
 												                        <tbody id="table_ordenesCumplidasxCertificar" style="font-size: 13px;">
@@ -280,7 +280,7 @@
 												                             	<th class="text-center" colspan="2">USUARIO</th>
 												                             	<th class="text-center" colspan="2">PQR</th>
 												                             	<th class="text-center" width="80">TIEMPO DE ATENCION</th>
-												                             	<th class="text-center" width="70">PLAZO</th>
+												                             	<th class="text-right" width="70">PLAZO</th>
 												                            </tr>
 												                        </thead>
 												                        <tbody id="table_ordenesCumplidasCertificada" style="font-size: 13px;">
@@ -366,12 +366,12 @@
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-center" width="120">NUMERO</th>
 												                             	<th class="text-center" width="70">MATERIAL</th>
-												                             	<th class="text-center" width="70">CANTIDAD</th>
-												                             	<th class="text-center" width="70">VALOR</th>
+												                             	<th class="text-right" width="70">CANTIDAD</th>
+												                             	<th class="text-right" width="70">VALOR</th>
 												                             	<th class="text-center" width="120">FECHA ORDEN</th>
 												                             	<th class="text-center" width="70">TIPO LEGALIZCION</th>
 												                             	<th class="text-center" width="70">PROPIO</th>
-												                             	<th class="text-center">MATERIAL DESCRIPCION</th>
+												                             	<th class="text-left">MATERIAL DESCRIPCION</th>
 												                             	<th class="text-center" width="70">USUARIO</th>
 												                            </tr>
 												                        </thead>
@@ -402,8 +402,8 @@
 												                             	<th class="text-center" width="120">NUMERO</th>
 												                             	<th class="text-center" colspan="2">MANO DE OBRA</th>
 												                             	<th class="text-center" width="70">USUARIO</th>
-												                             	<th class="text-center" width="70">CANTIDAD</th>
-												                             	<th class="text-center" width="70">VALOR</th>
+												                             	<th class="text-right" width="70">CANTIDAD</th>
+												                             	<th class="text-right" width="70">VALOR</th>
 												                             	<th class="text-center" width="70">ACTA</th>
 												                             	<th class="text-center" width="120">FECHA ORDEN</th>
 												                             	<th class="text-center" width="70">TIPO LEGALIZCION</th>
@@ -535,7 +535,7 @@
 												                             	<th class="text-center" colspan="2">CLASE</th>
 												                             	<th class="text-center" width="70">FECHA REGISTRO</th>
 												                             	<th class="text-center" width="70">FECHA APLICACION</th>
-												                             	<th class="text-center" width="120">VALOR</th>
+												                             	<th class="text-right" width="120">VALOR</th>
 												                             	<th class="text-center" width="120">ACTA</th>
 												                             	<th class="text-center" width="50">ESTADO</th>
 												                             	<th class="text-center" width="50">SIGNO</th>
@@ -559,8 +559,8 @@
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-center" width="120">COD. MATERIAL</th>
-												                             	<th class="text-center" colspan="2">MATERIAL</th>
-												                             	<th class="text-center" width="70">CANTIDAD</th>
+												                             	<th class="text-left" colspan="2">MATERIAL</th>
+												                             	<th class="text-right" width="70">CANTIDAD</th>
 												                             	<th class="text-center" width="130">FECHA ULTIMA ENTREGA</th>
 												                             	<th class="text-center" width="130">FECHA MINIMA PARA REPOSICIÓN</th>
 												                             	<th class="text-center" width="130">FECHA DE REPOSICIÓN</th>
@@ -584,8 +584,8 @@
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
 												                             	<th class="text-center" width="120">COD. MATERIAL</th>
-												                             	<th class="text-center" colspan="2">MATERIAL</th>
-												                             	<th class="text-center" width="70">CANTIDAD</th>
+												                             	<th class="text-left" colspan="2">MATERIAL</th>
+												                             	<th class="text-right" width="70">CANTIDAD</th>
 												                             	<th class="text-center" width="130">FECHA ULTIMA ENTREGA</th>
 												                             	<th class="text-center" width="130">FECHA MINIMA PARA REPOSICIÓN</th>
 												                             	<th class="text-center" width="130">FECHA DE REPOSICIÓN</th>
@@ -626,7 +626,7 @@
 <!--  Detectar cambios en las Formas    -->
 <script src="assets/js/detectaCambiosEnFormas.js"></script>
 <!--  Seleccionar nuevo Item Talas    -->
-<script src="assets/js/selectedNewRow.js"></script>
+<!-- <script src="assets/js/selectedNewRow.js"></script> -->
 <!--  Notifications Plugin    -->
 <script src="assets/js/bootstrap-notify.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
