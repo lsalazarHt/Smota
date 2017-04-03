@@ -81,13 +81,15 @@
 	          <ul class="dropdown-menu" role="menu">
 	            <li class="mResto"><a href="qmate.php"><i class="fa fa-circle"></i>Consulta de Materiales por Bodega</a></li>
 	            <li class="mResto"><a href="calma.php"><i class="fa fa-circle"></i>Consulta de Movimiento Almacen</a></li>
-	            <li class="mResto"><a href="kardex.php"><i class="fa fa-circle-o"></i>Consulta de Movimiento Item por Bodega en un Periodo</a></li>
+	            <li class="mResto"><a href="kardex.php"><i class="fa fa-circle"></i>Consulta de Movimiento Item por Bodega en un Periodo</a></li>
 	            <li class="mResto"><a href="ralma.php"><i class="fa fa-circle"></i>Entradas y Salidas de Almacen</a></li>
-	            <li><a id="mReportAlm" style="cursor:pointer;"><i class="fa fa-circle-o"></i>Reportes de Almacen</a></li>
+	            <!--
+							<li><a id="mReportAlm" style="cursor:pointer;"><i class="fa fa-circle-o"></i>Reportes de Almacen</a></li>
 	            <li class="display-none liReportAlmac"><a href="limabo.php" style="margin-left:20px;"><i class="fa fa-circle-o"></i> Existencia de Materiales en Bodega</a></li>
 	            <li class="display-none liReportAlmac"><a href="#" style="margin-left:20px;"><i class="fa fa-circle-o"></i> Listado Consolidado de Movimientos de Almacen**</a></li>
 	            <li class="display-none liReportAlmac"><a href="#" style="margin-left:20px;"><i class="fa fa-circle-o"></i> Listado de Movimientos de Almacen**</a></li>
-	          </ul>
+							-->
+						</ul>
 	        </li>
 	        <!-- Utilidades -->
 	        <li class="dropdown mResto">

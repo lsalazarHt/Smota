@@ -1,4 +1,9 @@
 <?php require 'template/start.php'; ?>
+<style>
+	/*.table-striped>tbody>tr:nth-of-type(odd) {
+		background-color: #e0e0e0 !important;
+	}*/
+</style>
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
 		<?php require 'template/menu.php'; ?>
@@ -15,7 +20,7 @@
 			                <div class="modal-body">
 			                	<div class="row">
 				                	<div class="col-md-12" style="height: 298px; overflow-y: scroll;">
-				                		<table id="tableDepa" class="tableJs table table-bordered table-hover table-condensed">
+				                		<table id="tableDepa" class="table table-bordered table-condensed table-striped table-hover">
 					                        <thead>
 					                            <tr style="background-color: #3c8dbc; color:white;">
 					                             	<th class="text-center" width="100">CODIGO</th>
@@ -57,7 +62,7 @@
 			                <div class="modal-body">
 			                	<div class="row">
 				                	<div class="col-md-12" style="height: 298px; overflow-y: scroll;">
-				                		<table id="tableDepa" class="tableJs table table-bordered table-hover table-condensed">
+				                		<table id="tableDepa" class="table table-bordered table-condensed table-striped table-hover">
 					                        <thead>
 					                            <tr style="background-color: #3c8dbc; color:white;">
 					                             	<th class="text-center" width="100">CODIGO</th>
@@ -96,7 +101,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-1 control-label text-right" style="margin-top:5px;">Bodega</label>
 					                     	<div class="col-sm-1">
-				                        		<input type="text" class="form-control input-sm" id="txtEnCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm" id="txtEnCod" placeholder="Codigo" onkeypress="solonumeros()" autofocus>
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input type="text" class="form-control input-sm" id="txtEnNomb" placeholder="Nombre de la Bodega" readonly>
@@ -138,7 +143,7 @@
 				                		<div class="col-md-12">
 				                			<input type="hidden" id="swCheckTodos" value="0">
 				                			<div id="tableOrdenes" style="height: 360px; overflow-y: scroll;" class="container-table-list">
-						                		<table class="table table-bordered table-condensed table-striped">
+						                		<table class="table table-bordered table-condensed table-striped table-hover">
 						                			<thead>
 							                			<tr style="background-color: #3c8dbc; color:white;">
 									        				<th class="text-center" width="70">DOCUMENTO</th>

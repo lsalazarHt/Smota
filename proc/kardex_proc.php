@@ -16,6 +16,35 @@
         }
         return $dato;
     }
+    function obtenerEnt_Sal_Mes_anterior($bodCod,$matCod,$fecha,$es,$tipo){
+	    $conn = require '../template/sql/conexion.php';
+        
+        $nuevafecha = strtotime ( '-1 month' , strtotime ( $fecha ) ) ;
+		$nuevafecha = date ( 'Y-m' , $nuevafecha );
+        
+        $canEnt = 0;
+        $valEnt = 0;
+        $query ="SELECT sum(matemoin.MAMICANT) AS sumCant, sum(matemoin.MAMIVLOR) AS sumVal
+                FROM moviinve
+                    JOIN matemoin ON moviinve.MOINCODI = matemoin.MAMIMOIN
+                    JOIN tipomovi ON tipomovi.TIMOCODI = moviinve.MOINTIMO
+                    JOIN bodega ON bodega.bodecodi = moviinve.MOINBOOR
+                WHERE (moviinve.MOINBOOR = $bodCod OR moviinve.MOINBODE = $bodCod) -- comparamos bodega 
+                    AND matemoin.MAMIMATE = $matCod -- comparamos material
+                    AND (DATE_FORMAT(moviinve.MOINFECH, '%Y-%m-%d') >=  '$nuevafecha-01' AND 
+                            DATE_FORMAT(moviinve.MOINFECH, '%Y-%m-%d') <= '$nuevafecha-31') -- comparamos fecha
+                    AND tipomovi.TIMOSAEN = '$es' -- seleccionamos Entrada/Salida
+                    AND matemoin.MAMIPROP = '$tipo' -- material propio prestado";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $canEnt =$row['sumCant'];
+                $valEnt =$row['sumVal'];
+            }
+        }
+        return $canEnt.'-'.$valEnt;
+    }
 
 	if($_REQUEST["accion"]=="buscar_bodega_principal"){
         $cod = $_REQUEST["bod"];
@@ -77,11 +106,11 @@
         $bodCod = $_REQUEST["bodCod"];
         $matCod = $_REQUEST["matCod"];
         $anio   = $_REQUEST["anio"];
-        $mes    = $_REQUEST["mes"];
+        $mes    = (int)$_REQUEST["mes"];
         $tipo   = $_REQUEST["tipo"];
 
         $mes = ($mes<10) ? '0'.$mes : $mes;
-        $fecha  = $anio.'-'.$mes;
+        $fecha  = $anio.'-'.$mes.'-01';
         $nuevafecha = strtotime ( '-1 month' , strtotime ( $fecha ) ) ;
 		$nuevafecha = date ( 'Y-m' , $nuevafecha );
 
@@ -92,6 +121,9 @@
         $can = 0;
         $val = 0;
 
+        $canSalLeg = 0;
+        $valSalLeg = 0;
+
         //Entrada Almacen
             $query ="SELECT sum(matemoin.MAMICANT) AS sumCant, sum(matemoin.MAMIVLOR) AS sumVal
                     FROM moviinve
@@ -100,7 +132,8 @@
                         JOIN bodega ON bodega.bodecodi = moviinve.MOINBOOR
                     WHERE (moviinve.MOINBOOR = $bodCod OR moviinve.MOINBODE = $bodCod) -- comparamos bodega 
                         AND matemoin.MAMIMATE = $matCod -- comparamos material
-                        AND DATE_FORMAT(moviinve.MOINFECH, '%Y-%m') = '$nuevafecha' -- comparamos fecha
+                        AND (DATE_FORMAT(moviinve.MOINFECH, '%Y-%m-%d') >=  '$nuevafecha-01' AND 
+                             DATE_FORMAT(moviinve.MOINFECH, '%Y-%m-%d') <= '$nuevafecha-31') -- comparamos fecha
                         AND tipomovi.TIMOSAEN = 'E' -- seleccionamos Entrada/Salida
                         AND matemoin.MAMIPROP = '$tipo' -- material propio prestado";
             $respuesta = $conn->prepare($query) or die ($sql);
@@ -120,7 +153,8 @@
                         JOIN bodega ON bodega.bodecodi = moviinve.MOINBOOR
                     WHERE (moviinve.MOINBOOR = $bodCod OR moviinve.MOINBODE = $bodCod) -- comparamos bodega 
                         AND matemoin.MAMIMATE = $matCod -- comparamos material
-                        AND DATE_FORMAT(moviinve.MOINFECH, '%Y-%m') = '$nuevafecha' -- comparamos fecha
+                        AND (DATE_FORMAT(moviinve.MOINFECH, '%Y-%m-%d') >=  '$nuevafecha-01' AND 
+                             DATE_FORMAT(moviinve.MOINFECH, '%Y-%m-%d') <= '$nuevafecha-31') -- comparamos fecha
                         AND tipomovi.TIMOSAEN = 'S' -- seleccionamos Entrada/Salida
                         AND matemoin.MAMIPROP = '$tipo' -- material propio prestado";
             $respuesta = $conn->prepare($query) or die ($sql);
@@ -141,7 +175,7 @@
                          FROM maleottr 
                          WHERE maottecn = $bodCod -- comparamos bodega
                          AND maotmate = $matCod -- comparamos material
-                         AND DATE_FORMAT(MAOTFECH, '%Y-%m') = '$nuevafecha' -- comparamos fecha
+                         AND (MAOTFECH >= '$nuevafecha-01' AND MAOTFECH <= '$nuevafecha-31') -- comparamos fecha
                          AND MAOTPROP = '$tipo'  -- material propio prestado";
                 $respuesta = $conn->prepare($query) or die ($sql);
                 if(!$respuesta->execute()) return false;
@@ -152,14 +186,25 @@
                     }
                 }
             //
-            $can = ($canSal + $canSalLeg) - $canEnt;
-            $val = ($valSal + $valSalLeg) - $valEnt;
+            //$can = ($canSal + $canSalLeg) - $canEnt;
+            //$val = ($valSal + $valSalLeg) - $valEnt;
+
+            //calculo almacen
+            $can = $canSal - $canEnt;
+            $val = $valSal - $valEnt;
+            //añadiendo calculo de legalizacion
+            $can = $can - $canSalLeg;
+            $val = $val - $valSalLeg;
         }else{
             $can = $canEnt - $canSal;
             $val = $valEnt - $valSal;
         }
 
-        $arr = array($can,$val);
+        $arr = array(
+                $can,$val,
+                "Cant Ent: $canEnt","Val Ent: $valEnt",
+                "Cant Sal: $canSal","Val Sal: $valSal",
+                "Cant Leg: $canSalLeg","Val Leg: $valSalLeg");
         echo json_encode($arr);
     }
 
@@ -168,15 +213,16 @@
         $bodCod = $_REQUEST["bodCod"];
         $matCod = $_REQUEST["matCod"];
         $anio   = $_REQUEST["anio"];
-        $mes    = $_REQUEST["mes"];
+        $mes    = (int)$_REQUEST["mes"];
         $tipo   = $_REQUEST["tipo"];
-        $mes = ($mes<10) ? '0'.$mes : $mes;
+        $mes    = ($mes<10) ? '0'.$mes : $mes;
         $fecha  = $anio.'-'.$mes;
         
         $canEnt = 0; 
         $valEnt = 0;
         $canSal = 0; 
         $valSal = 0;
+
         //Entrada
             $query ="SELECT sum(matemoin.MAMICANT) AS sumCant, sum(matemoin.MAMIVLOR) AS sumVal
                     FROM moviinve
@@ -224,7 +270,7 @@
                         FROM maleottr 
                         WHERE maottecn = $bodCod -- comparamos bodega
                         AND maotmate = $matCod -- comparamos material
-                        AND DATE_FORMAT(MAOTFECH, 'Y-%m%') >= '$fecha' -- comparamos fecha
+                        AND MAOTFECH >= '$fecha' -- comparamos fecha
                         AND MAOTPROP = '$tipo' -- material propio prestado";
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
@@ -249,6 +295,7 @@
             $arr = array($canEnt,$canSal,$valEnt,$valSal);
         }
         echo json_encode($arr);
+        
     }
 
     //calcular valor del bodega - material
@@ -306,24 +353,35 @@
 
         $i = 0;
         $clasBod = obtenerClassBodega($bodCod);
-        //Almacen
+
+        //
             $query ="SELECT moviinve.MOINCODI AS docum, DATE_FORMAT(moviinve.MOINFECH, '%d/%m/%Y') AS fecha, 'A' AS tipo, CONCAT(tipomovi.TIMODESC,' - ',bodega.BODENOMB) AS descrip,
-                        tipomovi.TIMOSAEN AS es, matemoin.MAMICANT AS cant, matemoin.MAMIVLOR AS val
-                    FROM moviinve
+                        tipomovi.TIMOSAEN AS es, matemoin.MAMICANT AS cant, matemoin.MAMIVLOR AS val, DATE_FORMAT(moviinve.MOINFECH, '%Y/%m/%d') AS fechaOrd
+                     FROM moviinve
                         JOIN matemoin ON moviinve.MOINCODI = matemoin.MAMIMOIN
                         JOIN tipomovi ON tipomovi.TIMOCODI = moviinve.MOINTIMO
                         JOIN bodega ON bodega.bodecodi = moviinve.MOINBOOR
-                    WHERE (moviinve.MOINBOOR = $bodCod OR moviinve.MOINBODE = $bodCod) -- comparamos bodega 
+                     WHERE (moviinve.MOINBOOR = $bodCod OR moviinve.MOINBODE = $bodCod) -- comparamos bodega 
                         AND matemoin.MAMIMATE = $matCod -- comparamos material
-                        AND DATE_FORMAT(moviinve.MOINFECH, 'Y-%m%') >= '$fecha' -- comparamos fecha
-                        AND matemoin.MAMIPROP = '$tipo' -- material propio prestado";
+                        AND DATE_FORMAT(moviinve.MOINFECH, '%Y-%m%') >= '$fecha' -- comparamos fecha
+                        AND matemoin.MAMIPROP = '$tipo'
+                     UNION
+                     SELECT MAOTNUMO AS docum, DATE_FORMAT(MAOTFECH,'%d/%m/%Y') AS fecha,'L' AS tipo,'LEGALIZACION' AS descrip,'S' AS es, MAOTCANT AS cant, MAOTVLOR AS val,
+                     DATE_FORMAT(MAOTFECH,'%Y/%m/%d') AS fechaOrd
+                     FROM maleottr 
+                     WHERE maottecn = $bodCod -- comparamos bodega
+                        AND maotmate = $matCod -- comparamos material
+                        AND DATE_FORMAT(MAOTFECH, '%Y-%m%')  >= '$fecha' -- comparamos fecha
+                        AND MAOTPROP = '$tipo'
+                     ORDER BY fechaOrd";
             $respuesta = $conn->prepare($query) or die ($sql);
             if(!$respuesta->execute()) return false;
             if($respuesta->rowCount()>0){
                 while ($row=$respuesta->fetch()){
                     $ent_sal = $row['es'];
+                    $tipo_sql = $row['tipo'];
 
-                    if($clasBod==1){
+                    if(($clasBod==1) && ($tipo_sql=='A')) {
                         $ent_sal = ($row['es']=='S') ? 'E':'S'; 
                     }
 
@@ -361,58 +419,7 @@
                 }   
             }
         //
-
-        //clase tipo tecnico // legalizacion
-        if($clasBod==1){
-            //Legalizacion
-                $query ="SELECT MAOTNUMO AS docum, DATE_FORMAT(MAOTFECH,'%d/%m/%Y') AS fecha,'L' AS tipo,'LEGALIZACION' AS descrip,'S' AS es, MAOTCANT AS cant, MAOTVLOR AS val
-                         FROM maleottr 
-                         WHERE maottecn = $bodCod -- comparamos bodega
-                            AND maotmate = $matCod -- comparamos material
-                            AND DATE_FORMAT(MAOTFECH, 'Y-%m%')  >= '$fecha' -- comparamos fecha
-                            AND MAOTPROP = '$tipo' -- material propio prestado";
-                $respuesta = $conn->prepare($query) or die ($sql);
-                if(!$respuesta->execute()) return false;
-                if($respuesta->rowCount()>0){
-                    while ($row=$respuesta->fetch()){
-                        $ent_sal = $row['es'];
-                        
-                       if($ent_sal=='S'){
-                        $salCant = (int)$canTotal - (int)$row['cant'];
-                        $salValo = (int)$valTotal - (int)$row['val'];
-
-                        $canTotal = $salCant;
-                        $valTotal = $salValo;
-                    }else{
-                        $salCant = (int)$canTotal + (int)$row['cant'];
-                        $salValo = (int)$valTotal + (int)$row['val'];
-
-                        $canTotal = $salCant;
-                        $valTotal = $salValo;
-                    }
-
-                    $tbCant = $canTotal;
-                    $tbVal  = $valTotal;
-
-                        $table .= '
-                            <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\')" ondblclick="enviarMovimiento('.$row['docum'].',\'L\')">
-                                <td class="text-left">'.$row['docum'].'</td>
-                                <td class="text-center">'.$row['fecha'].'</td>
-                                <td class="text-center">'.$row['tipo'].'</td>
-                                <td>'.$row['descrip'].'</td>
-                                <td class="text-center">'.$row['es'].'</td>
-                                <td class="text-right">'.number_format($row['cant'],0,"",".").'</td>
-                                <td class="text-right">'.number_format($row['val'],0,"",".").'</td>
-
-                                <td class="text-right">'.number_format($tbCant,0,"",".").'</td>
-                                <td class="text-right">'.number_format($tbVal,0,"",".").'</td>
-                            </tr>';
-                        $i++;
-                    }   
-                }
-            //
-        }
-
+        
         echo $table;
     }
 ?>

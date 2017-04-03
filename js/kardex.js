@@ -10,9 +10,9 @@ $(document).ready(function(){
 	$('#txtEnCod').click(function(){
 		modal = 1;
 		$('#txtEnNomb').val('');
-		$('#txtMatCod').val('');
-		$('#txtMatNomb').val('');
 		$('#tableMovimientosMaterial').html('');
+		limpiarCampos();
+
 	});
 	$("#txtEnCod").keypress(function(event){
 		if(event.which == 13){
@@ -25,6 +25,7 @@ $(document).ready(function(){
 		modal = 2;
 		$('#txtMatNomb').val('');
 		$('#tableMovimientosMaterial').html('');
+		limpiarCampos();
 	});
 	$("#txtMatCod").keypress(function(event){
 		if(event.which == 13){
@@ -33,12 +34,20 @@ $(document).ready(function(){
 		}
 	});
 
+	$('#txtAnio').click(function(){
+		$('#tableMovimientosMaterial').html('');
+		limpiarCampos();
+	});
 	$("#txtAnio").keypress(function(event){
 		if(event.which == 13){
 			$('#txtMes').focus();
 		}
 	});
 
+	$('#txtMes').click(function(){
+		$('#tableMovimientosMaterial').html('');
+		limpiarCampos();
+	});
 	$("#txtMes").keypress(function(event){
 		if(event.which == 13){
 			$('#selcTipo').focus();
@@ -47,15 +56,11 @@ $(document).ready(function(){
 
 	$("#selcTipo").keypress(function(event){
 		if(event.which == 13){
-			$('#btnConsultar_kardex').focus();
+			//consultar();
 		}
 	});
-
-	$('#txtAnio').click(function(){
-		$('#tableMovimientosMaterial').html('');
-	});
-	$('#txtMes').click(function(){
-		$('#tableMovimientosMaterial').html('');
+	$("#selcTipo").change(function(){
+		consultar();
 	});
 
 });
@@ -135,6 +140,26 @@ function limpiar(){
 	$('#txtAnio').val('');
 	$('#txtMes').val('');
 	$('#tableMovimientosMaterial').html('');
+	limpiarCampos();
+	$('#txtEnCod').focus();
+}
+function limpiarCampos(){
+	//limpiar campos resultados
+	$('#txtCantInic').val('');
+	$('#txtValoInic').val('');
+
+	$('#txtEntrCant').val('');
+	$('#txtSalidCant').val('');
+	$('#txtEntrVal').val('');
+	$('#txtSalidVal').val('');
+
+	$('#txtCantFinCalc').val('');
+	$('#txtValFinCalc').val('');
+	$('#txtCantFinSist').val('');
+	$('#txtValoFinSist').val('');
+
+	$('#txtDifCantidad').val('');
+	$('#txtDifValor').val('');
 }
 function consultar(){
 	bodCod = $.trim($('#txtEnCod').val());
@@ -147,7 +172,9 @@ function consultar(){
 
 	if( (bodCod!='') && (bodNom!='') && (matCod!='') && (matNom!='') && 
 			(anio!='') && (mes!='') ){
+		
 		$('#tableMovimientosMaterial').html('');
+		
 		//obtener cantidad inicial
 			$.ajax({
 				type:'POST',
@@ -155,6 +182,7 @@ function consultar(){
 				data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo  },
 				dataType: 'json',
 				success: function(data){
+					//console.log(data)
 					$('#txtCantInic').val(number_format(data[0],0));
 					$('#txtValoInic').val(number_format(data[1],0));
 					canIni = data[0];
@@ -162,14 +190,26 @@ function consultar(){
 
 					cantFinal  = 0;
 					valorFinal = 0;
-					//obtener detalle
+
+					//obtener movimientos
+						$.ajax({
+							type:'POST',
+							url:'proc/kardex_proc.php?accion=obtener_movimientos',
+							data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo, canIni:canIni, valIni:valIni  },
+							success: function(data){
+								$('#tableMovimientosMaterial').html(data);
+							}
+						});
+					//
+
+					//calcular cantidades y valores
 						$.ajax({
 							type:'POST',
 							url:'proc/kardex_proc.php?accion=obtener_movimientos_detalle',
 							data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo  },
 							dataType: 'json',
 							success: function(data){
-								console.log(data)
+								//console.log(data)
 								entraCant = data[0];
 								salidCant = data[1];
 
@@ -188,55 +228,42 @@ function consultar(){
 								//valor final calculado
 									valorFinal = (parseInt(valIni) + parseInt(entraValor)) - parseInt(salidValor);
 									$('#txtValFinCalc').val(number_format(valorFinal,0));
-							}
-						});
-					//
 
-					//obtener valor del sistema
-						$.ajax({
-							type:'POST',
-							url:'proc/kardex_proc.php?accion=obtener_valor_sistema',
-							data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo },
-							dataType: 'json',
-							success: function(data){
-								cantsistema = parseInt(data[0]);
-								valoSistema = parseInt(data[1]);
+								//obtener valor del sistema y calcular la diferencia
+									$.ajax({
+										type:'POST',
+										url:'proc/kardex_proc.php?accion=obtener_valor_sistema',
+										data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo },
+										dataType: 'json',
+										success: function(data){
+											cantsistema = parseInt(data[0]);
+											valoSistema = parseInt(data[1]);
 
-								$('#txtCantFinSist').val(number_format(cantsistema,0));
-								$('#txtValoFinSist').val(number_format(valoSistema,0));
+											$('#txtCantFinSist').val(number_format(cantsistema,0));
+											$('#txtValoFinSist').val(number_format(valoSistema,0));
 
-								//calcular diferencia
-								//console.log("cantidad final: "+cantFinal)
-								//console.log("valor final: "+valorFinal)
-								difCant = cantFinal  - cantsistema;
-								difValo = valorFinal - valoSistema;
-								if( (difCant!=0) || (difValo!=0) ){
-									$('#txtDifCantidad').removeClass('border-green');
-									$('#txtDifValor').removeClass('border-green');
+											//calcular diferencia
+											difCant = cantFinal  - cantsistema;
+											difValo = valorFinal - valoSistema;
+											if( (difCant!=0) || (difValo!=0) ){
+												$('#txtDifCantidad').removeClass('border-green');
+												$('#txtDifValor').removeClass('border-green');
 
-									$('#txtDifCantidad').addClass('border-red');
-									$('#txtDifValor').addClass('border-red');
-								}else{
-									$('#txtDifCantidad').removeClass('border-red');
-									$('#txtDifValor').removeClass('border-red');
+												$('#txtDifCantidad').addClass('border-red');
+												$('#txtDifValor').addClass('border-red');
+											}else{
+												$('#txtDifCantidad').removeClass('border-red');
+												$('#txtDifValor').removeClass('border-red');
 
-									$('#txtDifCantidad').addClass('border-green');
-									$('#txtDifValor').addClass('border-green');
-								}
-								$('#txtDifCantidad').val(number_format(difCant,0));
-								$('#txtDifValor').val(number_format(difValo,0));
+												$('#txtDifCantidad').addClass('border-green');
+												$('#txtDifValor').addClass('border-green');
+											}
+											$('#txtDifCantidad').val(number_format(difCant,0));
+											$('#txtDifValor').val(number_format(difValo,0));
 
-							}
-						});
-					//
-
-					//obtener movimientos
-						$.ajax({
-							type:'POST',
-							url:'proc/kardex_proc.php?accion=obtener_movimientos',
-							data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo, canIni:canIni, valIni:valIni  },
-							success: function(data){
-								$('#tableMovimientosMaterial').html(data);
+										}
+									});
+								//
 							}
 						});
 					//
