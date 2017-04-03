@@ -474,9 +474,11 @@
         }
         $table='';
         $i=0;
-        $query ="SELECT maleottr.* ,  ot.OTUSUARIO  
+        $query ="SELECT maleottr.MAOTDEPA,maleottr.MAOTLOCA,maleottr.MAOTNUMO,material.MATEDESC,maleottr.MAOTCANT,maleottr.MAOTVLOR,maleottr.MAOTFECH,
+                    maleottr.MAOTTILE,maleottr.MAOTPROP,ot.OTUSUARIO,maleottr.MAOTMATE
                  FROM maleottr
-                    INNER JOIN ot ON ot.OTNUME = maleottr.MAOTNUMO
+                    JOIN ot ON ot.OTNUME = maleottr.MAOTNUMO
+                    JOIN material on material.MATECODI = maleottr.MAOTMATE
                  WHERE MAOTTECN = $cod
                  ORDER BY $order";
             $respuesta = $conn->prepare($query) or die ($sql);
@@ -484,15 +486,6 @@
             if($respuesta->rowCount()>0){
                 while ($row=$respuesta->fetch()){
                     //MATERIAL
-                    $materialNom = '';
-                    $queryMater ='SELECT MATEDESC FROM material WHERE MATECODI='.$row['MAOTMATE'];
-                    $respuestaMater = $conn->prepare($queryMater) or die ($sql);
-                    if(!$respuestaMater->execute()) return false;
-                    if($respuestaMater->rowCount()>0){
-                        while ($rowMater=$respuestaMater->fetch()){
-                            $materialNom = $rowMater['MATEDESC'];
-                        }   
-                    }
                     $i++;
                     $table .= '
                         <tr id="trSelect_6'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_6'.$i.'\','.$row['MAOTNUMO'].')" ondblclick="enviarOrden('.$row['MAOTNUMO'].','.$_REQUEST["cod"].')">
@@ -503,7 +496,7 @@
                             <td>'.$row['MAOTFECH'].'</td>
                             <td>'.$row['MAOTTILE'].'</td>
                             <td>'.$row['MAOTPROP'].'</td>
-                            <td class="text-left">'.$materialNom.'</td>
+                            <td class="text-left">'.$row['MATEDESC'].'</td>
                             <td>'.$row['OTUSUARIO'].'</td>
                         </tr>';                            
                 } 

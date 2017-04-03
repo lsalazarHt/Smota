@@ -422,7 +422,12 @@ function limpiar(){
 	$('#txtTotalInvPrestado').val(0);
     $('#txtNomBodega').val('');
 	$('#divLista').html('');
-	$('#table_materiales').html('');
+	a  = '<thead><tr style="background-color: #3c8dbc; color:white;"><th class="text-center" width="100">CODIGO</th>';
+	a += '<th class="text-center">NOMBRE MATERIAL</th><th class="text-center" width="100">CANTIDAD INV PROPIA</th>';
+	a += '<th class="text-center" width="170">VALOR INV PROPIO</th><th class="text-center" width="100">CANTIDAD INV PRESTADA</th>';
+	a += '<th class="text-center" width="170">VALOR INV PRESTADO</th><th class="text-center" width="80">CUPO</th>';
+	a += '<th class="text-center" width="80">CUPO EXTRA</th></tr></thead><tbody id="table_detalle_inventario"></tbody>';
+	$('#table_materiales').html(a);
 }
 function swEditor(id,trId,mod,i){
 	console.log(id);

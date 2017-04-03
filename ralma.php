@@ -82,6 +82,7 @@
 				
 				<input type="hidden" id="req_doc_soport">
 				<input type="hidden" id="req_doc_prove_gas">
+
 	            <div class="modal fade" id="modalTipoMovimiento">
 	             	<div class="modal-dialog" style="width:60%">
 	                	<div class="modal-content">
@@ -215,15 +216,15 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Soporte</label>
 					                     	<div class="col-sm-2">
-				                        		<input type="text" class="form-control input-sm" id="txtSopCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                        		<input type="text" class="form-control input-sm" id="txtSopCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
 				                      		</div>
 					                    </div>
 				                	</div>
 				                	<div class="row marginTop3">
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Documente Soporte</label>
-					                     	<div class="col-sm-3">
-				                        		<input type="text" class="form-control input-sm " id="txtDocSopCod" placeholder="Codigo">
+					                     	<div class="col-sm-2">
+				                        		<input type="text" class="form-control input-sm text-right" id="txtDocSopCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 					                    </div>
 				                	</div>

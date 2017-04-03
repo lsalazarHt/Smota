@@ -152,16 +152,19 @@
     if($_REQUEST["accion"]=="buscar_tipo_movimiento"){
         $cod = $_REQUEST["cod"];
         $tipMov = $_REQUEST["tipo"];
-        $dato = '';
-        $query ="SELECT timodesc FROM tipomovi WHERE TIMOSAEN = '$tipMov' AND timocodi = $cod";
+        $dato0 = '';
+        $dato1 = '';
+        $query ="SELECT timodesc,timomvso FROM tipomovi WHERE TIMOSAEN = '$tipMov' AND timocodi = $cod";
         $respuesta = $conn->prepare($query) or die ($sql);
         if(!$respuesta->execute()) return false;
         if($respuesta->rowCount()>0){
             while ($row=$respuesta->fetch()){
-                $dato = utf8_encode($row['timodesc']);
+                $dato0 = utf8_encode($row['timodesc']);
+                $dato1 = $row['timomvso'];
             }   
         }
-        echo $dato;
+        $arr = array($dato0,$dato1);
+        echo json_encode($arr);
     }
     if($_REQUEST["accion"]=="buscar_material"){ 
         $table = '';
@@ -263,8 +266,8 @@
 	if($_REQUEST["accion"]=="actualizar_tipo_movimiento"){
 		$table = '';
 		$tipMov = $_REQUEST["tipo"];
-        $query ="SELECT timocodi,timodesc,timosaen,timoprop,clbodesc 
-                 FROM tipomovi,clasbode 
+        $query ="SELECT timocodi,timodesc,timosaen,timoprop,clbodesc,TIMOMVSO
+                 FROM tipomovi, clasbode 
                  WHERE TIMOSAEN = '$tipMov' AND timvclbo is not null and timvclbo<>-1 and clbocodi=timvclbo 
                  ORDER BY timocodi";
         $respuesta = $conn->prepare($query) or die ($sql);
@@ -272,7 +275,7 @@
         if($respuesta->rowCount()>0){
             while ($row=$respuesta->fetch()){
             	$table .= '
-            		<tr onclick="addTipoMovimiento('.$row['timocodi'].',\''.$row['timodesc'].'\')">
+            		<tr onclick="addTipoMovimiento('.$row['timocodi'].',\''.$row['timodesc'].'\','.$row['TIMOMVSO'].')">
             			<td class="text-center">'.$row['timocodi'].'</td>
             			<td>'.$row['timodesc'].'</td>
             			<td>'.$row['timoprop'].'</td>
@@ -464,7 +467,8 @@
         if(!$respuesta->execute()){
             echo 'Error!';
         }else{
-            //MOVIMIENTO DE INVENTARIO
+            //---MOVIMIENTO DE INVENTARIO---//
+            
             //OBTENEMOS LA CANTIDAD Y VALOR  DE MATERIAL EN BODEGA ORIGEN
                 $canMatOrigen = 0; //cantidad de material en Origen
                 $valMatOrigen = 0; //valor de material en Origen
@@ -539,6 +543,208 @@
         }
     }
 
+    //MOVIMIENTO SON SOPORTE
+    if($_REQUEST["accion"]=="validar_documento_soporte"){ 
+        $sw = 0;
+        $soport = $_REQUEST["sop"];
+        $docSop = $_REQUEST["doc"];
+        $bodDes = $_REQUEST["bodDes"];
+        $query ="SELECT moviinve.MOINTIMO
+                 FROM moviinve
+                 WHERE moviinve.MOINCODI = $docSop AND moviinve.MOINTIMO = $soport 
+                    AND moviinve.MOINBODE = $bodDes";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            $sw = 0; //verdadero
+        }else{
+            $sw = 1; //falso
+        }
+        echo $sw;
+    }
+    if($_REQUEST["accion"]=="buscar_material_soporte"){ 
+        $sw = 1;
+        $dato0 = '';
+        $dato1 = '';
+        $doc = $_REQUEST["doc"];
+        $mat = $_REQUEST["mat"];
+        
+        $query ="SELECT matemoin.MAMIMATE, material.MATEDESC
+                 FROM matemoin 
+                    JOIN material ON material.MATECODI = matemoin.MAMIMATE
+                 WHERE MAMIMOIN = $doc AND matemoin.MAMIMATE = $mat";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $sw = 0;
+                $dato0 = $row['MAMIMATE'];
+                $dato1 = str_replace("\"","",$row['MATEDESC']);
+            }   
+        }
+        $arr = array($sw,$dato0,$dato1);
+        echo json_encode($arr);
+    }
+    if($_REQUEST["accion"]=="calcular_material_soporte"){
+        $codMat  = $_REQUEST["codMat"]; //codigo de material
+        $canMat = (int)$_REQUEST["cantMat"]; //cantidad de material
+        $docSop  = $_REQUEST["doc"]; //bodega origen
+
+        $canMatSop = 0;
+        $valMatSop = 0;
+
+        $valTotMat = 0;
+        //Disponibilidad de origen
+            $query ="SELECT matemoin.MAMIVLOR, matemoin.MAMICANT
+                     FROM matemoin 
+                        join material on material.MATECODI = matemoin.MAMIMATE
+                     where MAMIMOIN = $docSop AND matemoin.MAMIMATE = $codMat";
+            $respuesta = $conn->prepare($query) or die ($sql);
+            if(!$respuesta->execute()) return false;
+            if($respuesta->rowCount()>0){
+                while ($row=$respuesta->fetch()){
+                    $canMatSop = (int)$row['MAMICANT'];
+                    $valMatSop = (int)$row['MAMIVLOR'];
+                }
+            }
+        //
+
+        //materia exista
+        if($canMatSop != 0){
+            //cantidad solicitada sea menos a la ingresada
+            if($canMat <= $canMatSop){ //exito
+                $swResult  = 2;
+                $valPromedio = ($valMatSop/$canMatSop);
+                $valTotMat = $valPromedio * $canMat;
+            }else{
+                $swResult = 1; //cantidad de material invalida
+            }
+        }else{
+            $swResult = 0; //material no es valido
+        }
+        
+        $arr = array($swResult,$valTotMat);
+        echo json_encode($arr);
+    }
+
+    /*if($_REQUEST["accion"]=="guardar_materiales_movimiento_inventario_soporte"){
+        $codMov = $_REQUEST["codMov"]; //id movimiento
+        $cod    = $_REQUEST["cod"]; // codigo matrial
+        $can    = (int)$_REQUEST["can"]; //cantidad agregar
+        $val    = $_REQUEST["val"]; //valor agregar
+        $tipo   = $_REQUEST["tipo"]; //E/S
+        $bodO   = $_REQUEST["bodO"]; //bodega origen
+        $bodD   = $_REQUEST["bodD"]; //bodega destino
+        $codTip = $_REQUEST["codTip"]; //codigo tipo movimiento
+
+        //Verificamos el tipo de movimiento
+            $tipo_movi = obtener_tipo_movimiento($codTip);
+            //es propio
+            if($tipo_movi=='S'){ //propio
+                $canti = 'INVECAPRO';
+                $valor = 'INVEVLRPRO';
+            }else{//prestado
+                $canti = 'INVECAPRE';
+                $valor = 'INVEVLRPRE';
+            }
+        //
+        
+        //tipo de obtener_tipo_movimiento | entrada / salida
+            $tipo_movi_e_s = obtener_tipo_movimiento_ent_sal($codTip);
+            if($tipo_movi_e_s=='E'){ //entrada
+                $codeVal_Disponible = $bodD;
+                $codeVal_Destino = $bodO;
+            }else{//salida
+                $codeVal_Disponible = $bodO;
+                $codeVal_Destino = $bodD;
+            }
+        //
+        
+        //ADD MOVIMIENTOS A TABLA MOVIMIENTOS DE MATERIALES
+        $afecta_inv_prop = afecta_inventario_propio($codTip);
+        $afecta_cupo = afecta_cupo_bodega($codTip);
+        $query ="INSERT INTO matemoin (MAMIMOIN, MAMIMATE, MAMICANT, MAMIVLOR, MAMIPROP, MAMIAFCU)  
+                 VALUES ($codMov,$cod,$can,$val,'$afecta_inv_prop','$afecta_cupo')";
+        $respuesta = $conn->prepare($query) or die ($query);
+        if(!$respuesta->execute()){
+            echo 'Error!';
+        }else{
+            //---MOVIMIENTO DE INVENTARIO---//
+            //OBTENEMOS LA CANTIDAD Y VALOR  DE MATERIAL EN BODEGA ORIGEN
+                $canMatOrigen = 0; //cantidad de material en Origen
+                $valMatOrigen = 0; //valor de material en Origen
+                $query ="SELECT $canti, $valor FROM inventario WHERE INVEMATE = $cod AND INVEBODE = $codeVal_Disponible";
+                $respuesta = $conn->prepare($query) or die ($sql);
+                if(!$respuesta->execute()) return false;
+                if($respuesta->rowCount()>0){
+                    while ($row=$respuesta->fetch()){
+                        $canMatOrigen = (int)$row[$canti];
+                        $valMatOrigen = (int)$row[$valor];
+                    }
+                }
+            //
+
+            //ACTUALIZAMOS LA BODEGA ORIGEN
+                $newCant = $canMatOrigen - $can;
+                $newValo = $valMatOrigen - $val;
+                $query ="UPDATE inventario SET $canti = $newCant, $valor = $newValo
+                            WHERE INVEMATE = $cod AND INVEBODE = $codeVal_Disponible";
+                $respuesta = $conn->prepare($query) or die ($query);
+                if(!$respuesta->execute()){
+                    echo 'Error Actualizar Inventario';
+                }else{
+                    //echo 1;
+                }
+            //
+
+            //VERIFICAMOS QUE LA BODEGA DESTINO TENGA EL MATERIAL
+                $swDest = 0;
+                $caMatDest = 0;
+                $vlMatDest = 0;
+
+                $query ="SELECT INVEMATE FROM inventario WHERE INVEMATE = $cod AND INVEBODE = $codeVal_Destino";
+                $respuesta = $conn->prepare($query) or die ($sql);
+                if(!$respuesta->execute()) return false;
+                if($respuesta->rowCount()>0){
+                    $swDes = 1;
+                }
+
+                //SINO EXISTE LO AGREGAMOS
+                if($swDes==0){
+                    $query ="INSERT INTO inventario (INVEMATE, INVEBODE, $canti, $valor)  
+                                VALUES ($cod, $codeVal_Destino, $can, $val)";
+                    $respuesta = $conn->prepare($query) or die ($query);
+                    if(!$respuesta->execute()){
+                        echo 'Error!';
+                    }else{  }
+                }else{ //SI EXISTE LO ACTUALIZAMOS
+                    $query ="SELECT $canti, $valor FROM inventario WHERE INVEMATE = $cod AND INVEBODE = $codeVal_Destino";
+                    $respuesta = $conn->prepare($query) or die ($sql);
+                    if(!$respuesta->execute()) return false;
+                    if($respuesta->rowCount()>0){
+                        while ($row=$respuesta->fetch()){
+                            $caMatDest = (int)$row[$canti];
+                            $vlMatDest = (int)$row[$valor];
+                        }
+                    }
+
+                    $totalcan = (int)$caMatDest + (int)$can;
+                    $totalval = (int)$vlMatDest + (int)$val;
+                    $query ="UPDATE inventario 
+                                SET $canti = $totalcan , $valor = $totalval
+                                WHERE INVEMATE = $cod AND INVEBODE = $codeVal_Destino";
+                    $respuesta = $conn->prepare($query) or die ($query);
+                    if(!$respuesta->execute()){
+                        echo 'Error!';
+                    }else{  }
+                }
+            //
+            
+            echo 1;
+        }
+    }*/
+
+    //ant
     if($_REQUEST["accion"]=="verificar_documento_soporte"){ 
         $sw = 0;
         $cod = $_REQUEST["cod"];

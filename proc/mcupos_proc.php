@@ -29,9 +29,9 @@
                 <tbody>';
         $i=0;
 		$query ="SELECT M.MATEDESC, I.*
-                    FROM inventario I JOIN material M ON I.INVEMATE = M.MATECODI
-                    WHERE I.INVEBODE = ".$_REQUEST["cod"]."
-                    ORDER BY I.INVEMATE";
+                 FROM inventario I JOIN material M ON I.INVEMATE = M.MATECODI
+                 WHERE I.INVEBODE = ".$_REQUEST["cod"]."
+                 ORDER BY I.INVEMATE";
         $respuesta = $conn->prepare($query) or die ($sql);
         if(!$respuesta->execute()) return false;
         if($respuesta->rowCount()>0){

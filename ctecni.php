@@ -204,7 +204,7 @@
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(5)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Pqr">Pqr</a>
 												        	</div>
 												        	<div class="row marginTop5">
-												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
+												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
@@ -237,7 +237,7 @@
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesCumplidasxCertificar(5)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Pqr">Pqr</a>
 												        	</div>
 												        	<div class="row marginTop5">
-												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
+												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
@@ -270,7 +270,7 @@
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesCumplidasCertificada(5)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Pqr">Pqr</a>
 												        	</div>
 												        	<div class="row marginTop5">
-												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
+												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
@@ -302,7 +302,7 @@
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesIncumplidas(5)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Pqr">Pqr</a>
 												        	</div>
 												        	<div class="row marginTop5">
-												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
+												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
@@ -331,7 +331,7 @@
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesAnuladas(5)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Pqr">Pqr</a>
 												        	</div>
 												        	<div class="row marginTop5">
-												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
+												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
@@ -360,7 +360,7 @@
 												        		<a style="margin-left:5px;" onclick="buscarMaterialesLegalizados(4)" class="btn btn-default btn-sm" data-toggle="" >Usuario</a>
 												        	</div>
 												        	<div class="row marginTop5">
-												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
+												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
@@ -395,7 +395,7 @@
 												        		<a style="margin-left:5px;" onclick="buscarMaterialesLegalizados(5)" class="btn btn-default btn-sm" data-toggle="" >Acta</a>
 												        	</div>
 												        	<div class="row marginTop5">
-												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
+												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
@@ -424,7 +424,7 @@
 												        	<div class="row marginTop5">
 													            <div class="col-md-5">
 												            		<div class="row" style="height: 530px; overflow-y: scroll;">
-													            		<div class="col-md-12">
+													            		<div class="col-md-12 container-table-list">
 														            		<table id="table" class="table table-condensed table-bordered table-striped">
 														                        <thead>
 														                            <tr style="background-color: #3c8dbc; color:white;">
@@ -501,7 +501,7 @@
 												        <div class="post tab-pane" id="inventario">
 												        	<br>
 												        	<div class="row marginTop5">
-												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
+												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
@@ -527,7 +527,7 @@
 												        <div class="post tab-pane" id="notas">
 												        	<br>
 												        	<div class="row marginTop5">
-												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
+												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
@@ -554,7 +554,7 @@
 												        <div class="post tab-pane" id="elmento_prot">
 												        	<br>
 												        	<div class="row marginTop5">
-												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
+												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
@@ -579,7 +579,7 @@
 												        <div class="post tab-pane" id="herramientas">
 												        	<br>
 												        	<div class="row marginTop5">
-												            	<div class="col-md-12" style="height: 500px; overflow-y: scroll;">
+												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
 												                            <tr style="background-color: #3c8dbc; color:white;">
