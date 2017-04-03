@@ -137,8 +137,8 @@
 				                        <thead>
 				                            <tr style="background-color: #3c8dbc; color:white;">
 				                             	<th class="text-center" width="100">CODIGO</th>
-				                              	<th class="text-center">DESCRIPCION</th>
-				                              	<th class="text-center" width="230">CANTIDAD MAXIMA A LEGALIZAR</th>
+				                              	<th class="text-left" style="padding-left: 10px;">DESCRIPCION</th>
+				                              	<th class="text-right" width="230">CANTIDAD MAXIMA A LEGALIZAR</th>
 				                              	<th class="text-center" width="100">VALOR FIJO</th>
 				                            </tr>
 				                        </thead>

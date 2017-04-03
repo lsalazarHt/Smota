@@ -186,13 +186,13 @@
 				                        <thead>
 				                            <tr style="background-color: #3c8dbc; color:white;">
 				                             	<th class="text-center" width="100">CODIGO</th>
-				                              	<th class="text-center">NOMBRE MATERIAL</th>
-				                              	<th class="text-center" width="100">CANTIDAD INV PROPIA</th>
-				                              	<th class="text-center" width="170">VALOR INV PROPIO</th>
-				                              	<th class="text-center" width="100">CANTIDAD INV PRESTADA</th>
-				                              	<th class="text-center" width="170">VALOR INV PRESTADO</th>
-				                              	<th class="text-center" width="80">CUPO</th>
-				                              	<th class="text-center" width="80">CUPO EXTRA</th>
+				                              	<th class="text-left">NOMBRE MATERIAL</th>
+				                              	<th class="text-right" width="100">CANTIDAD INV PROPIA</th>
+				                              	<th class="text-right" width="170">VALOR INV PROPIO</th>
+				                              	<th class="text-right" width="100">CANTIDAD INV PRESTADA</th>
+				                              	<th class="text-right" width="170">VALOR INV PRESTADO</th>
+				                              	<th class="text-right" width="80">CUPO</th>
+				                              	<th class="text-right" width="80">CUPO EXTRA</th>
 				                            </tr>
 				                        </thead>
 				                        <tbody id="table_detalle_inventario">

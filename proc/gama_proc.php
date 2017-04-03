@@ -65,9 +65,9 @@
         				<th class="text-center" width="100">FECHA ASIGNACION</th>
         				<th class="text-center" width="100">FECHA CUMPLIMIENTO</th>
         				<th class="text-center" width="70" style="vertical-align:middle">PQR</th>
-        				<th class="text-center" style="vertical-align:middle">MANO DE OBRA</th>
-        				<th class="text-center" style="vertical-align:middle">USUARIO</th>
-        				<th class="text-center" width="100" style="vertical-align:middle">VALOR</th>
+        				<th class="text-left" style="vertical-align:middle">MANO DE OBRA</th>
+        				<th class="text-left" style="vertical-align:middle">USUARIO</th>
+        				<th class="text-right" width="100" style="vertical-align:middle">VALOR</th>
         			</tr>
         		</table>
         		';
@@ -108,8 +108,8 @@
         				<th class="text-center" width="100" style="vertical-align:middle">FECHA ASIGNACION</th>
         				<th class="text-center" width="100" style="vertical-align:middle">FECHA CUMPLIMIENTO</th>
         				<th class="text-center" width="70"  style="vertical-align:middle">PQR</th>
-        				<th class="text-center" style="vertical-align:middle">MANO DE OBRA</th>
-        				<th class="" style="vertical-align:middle">USUARIO</th>
+        				<th class="text-left" style="vertical-align:middle">MANO DE OBRA</th>
+        				<th class="text-left" style="vertical-align:middle">USUARIO</th>
         				<th class="text-right" width="100" style="vertical-align:middle">VALOR</th>
         			</tr>
         		';
@@ -138,8 +138,8 @@
         				<td class="text-center" width="100" style="vertical-align:middle">'.$row['OTFEAS'].'</td>
         				<td class="text-center" width="100" style="vertical-align:middle">'.$row['OTCUMP'].'</td>
         				<td class="text-center" width="70" style="vertical-align:middle">'.$row['OTPQRREPO'].'</td>
-        				<td class="" style="vertical-align:middle"><small>'.$mObra.'</small></td>
-        				<td class="" style="vertical-align:middle"><small>'.$usuar.'</small></td>
+        				<td class="text-left" style="vertical-align:middle"><small>'.$mObra.'</small></td>
+        				<td class="text-left" style="vertical-align:middle"><small>'.$usuar.'</small></td>
         				<td class="text-right" width="100" style="vertical-align:middle">$ '.number_format($row['MOOTVAPA'],0,"",".").'</td>
         			</tr>';
         		$i++;

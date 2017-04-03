@@ -4,6 +4,7 @@ $(document).ready(function () {
 	$('#btnListaValores').addClass('disabled');
 	$('#btnConsulta').removeClass('disabled');
 	$('#btnEditor').addClass('disabled');
+    $("#txtCod").focus();
 	
 	$("#txtCod").keypress(function(event){
 		if(event.which == 13){

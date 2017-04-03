@@ -240,7 +240,7 @@
 											                            <tr style="background-color: #3c8dbc; color:white;">
 											                             	<th class="text-center" width="50">Codigo</th>
 											                              	<th class="text-left">Descripcion</th>
-											                              	<th class="text-center" width="50">Cantidad</th>
+											                              	<th class="text-right" width="50">Cantidad</th>
 											                              	<th class="text-right" width="100">Valor a Pagar</th>
 											                              	<th class="text-center" width="50">Tecnico</th>
 											                            </tr>
@@ -263,7 +263,7 @@
 											                            <tr style="background-color: #3c8dbc; color:white;">
 											                             	<th class="text-center" width="50">Codigo</th>
 											                              	<th class="text-left">Descripcion</th>
-											                              	<th class="text-center" width="50">Cantidad</th>
+											                              	<th class="text-right" width="50">Cantidad</th>
 											                              	<th class="text-right" width="100">Valor</th>
 											                              	<th class="text-center" width="10">TL</th>
 											                              	<th class="text-center" width="10">PR</th>

@@ -179,9 +179,9 @@
         				<th class="text-center" width="70">FECHA</th>
         				<th class="text-center" width="70">PQR</th>
         				<th class="text-center" width="70">RUTA</th>
-        				<th width="100">USUARIO</th>
-        				<th width="100">OBSERVACION</th>
-        				<th width="100">DIRECCION</th>
+        				<th width="100" class="text-left">USUARIO</th>
+        				<th width="100" class="text-left">OBSERVACION</th>
+        				<th width="100" class="text-left">DIRECCION</th>
         				<th class="text-center" width="100">SECTOR</th>
         			</tr>
         		';
@@ -259,9 +259,9 @@
                 				<td>'.$row['OTFEORD'].'</td>
                 				<td>'.$row['OTPQRREPO'].'</td>
                 				<td>'.$row['USURUTA'].'</td>
-                				<td>'.$row['USUNOMB'].'</td>
-                				<td>'.utf8_encode($row['OTOBSEAS']).'</td>
-                				<td>'.$row['USUDIRE'].'</td>
+                				<td class="text-left">'.$row['USUNOMB'].'</td>
+                				<td class="text-left">'.utf8_encode($row['OTOBSEAS']).'</td>
+                				<td class="text-left">'.$row['USUDIRE'].'</td>
                 				<td>'.$row['USUSEOP'].'</td>
                 			</tr>';
             	$i++;

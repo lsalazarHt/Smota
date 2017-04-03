@@ -112,7 +112,7 @@
 				                             	<th class="text-left">DESCRIPCION</th>
 				                             	<th class="text-center"></th>
 				                             	<th class="text-center" width="50"></th>
-				                             	<th class="text-center" width="200">TIPO MOV. SOPORTE</th>
+				                             	<th class="text-right" width="200">TIPO MOV. SOPORTE</th>
 				                              	<th class="text-center" width="50"></th>
 				                              	<th class="text-center" width="200">CLASE DE BODEGA DESTINO</th>
 				                            </tr>

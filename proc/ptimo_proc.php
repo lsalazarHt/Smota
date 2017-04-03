@@ -34,9 +34,9 @@
                      	<th class="text-left">DESCRIPCION</th>
                      	<th class="text-center" width="245"></th>
                      	<th class="text-center" width="50"></th>
-                     	<th class="text-center" width="200">TIPO MOV. SOPORTE</th>
+                     	<th class="text-left" width="200">TIPO MOV. SOPORTE</th>
                       	<th class="text-center" width="50"></th>
-                      	<th class="text-center" width="200">CLASE DE BODEGA DESTINO</th>
+                      	<th class="text-left" width="200">CLASE DE BODEGA DESTINO</th>
                     </tr>
                 </thead><tbody>';
         $i=0;

@@ -17,7 +17,7 @@
 		$table='<thead>
                     <tr style="background-color: #3c8dbc; color:white;">
                         <th class="text-center" width="100">CODIGO</th>
-                        <th class="text-center">NOMBRE</th>
+                        <th class="text-left">NOMBRE</th>
                         <th class="text-center" width="100">VISIBLE</th>
                     </tr>
                 </thead><tbody>';

@@ -17,8 +17,8 @@
 		$table='<thead>
                     <tr style="background-color: #3c8dbc; color:white;">
                      	<th class="text-center" width="100">CODIGO</th>
-                      	<th class="text-center">DESCRIPCION</th>
-                      	<th class="text-center" width="230">CANTIDAD MAXIMA A LEGALIZAR</th>
+                      	<th class="text-left" style="padding-left: 10px;" >DESCRIPCION</th>
+                      	<th class="text-right" width="230">CANTIDAD MAXIMA A LEGALIZAR</th>
                       	<th class="text-center" width="100">VALOR FIJO</th>
                     </tr>
                 </thead><tbody>';
@@ -47,7 +47,7 @@
                                 <input readonly type="text" id="txtNomb'.$i.'" class="form-control input-sm" value="'.$row['MATEDESC'].'" onclick="swEditor(\'txtNomb'.$i.'\',\'trSelect'.$i.'\',0,0)">
                             </td>
                             <td>
-                                <input type="text" id="txtCantMax'.$i.'" class="form-control text-center input-sm" onkeypress="solonumeros()" value="'.$row['MAPQCANT'].'" onclick="swEditor(\'txtNomb'.$i.'\',\'trSelect'.$i.'\',0,0)">
+                                <input type="text" id="txtCantMax'.$i.'" class="form-control text-right input-sm" onkeypress="solonumeros()" value="'.$row['MAPQCANT'].'" onclick="swEditor(\'txtNomb'.$i.'\',\'trSelect'.$i.'\',0,0)">
                             </td>
                             <td class="text-center " style="width:50px;">
                                 <input type="checkbox" id="txtCkek'.$i.'" '.$visible.' onclick="swEditor(\'\',\'trSelect'.$i.'\')">

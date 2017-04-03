@@ -194,11 +194,11 @@
                             <td>'.$row['OTFEORD'].'</td>
                             <td>'.$row['OTFEAS'].'</td>
                             <td width="70"><strong>'.$row['OTUSUARIO'].'</strong></td>
-                            <td width="200">'.$usuarioNom.'</td>
+                            <td width="200" class="text-left">'.$usuarioNom.'</td>
                             <td width="70"><strong>'.$row['OTPQRREPO'].'</strong></td>
                             <td class="text-left">'.$pqrNom.'</td>
                             <td></td>
-                            <td>'.$pqrPlaz.'</td>
+                            <td class="text-right">'.$pqrPlaz.'</td>
                         </tr>';
                 }   
             }
@@ -260,11 +260,11 @@
                             <td>'.$row['OTFEORD'].'</td>
                             <td>'.$row['OTCUMP'].'</td>
                             <td width="70"><strong>'.$row['OTUSUARIO'].'</strong></td>
-                            <td width="200">'.$usuarioNom.'</td>
+                            <td width="200" class="text-left">'.$usuarioNom.'</td>
                             <td width="70"><strong>'.$row['OTPQRREPO'].'</strong></td>
                             <td class="text-left">'.$pqrNom.'</td>
                             <td></td>
-                            <td>'.$pqrPlaz.'</td>
+                            <td class="text-right">'.$pqrPlaz.'</td>
                         </tr>';                            
                 }   
             }
@@ -326,11 +326,11 @@
                             <td>'.$row['OTFEORD'].'</td>
                             <td>'.$row['OTCUMP'].'</td>
                             <td width="70"><strong>'.$row['OTUSUARIO'].'</strong></td>
-                            <td width="200">'.$usuarioNom.'</td>
+                            <td width="200" class="text-left">'.$usuarioNom.'</td>
                             <td width="70"><strong>'.$row['OTPQRREPO'].'</strong></td>
                             <td class="text-left">'.$pqrNom.'</td>
                             <td></td>
-                            <td>'.$pqrPlaz.'</td>
+                            <td class="text-right">'.$pqrPlaz.'</td>
                         </tr>';                            
                 }   
             }
@@ -388,7 +388,7 @@
                             <td>'.$row['OTDEPA'].' - '.$row['OTLOCA'].' - '.$row['OTNUME'].'</td>
                             <td>'.$row['OTFEORD'].'</td>
                             <td width="70"><strong>'.$row['OTUSUARIO'].'</strong></td>
-                            <td width="200">'.$usuarioNom.'</td>
+                            <td width="200" class="text-left">'.$usuarioNom.'</td>
                             <td width="70"><strong>'.$row['OTPQRREPO'].'</strong></td>
                             <td class="text-left">'.$pqrNom.'</td>
                         </tr>';                            
@@ -448,7 +448,7 @@
                             <td>'.$row['OTDEPA'].' - '.$row['OTLOCA'].' - '.$row['OTNUME'].'</td>
                             <td>'.$row['OTFEORD'].'</td>
                             <td width="70"><strong>'.$row['OTUSUARIO'].'</strong></td>
-                            <td width="200">'.$usuarioNom.'</td>
+                            <td width="200" class="text-left">'.$usuarioNom.'</td>
                             <td width="70"><strong>'.$row['OTPQRREPO'].'</strong></td>
                             <td class="text-left">'.$pqrNom.'</td>
                         </tr>';                            
@@ -498,7 +498,7 @@
                         <tr id="trSelect_6'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_6'.$i.'\','.$row['MAOTNUMO'].')" ondblclick="enviarOrden('.$row['MAOTNUMO'].','.$_REQUEST["cod"].')">
                             <td>'.$row['MAOTDEPA'].' - '.$row['MAOTLOCA'].' - '.$row['MAOTNUMO'].'</td>
                             <td>'.$row['MAOTMATE'].'</td>
-                            <td>'.$row['MAOTCANT'].'</td>
+                            <td class="text-right">'.$row['MAOTCANT'].'</td>
                             <td class="text-right">'.number_format($row['MAOTVLOR'],0,'.',',').'</td>
                             <td>'.$row['MAOTFECH'].'</td>
                             <td>'.$row['MAOTTILE'].'</td>
@@ -557,7 +557,7 @@
                             <td><b>'.$row['MOOTMOBR'].'</b></td>
                             <td class="text-left">'.$manObraNom.'</td>
                             <td>'.$row['OTUSUARIO'].'</td>
-                            <td>'.$row['MOOTCANT'].'</td>
+                            <td class="text-right">'.$row['MOOTCANT'].'</td>
                             <td class="text-right">'.number_format($row['MOOTVAPA'],0,'.',',').'</td>
                             <td>'.$row['MOOTACTA'].'</td>
                             <td>'.$row['MOOTFECH'].'</td>
@@ -722,8 +722,8 @@
                     $table .= '
                         <tr>
                             <td>'.$row['CODMATERIAL'].'</td>
-                            <td colspan="2"><b>'.$row['MATEDESC'].'</b></td>
-                            <td>'.$row['CANTIDAD'].'</td>
+                            <td colspan="2" class="text-left"><b>'.$row['MATEDESC'].'</b></td>
+                            <td class="text-right">'.$row['CANTIDAD'].'</td>
                             <td>'.$row['FECHAENTREGA'].'</td>
                             <td>'.$row['FECHAMINREPOS'].'</td>
                             <td>'.$row['FECHAREPOS'].'</td>
@@ -751,8 +751,8 @@
                     $table .= '
                         <tr>
                             <td>'.$row['CODMATERIAL'].'</td>
-                            <td colspan="2"><b>'.$row['MATEDESC'].'</b></td>
-                            <td>'.$row['CANTIDAD'].'</td>
+                            <td colspan="2" class="text-left"><b>'.$row['MATEDESC'].'</b></td>
+                            <td class="text-right">'.$row['CANTIDAD'].'</td>
                             <td>'.$row['FECHAENTREGA'].'</td>
                             <td>'.$row['FECHAMINREPOS'].'</td>
                             <td>'.$row['FECHAREPOS'].'</td>

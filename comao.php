@@ -492,10 +492,10 @@
 										        				<th class="text-center" width="70">FECHA</th>
 										        				<th class="text-center" width="70">PQR</th>
 										        				<th class="text-center" width="100">TECNICO</th>
-										        				<th class="text-center" width="100">USUARIO</th>
-										        				<th class="text-center" width="100">OBSERVACION</th>
-										        				<th class="text-center" width="100">ESTADO</th>
-										        				<th class="text-center" width="100">DIRECCION</th>
+										        				<th class="text-left" width="100">USUARIO</th>
+										        				<th class="text-left" width="100">OBSERVACION</th>
+										        				<th class="text-left" width="100">ESTADO</th>
+										        				<th class="text-left" width="100">DIRECCION</th>
 										        				<th class="text-center" width="100">SECTOR</th>
 										        			</tr>
 							                			</thead>

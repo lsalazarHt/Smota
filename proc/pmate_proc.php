@@ -11,8 +11,8 @@
                      	<th class="text-center" width="130">UND DE MEDIDA</th>
                       	<th class="text-center" width="200"></th>
                       	<th class="text-center" width="80">ESTADO</th>
-                        <th class="text-center" width="100">VIDA UTIL (DIAS)</th>
-                        <th class="text-center" width="100">CANT MAX DOTACIÓN</th>
+                        <th class="text-right" width="100">VIDA UTIL (DIAS)</th>
+                        <th class="text-right" width="100">CANT MAX DOTACIÓN</th>
                     </tr>
                 </thead><tbody>';
         $i=0;
@@ -54,10 +54,10 @@
                                 <input type="checkbox" id="txtCkek'.$i.'" '.$visible.' onclick="swEditor(\'\',\'trSelect'.$i.'\')"> Activo
                             </td>
                             <td>
-                                <input type="text" id="txtVidaUtil'.$i.'" class="form-control input-sm" value="'.$row['MATEVIUT'].'" onkeypress="solonumeros('.$i.')" onclick="swEditor(\'txtVidaUtil'.$i.'\',\'trSelect'.$i.'\')" '.$readonly.'>
+                                <input type="text" id="txtVidaUtil'.$i.'" class="form-control text-right input-sm" value="'.$row['MATEVIUT'].'" onkeypress="solonumeros('.$i.')" onclick="swEditor(\'txtVidaUtil'.$i.'\',\'trSelect'.$i.'\')" '.$readonly.'>
                             </td>
                             <td>
-                                <input type="text" id="txtCantMax'.$i.'" class="form-control input-sm" value="'.$row['MATEMXCT'].'" onkeypress="solonumeros('.$i.')" onclick="swEditor(\'txtCantMax'.$i.'\',\'trSelect'.$i.'\')" '.$readonly.'>
+                                <input type="text" id="txtCantMax'.$i.'" class="form-control text-right input-sm" value="'.$row['MATEMXCT'].'" onkeypress="solonumeros('.$i.')" onclick="swEditor(\'txtCantMax'.$i.'\',\'trSelect'.$i.'\')" '.$readonly.'>
                             </td>
                         </tr>
                         ';
