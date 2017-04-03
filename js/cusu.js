@@ -179,7 +179,7 @@ function limpiar(){
 	limpiarTabla();
 }
 function limpiarTabla(){
-	a = '<table class="table table-condensed"><thead><tr style="background-color: #3c8dbc; color:white;">';
+	a = '<table class="table table-condensed table-bordered table-striped"><thead><tr style="background-color: #3c8dbc; color:white;">';
 	b = '<th class="text-center" width="130">ORDEN</th><th class="text-center">FECHA ORDEN</th>';
 	c = '<th class="text-center">FECHA ASIGNACION</th><th class="text-center">FECHA CUMPLIMIENTO</th>';
 	d = '<th class="text-center">ESTADO</th><th class="text-center">PQR REPORTADA</th>';

@@ -244,7 +244,7 @@
     //
     if($_REQUEST["accion"]=="realizar_ordenamieno"){
     	$table = '
-    			<table class="table table-bordered table-condensed">
+    			<table class="table table-condensed table-bordered table-striped">
         			<tr style="background-color: #3c8dbc; color:white;">
         				<th class="text-center" width="100">NRO DE ORDEN</th>
 	    				<th class="text-center" width="70">FECHA</th>

@@ -272,7 +272,7 @@
 				                		<div class="col-md-12">
 				                			<input type="hidden" id="swCheckTodos" value="0">
 				                			<div id="tableOrdenes" style="height: 460px; overflow-y: scroll;" class="container-table-list">
-						                		<table class="table table-bordered table-condensed">
+						                		<table class="table table-condensed table-bordered table-striped">
 						                			<tr style="background-color: #3c8dbc; color:white;">
 						                				<th class="text-center" width="10"><input type="checkbox"></th>
 						                				<th class="text-center" width="100">NUMERO DE ORDEN</th>

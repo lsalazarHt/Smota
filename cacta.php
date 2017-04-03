@@ -59,7 +59,7 @@
 			                <div class="modal-body">
 			                	<div class="row">
 				                	<div class="col-md-12" style="height: 298px; overflow-y: scroll;">
-				                		<table id="tableDepa" class="tableJs table table-bordered table-hover table-condensed">
+				                		<table id="tableDepa" class="tableJs table table-hover table-condensed table-bordered table-striped">
 					                        <thead>
 					                            <tr style="background-color: #3c8dbc; color:white;">
 					                             	<th class="text-center" width="100">CODIGO</th>
@@ -300,7 +300,7 @@
 				                		<div class="col-md-12">
 				                			<input type="hidden" id="swCheckTodos" value="0">
 				                			<div id="tableOrdenes" style="height: 300px; overflow-y: scroll;">
-						                		<table class="table table-bordered table-condensed">
+						                		<table class="table table-condensed table-bordered table-striped">
 						                			<thead>
 							                			<tr style="background-color: #3c8dbc; color:white;">
 									        				<th class="text-center" width="120">OT</th>
@@ -326,7 +326,7 @@
 				                		<div class="col-md-12">
 				                			<input type="hidden" id="swCheckTodos" value="0">
 				                			<div id="tableOrdenes" style="height: 300px; overflow-y: scroll;">
-						                		<table class="table table-bordered table-condensed">
+						                		<table class="table table-condensed table-bordered table-striped">
 						                			<thead>
 							                			<tr style="background-color: #3c8dbc; color:white;">
 									        				<th class="text-center" width="100">NUMERO</th>
