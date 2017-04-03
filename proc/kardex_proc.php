@@ -132,8 +132,7 @@
                         JOIN bodega ON bodega.bodecodi = moviinve.MOINBOOR
                     WHERE (moviinve.MOINBOOR = $bodCod OR moviinve.MOINBODE = $bodCod) -- comparamos bodega 
                         AND matemoin.MAMIMATE = $matCod -- comparamos material
-                        AND (DATE_FORMAT(moviinve.MOINFECH, '%Y-%m-%d') >=  '$nuevafecha-01' AND 
-                             DATE_FORMAT(moviinve.MOINFECH, '%Y-%m-%d') <= '$nuevafecha-31') -- comparamos fecha
+                        AND (DATE_FORMAT(moviinve.MOINFECH, '%Y-%m-%d') <= '$nuevafecha-31') -- comparamos fecha
                         AND tipomovi.TIMOSAEN = 'E' -- seleccionamos Entrada/Salida
                         AND matemoin.MAMIPROP = '$tipo' -- material propio prestado";
             $respuesta = $conn->prepare($query) or die ($sql);
@@ -153,8 +152,7 @@
                         JOIN bodega ON bodega.bodecodi = moviinve.MOINBOOR
                     WHERE (moviinve.MOINBOOR = $bodCod OR moviinve.MOINBODE = $bodCod) -- comparamos bodega 
                         AND matemoin.MAMIMATE = $matCod -- comparamos material
-                        AND (DATE_FORMAT(moviinve.MOINFECH, '%Y-%m-%d') >=  '$nuevafecha-01' AND 
-                             DATE_FORMAT(moviinve.MOINFECH, '%Y-%m-%d') <= '$nuevafecha-31') -- comparamos fecha
+                        AND (DATE_FORMAT(moviinve.MOINFECH, '%Y-%m-%d') <= '$nuevafecha-31') -- comparamos fecha
                         AND tipomovi.TIMOSAEN = 'S' -- seleccionamos Entrada/Salida
                         AND matemoin.MAMIPROP = '$tipo' -- material propio prestado";
             $respuesta = $conn->prepare($query) or die ($sql);
@@ -175,7 +173,7 @@
                          FROM maleottr 
                          WHERE maottecn = $bodCod -- comparamos bodega
                          AND maotmate = $matCod -- comparamos material
-                         AND (MAOTFECH >= '$nuevafecha-01' AND MAOTFECH <= '$nuevafecha-31') -- comparamos fecha
+                         AND ( MAOTFECH <= '$nuevafecha-31') -- comparamos fecha
                          AND MAOTPROP = '$tipo'  -- material propio prestado";
                 $respuesta = $conn->prepare($query) or die ($sql);
                 if(!$respuesta->execute()) return false;
