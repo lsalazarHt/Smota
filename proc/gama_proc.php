@@ -102,23 +102,24 @@
     	$table = '
     			<table id="tableMateriales" class="table table-bordered table-condensed">
         			<tr style="background-color: #3c8dbc; color:white;">
-        				<th class="text-center" width="10"  style="vertical-align:middle"><input type="checkbox" onclick="selectTodos()"></th>
-        				<th class="text-center" width="120" style="vertical-align:middle">NUMERO DE ORDEN</th>
+        				<th class="text-center" width="10" style="vertical-align:middle"><input type="checkbox"></th>
+        				<th class="text-center" width="120">NUMERO DE ORDEN</th>
         				<th class="text-center" width="100" style="vertical-align:middle">FECHA ORDEN</th>
-        				<th class="text-center" width="100" style="vertical-align:middle">FECHA ASIGNACION</th>
-        				<th class="text-center" width="100" style="vertical-align:middle">FECHA CUMPLIMIENTO</th>
-        				<th class="text-center" width="70"  style="vertical-align:middle">PQR</th>
+        				<th class="text-center" width="100">FECHA ASIGNACION</th>
+        				<th class="text-center" width="100">FECHA CUMPLIMIENTO</th>
+        				<th class="text-center" width="70" style="vertical-align:middle">PQR</th>
         				<th class="text-left" style="vertical-align:middle">MANO DE OBRA</th>
         				<th class="text-left" style="vertical-align:middle">USUARIO</th>
         				<th class="text-right" width="100" style="vertical-align:middle">VALOR</th>
         			</tr>
         		';
 
-       	$query = "SELECT mobrottr.ID, mobrottr.MOOTDEPA, mobrottr.MOOTLOCA, mobrottr.MOOTNUMO, OT.OTFEORD, OT.OTFEAS, OT.OTCUMP, OT.OTPQRREPO, mobrottr.MOOTMOBR, OT.OTUSUARIO, mobrottr.MOOTVAPA
+       	$query = "SELECT mobrottr.ID, mobrottr.MOOTDEPA, mobrottr.MOOTLOCA, mobrottr.MOOTNUMO, 
+		   ot.OTFEORD, ot.OTFEAS,ot.OTCUMP, ot.OTPQRREPO, mobrottr.MOOTMOBR, ot.OTUSUARIO, mobrottr.MOOTVAPA
 				  FROM mobrottr
-				  INNER JOIN OT ON OT.OTNUME = mobrottr.MOOTNUMO 
-				  	JOIN usuarios ON usuarios.USUCODI = OT.OTUSUARIO
-				  WHERE mobrottr.MOOTTECN = $tec AND ( MOOTACTA is NULL OR MOOTACTA = 0 )
+				    JOIN ot ON ot.OTNUME = mobrottr.MOOTNUMO 
+				  	JOIN usuarios ON usuarios.USUCODI = ot.OTUSUARIO
+				  WHERE mobrottr.MOOTTECN = $tec AND ( mobrottr.MOOTACTA is NULL OR mobrottr.MOOTACTA = 0 )
 				   $orderby";
 
         $respuesta = $conn->prepare($query) or die ($sql);
@@ -145,6 +146,7 @@
         		$i++;
             }   
         }
+		//echo $query;
         echo $table.'</table><input type="hidden" id="contRow" value="'.($i).'">';
     }
     if($_REQUEST["accion"]=="generar_acta"){
