@@ -289,7 +289,7 @@
 				<section class="content">
 					<div class="row">
 						<div class="col-md-12">
-							<form action="peatsc.php" method="POST" id="formCargarArchivos" enctype="multipart/form-data">
+							<form action="peatsc_2.php" method="POST" id="formCargarArchivos" enctype="multipart/form-data">
 								<div class="box">
 									<div class="box-header">
 				                     	<h3 class="box-title">Cargar Archivos Planos</h3>

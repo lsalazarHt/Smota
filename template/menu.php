@@ -11,7 +11,7 @@
 	    <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
 	      <ul class="nav navbar-nav">
 	        
-	        <!-- Informacion basica -->
+					<!-- Informacion basica -->
 	        <li class="dropdown mResto">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Informacion Basica <span class="caret"></span></a>
 	          <ul class="dropdown-menu" role="menu">
@@ -19,20 +19,21 @@
 	            <li><a href="fdepa.php"><i class="fa fa-circle"></i>Departamentos</a></li>
 	            <li><a href="floca.php"><i class="fa fa-circle"></i>Localidades</a></li>
 	            <li><a href="pmobr.php"><i class="fa fa-circle"></i>Mano de Obra</a></li>
-	            <li><a href="pclnot.php"><i class="fa fa-circle"></i>Mantenimiento Clase de Notas</a></li>
-	            <li><a href="cmtm.php"><i class="fa fa-circle"></i>Mantenimiento Clase Material por Tipo Movimiento</a></li>
 	            <li><a href="pmate.php"><i class="fa fa-circle"></i>Mantenimiento de Materiales</a></li>
 	            <li><a href="ppqr.php"><i class="fa fa-circle"></i>Mantenimiento de PQR's</a></li>
 	            <li><a href="ptimo.php"><i class="fa fa-circle"></i>Mantenimiento de Tipos de Movimiento de Inventario</a></li>
 	            <li><a href="pmtpqr.php"><i class="fa fa-circle"></i>Mantenimiento Materiales x PQR</a></li>
 	            <li><a href="pmopqr.php"><i class="fa fa-circle"></i>Mantenimiento Mano de Obra x PRQ</a></li>
+	            <li><a href="cmtm.php"><i class="fa fa-circle"></i>Mantenimiento Clase Material por Tipo Movimiento</a></li>
+	            <li><a href="pclnot.php"><i class="fa fa-circle"></i>Mantenimiento Clase de Notas</a></li>
 	            <li><a href="pconf.php"><i class="fa fa-circle"></i>Parametros del Sistema</a></li>
+	            <li><a href="pzona.php"><i class="fa fa-circle"></i>Zonas Operativas de Localidades</a></li>
 	            <li><a href="psect.php"><i class="fa fa-circle"></i>Sectores Operativos de Localidades</a></li>
 	            <li><a href="psezo.php"><i class="fa fa-circle"></i>Sectores Operativos por Zonas Operativas</a></li>
-	            <li><a href="pzona.php"><i class="fa fa-circle"></i>Zonas Operativas de Localidades</a></li>
 	          </ul>
 	        </li>
-	        <!-- Cuadrillas -->
+
+					<!-- Cuadrillas -->
 	        <li class="dropdown mResto">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cuadrillas <span class="caret"></span></a>
 	          <ul class="dropdown-menu" role="menu">
@@ -42,47 +43,55 @@
 	            <li><a href="lcumaco.php"><i class="fa fa-circle"></i>Reporte de existencia y cupos por técnicos</a></li>
 	          </ul>
 	        </li>
-	        <!-- Ordenes -->
+
+					<!-- Ordenes -->
 	        <li class="dropdown mResto">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ordenes <span class="caret"></span></a>
 	          <ul class="dropdown-menu" role="menu">
-	            <li id="mActaInd"><a style="cursor:pointer;"><i class="fa fa-angle-down"></i>Actas individuales</a></li>
-		            <li class="display-none liActaInd"><a href="apacta.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Aprobacion de Acta</a></li>
-		            <li class="display-none liActaInd"><a href="gacta.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Generacion de Acta Hasta Fecha de Corte</a></li>
-		            <li class="display-none liActaInd"><a href="gama.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Generacion de Acta por Escogencia</a></li>
-		            <li class="display-none liActaInd"><a href="imacta.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Imprimir Acta</a></li>
-		            <li class="display-none liActaInd"><a href="racta.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Reversar Acta</a></li>
+	            <li class="mResto"><a href="peatsc.php"><i class="fa fa-circle"></i>Cargar Ordenes Asignadas</a></li>
 	            <li class="mResto"><a href="asiot.php"><i class="fa fa-circle"></i>Asignacion de Ordenes Individuales</a></li>
 	            <li class="mResto"><a href="asma.php"><i class="fa fa-circle"></i>Asignacion Ordenes por Pantalla</a></li>
-	            <li class="mResto"><a href="panuot.php"><i class="fa fa-circle"></i>Anular una Orden</a></li>
-	            <li class="mResto"><a href="peatsc.php"><i class="fa fa-circle"></i>Cargar Ordenes Asignadas</a></li>
-	          	<li id="mConsultas"><a style="cursor:pointer;"><i class="fa fa-angle-down"></i>Consultas</a></li>
-		            <li class="display-none liConsul"><a href="cacta.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Acta</a></li>
-		            <li class="display-none liConsul"><a href="comao.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Consulta Masiva de Ordenes</a></li>
-		            <li class="display-none liConsul"><a href="cusu.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Consulta General de Usuarios</a></li>
-		            <li class="display-none liConsul"><a href="cnota.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Notas</a></li>
-		            <li class="display-none liConsul"><a href="corden.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Ordenes</a></li>
-	            <li class="mResto"><a href="demo.php"><i class="fa fa-circle"></i>Desasignacion de Ordenes por Pantalla</a></li>
 	            <li class="mResto"><a href="pdesaot.php"><i class="fa fa-circle"></i>Desasignacion individual</a></li>
+	            <li class="mResto"><a href="demo.php"><i class="fa fa-circle"></i>Desasignacion de Ordenes por Pantalla</a></li>
+	            <li class="mResto"><a href="panuot.php"><i class="fa fa-circle"></i>Anular una Orden</a></li>
 	            <li class="mResto"><a href="incot.php"><i class="fa fa-circle"></i>Incumplir una orden</a></li>
 	            <li class="mResto"><a href="legord.php"><i class="fa fa-circle"></i>Legalizacion individual</a></li>
 	            <!-- <li class="mResto"><a href="redot.php"><i class="fa fa-circle-o"></i>Redimir orden</a></li> -->
 	            <!-- <li class="mResto"><a href="cerot.php"><i class="fa fa-circle-o"></i>Registrar certificacion individual</a></li> -->
 	            <li class="mResto"><a href="rnota.php"><i class="fa fa-circle"></i>Registrar notas a tecnicos</a></li>
 	            <!-- <li class="mResto"><a href="cema.php"><i class="fa fa-circle-o"></i>Registro masivo de certificacion</a></li> -->
+	          	<li id="mConsultas"><a style="cursor:pointer;"><i class="fa fa-angle-down"></i>Consultas</a></li>
+		            <li class="display-none liConsul"><a href="cacta.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Acta</a></li>
+		            <li class="display-none liConsul"><a href="comao.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Consulta Masiva de Ordenes</a></li>
+		            <li class="display-none liConsul"><a href="cusu.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Consulta General de Usuarios</a></li>
+		            <li class="display-none liConsul"><a href="cnota.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Notas</a></li>
+		            <li class="display-none liConsul"><a href="corden.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Ordenes</a></li>
 	          	<li id="mReportes"><a style="cursor:pointer;"><i class="fa fa-angle-down"></i>Reportes</a></li>
 		            <li class="display-none liRepor"><a href="rece.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Listado Ordenes para Certificacion por Rango</a></li>
 		            <li class="display-none liRepor"><a href="iltscG.php" style="margin-left:20px;"><i class="fa fa-circle"></i> Listado Ordenes sin Cumplir por tecnico General</a></li>
 	          </ul>
 	        </li>
-	        <!-- Almacen -->
+
+					<!-- Actas -->
+	        <li class="dropdown mResto">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Actas <span class="caret"></span></a>
+	          <ul class="dropdown-menu" role="menu">
+		          <li><a href="gacta.php"><i class="fa fa-circle"></i> Generacion de Acta Hasta Fecha de Corte</a></li>
+		          <li><a href="gama.php"><i class="fa fa-circle"></i> Generacion de Acta por Escogencia</a></li>
+							<li><a href="apacta.php"><i class="fa fa-circle"></i> Aprobacion de Acta</a></li>
+		          <li><a href="imacta.php"><i class="fa fa-circle"></i> Imprimir Acta</a></li>
+		          <li><a href="racta.php"><i class="fa fa-circle"></i> Reversar Acta</a></li>
+	          </ul>
+	        </li>
+
+					<!-- Almacen -->
 	        <li class="dropdown mResto">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Almacen <span class="caret"></span></a>
 	          <ul class="dropdown-menu" role="menu">
+	            <li class="mResto"><a href="ralma.php"><i class="fa fa-circle"></i>Entradas y Salidas de Almacen</a></li>
 	            <li class="mResto"><a href="qmate.php"><i class="fa fa-circle"></i>Consulta de Materiales por Bodega</a></li>
 	            <li class="mResto"><a href="calma.php"><i class="fa fa-circle"></i>Consulta de Movimiento Almacen</a></li>
 	            <li class="mResto"><a href="kardex.php"><i class="fa fa-circle"></i>Consulta de Movimiento Item por Bodega en un Periodo</a></li>
-	            <li class="mResto"><a href="ralma.php"><i class="fa fa-circle"></i>Entradas y Salidas de Almacen</a></li>
 	            <!--
 							<li><a id="mReportAlm" style="cursor:pointer;"><i class="fa fa-circle-o"></i>Reportes de Almacen</a></li>
 	            <li class="display-none liReportAlmac"><a href="limabo.php" style="margin-left:20px;"><i class="fa fa-circle-o"></i> Existencia de Materiales en Bodega</a></li>
@@ -91,6 +100,7 @@
 							-->
 						</ul>
 	        </li>
+	        
 	        <!-- Utilidades -->
 					<!--
 	        <li class="dropdown mResto">

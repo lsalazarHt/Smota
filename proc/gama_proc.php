@@ -102,7 +102,7 @@
     	$table = '
     			<table id="tableMateriales" class="table table-bordered table-condensed">
         			<tr style="background-color: #3c8dbc; color:white;">
-        				<th class="text-center" width="10" style="vertical-align:middle"><input type="checkbox"></th>
+        				<th class="text-center" width="10" style="vertical-align:middle"><input type="checkbox" onclick="selectTodos()"></th>
         				<th class="text-center" width="120">NUMERO DE ORDEN</th>
         				<th class="text-center" width="100" style="vertical-align:middle">FECHA ORDEN</th>
         				<th class="text-center" width="100">FECHA ASIGNACION</th>

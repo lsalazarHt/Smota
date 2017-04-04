@@ -27,10 +27,13 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="tools/dist/css/skins/_all-skins.min.css">
 
+
     <!--  Material Dashboard CSS    -->
         <link href="assets/css/material-dashboard.css" rel="stylesheet"/>
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 
+    <link rel="shortcut icon" href="tools/dist/img/favicon.png" type="image/ico" />
+    
     <style type="text/css">
         .container-table-list{
             overflow-x: auto;
