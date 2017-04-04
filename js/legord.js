@@ -311,6 +311,7 @@ $(document).ready(function(){
 		$('#contRowMano').val(parseInt(id)-1);
 	});
 
+	//Btn Agregar
 	$('#addMateriales').click(function(){
 
 		//Agregar una nueva fila a la tabla
@@ -351,7 +352,6 @@ $(document).ready(function(){
 	    $('#contRowMate').val(rowCount);
 		idMatGl = rowCount;
 	});
-
 	//Btn Quitar
 	$('#removedMateriales').click(function(){
 		id = $('#contRowMate').val();
@@ -1071,4 +1071,31 @@ function limpiarMaterial(){
 	$('#txtValMat'+idMatGl).val('');
 	$('#txtValMatMax'+idMatGl).val('');
 	$('#txtCantMatInv'+idMatGl).val('');
+}
+
+//
+function atajos_teclado(e){
+    /* 
+		alt = altKey
+		x = 88
+		c = 67
+		m = 77
+		n = 78
+	*/
+	tecla=(document.all) ? e.keyCode : e.which; 
+	if(tecla==71 && e.altKey){ //legalizar
+		$('#btnGuardar').click();
+	}else if (e.altKey && tecla==67){ //agregar nuevo mano de obra
+    	//alt + c
+		$('#addManoObra').click();
+	}else if(e.altKey && tecla==88){ //quitar nuevo mano de obra
+    	//alt + x
+		$('#removeManoObra').click();
+	}else if(e.altKey && tecla==77){ //agragar nuevo material
+		//alt + m
+		$('#addMateriales').click();
+	}else if(e.altKey && tecla==78){ //quitar nuevo material
+		//alt + n
+		$('#removedMateriales').click();
+	}
 }

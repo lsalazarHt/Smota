@@ -1,5 +1,5 @@
 <?php require 'template/start.php'; ?>
-<body class="hold-transition skin-blue layout-top-nav">
+<body class="hold-transition skin-blue layout-top-nav" onkeydown="return atajos_teclado(event)">
 	<div class="wrapper">
 		<?php require 'template/menu.php'; ?>
 		<div class="content-wrapper">
@@ -353,10 +353,10 @@
 				                		<div class="form-group">
 					                     	<div class="col-sm-12 ">
 					                     		<label for="txtHoraInicio" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Hora Inicial</label>
-				                        		<input id="txtHoraInicial" type="time" class="form-control input-sm" style="width:100px; float: left; margin-left: 8px;">
+				                        		<input id="txtHoraInicial" type="time" class="form-control input-sm" style="width:150px; float: left; margin-left: 8px;">
 				                      			
 												<label for="txtHoraInicio" class="control-label text-right" style="margin-top:5px; width:100px; float:left;">Hora Final</label>
-				                        		<input id="txtHoraFinal" type="time" class="form-control input-sm" style="width:100px; float: left; margin-left: 8px;">
+				                        		<input id="txtHoraFinal" type="time" class="form-control input-sm" style="width:150px; float: left; margin-left: 8px;">
 				                      			
 				                      		</div>
 					                    </div>

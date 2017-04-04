@@ -59,7 +59,7 @@ $(document).ready(function(){
 								if(data[0]==1){
 									var msgError = 'El acta #'+data[1]+' se genero con exito';
 									demo.showNotification('bottom','left', msgError, 2);
-									mostrarManosdeObra();
+									$('#btnCancelar').click();
 								}else{
 									alert(data)
 								}

@@ -56,8 +56,7 @@
 				<section class="content-header">
 	             	<?php include 'template/sub_menu.php' ?>
 	            	<ol class="breadcrumb">
-	                	<li><a href="#">Ordenes</a></li>
-	                	<li><a href="#">Actas Individuales</a></li>
+	                	<li><a href="#">Actas</a></li>
 	                	<li class="active">Generacion de Acta Hasta Fecha de Corte</li>
 	             	</ol>
 	            </section>
