@@ -5,7 +5,7 @@
 <!--  Material Dashboard CSS    -->
 <link href="assets/css/material-dashboard.css" rel="stylesheet"/>
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
-<body class="hold-transition skin-blue layout-top-nav">
+<body class="hold-transition skin-blue layout-top-nav" onkeydown="return atajos_teclado(event)">
 	<div class="wrapper">
 		<?php require 'template/menu.php'; ?>
 		<div class="content-wrapper">
@@ -79,10 +79,8 @@
 	                	</div><!-- /.modal-content -->
 	               	</div><!-- /.modal-dialog -->
 	            </div>
-				
-				<input type="hidden" id="req_doc_soport">
-				<input type="hidden" id="req_doc_prove_gas">
 
+				<input type="hidden" id="req_doc_prove_gas">
 	            <div class="modal fade" id="modalTipoMovimiento">
 	             	<div class="modal-dialog" style="width:60%">
 	                	<div class="modal-content">

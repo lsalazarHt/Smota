@@ -92,6 +92,7 @@
 						</ul>
 	        </li>
 	        <!-- Utilidades -->
+					<!--
 	        <li class="dropdown mResto">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Utilidades <span class="caret"></span></a>
 	          <ul class="dropdown-menu" role="menu">
@@ -100,6 +101,7 @@
 	            <li><a href="#"><i class="fa fa-circle-o"></i>Esquema de Seguridad</a></li>
 	          </ul>
 	        </li>
+					-->
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	    <!-- Navbar Right Menu -->

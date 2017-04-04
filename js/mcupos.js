@@ -187,7 +187,7 @@ $(document).ready(function () {
 	    //Codigo
 	    var cell1 = row.insertCell(0);
 	    cell1.className = 'text-center';
-	    cell1.innerHTML = '<input type="text" id="txtCod'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumerosEnter()" onclick="swEditor(\'txtCod'+rowCount+'\',\'trSelect'+rowCount+'\',2,'+rowCount+')"><input type="hidden" id="txtTipo'+rowCount+'" value="0">';
+	    cell1.innerHTML = '<input type="text" id="txtCod'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumerosEnter('+rowCount+')" onclick="swEditor(\'txtCod'+rowCount+'\',\'trSelect'+rowCount+'\',2,'+rowCount+')"><input type="hidden" id="txtTipo'+rowCount+'" value="0">';
 	    //Nombre
 	    var cell2 = row.insertCell(1);
 	    cell2.className = '';
@@ -207,15 +207,15 @@ $(document).ready(function () {
 
 	    var cell3 = row.insertCell(5);
 	    cell3.className = '';
-	    cell3.innerHTML = '<input type="text" id="txtValInvPresMost'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')" readonly>';
+	    cell3.innerHTML = '<input type="text" id="txtValInvPresMost'+rowCount+'" class="form-control input-sm text-right" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')" readonly>';
 	    
 	    var cell3 = row.insertCell(6);
 	    cell3.className = '';
-	    cell3.innerHTML = '<input type="text" id="txtCupo'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')">';
+	    cell3.innerHTML = '<input type="text" id="txtCupo'+rowCount+'" class="form-control input-sm text-right" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')">';
 	    
 	    var cell3 = row.insertCell(7);
 	    cell3.className = '';
-	    cell3.innerHTML = '<input type="text" id="txtCupoExtr'+rowCount+'" class="form-control input-sm text-center" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')">';
+	    cell3.innerHTML = '<input type="text" id="txtCupoExtr'+rowCount+'" class="form-control input-sm text-right" onkeypress="solonumeros()" onClick="swModal(4,'+rowCount+')">';
 	    
 	    $('#contRow').val(rowCount);
 	    $('#txtCod'+rowCount).focus();
@@ -381,7 +381,38 @@ function colocarMaterial(id,nom){
 	}	
 	$('#modalMaterial').modal('hide');
 }
-
+function agregarMaterial(codMat,id){
+	$('#txtCod'+id).val('');
+	//recorrer arreglo de MATERIALES
+	swMat = false;
+	var cont = $('#contRow').val();
+	for(var i=1;i<=cont;i++){
+		var cod = $.trim($('#txtCod'+i).val());
+		if(cod==codMat){
+			swMat = true;
+			break;
+		}		
+	}
+	if(swMat){
+		demo.showNotification('bottom','left', 'El Material ya existe', 4);
+	}else{
+		buscarDatosMaterial(codMat);
+	}
+}
+function buscarDatosMaterial(cod){
+	$.ajax({
+        type:'POST',
+        url:'proc/mcupos_proc.php?accion=obtener_detalle_material',
+        data:{ cod:cod },
+        success: function(data){
+			$('#txtCod'+idGlb).val(cod);
+			$('#txtNomb'+idGlb).val(data);
+			if(data!=''){
+				$('#txtCupo'+idGlb).focus();
+			}
+        }
+    });
+}
 function actualizar(){
 	cod = $("#txtCodBodega").val();
 	$.ajax({
@@ -430,10 +461,10 @@ function limpiar(){
 	$('#table_materiales').html(a);
 }
 function swEditor(id,trId,mod,i){
-	console.log(id);
+	/*console.log(id);
 	console.log(trId);
 	console.log(mod);
-	console.log(i);
+	console.log(i);*/
 	idGlb = i;	
 	if(id===2){
 		varEditor = id;
@@ -470,4 +501,15 @@ function formato_numero(numero, decimales, separador_decimal, separador_miles){
         }
     }
     return numero;
+}
+
+function solonumerosEnter(id){
+	if(event.which == 13){
+		codMat = $('#txtCod'+id).val();
+		agregarMaterial(codMat,id);
+		idGlb = id;
+	}else{
+	    if( (event.keyCode < 48) || (event.keyCode > 57) )
+	        event.returnValue = false;
+	}
 }

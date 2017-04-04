@@ -145,15 +145,12 @@ $(document).ready(function(){
 			if( (codMov!='') && (fecha!='') && (codEn!='') && (nomEn!='') && (valor!='') &&  
 				(codTip!='') && (nomTip!='') && (codBod!='') && (nomBod!='') ){
 					sw = true;
-					if( ($('#req_doc_soport').val()!=0) && (docSop=='') ){
+					if( (sop!=0) && (docSop=='') ){
 						sw = false;
 					}else{ sw = true; }
 
 					//todo bien
 					if(sw){
-						sop = $('#txtSopCod').val(); // soporte 
-						doc = $('#txtDocSopCod').val(); //documento de soporte
-
 						if( (!validarMateriales) && (!validarMateriales_sop) ){
 							$.ajax({
 								type:'POST',
@@ -263,7 +260,8 @@ function nuevoMaterial(){
 	//validar tipo de trabajo
 		sw_tipo_movi = true;
 	//
-	if($('#req_doc_prove_gas').val()==0){
+	clBod = $('#req_doc_prove_gas').val();
+	if((clBod==5) && (clBod==6)){ //bodega proveedor(5), bodega gas caribe(6)
 		readonly = 'readonly';
 	}else{
 		readonly = '';
@@ -274,7 +272,6 @@ function nuevoMaterial(){
     cell4.className = '';
     cell4.innerHTML = '<input type="text" id="txtVal'+rowCount+'" class="form-control input-sm text-right"' +readonly+'>';
 
-	
     $('#contRow').val(rowCount);
 	$('#txtCod'+rowCount).focus();
 	selectedNewRow(row.id);
@@ -387,8 +384,6 @@ function calcularMaterial(codMat,cantMat,rowCount){
 			}
 		});
 	}
-	
-
 }
 //BUSCAR
 function buscarBodegaPrincipal(bod){
@@ -441,6 +436,7 @@ function buscarTipoMovimiento(cod,tipo){
 	        success: function(data){
 	        	$('#txtTipoMovNomb').val(data[0]);
 	        	$('#txtSopCod').val(data[1]);
+	        	$('#req_doc_prove_gas').val(data[2]);
 				if( data[0]!='' ){
 					$('#txtBodCod').focus();
 					//verificar_documento_soporte(cod)
@@ -486,6 +482,7 @@ function buscarMaterial(mat){
 				data:{ mat:mat, doc:doc },
 				dataType: 'json',
 				success: function(data){
+					//console.log(data)
 					if(data[0]==0){
 						ident = $('#selectRow').val();
 						$('#txtCod'+ident).val(data[1]);
@@ -497,7 +494,7 @@ function buscarMaterial(mat){
 						}
 						$('#modalMaterial').modal('hide');
 					}else{
-						demo.showNotification('bottom','left', 'El material no se encuentra en el documetno de soporte', 4);
+						demo.showNotification('bottom','left', 'El material no se encuentra en el documeto de soporte', 4);
 						$('#txtNomb'+ident).val('');
 					}
 				}
@@ -628,7 +625,7 @@ function solonumeros(){
     if ( (event.keyCode < 48) || (event.keyCode > 57)  ) 
         event.returnValue = false;
 }
-function solonumerosEnter(){
+function solonumerosEnter(){ //add material
 	ident = $('#selectRow').val();
 	mat = $('#txtCod'+ident).val();
 	if(event.which == 13){
@@ -702,4 +699,15 @@ function limpiarCampos(){
 	$('#txtDocSopCod').val('');
 	$('#txtObser').val('');
 	$("#txtDocSopCod").prop("readonly",false);
+}
+
+function atajos_teclado(e){
+    tecla=(document.all) ? e.keyCode : e.which; 
+	if(tecla==71 && e.altKey){
+		$('#btnGuardar').click();
+	}else if (tecla==77 && e.altKey){ //agregar nuevo material
+    	nuevoMaterial();
+	}else if(tecla==78 && e.altKey){ //quitar ultimo material
+		deleteMaterial();
+	}
 }

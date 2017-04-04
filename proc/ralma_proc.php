@@ -154,16 +154,18 @@
         $tipMov = $_REQUEST["tipo"];
         $dato0 = '';
         $dato1 = '';
-        $query ="SELECT timodesc,timomvso FROM tipomovi WHERE TIMOSAEN = '$tipMov' AND timocodi = $cod";
+        $dato2 = '';
+        $query ="SELECT timodesc,timomvso,timvclbo FROM tipomovi WHERE TIMOSAEN = '$tipMov' AND timocodi = $cod";
         $respuesta = $conn->prepare($query) or die ($sql);
         if(!$respuesta->execute()) return false;
         if($respuesta->rowCount()>0){
             while ($row=$respuesta->fetch()){
                 $dato0 = utf8_encode($row['timodesc']);
                 $dato1 = $row['timomvso'];
+                $dato2 = $row['timvclbo'];
             }   
         }
-        $arr = array($dato0,$dato1);
+        $arr = array($dato0,$dato1,$dato2);
         echo json_encode($arr);
     }
     if($_REQUEST["accion"]=="buscar_material"){ 
@@ -468,7 +470,7 @@
             echo 'Error!';
         }else{
             //---MOVIMIENTO DE INVENTARIO---//
-            
+
             //OBTENEMOS LA CANTIDAD Y VALOR  DE MATERIAL EN BODEGA ORIGEN
                 $canMatOrigen = 0; //cantidad de material en Origen
                 $valMatOrigen = 0; //valor de material en Origen

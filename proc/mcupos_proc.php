@@ -117,4 +117,17 @@
         }
     }
     
+    if($_REQUEST["accion"]=="obtener_detalle_material"){
+		$cod = $_REQUEST["cod"];
+		$query ="SELECT matedesc from material where matecodi = $cod";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $dato = $row['matedesc'];                              
+            }   
+        }
+        echo $dato;
+	}
+
 ?>
