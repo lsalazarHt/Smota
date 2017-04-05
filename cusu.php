@@ -63,7 +63,7 @@
             while ($row=$respuesta->fetch()){
                 $i++;                     
                 $table.='
-                        <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$usuarioCodigo.')">
+                        <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$usuarioCodigo.',\'trSelect'.$i.'\')">
                             <td class="text-center">'.$row['OTDEPA'].' - '.$row['OTLOCA'].' - '.$row['OTNUME'].'</td>
                             <td class="text-center">'.$row['OTFEORD'].'</td>
                             <td class="text-center">'.$row['OTFEAS'].'</td>
@@ -86,6 +86,9 @@
 				$(document).ready(function () {
 					$("#btnConsulta").addClass("disabled");
 					$("#btnCancelar").removeClass("disabled");
+
+					
+					
 				});
 			</script>';
 	}else{
@@ -229,7 +232,7 @@
 			                   </div>
 			                    <div class="box-body">
 			                    	<div class="row" style="height: 350px; overflow-y: scroll;">
-			                    		<div class="col-sm-12" id="tabla_historial_ordenes">
+			                    		<div class="col-sm-12 container-table-list" id="tabla_historial_ordenes">
 					                    	<table class="table table-condensed table-bordered table-striped">
 						                        <thead>
 						                            <tr style="background-color: #3c8dbc; color:white;">
@@ -256,7 +259,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtObjAsgOrd" class="col-sm-2 control-label text-right" style="margin-top:5px;">Observacion de Asignacion</label>
 				                      		<div class="col-sm-9">
-				                      			<textarea class="form-control input-sm" placeholder="Observacion de Asignacion de la Orden" id="txtObjAsgOrd"  onclick="swEditor('txtObjAsgOrd')"></textarea>
+				                      			<textarea class="form-control input-sm" placeholder="Observacion de Asignacion de la Orden" id="txtObjAsgOrd"  onclick="swEditor('txtObjAsgOrd')" readonly></textarea>
 				                      		</div>
 					                    </div>
 				                	</div> 
@@ -264,7 +267,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtObjLegOrd" class="col-sm-2 control-label text-right" style="margin-top:5px;">Observacion de Legalizacion</label>
 				                      		<div class="col-sm-9">
-				                      			<textarea class="form-control input-sm" placeholder="Observacion de Legalizacion de la Orden" id="txtObjLegOrd"  onclick="swEditor('txtObjLegOrd')"></textarea>
+				                      			<textarea class="form-control input-sm" placeholder="Observacion de Legalizacion de la Orden" id="txtObjLegOrd"  onclick="swEditor('txtObjLegOrd')" readonly></textarea>
 				                      		</div>
 					                    </div>
 				                	</div> 
@@ -277,6 +280,7 @@
 				<form method="POST" action="cusuOrden.php" class="display-none" id="formDetalleOrdenPost">
 					<input type="hidden" id="txtIdOrdenPost" name="txtIdOrdenPost">
 					<input type="hidden" id="txtIdUsuarioPost" name="txtIdUsuarioPost">
+					<input type="hidden" id="txtISelectPost" name="txtISelectPost">
 				</form>
 
 			</div>

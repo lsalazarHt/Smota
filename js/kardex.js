@@ -289,12 +289,134 @@ function consultar(){
 		demo.showNotification('bottom','left', 'Por favorcomplete los datos', 4);
 	}
 }
-function enviarMovimiento(documento,tipo){
+function consultarMain(){
+	bodCod = $.trim($('#txtEnCod').val());
+	bodNom = $.trim($('#txtEnNomb').val());
+	matCod = $.trim($('#txtMatCod').val());
+	matNom = $.trim($('#txtMatNomb').val());
+	anio   = $.trim($('#txtAnio').val());
+	mes    = $.trim($('#txtMes').val());
+	tipo   = $('#selcTipo').val();
+
+	if( (bodCod!='') && (bodNom!='') && (matCod!='') && (matNom!='') && 
+			(anio!='') && (mes!='') ){
+		
+		$('#tableMovimientosMaterial').html('');
+		
+		//obtener cantidad inicial
+			$.ajax({
+				type:'POST',
+				url:'proc/kardex_proc.php?accion=obtener_cant_val_inicial',
+				data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo  },
+				dataType: 'json',
+				success: function(data){
+					//console.log(data)
+					$('#txtCantInic').val(number_format(data[0],0));
+					$('#txtValoInic').val(number_format(data[1],0));
+					canIni = data[0];
+					valIni = data[1];
+
+					cantFinal  = 0;
+					valorFinal = 0;
+
+					//obtener movimientos
+						$.ajax({
+							type:'POST',
+							url:'proc/kardex_proc.php?accion=obtener_movimientos',
+							data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo, canIni:canIni, valIni:valIni  },
+							success: function(data){
+								$('#tableMovimientosMaterial').html(data);
+								
+								if($('#swTipoEnvioKardex').val()=='A'){
+									select = $('#txtSelectMovimiento').val();
+								}else{
+									select = $('#txtSelectLegalizacion').val();
+								}
+								$('#'+select).addClass('trSelect');
+							}
+						});
+					//
+
+					//calcular cantidades y valores
+						$.ajax({
+							type:'POST',
+							url:'proc/kardex_proc.php?accion=obtener_movimientos_detalle',
+							data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo  },
+							dataType: 'json',
+							success: function(data){
+								//console.log(data)
+								entraCant = data[0];
+								salidCant = data[1];
+
+								entraValor = data[2];
+								salidValor = data[3];
+
+								$('#txtEntrCant').val(number_format(entraCant,0));
+								$('#txtSalidCant').val(number_format(salidCant,0));
+								$('#txtEntrVal').val(number_format(entraValor,0));
+								$('#txtSalidVal').val(number_format(salidValor,0));
+
+								//cantidad final calculada
+									cantFinal = (parseInt(canIni) + parseInt(entraCant)) - parseInt(salidCant);
+									$('#txtCantFinCalc').val(number_format(cantFinal,0));
+
+								//valor final calculado
+									valorFinal = (parseInt(valIni) + parseInt(entraValor)) - parseInt(salidValor);
+									$('#txtValFinCalc').val(number_format(valorFinal,0));
+
+								//obtener valor del sistema y calcular la diferencia
+									$.ajax({
+										type:'POST',
+										url:'proc/kardex_proc.php?accion=obtener_valor_sistema',
+										data:{ bodCod:bodCod, matCod:matCod, anio:anio, mes:mes, tipo:tipo },
+										dataType: 'json',
+										success: function(data){
+											cantsistema = parseInt(data[0]);
+											valoSistema = parseInt(data[1]);
+
+											$('#txtCantFinSist').val(number_format(cantsistema,0));
+											$('#txtValoFinSist').val(number_format(valoSistema,0));
+
+											//calcular diferencia
+											difCant = cantFinal  - cantsistema;
+											difValo = valorFinal - valoSistema;
+											if( (difCant!=0) || (difValo!=0) ){
+												$('#txtDifCantidad').removeClass('border-green');
+												$('#txtDifValor').removeClass('border-green');
+
+												$('#txtDifCantidad').addClass('border-red');
+												$('#txtDifValor').addClass('border-red');
+											}else{
+												$('#txtDifCantidad').removeClass('border-red');
+												$('#txtDifValor').removeClass('border-red');
+
+												$('#txtDifCantidad').addClass('border-green');
+												$('#txtDifValor').addClass('border-green');
+											}
+											$('#txtDifCantidad').val(number_format(difCant,0));
+											$('#txtDifValor').val(number_format(difValo,0));
+
+										}
+									});
+								//
+							}
+						});
+					//
+				}
+			});
+		//
+	}
+}
+function enviarMovimiento(documento,tipo,select){
+	$('#swTipoEnvioKardex').val(tipo);
 	if(tipo=='A'){//almacen
 		$('#txtDocumentoMovimiento').val(documento);
+		$('#txtSelectMovimiento').val(select);
 		$('#formDetalleMovimientoPost').submit();
 	}else{//legalizacion
-
+		$('#txtDocumentoLegalizacion').val(documento);
+		$('#txtSelectLegalizacion').val(select);
+		$('#formDetalleLegalizacionPost').submit();
 	}
 }
 
@@ -328,4 +450,30 @@ function number_format(amount,decimals){
 function trSelect(trId){
 	$('.trDefault').removeClass('trSelect');
 	$('#'+trId).addClass('trSelect');
+}
+
+function atajos_teclado(e){
+    /* 
+		alt = altKey
+		x = 88
+		c = 67
+		m = 77
+		n = 78
+	*/
+	/*tecla=(document.all) ? e.keyCode : e.which; 
+	if(tecla==71 && e.altKey){ //legalizar
+		$('#btnGuardar').click();
+	}else if (e.altKey && tecla==67){ //agregar nuevo mano de obra
+    	//alt + c
+		$('#addManoObra').click();
+	}else if(e.altKey && tecla==88){ //quitar nuevo mano de obra
+    	//alt + x
+		$('#removeManoObra').click();
+	}else if(e.altKey && tecla==77){ //agragar nuevo material
+		//alt + m
+		$('#addMateriales').click();
+	}else if(e.altKey && tecla==78){ //quitar nuevo material
+		//alt + n
+		$('#removedMateriales').click();
+	}*/
 }

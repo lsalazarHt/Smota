@@ -189,7 +189,7 @@
 
                     $i++;
                     $table .= '
-                        <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$_REQUEST["cod"].')">
+                        <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$_REQUEST["cod"].',\'trSelect'.$i.'\',1)">
                             <td>'.$row['OTDEPA'].' - '.$row['OTLOCA'].' - '.$row['OTNUME'].'</td>
                             <td>'.$row['OTFEORD'].'</td>
                             <td>'.$row['OTFEAS'].'</td>
@@ -255,7 +255,7 @@
                     }
                     $i++;
                     $table .= '
-                        <tr id="trSelect_2'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_2'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$_REQUEST["cod"].')">
+                        <tr id="trSelect_2'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_2'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$_REQUEST["cod"].',\'trSelect_2'.$i.'\',2)">
                             <td>'.$row['OTDEPA'].' - '.$row['OTLOCA'].' - '.$row['OTNUME'].'</td>
                             <td>'.$row['OTFEORD'].'</td>
                             <td>'.$row['OTCUMP'].'</td>
@@ -321,7 +321,7 @@
                     }
                     $i++;
                     $table .= '
-                        <tr id="trSelect_3'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_3'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$_REQUEST["cod"].')">
+                        <tr id="trSelect_3'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_3'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$_REQUEST["cod"].',\'trSelect_3'.$i.'\',3)">
                             <td>'.$row['OTDEPA'].' - '.$row['OTLOCA'].' - '.$row['OTNUME'].'</td>
                             <td>'.$row['OTFEORD'].'</td>
                             <td>'.$row['OTCUMP'].'</td>
@@ -384,7 +384,7 @@
                     }
                     $i++;
                     $table .= '
-                        <tr id="trSelect_4'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_4'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$_REQUEST["cod"].')">
+                        <tr id="trSelect_4'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_4'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$_REQUEST["cod"].',\'trSelect_4'.$i.'\',4)">
                             <td>'.$row['OTDEPA'].' - '.$row['OTLOCA'].' - '.$row['OTNUME'].'</td>
                             <td>'.$row['OTFEORD'].'</td>
                             <td width="70"><strong>'.$row['OTUSUARIO'].'</strong></td>
@@ -444,7 +444,7 @@
                     }
                     $i++;
                     $table .= '
-                        <tr id="trSelect_5'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_5'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$_REQUEST["cod"].')">
+                        <tr id="trSelect_5'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_5'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$_REQUEST["cod"].',\'trSelect_5'.$i.'\',5)">
                             <td>'.$row['OTDEPA'].' - '.$row['OTLOCA'].' - '.$row['OTNUME'].'</td>
                             <td>'.$row['OTFEORD'].'</td>
                             <td width="70"><strong>'.$row['OTUSUARIO'].'</strong></td>
@@ -488,7 +488,7 @@
                     //MATERIAL
                     $i++;
                     $table .= '
-                        <tr id="trSelect_6'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_6'.$i.'\','.$row['MAOTNUMO'].')" ondblclick="enviarOrden('.$row['MAOTNUMO'].','.$_REQUEST["cod"].')">
+                        <tr id="trSelect_6'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_6'.$i.'\','.$row['MAOTNUMO'].')" ondblclick="enviarOrden('.$row['MAOTNUMO'].','.$_REQUEST["cod"].',\'trSelect_6'.$i.'\',6)">
                             <td>'.$row['MAOTDEPA'].' - '.$row['MAOTLOCA'].' - '.$row['MAOTNUMO'].'</td>
                             <td>'.$row['MAOTMATE'].'</td>
                             <td class="text-right">'.$row['MAOTCANT'].'</td>
@@ -545,7 +545,7 @@
                     }
                     $i++;
                     $table .= '
-                        <tr id="trSelect_7'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_7'.$i.'\','.$row['MOOTNUMO'].')" ondblclick="enviarOrden('.$row['MOOTNUMO'].','.$_REQUEST["cod"].')">
+                        <tr id="trSelect_7'.$i.'" class="trDefault" onClick="trSelect(\'trSelect_7'.$i.'\','.$row['MOOTNUMO'].')" ondblclick="enviarOrden('.$row['MOOTNUMO'].','.$_REQUEST["cod"].',\'trSelect_7'.$i.'\',7)">
                             <td>'.$row['MOOTDEPA'].' - '.$row['MOOTLOCA'].' - '.$row['MOOTNUMO'].'</td>
                             <td><b>'.$row['MOOTMOBR'].'</b></td>
                             <td class="text-left">'.$manObraNom.'</td>
@@ -573,7 +573,7 @@
                 while ($row=$respuesta->fetch()){
 
                     $table .= '
-                        <tr id="trSelect_acta_'.$i.'" class="trDefault" onClick="trSelect_acta(\'trSelect_acta_'.$i.'\','.$row['ACTANUME'].')">
+                        <tr id="trSelect_acta_'.$i.'" class="trDefault" onClick="trSelect_acta(\'trSelect_acta_'.$i.'\','.$row['ACTANUME'].')" ondblclick="enviarOrden('.$row['ACTANUME'].','.$row['ACTANUME'].',\'trSelect_acta_'.$i.'\',8)">
                             <td>'.$row['ACTANUME'].'</td>
                             <td>'.$row['ACTAFECH'].'</td>
                             <td class="text-right">'.number_format($row['ACTAVABR'],0,'.',',').'</td>
@@ -622,7 +622,7 @@
                 while ($row=$respuesta->fetch()){
 
                     $table .= '
-                        <tr>
+                        <tr >
                             <td><b>'.$row['NOTACLAS'].'</b></td>
                             <td class="text-left">'.$row['CLNODESC'].'</td>
                             <td>'.$row['NOTASIGN'].'</td>
@@ -636,6 +636,7 @@
     if($_REQUEST["accion"]=="consultar_inventario"){
         $cod = $_REQUEST["cod"];
         $table='';
+        $i = 0;
         $query ="SELECT material.MATECODI, material.MATEDESC, inventario.INVECUPO, inventario.INVECAPRO, inventario.INVEVLRPRO, inventario.INVECAPRE, inventario.INVEVLRPRE
                  FROM inventario 
                     JOIN material on material.MATECODI = inventario.INVEMATE
@@ -646,7 +647,7 @@
                 while ($row=$respuesta->fetch()){
                     
                     $table .= '
-                        <tr>
+                        <tr id="trSelect_inventario'.$i.'" class="trDefault" onClick="trSelect_inventario(\'trSelect_inventario'.$i.'\')">
                             <td class="text-left">'.$row['MATECODI'].'</td>
                             <td class="text-left">'.$row['MATEDESC'].'</td>
                             <td>'.$row['INVECUPO'].'</td>
@@ -654,7 +655,8 @@
                             <td class="text-right">'.number_format($row['INVECAPRE'],0,'.',',').'</td>
                             <td class="text-right">'.number_format($row['INVEVLRPRO'],0,'.',',').'</td>
                             <td class="text-right">'.number_format($row['INVEVLRPRE'],0,'.',',').'</td>
-                        </tr>'; 
+                        </tr>';
+                    $i++;
                 } 
             }
             echo $table;
@@ -662,6 +664,7 @@
     if($_REQUEST["accion"]=="consultar_notas"){
         $cod = $_REQUEST["cod"];
         $table='';
+        $i = 0;
         $query ="SELECT *
                  FROM nota
                  WHERE NOTATECN = $cod";
@@ -681,7 +684,7 @@
                     }
 
                     $table .= '
-                        <tr>
+                        <tr id="trSelect_notas'.$i.'" class="trDefault" onClick="trSelect_notas(\'trSelect_notas'.$i.'\')">
                             <td>'.$row['NOTACODI'].'</td>
                             <td><b>'.$row['NOTACLAS'].'</b></td>
                             <td class="text-left">'.$claseNom.'</td>
@@ -691,7 +694,8 @@
                             <td>'.$row['NOTAACTA'].'</td>
                             <td>'.$row['NOTAESTA'].'</td>
                             <td>'.$row['NOTASIGN'].'</td>
-                        </tr>'; 
+                        </tr>';
+                    $i++;
                 } 
             }
             echo $table;

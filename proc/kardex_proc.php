@@ -401,7 +401,7 @@
                     $tbVal  = $valTotal;
 
                     $table .= '
-                        <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\')" ondblclick="enviarMovimiento('.$row['docum'].',\'A\')">
+                        <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\')" ondblclick="enviarMovimiento('.$row['docum'].',\''.$tipo_sql.'\',\'trSelect'.$i.'\')">
                             <td class="text-left">'.$row['docum'].'</td>
                             <td class="text-center">'.$row['fecha'].'</td>
                             <td class="text-center">'.$row['tipo'].'</td>

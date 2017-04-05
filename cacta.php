@@ -299,11 +299,11 @@
 				                	<div class="row marginTop3">
 				                		<div class="col-md-12">
 				                			<input type="hidden" id="swCheckTodos" value="0">
-				                			<div id="tableOrdenes" style="height: 300px; overflow-y: scroll;">
+				                			<div id="tableOrdenes" style="height: 300px; overflow-y: scroll;" class="container-table-list">
 						                		<table class="table table-condensed table-bordered table-striped">
 						                			<thead>
 							                			<tr style="background-color: #3c8dbc; color:white;">
-									        				<th class="text-center" width="120">OT</th>
+									        				<th class="text-left" width="120">OT</th>
 									        				<th>MANO DE OBRA</th>
 									        				<th class="text-center" width="100">USUARIO</th>
 									        				<th>PQR</th>
@@ -325,7 +325,7 @@
 				                	<div class="row marginTop3">
 				                		<div class="col-md-12">
 				                			<input type="hidden" id="swCheckTodos" value="0">
-				                			<div id="tableOrdenes" style="height: 300px; overflow-y: scroll;">
+				                			<div id="tableOrdenes" style="height: 300px; overflow-y: scroll;" class="container-table-list">
 						                		<table class="table table-condensed table-bordered table-striped">
 						                			<thead>
 							                			<tr style="background-color: #3c8dbc; color:white;">

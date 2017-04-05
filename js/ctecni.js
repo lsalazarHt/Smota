@@ -116,6 +116,9 @@ function buscarTecnico(cod){
         		$('#btnConsulta').addClass('disabled');
         		$('#btnCancelar').removeClass('disabled');
 
+				$('.liTab').removeClass('active');
+				$('.tab-pane').removeClass('active');
+
         		buscarOrdenesSinCumplir(1);
         		buscarOrdenesCumplidasxCertificar(1);
         		buscarOrdenesCumplidasCertificada(1);
@@ -147,6 +150,18 @@ function buscarOrdenesSinCumplir(order){
         data:{ cod:cod, order:order},
         success: function(data){
         	$('#table_ordenesSinCumplir').html(data);
+
+			//validar
+				tab = $('#txtIdSelecttecnico_tab').val();
+				if(tab==1){
+					$('#ot_sinCumplir').addClass('active');
+					$('#ordenesSinCumplir').addClass('active');
+
+					cod = $('#txtIdSelecttecnico').val();
+					$('#'+cod).addClass('trSelect');
+				}
+			//
+
         }
     });
 }
@@ -159,6 +174,17 @@ function buscarOrdenesCumplidasxCertificar(order){
         data:{ cod:cod, order:order},
         success: function(data){
         	$('#table_ordenesCumplidasxCertificar').html(data);
+
+			//validar
+				tab = $('#txtIdSelecttecnico_tab').val();
+				if(tab==2){
+					$('#ot_cumXcertif').addClass('active');
+					$('#ordenesCumplidasXcertificar').addClass('active');
+
+					cod = $('#txtIdSelecttecnico').val();
+					$('#'+cod).addClass('trSelect');
+				}
+			//
         }
     });
 }
@@ -171,6 +197,17 @@ function buscarOrdenesCumplidasCertificada(order){
         data:{ cod:cod, order:order},
         success: function(data){
         	$('#table_ordenesCumplidasCertificada').html(data);
+
+			//validar
+				tab = $('#txtIdSelecttecnico_tab').val();
+				if(tab==3){
+					$('#ot_cumCertifi').addClass('active');
+					$('#ordenesCumplidasCertificada').addClass('active');
+
+					cod = $('#txtIdSelecttecnico').val();
+					$('#'+cod).addClass('trSelect');
+				}
+			//
         }
     });
 }
@@ -183,6 +220,17 @@ function buscarOrdenesIncumplidas(order){
         data:{ cod:cod, order:order},
         success: function(data){
         	$('#table_ordenesIncumplidas').html(data);
+
+			//validar
+				tab = $('#txtIdSelecttecnico_tab').val();
+				if(tab==4){
+					$('#ot_incumplida').addClass('active');
+					$('#ordenesIncumplidas').addClass('active');
+
+					cod = $('#txtIdSelecttecnico').val();
+					$('#'+cod).addClass('trSelect');
+				}
+			//
         }
     });
 }
@@ -195,6 +243,17 @@ function buscarOrdenesAnuladas(order){
         data:{ cod:cod, order:order},
         success: function(data){
         	$('#table_ordenesAnuladas').html(data);
+
+			//validar
+				tab = $('#txtIdSelecttecnico_tab').val();
+				if(tab==5){
+					$('#ot_anuladas').addClass('active');
+					$('#ordenesAnuladas').addClass('active');
+
+					cod = $('#txtIdSelecttecnico').val();
+					$('#'+cod).addClass('trSelect');
+				}
+			//
         }
     });
 }
@@ -207,6 +266,17 @@ function buscarMaterialesLegalizados(order){
         data:{ cod:cod, order:order},
         success: function(data){
         	$('#table_materialesLegalizados').html(data);
+
+			//validar
+				tab = $('#txtIdSelecttecnico_tab').val();
+				if(tab==6){
+					$('#ot_matLegaliz').addClass('active');
+					$('#materialesLegalizados').addClass('active');
+
+					cod = $('#txtIdSelecttecnico').val();
+					$('#'+cod).addClass('trSelect');
+				}
+			//
         }
     });
 }
@@ -219,6 +289,17 @@ function buscarManoObraLegalizadas(order){
         data:{ cod:cod, order:order},
         success: function(data){
         	$('#table_manoDeObraLegalizada').html(data);
+
+			//validar
+				tab = $('#txtIdSelecttecnico_tab').val();
+				if(tab==7){
+					$('#ot_manLegaliz').addClass('active');
+					$('#manoDeObraLegalizada').addClass('active');
+
+					cod = $('#txtIdSelecttecnico').val();
+					$('#'+cod).addClass('trSelect');
+				}
+			//
         }
     });
 }
@@ -231,6 +312,20 @@ function buscarActa(){
         data:{ cod:cod},
         success: function(data){
         	$('#table_acta').html(data);
+			//validar
+				tab = $('#txtIdSelecttecnico_tab').val();
+				if(tab==8){
+					$('#ot_acta_tec').addClass('active');
+					$('#acta').addClass('active');
+
+					cod = $('#txtIdSelecttecnico').val();
+					$('#'+cod).addClass('trSelect');
+
+					idActa = $('#txtIdOrdenPost').val();
+					buscarManoObraActa(idActa);
+					buscarNotasActa(idActa);
+				}
+			//
         }
     });
 }
@@ -374,10 +469,20 @@ function trSelect_acta(trId,idActa){
 	buscarManoObraActa(idActa);
 	buscarNotasActa(idActa);
 }
-function enviarOrden(idOrden,usuario){
+function trSelect_inventario(trId){
+    $('.trDefault').removeClass('trSelect');
+    $('#'+trId).addClass('trSelect');
+}
+function trSelect_notas(trId){
+    $('.trDefault').removeClass('trSelect');
+    $('#'+trId).addClass('trSelect');
+}
+function enviarOrden(idOrden,usuario,trSelect,tab){
 
     $('#txtIdUsuarioPost').val(usuario);
     $('#txtIdOrdenPost').val(idOrden);
+    $('#txtIdSelecttecnico').val(trSelect);
+    $('#txtIdSelecttecnico_tab').val(tab);
     
 	tecn = $('#txtCod').val();
 	$('#txtIdTecnicoPost').val(tecn);

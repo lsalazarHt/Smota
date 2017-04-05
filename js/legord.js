@@ -309,6 +309,10 @@ $(document).ready(function(){
 		id = $('#contRowMano').val();
 		$('#trSelect'+id).remove();
 		$('#contRowMano').val(parseInt(id)-1);
+
+		idManGl = parseInt(id)-1;
+		$('#txtCodMan'+idManGl).focus();
+		$('#trSelect'+idManGl).addClass('trSelect');
 	});
 
 	//Btn Agregar
@@ -358,6 +362,9 @@ $(document).ready(function(){
 		$('#trSelectMat'+id).remove();
 		$('#contRowMate').val(parseInt(id)-1);
 		
+		idMatGl = parseInt(id)-1;
+		$('#txtCodMan'+idMatGl).focus();
+		$('#trSelectMat'+idMatGl).addClass('trSelect');
 	});
 
 });

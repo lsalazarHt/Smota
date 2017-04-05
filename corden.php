@@ -1,13 +1,16 @@
 <?php
-	if(!isset($_REQUEST["txtIdUsuarioPost"])){
-		//header('Location: cusu.php');
+	require 'template/start.php';
+
+	if(isset($_REQUEST["txtDocumentoLegalizacion"])){
+		echo '<script src="tools/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        	<script type="text/javascript">
+				$(document).ready(function () {
+					$("#txtCodNum").val('.$_REQUEST["txtDocumentoLegalizacion"].');
+					buscarOrdenes();
+				});
+			</script>';
 	}
-	/*$_REQUEST["txtIdUsuarioPost"] = 0;
-	$usuarioCodigo = $_REQUEST["txtIdUsuarioPost"];
-	$conn = require 'template/sql/conexion.php';
-	*/
 ?>
-<?php require 'template/start.php'; ?>
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
 		<?php require 'template/menu.php'; ?>

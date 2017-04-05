@@ -29,12 +29,14 @@ $(document).ready(function () {
 	$('#btnConsulta').click(function(){
 		$('#btnCancelar').click();
 		buscarTodosUsuarios();
+		$("#txtISelectPost").val('');
 	});
 
 	$('#btnCancelar').click(function(){
 		limpiar();
 		$('#divConsultarPqrUsuarios').html('');
 		$("#txtCod").val('');
+		$("#txtISelectPost").val('');
 
 		$('#btnCancelar').addClass('disabled');
 		$('#btnConsulta').removeClass('disabled');
@@ -159,6 +161,9 @@ function actulizarOrdenes(cod){
         data:{cod:cod},
         success: function(data){
         	$('#tabla_historial_ordenes').html(data);
+
+			cod = "#"+$("#txtISelectPost").val();
+			$(cod).addClass("trSelect");
         }
     });
 }
@@ -208,10 +213,11 @@ function trSelect(trId,idOrden){
         }
     });
 }
-function enviarOrden(idOrden,usuario){
+function enviarOrden(idOrden,usuario,select){
 
 	$('#txtIdUsuarioPost').val(usuario);
 	$('#txtIdOrdenPost').val(idOrden);
+	$('#txtISelectPost').val(select);
 
 	$('#formDetalleOrdenPost').submit();
 

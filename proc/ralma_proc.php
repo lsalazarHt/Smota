@@ -155,7 +155,11 @@
         $dato0 = '';
         $dato1 = '';
         $dato2 = '';
-        $query ="SELECT timodesc,timomvso,timvclbo FROM tipomovi WHERE TIMOSAEN = '$tipMov' AND timocodi = $cod";
+        $dato3 = '';
+        $query ="SELECT tipomovi.timodesc,tipomovi.timomvso,tipomovi.timvclbo,a.timodesc as descti
+                 FROM tipomovi
+                    LEFT JOIN tipomovi as a ON a.timocodi = tipomovi.timomvso 
+                 WHERE tipomovi.TIMOSAEN = '$tipMov' AND tipomovi.timocodi = $cod";
         $respuesta = $conn->prepare($query) or die ($sql);
         if(!$respuesta->execute()) return false;
         if($respuesta->rowCount()>0){
@@ -163,9 +167,10 @@
                 $dato0 = utf8_encode($row['timodesc']);
                 $dato1 = $row['timomvso'];
                 $dato2 = $row['timvclbo'];
+                $dato3 = $row['descti'];
             }   
         }
-        $arr = array($dato0,$dato1,$dato2);
+        $arr = array($dato0,$dato1,$dato2,$dato3);
         echo json_encode($arr);
     }
     if($_REQUEST["accion"]=="buscar_material"){ 
@@ -627,6 +632,54 @@
         
         $arr = array($swResult,$valTotMat);
         echo json_encode($arr);
+    }
+    if($_REQUEST["accion"]=="obtener_materiales_documento_soportes"){ 
+        $table = '';
+        $docSop = $_REQUEST["docSop"];
+
+        $query ="SELECT material.MATECODI, material.MATEDESC, matemoin.MAMICANT, matemoin.MAMIVLOR
+                 FROM matemoin
+                    JOIN material on material.MATECODI = matemoin.mamimate
+                 WHERE matemoin.mamimoin = $docSop";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $mat = str_replace("\"","",$row['MATEDESC']);
+                $table .= '
+                    <tr onclick="addMaterial('.$row['MATECODI'].',\''.$row['MATEDESC'].'\','.$row['MAMICANT'].','.$row['MAMIVLOR'].')">
+                        <td class="text-center">'.$row['MATECODI'].'</td>
+                        <td>'.$mat.'</td>
+                    </tr>';
+            }   
+        }
+        echo $table;
+    }
+    if($_REQUEST["accion"]=="actualizar_documentos_soporte"){ 
+        $table = '';
+        $bodDes = $_REQUEST["bodDes"];
+        $tipSop = $_REQUEST["tipSop"];
+        
+        $query ="SELECT moviinve.moincodi,en.bodecodi,en.bodenomb,de.bodecodi,de.bodenomb as nomdes,tipomovi.TIMODESC
+                 FROM moviinve
+                    join bodega en on en.bodecodi = moviinve.MOINBOOR
+                    join bodega de on de.bodecodi = moviinve.moinbode
+                    LEFT join tipomovi on tipomovi.TIMOCODI = moviinve.MOINTIMO
+                 WHERE moviinve.MOINBODE = $bodDes AND moviinve.MOINSOPO = $tipSop";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $table .= '
+                    <tr onclick="addDocumentoSoporte('.$row['moincodi'].')">
+                        <td class="text-center">'.$row['moincodi'].'</td>
+                        <td class="text-left">'.utf8_encode($row['bodenomb']).'</td>
+                        <td class="text-left">'.utf8_encode($row['TIMODESC']).'</td>
+                        <td class="text-left">'.utf8_encode($row['nomdes']).'</td>
+                    </tr>';
+            }   
+        }
+        echo $table;
     }
 
     /*if($_REQUEST["accion"]=="guardar_materiales_movimiento_inventario_soporte"){

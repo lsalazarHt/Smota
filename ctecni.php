@@ -179,14 +179,15 @@
 				                		<div class="col-md-12">
 				                			<div class="tabbable-line">
 										        <ul class="nav nav-tabs">
-										        	<li class="active"><a href="#ordenesSinCumplir" data-toggle="tab">Ordenes sin Cumplir</a></li>
-									          		<li><a href="#ordenesCumplidasXcertificar" data-toggle="tab">Ordenes Cumplidas x Certificar</a></li>
-									          		<li><a href="#ordenesCumplidasCertificada" data-toggle="tab">Ordenes Cumplidas Certificadas</a></li>
-									          		<li><a href="#ordenesIncumplidas" data-toggle="tab">Ordenes Incumplidas</a></li>
-									          		<li><a href="#ordenesAnuladas" data-toggle="tab">Anuladas</a></li>
-									          		<li><a href="#materialesLegalizados" data-toggle="tab">Materiales Legalizados</a></li>
-									          		<li><a href="#manoDeObraLegalizada" data-toggle="tab">Mano de Obra Legalizada</a></li>
-									          		<li><a href="#acta" data-toggle="tab">Acta</a></li>
+										        	<li id="ot_sinCumplir" class="liTab"><a href="#ordenesSinCumplir" data-toggle="tab">Ordenes sin Cumplir</a></li>
+									          		<li id="ot_cumXcertif" class="liTab"><a href="#ordenesCumplidasXcertificar" data-toggle="tab">Ordenes Cumplidas x Certificar</a></li>
+									          		<li id="ot_cumCertifi" class="liTab"><a href="#ordenesCumplidasCertificada" data-toggle="tab">Ordenes Cumplidas Certificadas</a></li>
+													<li id="ot_incumplida" class="liTab"><a href="#ordenesIncumplidas" data-toggle="tab">Ordenes Incumplidas</a></li>
+									          		<li id="ot_anuladas"   class="liTab"><a href="#ordenesAnuladas" data-toggle="tab">Anuladas</a></li>
+													<li id="ot_matLegaliz" class="liTab"><a href="#materialesLegalizados" data-toggle="tab">Materiales Legalizados</a></li>
+									          		<li id="ot_manLegaliz" class="liTab"><a href="#manoDeObraLegalizada" data-toggle="tab">Mano de Obra Legalizada</a></li>
+													  
+									          		<li id="ot_acta_tec" class="liTab"><a href="#acta" data-toggle="tab">Acta</a></li>
 									          		<li><a href="#inventario" data-toggle="tab">Inventario</a></li>
 									          		<li><a href="#notas" data-toggle="tab">Notas</a></li>
 									          		<li><a href="#elmento_prot" data-toggle="tab">Elementos de protección personal</a></li>
@@ -194,36 +195,36 @@
 										        </ul>
 										        <div class="tab-content">
 										            <!-- Ordenes Cumplidas x Certificar -->
-												        <div class="active tab-pane" id="ordenesSinCumplir">
-												        	<div class="row">
-						                     					<label class="col-sm-q control-label text-right" style="margin-top:5px;">Ordernar Por</label>
-												        		<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(1)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Numero de Orden">Numero de Orden</a>
-												        		<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(2)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Fecha de Orden">Fecha de Orden</a>
-												        		<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(3)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Fecha de Asignacion">Fecha de Asignacion</a>
-												        		<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(4)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Usuario">Usuario</a>
-												        		<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(5)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Pqr">Pqr</a>
-												        	</div>
-												        	<div class="row marginTop5">
-												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
-												            		<table id="table" class="table table-condensed table-bordered table-striped">
-												                        <thead>
-												                            <tr style="background-color: #3c8dbc; color:white;">
-												                             	<th class="text-center" width="120">NUMERO</th>
-												                             	<th class="text-center" width="90">FECHA ORDEN</th>
-												                             	<th class="text-center" width="90">FECHA ASIGNACION</th>
-												                             	<th class="text-center" colspan="2">USUARIO</th>
-												                             	<th class="text-center" colspan="2">PQR</th>
-												                             	<th class="text-center" width="70">ASIGNADO DESDE</th>
-												                             	<th class="text-right" width="70">PLAZO</th>
-												                            </tr>
-												                        </thead>
-												                        <tbody id="table_ordenesSinCumplir" style="font-size: 13px;">
-												                            
-												                        </tbody>
-												                    </table>
-												            	</div>
-												        	</div>
-												        </div>
+														<div class="tab-pane" id="ordenesSinCumplir">
+															<div class="row">
+																<label class="col-sm-q control-label text-right" style="margin-top:5px;">Ordernar Por</label>
+																<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(1)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Numero de Orden">Numero de Orden</a>
+																<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(2)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Fecha de Orden">Fecha de Orden</a>
+																<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(3)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Fecha de Asignacion">Fecha de Asignacion</a>
+																<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(4)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Usuario">Usuario</a>
+																<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(5)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Pqr">Pqr</a>
+															</div>
+															<div class="row marginTop5">
+																<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
+																	<table id="table" class="table table-condensed table-bordered table-striped">
+																		<thead>
+																			<tr style="background-color: #3c8dbc; color:white;">
+																				<th class="text-center" width="120">NUMERO</th>
+																				<th class="text-center" width="90">FECHA ORDEN</th>
+																				<th class="text-center" width="90">FECHA ASIGNACION</th>
+																				<th class="text-center" colspan="2">USUARIO</th>
+																				<th class="text-center" colspan="2">PQR</th>
+																				<th class="text-center" width="70">ASIGNADO DESDE</th>
+																				<th class="text-right" width="70">PLAZO</th>
+																			</tr>
+																		</thead>
+																		<tbody id="table_ordenesSinCumplir" style="font-size: 13px;">
+																			
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
 											        <!-- END Ordenes Cumplidas x Certificar -->
 											        
 											        <!-- Ordenes Cumplidas x Certificar -->
@@ -319,7 +320,7 @@
 												            	</div>
 												        	</div>
 												        </div>
-											        <!-- END Ordenes Cumplidas Incumplidas -->
+													 <!-- END Ordenes Cumplidas Incumplidas -->
 
 											        <!-- Ordenes Anuladas -->
 												        <div class="post tab-pane" id="ordenesAnuladas">
@@ -348,9 +349,9 @@
 												            	</div>
 												        	</div>
 												        </div>
-											        <!-- END Ordenes Anuladas -->
+													<!-- END Ordenes Anuladas -->
 
-											        <!-- Materiales Legalizados -->
+													<!-- Materiales Legalizados -->
 												        <div class="post tab-pane" id="materialesLegalizados">
 											            	<div class="row">
 						                     					<label class="col-sm-q control-label text-right" style="margin-top:5px;">Ordernar Por</label>
@@ -614,6 +615,9 @@
 					<input type="hidden" id="txtIdOrdenPost" name="txtIdOrdenPost">
 					<input type="hidden" id="txtIdUsuarioPost" name="txtIdUsuarioPost">
 					<input type="hidden" id="txtIdTecnicoPost" name="txtIdTecnicoPost">
+
+					<input type="hidden" id="txtIdSelecttecnico">
+					<input type="hidden" id="txtIdSelecttecnico_tab" value="1">
 				</form>
 
 			</div>

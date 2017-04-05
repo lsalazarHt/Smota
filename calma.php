@@ -106,48 +106,154 @@
 		<div class="content-wrapper">
 			<div class="container">
 
-	            <div class="modal fade" id="modalMovimientos">
-	             	<div class="modal-dialog" style="width: 80%">
+	            <div class="modal fade" id="modalBodegaOriginal">
+	             	<div class="modal-dialog">
 	                	<div class="modal-content">
 			                <div class="modal-header" style="background-color: #3c8dbc; color:white;">
 			                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			                    <h4 class="modal-title">LISTADO DE MOVIMIENTOS</h4>
+			                    <h4 class="modal-title">BODEGA ORIGINAL</h4>
 			                </div>
 			                <div class="modal-body">
 			                	<div class="row">
-				                	<div class="col-md-12" style="height: 350px; overflow-y: scroll;">
-				                		<table id="tableDepa" class="table table-bordered table-hover table-condensed">
+				                	<div class="col-md-12" style="height: 298px; overflow-y: scroll;">
+				                		<table id="tableDepa" class="tableJs table table-bordered table-hover table-condensed">
 					                        <thead>
 					                            <tr style="background-color: #3c8dbc; color:white;">
 					                             	<th class="text-center" width="100">CODIGO</th>
-					                              	<th class="text-left" width="150">FECHA</th>
-					                              	<th class="text-left">TIPO MOVIMIENTO</th>
-					                              	<th class="text-left">BODEGA ORIGEN</th>
-					                              	<th class="text-left">BODEGA DESTINO</th>
+					                              	<th class="text-left">NOMBRE</th>
 					                            </tr>
 					                        </thead>
 					                        <tbody>
 					                        	<?php 
-		                                            $query ='SELECT moviinve.MOINCODI AS cod, moviinve.MOINFECH AS fecha, tipomovi.TIMODESC AS tipo, orig.BODENOMB AS org, dest.BODENOMB AS des 
-															 FROM moviinve
-																JOIN bodega AS orig ON orig.BODECODI = moviinve.MOINBOOR
-																JOIN bodega AS dest ON dest.BODECODI = moviinve.MOINBODE
-																JOIN tipomovi ON tipomovi.TIMOCODI =  moviinve.MOINTIMO
-															 ORDER BY moviinve.MOINFECH DESC';
+		                                            //$conn = require 'inc/clases/conexion.php';
+		                                            $query ="SELECT * FROM bodega WHERE BODEESTA='A' AND BODECLAS = 3";
 		                                            $respuesta = $conn->prepare($query) or die ($sql);
 		                                            if(!$respuesta->execute()) return false;
 		                                            if($respuesta->rowCount()>0){
 		                                                while ($row=$respuesta->fetch()){
 		                                                    echo 
-		                                                    	'<tr onclick="addMovimiento('.$row['cod'].')">
-		                                                    		<td class="text-center">'.$row['cod'].'</td>
-		                                                    		<td>'.$row['fecha'].'</td>
-		                                                    		<td>'.$row['tipo'].'</td>
-		                                                    		<td>'.utf8_encode($row['org']).'</td>
-		                                                    		<td>'.utf8_encode($row['des']).'</td>
+		                                                    	'<tr onclick="addBodegaOrig(\''.$row['BODECODI'].'\',\''.utf8_encode($row['BODENOMB']).'\')">
+		                                                    		<td class="text-center">'.$row['BODECODI'].'</td>
+		                                                    		<td>'.utf8_encode($row['BODENOMB']).'</td>
 		                                                    	</tr>';                                   
 		                                                }   
 		                                            }
+		                                        ?>
+					                        </tbody>
+					                    </table>
+				                	</div>
+			                	</div>
+			                </div>
+	                	</div><!-- /.modal-content -->
+	               	</div><!-- /.modal-dialog -->
+	            </div>
+				<div class="modal fade" id="modalTipoMovimiento">
+	             	<div class="modal-dialog" style="width:60%">
+	                	<div class="modal-content">
+			                <div class="modal-header" style="background-color: #3c8dbc; color:white;">
+			                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			                    <h4 class="modal-title">TIPO DE MOVIMIENTO</h4>
+			                </div>
+			                <div class="modal-body">
+			                	<div class="row">
+				                	<div class="col-md-12" style="height: 350px; overflow-y: scroll;">
+				                		<table id="tableDepa" class="tableJs table table-bordered table-hover table-condensed">
+					                        <thead>
+					                            <tr style="background-color: #3c8dbc; color:white;">
+					                             	<th class="text-center" width="100">CODIGO</th>
+					                              	<th>NOMBRE</th>
+					                             	<th class="text-center" width="10">Ma</th>
+					                             	<th class="text-left" width="200">BODEGA DESTINO</th>
+					                            </tr>
+					                        </thead>
+					                        <tbody id="divTipoMov">
+					                        </tbody>
+					                    </table>
+				                	</div>
+			                	</div>
+			                </div>
+	                	</div><!-- /.modal-content -->
+	               	</div><!-- /.modal-dialog -->
+	            </div>
+				<div class="modal fade" id="modalBodegaDestino">
+	             	<div class="modal-dialog">
+	                	<div class="modal-content">
+			                <div class="modal-header" style="background-color: #3c8dbc; color:white;">
+			                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			                    <h4 class="modal-title">BODEGA DESTINO</h4>
+			                </div>
+			                <div class="modal-body">
+			                	<div class="row">
+				                	<div class="col-md-12" style="height: 298px; overflow-y: scroll;">
+				                		<table id="tableDepa" class="tableJs table table-bordered table-hover table-condensed">
+					                        <thead>
+					                            <tr style="background-color: #3c8dbc; color:white;">
+					                             	<th class="text-center" width="100">CODIGO</th>
+					                              	<th class="text-left">NOMBRE</th>
+					                            </tr>
+					                        </thead>
+					                        <tbody id="divBodDest">
+												<?php 
+		                                            //$conn = require 'inc/clases/conexion.php';
+		                                            $query ="SELECT * FROM bodega WHERE BODEESTA='A' AND BODECLAS != 3";
+		                                            $respuesta = $conn->prepare($query) or die ($sql);
+		                                            if(!$respuesta->execute()) return false;
+		                                            if($respuesta->rowCount()>0){
+		                                                while ($row=$respuesta->fetch()){
+		                                                    echo 
+		                                                    	'<tr onclick="addBodegaDes(\''.$row['BODECODI'].'\',\''.utf8_encode($row['BODENOMB']).'\')">
+		                                                    		<td class="text-center">'.$row['BODECODI'].'</td>
+		                                                    		<td>'.utf8_encode($row['BODENOMB']).'</td>
+		                                                    	</tr>';                                   
+		                                                }   
+		                                            }
+		                                        ?>
+					                        </tbody>
+					                    </table>
+				                	</div>
+			                	</div>
+			                </div>
+	                	</div><!-- /.modal-content -->
+	               	</div><!-- /.modal-dialog -->
+	            </div>
+				<div class="modal fade" id="modalTipoMovimientoSop">
+	             	<div class="modal-dialog" style="width:60%">
+	                	<div class="modal-content">
+			                <div class="modal-header" style="background-color: #3c8dbc; color:white;">
+			                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			                    <h4 class="modal-title">TIPO DE MOVIMIENTO</h4>
+			                </div>
+			                <div class="modal-body">
+			                	<div class="row">
+				                	<div class="col-md-12" style="height: 350px; overflow-y: scroll;">
+				                		<table id="tableDepa" class="tableJs table table-bordered table-hover table-condensed">
+					                        <thead>
+					                            <tr style="background-color: #3c8dbc; color:white;">
+					                             	<th class="text-center" width="100">CODIGO</th>
+					                              	<th>NOMBRE</th>
+					                             	<th class="text-center" width="10">Ma</th>
+					                             	<th class="text-left" width="200">BODEGA DESTINO</th>
+					                            </tr>
+					                        </thead>
+					                        <tbody id="divTipoMov">
+												<?php 
+		                                            $query ="SELECT timocodi,timodesc,timosaen,timoprop,clbodesc,TIMOMVSO
+															FROM tipomovi, clasbode 
+															WHERE timvclbo is not null and timvclbo<>-1 and clbocodi=timvclbo 
+															ORDER BY timocodi";
+													$respuesta = $conn->prepare($query) or die ($sql);
+													if(!$respuesta->execute()) return false;
+													if($respuesta->rowCount()>0){
+														while ($row=$respuesta->fetch()){
+															echo '
+																<tr onclick="addTipoMovimientoSop('.$row['timocodi'].',\''.$row['timodesc'].'\')">
+																	<td class="text-center">'.$row['timocodi'].'</td>
+																	<td>'.$row['timodesc'].'</td>
+																	<td>'.$row['timoprop'].'</td>
+																	<td>'.$row['clbodesc'].'</td>
+																</tr>';
+														}   
+													}
 		                                        ?>
 					                        </tbody>
 					                    </table>
@@ -183,14 +289,14 @@
 					                     	<div class="col-sm-2">
 				                        		<input value="<?= $txtDocumento ?>" type="text" class="form-control input-sm" id="txtMovCod" placeholder="Numero" onkeypress="solonumeros()">
 				                      		</div>
+											<input type="hidden" id="txtSwTipoMov">
 				                      		<div class="col-sm-4 text-center" id="divTipoMov">
 												  <?php
-													if($txtDocumento!=''){
-														echo $es;
+													if($txtDocumento!=''){ echo $es;
 													}else{
 													?>
-														<input type="radio" name="tipoMov"> Entrada &nbsp;&nbsp;&nbsp;&nbsp;
-														<input type="radio" name="tipoMov"> Salida
+														<input type="radio" name="tipoMov" onclick="$('#txtSwTipoMov').val('E');"> Entrada &nbsp;&nbsp;&nbsp;&nbsp;
+														<input type="radio" name="tipoMov" onclick="$('#txtSwTipoMov').val('S');"> Salida
 													<?php
 													}
 												?>
@@ -205,7 +311,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">En</label>
 					                     	<div class="col-sm-2">
-				                        		<input value="<?= $data6 ?>" type="text" class="form-control input-sm" id="txtEnCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
+				                        		<input value="<?= $data6 ?>" type="text" class="form-control input-sm" id="txtEnCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input value="<?= $data7 ?>" type="text" class="form-control input-sm" id="txtEnNomb" placeholder="Nombre de la Bodega principal" readonly>
@@ -220,7 +326,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Tipo de Movimiento</label>
 					                     	<div class="col-sm-2">
-				                        		<input value="<?= $data3 ?>" type="text" class="form-control input-sm" id="txtTipoCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
+				                        		<input value="<?= $data3 ?>" type="text" class="form-control input-sm" id="txtTipoCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input value="<?= $data4 ?>" type="text" class="form-control input-sm" id="txtTipoNomb" placeholder="Nombre del Tipo Movimiento" readonly>
@@ -231,7 +337,7 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Bodega</label>
 					                     	<div class="col-sm-2">
-				                        		<input value="<?= $data8 ?>" type="text" class="form-control input-sm" id="txtBodCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
+				                        		<input value="<?= $data8 ?>" type="text" class="form-control input-sm" id="txtBodCod" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-4">
 				                        		<input value="<?= $data9 ?>" type="text" class="form-control input-sm" id="txtBodNomb" placeholder="Nombre de la bodega" readonly>
@@ -242,15 +348,18 @@
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Soporte</label>
 					                     	<div class="col-sm-2">
-				                        		<input value="<?= $data11 ?>" type="text" class="form-control input-sm" id="txtSopCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
+				                        		<input value="<?= $data11 ?>" type="text" class="form-control input-sm" id="txtSopCod" placeholder="Codigo" onkeypress="solonumeros()">
+				                      		</div>
+											<div class="col-sm-4">
+				                        		<input value="<?= $data4 ?>" type="text" class="form-control input-sm" id="txtSopNomb" placeholder="Nombre del Tipo Movimiento Soporte" readonly>
 				                      		</div>
 					                    </div>
 				                	</div>
 				                	<div class="row marginTop3">
 					                	<div class="form-group">
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Documente Soporte</label>
-					                     	<div class="col-sm-3">
-				                        		<input value="<?= $data12 ?>" type="text" class="form-control input-sm" id="txtSopDoc" placeholder="Codigo" onkeypress="solonumeros()" readonly>
+					                     	<div class="col-sm-2">
+				                        		<input value="<?= $data12 ?>" type="text" class="form-control input-sm" id="txtSopDoc" placeholder="Codigo" onkeypress="solonumeros()">
 				                      		</div>
 				                      		<div class="col-sm-2"></div>
 				                      		<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Registrado por</label>

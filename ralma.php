@@ -137,6 +137,35 @@
 	               	</div><!-- /.modal-dialog -->
 	            </div>
 
+				<div class="modal fade" id="modalDocSoporte">
+	             	<div class="modal-dialog" style="width: 60%">
+	                	<div class="modal-content">
+			                <div class="modal-header" style="background-color: #3c8dbc; color:white;">
+			                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			                    <h4 class="modal-title">DOCUMENTOS DE SOPORTE</h4>
+			                </div>
+			                <div class="modal-body">
+			                	<div class="row">
+				                	<div class="col-md-12" style="height: 298px; overflow-y: scroll;">
+				                		<table id="tableDepa" class="tableJs table table-bordered table-hover table-condensed">
+					                        <thead>
+					                            <tr style="background-color: #3c8dbc; color:white;">
+					                             	<th class="text-center" width="100">CODIGO</th>
+					                              	<th class="text-left">EN</th>
+					                              	<th class="text-left">TIPO DE MOVIMIENTO</th>
+					                              	<th class="text-left">BODEGA DESTINO</th>
+					                            </tr>
+					                        </thead>
+					                        <tbody id="divModalDocSoporte">
+					                        </tbody>
+					                    </table>
+				                	</div>
+			                	</div>
+			                </div>
+	                	</div><!-- /.modal-content -->
+	               	</div><!-- /.modal-dialog -->
+	            </div>
+
 				<section class="content-header">
 	             	<?php include 'template/sub_menu.php' ?>
 	            	<ol class="breadcrumb">
@@ -215,6 +244,9 @@
 					                     	<label for="txtClase" class="col-sm-2 control-label text-right" style="margin-top:5px;">Soporte</label>
 					                     	<div class="col-sm-2">
 				                        		<input type="text" class="form-control input-sm" id="txtSopCod" placeholder="Codigo" onkeypress="solonumeros()" readonly>
+				                      		</div>
+											<div class="col-sm-4">
+				                        		<input type="text" class="form-control input-sm" id="txtSopNomb" placeholder="Nombre de Soporte" readonly>
 				                      		</div>
 					                    </div>
 				                	</div>

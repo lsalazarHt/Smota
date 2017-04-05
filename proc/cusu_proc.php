@@ -103,7 +103,7 @@
 
                 $i++;                     
                 $table.='
-                        <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$_REQUEST["cod"].')">
+                        <tr id="trSelect'.$i.'" class="trDefault" onClick="trSelect(\'trSelect'.$i.'\','.$row['OTNUME'].')" ondblclick="enviarOrden('.$row['OTNUME'].','.$_REQUEST["cod"].',\'trSelect'.$i.'\')">
                             <td class="text-center">'.$row['OTDEPA'].' - '.$row['OTLOCA'].' - '.$row['OTNUME'].'</td>
                             <td class="text-center">'.$row['OTFEORD'].'</td>
                             <td class="text-center">'.$row['OTFEAS'].'</td>

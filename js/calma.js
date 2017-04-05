@@ -1,12 +1,81 @@
 $(document).ready(function(){
 	
     $('#btnEditor').addClass('disabled'); //deshabilitar editor
+    $('#btnCancelar').removeClass('disabled'); //deshabilitar editor
 	
     $('#btnListaValores').click(function(){
-        if(modal==1){
-            $('#modalMovimientos').modal('show');
-        }
+        if(modal==1){ $('#modalBodegaOriginal').modal('show'); //bodega origen
+		}else if(modal==2){ // tipo de movimiento
+			tipo = $.trim($('#txtSwTipoMov').val());
+			if(tipo!=''){
+				actualizarTipoMovimiento(tipo);
+			}else{
+				demo.showNotification('bottom','left', 'Por favor seleccione un tipo de movimiento', 4);
+			}
+		}else if(modal==3){ $('#modalBodegaDestino').modal('show');
+		}else if(modal==4){ $('#modalTipoMovimientoSop').modal('show'); }
     });
+
+	$('#txtEnCod').click(function(){ 
+		modal=1;
+		$('#txtEnNomb').val('');
+		limpiarTablaMateriales();
+	});
+	$("#txtEnCod").keypress(function(event){
+		if(event.which == 13){
+			cod = $.trim($('#txtEnCod').val());
+			buscarBodegaPrincipal(cod);
+		}
+	});
+	
+    $('#txtTipoCod').click(function(){ 
+		modal=2;
+		$('#txtTipoNomb').val('');
+		limpiarTablaMateriales();
+		
+	});
+	$("#txtTipoCod").keypress(function(event){
+		if(event.which == 13){
+			cod = $.trim($('#txtTipoCod').val());
+			tipo = $.trim($('#txtSwTipoMov').val());
+			if(tipo!=''){
+				buscarTipoMovimiento(cod,tipo);
+			}else{
+				demo.showNotification('bottom','left', 'Por favor seleccione un tipo de movimiento', 4);
+			}
+		}
+	});
+	
+    $('#txtBodCod').focus(function(){ 
+		modal=3;
+		$('#txtBodNomb').val('');
+	});
+	$("#txtBodCod").keypress(function(event){
+		if(event.which == 13){
+			cod = $.trim($('#txtBodCod').val());
+			buscarBodegaDestino(cod);
+		}
+	});
+	
+	$('#txtSopCod').focus(function(){ 
+		modal=4;
+		$('#txtSopNomb').val('');
+	});
+
+	$('#txtSopCod').focus(function(){ 
+		modal=0;
+		$('#txtSopNomb').val('');
+	});
+	$("#txtSopCod").keypress(function(event){
+		if(event.which == 13){
+			cod = $.trim($('#txtSopCod').val());
+			if(cod!=''){
+				buscarTipoMovimientoSop(cod);
+			}else{
+				demo.showNotification('bottom','left', 'Por favor seleccione un tipo de movimiento', 4);
+			}
+		}
+	});
 
     $('#btnConsulta').click(function(){
         $('#btnConsulta').addClass('disabled'); //deshabilitamos el consultar
@@ -52,7 +121,7 @@ $(document).ready(function(){
 		limpiarTablaMateriales();
     });
 
-    $("#txtMovCod").keypress(function(event){
+    /*$("#txtMovCod").keypress(function(event){
 		if(event.which == 13){
 			txtMovCod = $.trim($('#txtMovCod').val());
 			if(txtMovCod!=''){
@@ -61,7 +130,7 @@ $(document).ready(function(){
 				demo.showNotification('bottom','left', 'Porfavor coloque un Numero', 4);
 			}
 		}
-	});
+	});*/
 
     $('#btnPrimer').click(function(){
 		$('#txt_ActualMov').val(1);
@@ -144,15 +213,124 @@ function obtenerMaterialesMovimiento(txtMovCod){
 		}
 	});
 }
-
 function consultarTipoMovimientoAll(){
+	tm = $('#txtTipoCod').val();
+	sw = $('#txtSwTipoMov').val();
+	en = $('#txtEnCod').val();
+	de = $('#txtBodCod').val();
+	sp = $('#txtSopCod').val();
+	ds = $('#txtSopDoc').val();
+
 	$.ajax({
 		type:'POST',
 		url:'proc/calma_proc.php?accion=cargar_movimientos',
-		data:{ txtMovCod:'1' },
+		data:{ tm:tm, sw:sw, en:en, de:de, sp:sp, ds:ds },
 		success: function(data){
 			$('#div_todos_movimientos').html(data);
 			$('#btnPrimer').click();
+		}
+	});
+}
+//bodega pricipal
+function buscarBodegaPrincipal(bod){
+	if( (bod!='') ){
+		$.ajax({
+	        type:'POST',
+	        url:'proc/ralma_proc.php?accion=buscar_bodega_principal',
+	        data:{ bod:bod },
+	        success: function(data){
+	        	$('#txtEnNomb').val(data);
+				if(data!=''){
+					$('#txtTipoMovCod').focus();
+				}
+	        }
+	    });
+	}else{
+		demo.showNotification('bottom','left', 'Porfavor coloque una bodega valida', 4);
+	}
+}
+function addBodegaOrig(cod,bod){
+	$('#txtEnCod').val(cod);
+	$('#txtEnNomb').val(bod);
+	$('#modalBodegaOriginal').modal('hide');
+}
+//tipo de movimiento
+function buscarTipoMovimiento(cod,tipo){
+	if( (cod!='') ){
+		$.ajax({
+	        type:'POST',
+	        url:'proc/ralma_proc.php?accion=buscar_tipo_movimiento',
+	        data:{ cod:cod, tipo:tipo },
+			dataType: 'json',
+	        success: function(data){
+	        	$('#txtTipoNomb').val(data[0]);
+	        	actualizarBodegaDestino(cod);
+	        }
+	    });
+	}else{
+		demo.showNotification('bottom','left', 'Por favor coloque un tipo de movimiento calido', 4);
+	}
+}
+function actualizarTipoMovimiento(tipo){
+	$.ajax({
+        type:'POST',
+        url:'proc/ralma_proc.php?accion=actualizar_tipo_movimiento',
+        data:{ tipo:tipo },
+        success: function(data){
+        	$('#divTipoMov').html(data);
+			$('#modalTipoMovimiento').modal('show');
+        }
+    });	
+}
+function addTipoMovimiento(cod,nom){
+	$('#txtTipoCod').val(cod);
+	$('#txtTipoNomb').val(nom);
+	$('#modalTipoMovimiento').modal('hide');
+}
+//bodega de modalBodegaDestino
+function actualizarBodegaDestino(tipo){
+	$.ajax({
+        type:'POST',
+        url:'proc/ralma_proc.php?accion=actualizar_bodega_destino',
+        data:{ tipo:tipo },
+        success: function(data){
+        	$('#divBodDest').html(data);
+        }
+    });
+}
+function addBodegaDes(cod,nom){
+	$('#txtBodCod').val(cod);
+	$('#txtBodNomb').val(nom);
+	$('#modalBodegaDestino').modal('hide');
+}
+function buscarBodegaDestino(cod){
+	if( (cod!='') ){
+		$.ajax({
+	        type:'POST',
+	        url:'proc/calma_proc.php?accion=buscar_bodega_destino',
+	        data:{ cod:cod },
+	        success: function(data){
+	        	$('#txtBodNomb').val(data);
+	        }
+	    });
+	}else{
+		demo.showNotification('bottom','left', 'Por favor coloque una bodega valida', 4);
+	}
+}
+//tipo movimiento soporte
+function addTipoMovimientoSop(cod,nom){
+	$('#txtSopCod').val(cod);
+	$('#txtSopNomb').val(nom);
+	$('#modalTipoMovimientoSop').modal('hide');
+}
+function buscarTipoMovimientoSop(cod){
+	$.ajax({
+		type:'POST',
+		url:'proc/calma_proc.php?accion=buscar_tipo_mov_soporte',
+		data:{ cod:cod },
+		success: function(data){
+			$('#txtSopCod').val(cod);
+			$('#txtSopNomb').val(data);
 		}
 	});
 }
@@ -165,12 +343,20 @@ function solonumeros(){
 }
 //Limpiar
 function limpiarTablaMateriales(){
-	$('#table_tbody').html('');
+	a = '<table id="table_materiales" class="table table-bordered table-condensed">';
+	b = '<thead><tr style="background-color: #3c8dbc; color:white;">';
+	c = '<th class="text-center" width="100">MATERIAL</th>';
+	d = '<th class="">DESCRIPCION DEL MATERIAL</th>';
+	e = '<th class="text-center" width="100">CANTIDAD</th>';
+	f = '<th class="text-right" width="170">VALOR</th></tr></thead>';
+	g = '<tbody id="divMaterialInventario"></tbody></table>';
+	$('#tableOrdenes').html(a+b+c+d+e+f+g);
 }
 function limpiarCampos(){
 	$('#txtMovCod').val('');
 	$('#txtFecha').val('');
 	$('#txtTipoCod').val('');
+	$('#txtSwTipoMov').val('');
 	$('#txtTipoNomb').val('');
 	$('#txtEnCod').val('');
 	$('#txtEnNomb').val('');
@@ -178,6 +364,7 @@ function limpiarCampos(){
 	$('#txtBodCod').val('');
 	$('#txtBodNomb').val('');
 	$('#txtSopCod').val('');
+	$('#txtSopNomb').val('');
 	$('#txtSopDoc').val('');
 	$('#txtRegis').val('');
 	$('#txtObser').val('');

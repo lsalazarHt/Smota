@@ -1,10 +1,13 @@
-<?php require 'template/start.php'; ?>
-<style>
-	/*.table-striped>tbody>tr:nth-of-type(odd) {
-		background-color: #e0e0e0 !important;
-	}*/
-</style>
-<body class="hold-transition skin-blue layout-top-nav">
+<?php require 'template/start.php'; 
+	
+	echo '<script src="tools/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        	<script type="text/javascript">
+				$(document).ready(function () {
+					consultarMain();
+				});
+			</script>';
+?>
+<body class="hold-transition skin-blue layout-top-nav" onkeydown="return atajos_teclado(event)">
 	<div class="wrapper">
 		<?php require 'template/menu.php'; ?>
 		<div class="content-wrapper">
@@ -234,8 +237,17 @@
 					</div>
 				</section>
 
+				<!-- Detalle Mivimiento Almacen-->
 				<form method="POST" action="calma.php" class="display-none" id="formDetalleMovimientoPost">
 					<input type="hidden" id="txtDocumentoMovimiento" name="txtDocumentoMovimiento">
+					<input type="hidden" id="txtSelectMovimiento" name="txtSelectMovimiento">
+				</form>
+				<input type="hidden" id="swTipoEnvioKardex">
+				<!-- Detalle Legalizacion-->				
+				<form method="POST" action="cusuOrden.php" class="" id="formDetalleLegalizacionPost">
+					<input type="text" id="txtDocumentoLegalizacion" name="txtIdOrdenPost">
+					<input type="text" id="txtIdUsuarioPost" name="txtIdUsuarioPost">
+					<input type="text" id="txtSelectLegalizacion" name="txtSelectLegalizacion">
 				</form>
 
 			</div>

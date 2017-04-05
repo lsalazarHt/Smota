@@ -82,18 +82,80 @@
     
     if($_REQUEST["accion"]=="cargar_movimientos"){
         $dato='';
+        
+        $tm = trim($_REQUEST["tm"]);
+        $sw = trim($_REQUEST["sw"]);
+        $en = trim($_REQUEST["en"]);
+        $de = trim($_REQUEST["de"]);
+        $sp = trim($_REQUEST["sp"]);
+        $ds = trim($_REQUEST["ds"]);
+
+        $cont = 0;
+        
+        //generar where
+        $sqlTm = ($tm!='') ? "moviinve.MOINTIMO =  $tm ":"";
+        $sqlSw = ($sw!='') ? "tipomovi.timosaen = '$sw'":"";
+        $sqlEn = ($en!='') ? "moviinve.moinboor =  $en ":"";
+        $sqlDe = ($de!='') ? "moviinve.moinbode =  $de ":"";
+        $sqlSp = ($sp!='') ? "moviinve.moinsopo =  $sp ":"";
+        $sqlDs = ($ds!='') ? "moviinve.moindoso =  $ds ":"";
+        if( ($tm!='') || ($sw!='') || ($en!='') || ($de!='') || ($sp!='') || ($ds!='') ){
+            $where = 'WHERE ';
+            if($sqlTm!=''){ $where .= "$sqlTm AND ";}
+            if($sqlSw!=''){ $where .= "$sqlSw AND ";}
+            if($sqlEn!=''){ $where .= "$sqlEn AND ";}
+            if($sqlDe!=''){ $where .= "$sqlDe AND ";}
+            if($sqlSp!=''){ $where .= "$sqlSp AND ";}
+            if($sqlDs!=''){ $where .= "$sqlDs AND ";}
+            $where = substr($where, 0, -4);
+        }else{ $where = ''; }
+
         $i=0;
-        $query ='SELECT MOINCODI FROM moviinve';
+        $query ="SELECT moviinve.moincodi 
+                 from moviinve
+                    join tipomovi on tipomovi.timocodi = moviinve.MOINTIMO
+                 $where";
+        
         $respuesta = $conn->prepare($query) or die ($sql);
         if(!$respuesta->execute()) return false;
         if($respuesta->rowCount()>0){
             while ($row=$respuesta->fetch()){
                 $i++;
-                $dato .='<input type="hidden" id="txt_CodMov'.$i.'" value="'.$row['MOINCODI'].'">';
+                $dato .='<input type="hidden" id="txt_CodMov'.$i.'" value="'.$row['moincodi'].'">';
             }   
         }
         echo $dato.'<br>
             <input type="hidden" id="txt_ActualMov" value="1">
             <input type="hidden" id="txt_ToltalMov" value="'.$i.'">';
+    }
+
+    if($_REQUEST["accion"]=="buscar_bodega_destino"){
+        $cod = $_REQUEST["cod"];
+
+        $query =" SELECT * FROM bodega WHERE BODEESTA='A' AND BODECODI = $cod";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $dato = utf8_encode($row['BODENOMB']);
+            }   
+        }
+        echo $dato;
+    }
+
+    if($_REQUEST["accion"]=="buscar_tipo_mov_soporte"){
+        $cod = $_REQUEST["cod"];
+
+        $query ="SELECT timocodi,timodesc
+                 FROM tipomovi 
+                 WHERE timocodi =  $cod";
+        $respuesta = $conn->prepare($query) or die ($sql);
+        if(!$respuesta->execute()) return false;
+        if($respuesta->rowCount()>0){
+            while ($row=$respuesta->fetch()){
+                $dato = utf8_encode($row['timodesc']);
+            }   
+        }
+        echo $dato;
     }
 ?>

@@ -59,7 +59,8 @@ $(document).ready(function(){
 		if(modal==1){ $('#modalBodegaOriginal').modal('show');
 		}else if(modal==2){ $('#modalTipoMovimiento').modal('show');
 		}else if(modal==3){ $('#modalBodegaDestino').modal('show');
-		}else{ obtenerMateriales(); }
+		}else if(modal==4){ $('#modalDocSoporte').modal('show');
+		}else if(modal==5){ $('#modalMaterial').modal('show'); }
 	});
 
 	$('#txtEnCod').focus(function(){ 
@@ -70,6 +71,7 @@ $(document).ready(function(){
 		$('#txtBodCod').val('');
 		$('#txtBodNomb').val('');
 		$('#txtSopCod').val('');
+		$('#txtSopNomb').val('');
 		$('#txtDocSopCod').val('');
 		$("#txtDocSopCod").prop("readonly",false);
 		limpiarTablaMateriales();
@@ -87,6 +89,7 @@ $(document).ready(function(){
 		$('#txtBodCod').val('');
 		$('#txtBodNomb').val('');
 		$('#txtSopCod').val('');
+		$('#txtSopNomb').val('');
 		$('#txtDocSopCod').val('');
 		$("#txtDocSopCod").prop("readonly",false);
 		limpiarTablaMateriales();
@@ -194,6 +197,11 @@ $(document).ready(function(){
 				demo.showNotification('bottom','left', 'Porfavor complete los datos', 4);
 			}
 		}
+	});
+
+	$('#txtDocSopCod').focus(function(){ 
+		modal=4;
+		cargarDocumentoSoporte();
 	});
 
 });
@@ -304,7 +312,7 @@ function obtenerMateriales(){
 	        data:{ bod:bod, bodD:bodD },
 	        success: function(data){
 	        	$('#divModalMateriales').html(data);
-	        	$('#modalMaterial').modal('show');
+	        	//$('#modalMaterial').modal('show');
 	        }
 	    });
 	}else{
@@ -435,6 +443,7 @@ function buscarBodegaDestino(bod,tipo){
 						$('#txtObser').focus();						
 					}
 				}
+				cargarDocumentoSoporte();
 	        }
 	    });
 	}else{
@@ -451,6 +460,7 @@ function buscarTipoMovimiento(cod,tipo){
 	        success: function(data){
 	        	$('#txtTipoMovNomb').val(data[0]);
 	        	$('#txtSopCod').val(data[1]);
+	        	$('#txtSopNomb').val(data[3]);
 	        	$('#req_doc_prove_gas').val(data[2]);
 				if( data[0]!='' ){
 					$('#txtBodCod').focus();
@@ -545,19 +555,48 @@ function buscarMaterial(mat){
 }
 function validarDocumentoSoporte(sop,doc,bodDes){
 	$.ajax({
+		type:'POST',
+		url:'proc/ralma_proc.php?accion=validar_documento_soporte',
+		data:{ sop:sop, doc:doc, bodDes:bodDes },
+		success: function(data){
+			//console.log(data)
+			if(data==0){
+				$('#txtObser').focus();
+				buscarMaterialesDocumentosSoporte();
+			}else{
+				demo.showNotification('bottom','left', 'Por favor coloque un documento valido para este soporte', 4);
+			}
+		}
+	});
+}
+function buscarMaterialesDocumentosSoporte(){
+	docSop = $('#txtDocSopCod').val();
+	$.ajax({
+		type:'POST',
+		url:'proc/ralma_proc.php?accion=obtener_materiales_documento_soportes',
+		data:{ docSop:docSop },
+		success: function(data){
+			$('#divModalMateriales').html(data);
+		}
+	});
+}
+function addMaterial_doc(codMat){
+
+}
+function cargarDocumentoSoporte(){
+	bodDes = $('#txtBodCod').val(); 
+	tipSop = $('#txtSopCod').val();
+
+	if( (bodDes!='') && (tipSop!='') ){
+		$.ajax({
 	        type:'POST',
-	        url:'proc/ralma_proc.php?accion=validar_documento_soporte',
-	        data:{ sop:sop, doc:doc, bodDes:bodDes },
+	        url:'proc/ralma_proc.php?accion=actualizar_documentos_soporte',
+	        data:{ bodDes:bodDes, tipSop:tipSop },
 	        success: function(data){
-				//console.log(data)
-				if(data==0){
-					$('#txtObser').focus();
-				}else{
-					demo.showNotification('bottom','left', 'Por favor coloque un documento valido para este soporte', 4);
-				}
-				//calcularMateriales();
+				$('#divModalDocSoporte').html(data);
 	        }
 	    });
+	}
 }
 //ADD
 function addBodegaOrig(cod,bod){
@@ -624,7 +663,16 @@ function verificar_documento_soporte(cod){
 }
 function swModal(mod,id){
 	ident = id;
-	modal = 4;
+	//validar materiales a mostrar
+	sop = $('#txtSopCod').val();
+	doc = $('#txtDocSopCod').val();
+
+	if( (sop!='') && (doc!='') ){
+		buscarMaterialesDocumentosSoporte();
+	}else{
+		obtenerMateriales();
+	}
+	modal = 5;
 	$('.trDefault').removeClass('trSelect');
 	$('#trSelect'+id).addClass('trSelect');
 	//console.log(id);
@@ -715,6 +763,10 @@ function limpiarCampos(){
 	$('#txtObser').val('');
 	$("#txtDocSopCod").prop("readonly",false);
 }
+function addDocumentoSoporte(cod){
+	$('#txtDocSopCod').val(cod);
+	$('#modalDocSoporte').modal('hide');
+}
 
 function atajos_teclado(e){
     tecla=(document.all) ? e.keyCode : e.which; 
@@ -722,7 +774,9 @@ function atajos_teclado(e){
 		$('#btnGuardar').click();
 	}else if (tecla==77 && e.altKey){ //agregar nuevo material
     	nuevoMaterial();
+		modal = 5;
 	}else if(tecla==78 && e.altKey){ //quitar ultimo material
 		deleteMaterial();
+		modal = 5;
 	}
 }
