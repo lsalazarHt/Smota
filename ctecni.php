@@ -196,7 +196,7 @@
 										        <div class="tab-content">
 										            <!-- Ordenes Cumplidas x Certificar -->
 														<div class="tab-pane" id="ordenesSinCumplir">
-															<div class="row">
+															<div class="row marginTop15">
 																<label class="col-sm-q control-label text-right" style="margin-top:5px;">Ordernar Por</label>
 																<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(1)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Numero de Orden">Numero de Orden</a>
 																<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(2)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Fecha de Orden">Fecha de Orden</a>
@@ -204,7 +204,7 @@
 																<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(4)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Usuario">Usuario</a>
 																<a style="margin-left:5px;" onclick="buscarOrdenesSinCumplir(5)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Pqr">Pqr</a>
 															</div>
-															<div class="row marginTop5">
+															<div class="row marginTop10">
 																<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 																	<table id="table" class="table table-condensed table-bordered table-striped">
 																		<thead>
@@ -229,7 +229,7 @@
 											        
 											        <!-- Ordenes Cumplidas x Certificar -->
 												        <div class="post tab-pane" id="ordenesCumplidasXcertificar">
-											            	<div class="row">
+											            	<div class="row marginTop15">
 						                     					<label class="col-sm-q control-label text-right" style="margin-top:5px;">Ordernar Por</label>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesCumplidasxCertificar(1)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Numero de Orden">Numero de Orden</a>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesCumplidasxCertificar(2)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Fecha de Orden">Fecha de Orden</a>
@@ -237,7 +237,7 @@
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesCumplidasxCertificar(4)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Usuario">Usuario</a>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesCumplidasxCertificar(5)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Pqr">Pqr</a>
 												        	</div>
-												        	<div class="row marginTop5">
+												        	<div class="row marginTop10">
 												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
@@ -262,7 +262,7 @@
 													
 													<!-- Ordenes Cumplidas Certificadas -->
 												        <div class="post tab-pane" id="ordenesCumplidasCertificada">
-											            	<div class="row">
+											            	<div class="row marginTop15">
 						                     					<label class="col-sm-q control-label text-right" style="margin-top:5px;">Ordernar Por</label>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesCumplidasCertificada(1)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Numero de Orden">Numero de Orden</a>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesCumplidasCertificada(2)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Fecha de Orden">Fecha de Orden</a>
@@ -270,7 +270,7 @@
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesCumplidasCertificada(4)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Usuario">Usuario</a>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesCumplidasCertificada(5)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Pqr">Pqr</a>
 												        	</div>
-												        	<div class="row marginTop5">
+												        	<div class="row marginTop10">
 												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
@@ -295,14 +295,14 @@
 
 											        <!-- Ordenes Cumplidas Incumplidas -->
 												        <div class="post tab-pane" id="ordenesIncumplidas">
-											            	<div class="row">
+											            	<div class="row marginTop15">
 						                     					<label class="col-sm-q control-label text-right" style="margin-top:5px;">Ordernar Por</label>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesIncumplidas(1)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Numero de Orden">Numero de Orden</a>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesIncumplidas(2)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Fecha de Orden">Fecha de Orden</a>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesIncumplidas(4)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Usuario">Usuario</a>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesIncumplidas(5)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Pqr">Pqr</a>
 												        	</div>
-												        	<div class="row marginTop5">
+												        	<div class="row marginTop10">
 												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
@@ -320,18 +320,18 @@
 												            	</div>
 												        	</div>
 												        </div>
-													 <!-- END Ordenes Cumplidas Incumplidas -->
-
-											        <!-- Ordenes Anuladas -->
+													<!-- END Ordenes Cumplidas Incumplidas -->
+											        
+													<!-- Ordenes Anuladas -->
 												        <div class="post tab-pane" id="ordenesAnuladas">
-											            	<div class="row">
+											            	<div class="row marginTop15">
 						                     					<label class="col-sm-q control-label text-right" style="margin-top:5px;">Ordernar Por</label>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesAnuladas(1)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Numero de Orden">Numero de Orden</a>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesAnuladas(2)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Fecha de Orden">Fecha de Orden</a>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesAnuladas(4)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Usuario">Usuario</a>
 												        		<a style="margin-left:5px;" onclick="buscarOrdenesAnuladas(5)" class="btn btn-default btn-sm" data-toggle="" data-original-title="Ordenar por Pqr">Pqr</a>
 												        	</div>
-												        	<div class="row marginTop5">
+												        	<div class="row marginTop10">
 												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
@@ -353,14 +353,14 @@
 
 													<!-- Materiales Legalizados -->
 												        <div class="post tab-pane" id="materialesLegalizados">
-											            	<div class="row">
+											            	<div class="row marginTop15">
 						                     					<label class="col-sm-q control-label text-right" style="margin-top:5px;">Ordernar Por</label>
 												        		<a style="margin-left:5px;" onclick="buscarMaterialesLegalizados(1)" class="btn btn-default btn-sm" data-toggle="" >Numero de Orden</a>
 												        		<a style="margin-left:5px;" onclick="buscarMaterialesLegalizados(2)" class="btn btn-default btn-sm" data-toggle="" >Material</a>
 												        		<a style="margin-left:5px;" onclick="buscarMaterialesLegalizados(5)" class="btn btn-default btn-sm" data-toggle="" >Fecha</a>
 												        		<a style="margin-left:5px;" onclick="buscarMaterialesLegalizados(4)" class="btn btn-default btn-sm" data-toggle="" >Usuario</a>
 												        	</div>
-												        	<div class="row marginTop5">
+												        	<div class="row marginTop10">
 												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>
@@ -387,7 +387,7 @@
 
 											        <!-- Mano de Obra Legalizada -->
 												        <div class="post tab-pane" id="manoDeObraLegalizada">
-											            	<div class="row">
+											            	<div class="row marginTop15">
 						                     					<label class="col-sm-q control-label text-right" style="margin-top:5px;">Ordernar Por</label>
 												        		<a style="margin-left:5px;" onclick="buscarMaterialesLegalizados(1)" class="btn btn-default btn-sm" data-toggle="" >Numero de Orden</a>
 												        		<a style="margin-left:5px;" onclick="buscarMaterialesLegalizados(2)" class="btn btn-default btn-sm" data-toggle="" >Mano de Obra</a>
@@ -395,7 +395,7 @@
 												        		<a style="margin-left:5px;" onclick="buscarMaterialesLegalizados(4)" class="btn btn-default btn-sm" data-toggle="" >Usuario</a>
 												        		<a style="margin-left:5px;" onclick="buscarMaterialesLegalizados(5)" class="btn btn-default btn-sm" data-toggle="" >Acta</a>
 												        	</div>
-												        	<div class="row marginTop5">
+												        	<div class="row marginTop10">
 												            	<div class="col-md-12 container-table-list" style="height: 500px; overflow-y: scroll;">
 												            		<table id="table" class="table table-condensed table-bordered table-striped">
 												                        <thead>

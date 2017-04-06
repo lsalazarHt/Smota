@@ -83,6 +83,12 @@
         .trSelect{
             background-color: #A9F5BC !important;
         }
+        .marginTop15{
+            margin-top: 15px;
+        }
+        .marginTop10{
+            margin-top: 10px;
+        }
         .marginTop8{
             margin-top: 8px;
         }

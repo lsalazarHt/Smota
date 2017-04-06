@@ -479,14 +479,20 @@ function trSelect_notas(trId){
 }
 function enviarOrden(idOrden,usuario,trSelect,tab){
 
-    $('#txtIdUsuarioPost').val(usuario);
-    $('#txtIdOrdenPost').val(idOrden);
-    $('#txtIdSelecttecnico').val(trSelect);
-    $('#txtIdSelecttecnico_tab').val(tab);
-    
+	//acta
+	if(idOrden!=usuario){
+		$('#formDetalleOrdenPost').attr('action','cusuOrden.php');
+	}else{
+		$('#formDetalleOrdenPost').attr('action','cacta.php');
+	}
+	
+	$('#txtIdUsuarioPost').val(usuario);
+	$('#txtIdOrdenPost').val(idOrden);
+	$('#txtIdSelecttecnico').val(trSelect);
+	$('#txtIdSelecttecnico_tab').val(tab);
+	
 	tecn = $('#txtCod').val();
 	$('#txtIdTecnicoPost').val(tecn);
 
-    $('#formDetalleOrdenPost').submit();
-
+	$('#formDetalleOrdenPost').submit();
 }

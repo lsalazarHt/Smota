@@ -1,4 +1,16 @@
-<?php require 'template/start.php'; ?>
+<?php require 'template/start.php'; 
+
+	if(isset($_REQUEST['txtIdOrdenPost'])){
+		echo '<script src="tools/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        	<script type="text/javascript">
+				$(document).ready(function () {
+					$("#txtActCod").val('.$_REQUEST['txtIdOrdenPost'].');
+					act = $("#txtActCod").val();
+					buscarActa(act);
+				});
+			</script>';
+	}
+?>
 <!--  Material Dashboard CSS    -->
 <link href="assets/css/material-dashboard.css" rel="stylesheet"/>
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
